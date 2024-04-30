@@ -9,7 +9,7 @@ def extract_text_from_pdf(pdf_path):
     return text
 
 # Provide the folder path containing the PDF files
-pdf_folder = "../dataset/pdfs"
+pdf_folder = "../datasets/pdfs"
 
 # List PDF files in the folder
 pdf_files = [f for f in os.listdir(pdf_folder) if f.endswith(".pdf")]

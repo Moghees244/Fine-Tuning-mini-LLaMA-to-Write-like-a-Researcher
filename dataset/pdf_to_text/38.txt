@@ -1,0 +1,533 @@
+IEEE GEOSCIENCE AND REMOTE SENSING LETTERS, VOL. 21, 2024
+5502405
+WaveFormer: Spectral–Spatial Wavelet Transformer
+for Hyperspectral Image Classification
+Muhammad Ahmad , Usman Ghous, Muhammad Usama, and Manuel Mazzara
+Abstract— Transformers have proven effective for hyperspec-
+tral image classification (HSIC) but often incorporate average
+pooling that results in information loss. This letter presents
+WaveFormer, a novel transformer-based approach that leverages
+wavelet transforms for invertible downsampling. This preserves
+data integrity while enabling attention learning. Specifically,
+WaveFormer unifies downsampling with wavelet transforms to
+decompress feature maps without loss. This provides an efficient
+tradeoff between performance and computation. Furthermore,
+the wavelet decomposition enhances the interaction between
+structural and shape information in image patches and chan-
+nel maps. To evaluate WaveFormer, we conducted extensive
+experiments on two benchmark hyperspectral datasets. Our
+results demonstrate that WaveFormer achieves state-of-the-art
+classification accuracy, obtaining overall accuracies of 95.66%
+and 96.54% on the Pavia University and the University of
+Houston datasets, respectively. By integrating wavelet transforms,
+WaveFormer presents a new transformer architecture for hyper-
+spectral imagery that achieves superior classification without
+information loss from average pooling.
+Index
+Terms— Hyperspectral
+image
+classification
+(HSIC),
+spatial–spectral feature, spatial–spectral transformers (SSTs),
+wavelet transformer (WaveFormer).
+I. INTRODUCTION
+H
+YPERSPECTRAL imaging (HSI) has emerged as a
+powerful remote sensing technique, capturing contiguous
+spectral information across various wavelengths. Its appli-
+cations span diverse fields, including remote sensing [1],
+[2], earth observation [3], urban planning [4], agricul-
+ture [5], forestry [6], target/object detection [7], mineral
+exploration [8], environmental monitoring [9], [10], and cli-
+mate change [11]. Notably, HSI excels in capturing detailed
+spatial and spectral information, although its sensors, charac-
+terized by high spectral resolution, may face challenges in
+achieving optimal spatial resolution, especially in complex
+scenarios.
+Hyperspectral image classification (HSIC) involves catego-
+rizing pixels based on their spectral and spatial characteristics,
+Manuscript
+received
+3
+November
+2023;
+revised
+5
+January
+2024;
+accepted 8 January 2024. Date of publication 15 January 2024; date of current
+version 7 February 2024. (Corresponding author: Muhammad Ahmad.)
+Muhammad Ahmad, Usman Ghous, and Muhammad Usama are with
+the Department of Computer Science, National University of Computer
+and Emerging Sciences, (NUCES), Islamabad 38000, Pakistan (e-mail:
+mahmad00@gmail.com; usman.ghous@nu.edu.pk; m.usama@nu.edu.pk).
+Manuel Mazzara is with the Institute of Software Development and
+Engineering,
+Innopolis
+University,
+420500
+Innopolis,
+Russia
+(e-mail:
+m.mazzara@innopolis.ru).
+Digital Object Identifier 10.1109/LGRS.2024.3353909
+facilitating object identification. Traditionally, HSIC used
+both traditional machine learning (TML) and deep learning
+(DL) techniques [12]. DL, particularly convolutional neural
+networks (CNNs), addresses challenges in handling multi-
+modal data. However, CNNs struggle with capturing long-term
+dependencies for spectrally similar classes. Recurrent neural
+networks (RNNs) can model these dependencies but lack the
+ability for simultaneous model training, a vital consideration
+for the extensive HSI data comprising numerous samples [13].
+On the other hand, transformers, using self-attention mech-
+anisms [14], represent state-of-the-art networks for handling
+dependencies and enabling parallel training. Specifically tai-
+lored for HSIC challenges, vision transformers (ViTs) have
+emerged as promising candidates. ViTs use self-attention
+to capture relationships in image sequences represented as
+patches, proving beneficial for modeling long-range depen-
+dencies across the entire HSI cubes [15], [16]. However,
+ViTs encounter challenges related to scale invariance and
+texture features. Their fixed-size input may hinder recognizing
+objects at different scales, and their emphasis on global context
+may limit their effectiveness in extracting fine-grained texture
+details [17]. In addition, the extensive data requirements for
+ViTs may pose challenges in scenarios where a large number
+of training samples are not readily available for HSIC [18].
+To address the aforementioned issues, this letter pro-
+poses WaveFormer, a novel approach that combines the
+strengths of wavelets and transformers for improved HSIC.
+It introduces spatial–spectral wavelet convolution within a
+transformer architecture, enhancing the interaction between
+structural and shape information of image tokens. This
+leads to more accurate classification compared with the
+traditional transformer-based models. WaveFormer extracts
+wavelet-based multiscale spatial–spectral features from the
+HSI data, which are then input into a classification model. The
+combination of wavelets and transformers allows WaveFormer
+to capture both local and global relationships in the data,
+resulting in improved classification accuracy. In this letter,
+we made the following contributions.
+1) This work introduces WaveFormer, which integrates
+wavelet transformation and transformers for HSIC.
+Within the transformer architecture, the WaveFormer
+model incorporates a trainable spatial–spectral wavelet
+network, thereby improving the interaction between the
+structural and shape information of HSI tokens and class
+tokens.
+1558-0571 © 2024 IEEE. Personal use is permitted, but republication/redistribution requires IEEE permission.
+See https://www.ieee.org/publications/rights/index.html for more information.
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:57:37 UTC from IEEE Xplore.  Restrictions apply. 
+5502405
+IEEE GEOSCIENCE AND REMOTE SENSING LETTERS, VOL. 21, 2024
+2) The
+proposed
+method
+extracts
+multiscale
+spatial–spectral
+features
+based
+on
+wavelets
+from
+the HSI cube. These features are subsequently input
+into a classification model, to capture a broader range
+of information beneficial for HSIC.
+3) This
+work
+showcases
+the
+combined
+impact
+of
+wavelet-based feature extraction and transformer-based
+modeling of global relationships, indicating the potential
+for improved accuracy compared with the traditional
+transformer approaches for HSIC.
+II. PROBLEM FORMULATION
+Let us consider HSI data comprising B spectral bands, each
+with a spatial resolution of M × N pixels. The HSI data
+cube X ∈R(M×N×B) is first divided into overlapping 3-D
+patches. Each patch is centered at a spatial location (α, β)
+and covers a spatial extent of S × S pixels across all B-bands.
+The total number of 3-D patches (m) extracted from X (i.e.,
+X ∈R(S×S×B)) is (M −S+1)×(N −S+1). A patch located at
+(α, β) is denoted as Pα,β and spans spatially from α−(S−1/2)
+to α + (S −1/2) in width and β −(S −1/2) to β + (S −1/2)
+in height. The labeling of these patches is determined by the
+label assigned to the central pixel within each patch. The
+transformed patches (as explained in Algorithm1) are then
+processed by the baseline 3DCNN model. Specifically, the
+activation value at spatial location (x, y, z) in the jth feature
+map of the ith layer, vx,y,z
+i, j
+, is computed as
+vx,y,z
+i, j
+= φ
+
+bi, j +
+dl−1
+X
+τ=1
+ν
+X
+λ=−ν
+γ
+X
+ρ=−γ
+δ
+X
+σ=−δ
+wσ,ρ,λ
+i, j,τ × vx+σ,y+ρ,z+λ
+i−1,τ
+
+where φ is the activation function, bi, j is the bias for the jth
+feature map at the ith layer, dl−1 is the number of feature maps
+in the (l-1)th layer, and wi, j is the depth of the kernel for the
+jth feature map at the ith layer. 2γ +1, 2δ+1, and 2ν+1 define
+the width, height, and depth of the kernel, respectively, along
+the spatial–spectral dimension.
+Algorithm 1 Wavelet Transformation
+Input: Image Patch X patch
+1 Set L = 4 and Initialize empty output array O;
+2 for i = 1 to S do
+3
+for j = 1 to B do
+4
+Coffs = wavedec2(X patch[i, :, :, j], haar, L);
+5
+O[i, :, :, j] = waverec2(Coffs, haar);
+6
+end
+7 end
+The 3-D feature maps vx,y,z
+i, j
+are transformed into
+ˆ
+X =
+X Ed with reduced channel dimensions via embedding matrix
+Ed ∈RD×(D/4), i.e., ˆ
+X ∈RM×N×(D/4) (decomposed into four
+wavelet subbands) which is downsampled through wavelet
+transformation. Note that here we used the classical Haar
+wavelet as expressed in [19] and [20]. Concretely, the wavelet
+transformation is applied using a low-pass filter, denoted as
+fL =
+ (1/(2)1/2), (1/(2)1/2)
+
+, and a high-pass filter, denoted
+as fH =
+ (1/(2)1/2), −(1/(2)1/2)
+
+, along the rows of the input
+data ˆ
+X. This process results in the creation of two subbands,
+namely, ˆ
+X L and ˆ
+X H. Subsequently, the same low-pass filter
+fL and high-pass filter fH are used, this time along the
+columns of the derived subbands ˆ
+X L and ˆ
+X H. This leads
+to the formation of four subbands in total:
+ˆ
+X LL,
+ˆ
+X L H,
+ˆ
+X H L, and ˆ
+X H H. Each of these wavelet subbands can be
+viewed as a downsampled version of the original input ˆ
+X.
+They collectively preserve all the input details without any
+loss of information. The four wavelet subbands are created:
+ˆ
+X LL, ˆ
+X L H, ˆ
+X H L, and ˆ
+X H H. These feature maps are then
+linearly transformed into downsampled keys K w ∈Rm×D
+and values V w
+∈Rm×D, where m
+= (M/2) × (N/2)
+denotes the total number of patches. Multiheaded self-attention
+learning (Attention) is then performed on the queries and their
+respective downsampled keys and values for each attention
+head
+headJ = Attention(Q j, K w
+j , V w
+j )
+= Softmax
+ Q j K w j T
+√Dh
+
+V w
+j
+where K w
+j and V w
+j represent the downsampled keys and values
+specific to the jth head, respectively. It is worth noting that the
+collective output of self-attention learning for each head can be
+understood as the incorporation of long-range contextualized
+information from the input data. Finally, the features are
+fed into a fully connected layer for classification, and the
+softmax function is applied to generate the class probability
+distributions from which the final ground-truth maps are gen-
+erated. The WaveFormer captures the essence of the wavelet
+for HSIC. By integrating spatial–spectral information through
+attention mechanisms and linear projections, WaveFormer can
+effectively process the HSI cube with reduced computational
+complexity, making it suitable for resource-constrained envi-
+ronments. Fig. 1 explains the complete model in detail.
+III. EXPERIMENTAL RESULTS AND DISCUSSION
+A. Comparison With CNN-Based Networks
+A uniform experimental methodology is imperative when
+evaluating CNN-based approaches. It is crucial to uphold
+consistency in the distribution of samples assigned to training,
+validation, and testing. Each comparative model underwent
+training and validation using 5% of the samples, respec-
+tively, while the remaining 90% were used for classification
+based on 10 × 10 pixel patches. The performance evaluation
+of WaveFormer is conducted on the University of Houston
+dataset to compare the performance against several models: 3D
+CNN [21], Hybrid Inception Net [22], 3-D Inception Net [23],
+2-D Inception Net [24], 2D CNN [25], and Hybrid CNN [26].
+Fig. 2 presents a graphical representation of accuracy and loss
+convergence over 50 training epochs for both the training and
+validation sets. In addition, the results highlight the advantage
+of decoupling spatial–spectral information, proving to be a
+superior approach in approximating information within an HSI
+cube compared with the alternative strategy of convolutions at
+distinct layers of the architectures. When contrasted with the
+3-D models, Fig. 3 illustrates that the proposed WaveFormer
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:57:37 UTC from IEEE Xplore.  Restrictions apply. 
+AHMAD et al.: WAVEFORMER: SPECTRAL–SPATIAL WAVELET TRANSFORMER FOR HISC
+5502405
+Fig. 1.
+HSI cube was initially partitioned into overlapping 3-D patches, each of which was centered at a spatial point and covered a S × S pixel extent
+over all the spectral bands. Wavelet transform was applied to these patches using Haar wavelets, resulting in four subbands that captured different frequency
+components and spatial features. The subbands were then concatenated to generate a new 3-D representation. Locally contextualized feature maps were
+produced through a 3-D convolution to define spatial locality within this representation. To incorporate long-range contextualized information, these feature
+maps were further translated into downsampled keys and values, and multiheaded attention learning was performed.
+Fig. 2.
+Accuracy and loss trends on the University of Houston dataset.
+achieves comparable results, notably achieving impressive
+scores of 97% (approx). In particular, models using 2-D
+convolutions exhibit varying performance on the UH dataset,
+with 2-D CNN achieving OA, AA, and κ scores of 78%, and
+the 2-D Inception Net attaining OA, AA, and κ scores of 95%.
+The marginal difference in accuracy between the proposed
+model and comparative methods is noteworthy and can be
+attributed to the computational efficiency of WaveFormer, its
+ability to mitigate overfitting, and its enhanced capacity to
+model spatial and spectral dependencies effectively.
+B. Comparison With Transformer-Based Networks
+For comparison, we selected several state-of-the-art net-
+works including Attention Is All You Need (transformer)
+[14], Spectralformer [16], hyperspectral image transformer
+classification networks (HiTs) [27], and CSiT: a multiscale ViT
+for HSIC [28]. The transformer architecture uses a standard
+ViT [29] adapted for pixelwise HSI input with five encoder
+blocks. Spectralformer retains the original five transformer
+encoder architecture with pixelwise embeddings and cross-
+layer fusion. HiT incorporates two depthwise convolution
+TABLE I
+PAVIA UNIVERSITY: PROPOSED WAVEFORMER VERSUS COMPARATIVE
+MODELS. ALL THESE MODELS ARE EVALUATED USING 8 × 8 PATCH SIZE
+WITH 5/5/90% TRAINING/VALIDATION/TEST SAMPLES, RESPECTIVELY
+layers for spatial processing and one pointwise convolution
+layer for spectral processing, relying solely on patchwise input.
+CSiT uses a consistent backbone transformer architecture in
+each branch—four heads in the small-scale branch and six
+heads in the large-scale branch. Token sequences are input
+into two cross-attention transformers, each with a four-head
+attention layer and multilayer perceptron layer. CSiT is evalu-
+ated with and without cross-spectral attention fusion (CSAF)
+modules. All the results use the specified parameter configu-
+rations from the original papers to enable direct comparison.
+The comprehensive results of the earlier mentioned models
+are provided in Tables I and II. In summary, the proposed
+WaveFormer model demonstrates remarkable performance,
+outperforming the state-of-the-art ViT-based models across a
+spectrum of evaluation metrics, encompassing overall accu-
+racy (OA), average accuracy (AA), and the κ coefficient.
+A thorough analysis of the quantitative performance reveals
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:57:37 UTC from IEEE Xplore.  Restrictions apply. 
+5502405
+IEEE GEOSCIENCE AND REMOTE SENSING LETTERS, VOL. 21, 2024
+Fig. 3.
+Proposed WaveFormer achieves 96.6881% on the UH dataset, showing competitive performance compared with the recent state-of-the-art CNN models
+for HSIC. (a) Two-dimensional Inception Net [24]: training time = 263.4120; test time = 20.0542; OA = 95.3426; AA = 94.3591; and Kappa = 94.9626.
+(b) Three-dimensional inception net [23]: training time = 623.1804; test time = 56.1943; OA = 96.5180; AA = 96.3571; Kappa = 96.2351. (c) Hybrid
+Inception Net [22]: training time = 607.5244; test time = 55.2575; OA = 95.1504; AA = 94.8054; and Kappa = 94.7554. (d) 2D CNN [25]: training time =
+22.1890; test time = 3.0396; OA = 77.3859; AA = 77.7413; and Kappa = 75.5432. (e) 3D CNN [21]: training time = 202.6686; test time = 14.4914; OA =
+95.7122; AA = 94.9145; and Kappa = 95.3622. (f) Hybrid CNN [26]: training time = 159.9331; test time = 20.9201; OA = 95.5792; AA = 95.5704; and
+Kappa = 95.2199. (g) WaveFormer: training time = 208.9219; test time = 21.4688; OA = 96.6881; AA = 95.8371; and Kappa = 96.4176.
+TABLE II
+UNIVERSITY OF HOUSTON: PROPOSED WAVEFORMER VERSUS
+COMPARATIVE MODELS. ALL THESE MODELS ARE EVALUATED USING
+2 × 2 PATCH SIZE WITH 10/10/80% TRAINING/VALIDATION/TEST
+SAMPLES, RESPECTIVELY
+that WaveFormer consistently achieves superior results across
+diverse categories, exhibiting substantial improvement in accu-
+racy, as evidenced in Table II. Notably, while performance
+differences remain relatively modest in the PU dataset due
+to the abundance of samples, the UH dataset poses a signifi-
+cant challenge to modeling capabilities. For example, when
+assessing the challenging UH dataset, WaveFormer outper-
+forms the baseline ViT by more than 10%, and it surpasses
+SpectralFormer by approximately 8%. Furthermore, the AA
+achieved by the WaveFormer exceeds that of both ViT and
+SpectralFormer by margins ranging from 10%, emphasizing
+the potential efficacy of spatial–spectral feature extraction.
+In a comparative context with the most recent spatial–spectral
+transformer and CSiT models, the WaveFormer consistently
+presents results, showcasing its proficiency in both the spectral
+and spectral–spatial feature extraction tasks. It is worth noting
+that while HiT excels in identifying land-cover or land-use
+classes with spectral–spatial information, the WaveFormer
+approaches similar levels of performance. To sum up, these
+findings emphasize the robustness and effectiveness of the
+WaveFormer model in the field of HSIC, particularly in
+scenarios where the extraction of spatial–spectral information
+holds importance, especially when considering the limited
+availability of training samples.
+IV. CONCLUSION
+This letter introduced “WaveFormer” which combines the
+power of wavelet transforms and ViT for HSIC. By extracting
+multiscale spatial–spectral features using wavelets and feeding
+them into a transformer encoder, WaveFormer can capture both
+the local texture patterns and global contextual relationships
+in an end-to-end trainable model. A notable innovation is the
+use of wavelet convolution within the transformer’s attention
+mechanism, allowing for enhanced integration of spectral
+and structural information. Extensive experiments demonstrate
+WaveFormer achieves the state-of-the-art performance, partic-
+ularly for challenging datasets with limited training data where
+its multiscale extraction of spatial–spectral cues proves valu-
+able. Beyond superior classification accuracy, WaveFormer
+attains robustness and generalizability that hold promise for
+addressing real problems in remote sensing. Future work
+could explore self-supervised pretraining and network opti-
+mizations to maximize WaveFormer’s potential when data are
+scarce.
+REFERENCES
+[1] D. G. Manolakis, R. B. Lockwood, and T. W. Cooley, Hyperspectral
+Imaging Remote Sensing: Physics, Sensors, and Algorithms. Cambridge,
+U.K.: Cambridge Univ. Press, 2016.
+[2] M. Ahmad et al., “Hyperspectral image classification—Traditional
+to deep models: A survey for future prospects,” IEEE J. Sel.
+Topics Appl. Earth Observ. Remote Sens., vol. 15, pp. 968–999,
+2022.
+[3] V. Lodhi, D. Chakravarty, and P. Mitra, “Hyperspectral imaging for Earth
+observation: Platforms and instruments,” J. Indian Inst. Sci., vol. 98,
+no. 4, pp. 429–443, Dec. 2018.
+[4] S. Roessner, K. Segl, U. Heiden, and H. Kaufmann, “Automated differ-
+entiation of urban surfaces based on airborne hyperspectral imagery,”
+IEEE Trans. Geosci. Remote Sens., vol. 39, no. 7, pp. 1525–1532,
+Jul. 2001.
+[5] B. Lu, P. Dao, J. Liu, Y. He, and J. Shang, “Recent advances of hyper-
+spectral imaging technology and applications in agriculture,” Remote
+Sens., vol. 12, no. 16, p. 2659, Aug. 2020.
+[6] T. Adão et al., “Hyperspectral imaging: A review on UAV-based sensors,
+data processing and applications for agriculture and forestry,” Remote
+Sens., vol. 9, no. 11, p. 1110, Oct. 2017.
+[7] C.-I. Chang, H. Ren, and S.-S. Chiang, “Real-time processing algorithms
+for target detection and classification in hyperspectral imagery,” IEEE
+Trans. Geosci. Remote Sens., vol. 39, no. 4, pp. 760–768, Apr. 2001.
+[8] E. Bedini, “The use of hyperspectral remote sensing for mineral
+exploration: A review,” J. Hyperspectral Remote Sens., vol. 7, no. 4,
+pp. 189–211, Dec. 2017.
+[9] C. Weber et al., “Hyperspectral imagery for environmental urban plan-
+ning,” in Proc. IGARSS IEEE Int. Geosci. Remote Sens. Symp., 2018,
+pp. 1628–1631.
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:57:37 UTC from IEEE Xplore.  Restrictions apply. 
+AHMAD et al.: WAVEFORMER: SPECTRAL–SPATIAL WAVELET TRANSFORMER FOR HISC
+5502405
+[10] Stuart, McGonigle, and Willmott, “Hyperspectral imaging in environ-
+mental monitoring: A review of recent developments and technological
+advances in compact field deployable systems,” Sensors, vol. 19, no. 14,
+p. 3071, Jul. 2019.
+[11] C. B. Pande and K. N. Moharir, “Application of hyperspectral
+remote
+sensing
+role
+in
+precision
+farming
+and
+sustainable
+agri-
+culture
+under
+climate
+change:
+A
+review,”
+in
+Climate
+Change
+Impacts on Natural Resources, Ecosystems and Agricultural Systems.
+Cham, Switzerland: Springer, 2023, pp. 503–520. [Online]. Available:
+https://doi.org/10.1007/978-3-031-19059-9_21
+[12] S. Li, W. Song, L. Fang, Y. Chen, P. Ghamisi, and J. A. Benediktsson,
+“Deep learning for hyperspectral image classification: An overview,”
+IEEE Trans. Geosci. Remote Sens., vol. 57, no. 9, pp. 6690–6709,
+Sep. 2019.
+[13] M. K. Khlifi, W. Boulila, and I. R. Farah, “Graph-based deep learning
+techniques for remote sensing applications: Techniques, taxonomy, and
+applications—A comprehensive review,” Comput. Sci. Rev., vol. 50,
+Nov. 2023, Art. no. 100596.
+[14] A. Vaswani et al., “Attention is all you need,” in Proc. Adv. Neural Inf.
+Process. Syst., vol. 30, 2017, pp. 1–11.
+[15] L. Scheibenreif, M. Mommert, and D. Borth, “Masked vision trans-
+formers for hyperspectral image classification,” in Proc. IEEE/CVF
+Conf. Comput. Vis. Pattern Recognit. Workshops (CVPRW), Jun. 2023,
+pp. 2165–2175.
+[16] D. Hong et al., “SpectralFormer: Rethinking hyperspectral image
+classification with transformers,” IEEE Trans. Geosci. Remote Sens.,
+vol. 60, 2022, Art. no. 5518615, doi: 10.1109/TGRS.2021.3130716.
+[17] T. Yao, Y. Pan, Y. Li, C.-W. Ngo, and T. Mei, “Wave-ViT: Unify-
+ing wavelet and transformers for visual representation learning,” in
+Proc. Eur. Conf. Comput. Vis. Cham, Switzerland: Springer, 2022,
+pp. 328–345.
+[18] K. Han et al., “A survey on vision transformer,” IEEE Trans. Pattern
+Anal. Mach. Intell., vol. 45, no. 1, pp. 87–110, Jan. 2023.
+[19] P. Liu, H. Zhang, K. Zhang, L. Lin, and W. Zuo, “Multi-level wavelet-
+CNN for image restoration,” in Proc. IEEE/CVF Conf. Comput. Vis.
+Pattern Recognit. Workshops (CVPRW), Jun. 2018, pp. 773–782.
+[20] S. Fujieda, K. Takayama, and T. Hachisuka, “Wavelet convolutional
+neural networks,” 2018, arXiv:1805.08620.
+[21] M. Ahmad, A. M. Khan, M. Mazzara, S. Distefano, M. Ali, and
+M. S. Sarfraz, “A fast and compact 3-D CNN for hyperspectral image
+classification,” IEEE Geosci. Remote Sens. Lett., vol. 19, pp. 1–5, 2022.
+[22] H. Fırat, M. E. Asker, M. Bayındır, and D. Hanbay, “Hybrid 3D/2D
+complete inception module and convolutional neural network for hyper-
+spectral remote sensing image classification,” Neural Process. Lett.,
+vol. 55, no. 2, pp. 1087–1130, Apr. 2023.
+[23] X. Zhang, “Improved three-dimensional inception networks for hyper-
+spectral remote sensing image classification,” IEEE Access, vol. 11,
+pp. 32648–32658, 2023.
+[24] Z. Xiong, Y. Yuan, and Q. Wang, “AI-NET: Attention inception neural
+networks for hyperspectral image classification,” in Proc. IGARSS IEEE
+Int. Geosci. Remote Sens. Symp., Jul. 2018, pp. 2647–2650.
+[25] X. Yang, Y. Ye, X. Li, R. Y. K. Lau, X. Zhang, and X. Huang,
+“Hyperspectral image classification with deep learning models,” IEEE
+Trans. Geosci. Remote Sens., vol. 56, no. 9, pp. 5408–5423, Sep. 2018.
+[26] S. Ghaderizadeh, D. Abbasi-Moghadam, A. Sharifi, N. Zhao, and
+A. Tariq, “Hyperspectral image classification using a hybrid 3D-2D
+convolutional neural networks,” IEEE J. Sel. Topics Appl. Earth Observ.
+Remote Sens., vol. 14, pp. 7570–7588, 2021.
+[27] X. Yang, W. Cao, Y. Lu, and Y. Zhou, “Hyperspectral image trans-
+former classification networks,” IEEE Trans. Geosci. Remote Sens.,
+vol. 60, 2022, Art. no. 5528715.
+[28] W. He, W. Huang, S. Liao, Z. Xu, and J. Yan, “CSiT: A multiscale
+vision transformer for hyperspectral image classification,” IEEE J. Sel.
+Topics Appl. Earth Observ. Remote Sens., vol. 15, pp. 9266–9277, 2022.
+[29] A. Dosovitskiy et al., “An image is worth 16×16 words: Transformers
+for image recognition at scale,” 2021, arXiv:2010.11929.
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:57:37 UTC from IEEE Xplore.  Restrictions apply. 

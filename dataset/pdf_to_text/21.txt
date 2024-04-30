@@ -1,0 +1,185 @@
+See discussions, stats, and author profiles for this publication at: https://www.researchgate.net/publication/366214636
+Extremism on Social Media: Lynching of Priyantha Kumara Diyawadana
+Poster · December 2022
+CITATIONS
+0
+READS
+201
+3 authors, including:
+Muhammad Usama
+49 PUBLICATIONS   1,198 CITATIONS   
+SEE PROFILE
+All content following this page was uploaded by Muhammad Usama on 17 December 2022.
+The user has requested enhancement of the downloaded file.
+2022 IEEE/ACM International Conference on Advances in Social Networks Analysis and Mining (ASONAM)
+1
+Extremism on Social Media: Lynching of Priyantha
+Kumara Diyawadana
+Muhammad Musa∗, Muhammad Usama∗, and Momin Uppal∗
+∗Lahore University of Management Sciences (LUMS), Pakistan.
+Email: ∗(23100004, muhammadusama, momin.uppal)@lums.edu.pk
+Abstract—Extremist content on social media platforms has
+led to tragic acts of violence. A context-aware extremist content
+framework is the need of the hour to ensure the detection
+and mitigation of this type of content. This work provides
+an outline of our recently launched initiative to develop a
+context-aware framework. We also present the rudimentary
+results of the lynching of “Priyantha Kumara Diyawadana”
+to illustrate the impact of online extremist propaganda on
+social media platforms. Our results indicate that nearly 25%
+of the total population included in the gathered data have a
+negative sentiment toward the lynching of Priyantha Kumara
+Diyawadana, demonstrating how extreme hate-mongering ex-
+tremist narratives are affecting social media users.
+Keywords—Extremism, Social media platforms, Twitter,
+Lynching
+I. INTRODUCTION
+Extremism is becoming a daunting problem in the modern
+world. The attacks on Mosques in Christchurch, gun vio-
+lence in schools in the US, the terrorism wave in Canada and
+the middle east, religious and racial violence episodes in Eu-
+rope, riots, and lynching in India and Pakistan, the genocide
+in Rohingya, etc., are a few of the horrific examples, where
+extremist ideologies on social media have resulted into real-
+world tragedies. Governments and social media giants are
+trying to deal with this issue but unfortunately, there hasn’t
+been any notable success. Extremism is a subjective term;
+identifying and quantifying it is an open area of research
+because of its connections with various cultural, religious,
+political, and technological aspects. Extremist content is
+an amalgamation of fake news, misinterpreted religious
+literature, mis/dis-information, out-of-context video/audio
+clips, hateful blogs, search engine optimized hashtags, pro-
+paganda videos/literature, deepfakes, and abuse. All online
+extremist ideas begin in the offline world (schools, theolog-
+ical seminaries, literature, ideas of revenge and supremacy,
+etc.), and the butterfly effect of social media and content
+optimization algorithms makes it viral. This availability and
+virality of extremist content increase online extremism and,
+in many cases into real-world extremism episodes. Identify-
+ing and moderating social media content while preserving
+free speech and privacy is a challenging task. Solving
+this problem requires content moderation techniques and
+platform-level policies. The lack of an extremism detection
+and prevention framework, notably in India and Pakistan,
+is leading in the continual distribution of extremist content
+via social media apps. This work outlines a framework for
+extremist content identification and mitigation. The project
+has only recently begun (the complete summary of the
+project is depicted in figure 1), and in this poster, we discuss
+preliminary results using the horrific lynching incident of
+“Priyantha Kumara Diyawadana” as a use case.
+II. RELATED WORK
+In recent years, social media applications have emerged
+as the most powerful tool for inciting extremism and
+distributing hate/fake news. Extremism, hate speech, and
+fake/misinformation on social media are used to form
+opinions, cause controversies, induce antagonism and so-
+cial divide, curtail free speech, troll opponents, deteriorate
+history, name-calling, killing and rape threats, and violence
+to achieve political, religious, or economic goals in third-
+world democracies (Pakistan, India, etc.) [1], [2], [3], [4].
+Dash et al. [5] studied the extremism and whataboutism
+against the Muslim population in Bangalore India, using
+Twitter data and showed how a derogatory Facebook post by
+an extremist turned the whole city into a war zone. Stahel
+et al. [6] stated that integrating online and behavioral data
+can aid in capturing the relationship between online and
+offline extremism. Biswas et al. [7] used Granger Causality
+Test, Z-score, sentiment analysis, and other NLP techniques
+to measure sinophobia on Twitter. Niu et al. [7] suggested
+how a hate indicator can be developed for YouTube. Simon
+et al. [7] shed light on the importance of making the
+data and tools open-sourced to help develop better content
+moderation platforms to deal with online extremism. To
+date, this effort can be seen in a few cherry-picked cases
+but a larger consensus is still missing [7]. In this poster, we
+intend to show the initial bits of the understanding of the
+extremist content on Twitter in the Pakistani context through
+a case study of the horrific lynching incident of “Priyantha
+Kumara Diyawadana” in Pakistan.
+III. USE-CASE: LYNCHING OF PRIYANTHA KUMARA
+DIYAWADANA
+On December 3, 2021, a mob killed and burnt Priyantha
+Kumara Diyawadana, a Srilankan citizen working as a
+factory manager in Sialkot, Pakistan, on the allegation of
+blasphemy. The event is thought to be the work of the TLP,
+an extreme right-wing group. In footage published on social
+media, the culprits can be seen yelling TLP slogans. Six
+criminals were condemned to death when these allegations
+were found to be false in court. Extremist information on
+social media applications inspired the criminals. We have
+considered this horrible incident as a case study to demon-
+strate how extremist ideas had infiltrated Pakistani Twitter.
+We scraped Twitter for December 2021 and retrieved 1800
+unique tweets using Twint1(a Twitter intelligence tool) and
+1https://github.com/twintproject/twint
+IEEE/ACM ASONAM 2022, November 10-13, 2022
+978-1-6654-5661-6/22/$31.00 © 2022 IEEE
+Figure 1: Outline of the proposed context-aware framework for studying extremism on social media and improving urban
+sentiment.
+Figure 2: Polarity and subjectivity scores depicts that the
+negative and subjective narrative about the lynching of
+Priyantha Kumara Diyawadana has taken over the Pakistani
+Twitter feeds.
+conducted a rudimentary data analysis.Few tweets retrieved
+during the data collection process are also included below:
+1) “Murders happen when emotions are high. Boys do
+things in passion. Even I can get excited and do wrong
+when it comes to religion. Don’t blame the govt.”
+2) “TLP flag witnessed on a cart outside Rajco industries
+in Sialkot as the workers return to work after the
+brutal murder of SrilankanManager priyanthakumara
+on the pretence of blasphemy.”
+The collected data was examined for polarity and sub-
+jectivity. The polarity of a statement indicates how much
+positive or negative commentary it includes. If the message
+is focused on one’s emotions and ideas than on facts, it is
+deemed subjective. Polarity ranges between [-1,1], with -
+1 indicating negative sentiment and +1 indicating positive
+sentiment. Subjectivity spans from [0,1]. Figure 2 illustrates
+the sentiment analysis-assigned polarity and subjectivity
+scores. Nearly 25% of the total population included in the
+gathered data have a negative sentiment toward the lynch-
+ing of Priyantha Kumara Diyawadana, demonstrating how
+extreme hate-mongering extremist narratives are affecting
+social media users.
+IV. CONCLUSIONS
+Online extremism is dividing communities, and fault lines
+are becoming more obvious by the day. We have provided
+an outline of a context-aware framework for identifying
+and mitigating online extremism, with the added benefit of
+enhanced urban satisfaction. According to our case study,
+negative sentiment is on the rise as a result of the propaga-
+tion of extremist content via social media apps.
+REFERENCES
+[1] Kiran Garimella, Gianmarco De Francisci Morales, Aristides Gionis,
+and Michael Mathioudakis. Political discourse on social media: Echo
+chambers, gatekeepers, and the price of bipartisanship. In Proceedings
+of the 2018 world wide web conference, pages 913–922, 2018.
+[2] Kiran Garimella, Gianmarco De Francisci Morales, Aristides Gionis,
+and Michael Mathioudakis. Quantifying controversy on social media.
+ACM Transactions on Social Computing, 1(1):1–27, 2018.
+[3] Kiran Garimella and Dean Eckles.
+Images and misinformation in
+political groups: Evidence from whatsapp in india.
+arXiv preprint
+arXiv:2005.09784, 2020.
+[4] Kiran Garimella, Tim Smith, Rebecca Weiss, and Robert West. Politi-
+cal polarization in online news consumption. ICWSM, pages 152–162,
+2021.
+[5] Saloni Dash, Gazal Shekhawat, Syeda Zainab Akbar, and Joyojeet Pal.
+Extremism & whataboutism: A case study on bangalore riots. arXiv
+preprint arXiv:2109.10526, 2021.
+[6] Lea Stahel. Combining survey data with behavioral data—a promising
+way to learn about the producers of online hostility. 2021.
+[7] Shruti Phadke, Jessie Seiler, Tanushree Mitra, Kiran Garimella,
+Matthew Costello, and James Hawdon.
+Addressing challenges and
+opportunities in online extremism research: An interdisciplinary per-
+spective.
+In Companion Publication of the 2021 Conference on
+Computer Supported Cooperative Work and Social Computing, pages
+356–359, 2021.
+2
+View publication stats

@@ -1,0 +1,666 @@
+DATA DRIVEN FRAMEWORK FOR ANALYSIS OF AIR QUALITY LANDSCAPE FOR
+THE CITY OF LAHORE
+A. Rahman*, M. Usama, M. Tahir, M. Uppal
+Lahore University of Management Sciences (LUMS), Pakistan
+(abdur.rahman, muhammadusama, tahir, momin.uppal)@lums.edu.pk
+Commission IV, WG IV/9
+KEY WORDS: Air Quality, Air Quality Monitoring System, Low Cost Air Quality Monitoring Stations, Air Quality Data
+ABSTRACT:
+Several Pakistani cities are among the world’s most polluted. In the previous three years, air pollution in Lahore has been con-
+siderably over World Health Organization guideline levels, endangering the lives of the city’s more than 11 million citizens. In 
+this paper, we investigate the city’s capability to combat air pollution by analyzing three essential aspects: (1) Data, (2) Capacity, 
+and (3) Public awareness. Several studies have reported the need for expansion of the current air quality monitoring network. In 
+this work, we also provide a context-aware location recommendation algorithm for installing the new air quality stations in Lahore. 
+Data from four publicly available reference-grade continuous air quality monitoring stations and nine low-cost air quality measuring 
+equipment are also analyzed. Our findings show that in order to measure and mitigate the effects of air pollution in Lahore, there 
+is an urgent need for capacity improvement (installation of reference-grade and low-cost air quality sensors) and public availability 
+of reliable air quality data. We further assessed public awareness by conducting a survey. The questionnaire results showed huge 
+gaps in public awareness about the harms of the air quality conditions. Lastly, we provided a few recommendations for designing 
+data-driven policies for dealing with the current apocalyptic air quality situation in Lahore.
+1.
+INTRODUCTION
+Air pollution is defined as the contamination of indoor or out-
+door air with chemical, physical or biological agents modifying
+the characteristics of air. Most common sources of outdoor air
+pollution include exhaust combustion from motor vehicles, in-
+dustrial emissions, forest fires, livestock farming, fertilizer, and
+power plants. Major constituents of air pollution are Particu-
+late Matter (PM), Carbon Monoxide (CO), Ozone (O3), Nitrous
+(NOx), and Sulfur oxide (SOx).
+PM includes fine particles
+suspended in the air. These particles are usually 2.5 micro-
+meter (PM2.5) and 10 micrometer (PM10) in diameter (Vallero,
+2014). These particles are a byproduct of combustion in mo-
+tor vehicles, burning fossil fuels, industrial processes, and other
+sources of smoke. Other indirect sources are different chem-
+ical reactions of NOx and SOx in air. Major health effects of
+the PM pollutants are decreased lung function, eye, nose, and
+throat irritation, difficulty breathing, aggravated asthma, non-
+fatal heart attacks, and even premature deaths in people with a
+lung or heart disease history.
+Particulate matter is a significant contributor to air pollution.
+Air quality is measured using air quality monitoring systems
+(AQMS), which are technically validated by organizations such
+as the United States Environmental Protection Agency (EPA),
+among others, and are also known as reference-grade AQMS.
+Reference-grade AQMS are costly and require a significant
+amount of upkeep.
+The PM2.5 values recorded by these
+reference-grade stations are regarded authentic and are utilized
+by appropriate authorities to issue health advisories. In most
+developed and underdeveloped countries, there is a severe gap
+in the installed reference-grade AQMS resulting in huge cover-
+age gaps and inconsistent air quality data. Considering sparse
+∗Corresponding author
+resources and the overburdened economies of developing coun-
+tries, expansion of the current air quality measurement network
+in a short time is a challenge. On the other hand, low-cost al-
+ternatives exist, but the trustworthiness of their reported values
+is frequently questioned. Many studies have been conducted to
+enhance the performance of low-cost sensors. According to the
+literature, a mix of reference-grade AQMS and low-cost sensors
+can aid in the development of urban city-scale measurement
+networks while keeping the economic aspects of developing na-
+tions in check (Gulia et al., 2015, Usama et al., 2022).
+Air pollution has emerged as a significant issue in the subcon-
+tinent. Pakistan has recently seen a yearly ”smog” season that
+lasts from November to February each year. Multiple Pakistani
+cities have made the list of the world’s most polluted cities in
+recent years. Lahore, the provincial capital of Punjab, is one
+of the world’s three most polluted cities. The current state of
+Lahore’s air quality puts the lives of the city’s 11 million resid-
+ents1 in grave danger. For the most part of the last three years,
+the air quality index (AQI) stayed between poor to severe. The
+AQI is a metric used to quantify the effect of air pollution on hu-
+man health based on limited exposure. The higher the AQI, the
+more health risks there are. In winters the smog, fog, and haze
+results in the closure of the major highways, airports, and trans-
+portation incurring economic losses and social unrest. Many
+road accidents due to smog are also reported resulting in deaths
+and financial losses.
+Conditions deteriorated to the point where the government was
+compelled to take action to protect the public from additional
+exposure and pollution. It includes the closure of brick kilns
+in 2018 and the enforcement of conventional brick kiln conver-
+sion to zig-zag technology with lower air pollutants (Mukhtar,
+1 https://www.pbs.gov.pk/content/
+final-results-census-2017
+The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLVIII-4/W5-2022 
+7th International Conference on Smart Data and Smart Cities (SDSC), 19–21 October 2022, Sydney, Australia
+This contribution has been peer-reviewed. 
+https://doi.org/10.5194/isprs-archives-XLVIII-4-W5-2022-167-2022 | © Author(s) 2022. CC BY 4.0 License.
+ 
+167
+2018). In recent years, the government has also issued orders
+to shut down industries during the pollution season, which has
+had a disastrous effect on the economy. In 2021, Punjab govern-
+ment also decided to close every Monday for nearly a month to
+combat smog2. These circumstances need a thorough examina-
+tion of the city’s air quality landscape. In this study, we focused
+on the available PM2.5 data sources in Lahore, Pakistan, and in-
+vestigated the capability of the city to handle the issue of poor
+air quality.
+Air quality and a city’s capability to tackle air pollution are
+quantified using three indicators: (1) capacity, (2) data, and (3)
+public awareness. Here, capacity refers to public and private
+measurement infrastructure, data refers to the public availabil-
+ity of air quality measurements to develop data-driven policies,
+and public awareness refers to the general public’s interest in
+the issue and how the public views the ramifications of air qual-
+ity issues. In this paper, we make the following analysis and
+contributions
+1. We have collected and prepared a dataset of the
+PM2.5 measurement data from various publicaly available
+sources (reference-grade AQMS and low-cost sensors) and
+analyze it to further reflect on the robustness and authenti-
+city of the reported data from the public sources.
+2. Based on the prepared dataset and the context information
+of Lahore city, we have developed an algorithm for recom-
+mending deployment positions of new air quality measure-
+ment sensors. We have also reflected upon the validity of
+these results and how more context information can yield
+better sensor deployment.
+3. Perception versus reality plays a vital role in swaying the
+opinion of the urban public to adopt better practices for en-
+suring prevention against the hazardous effects of air pol-
+lution. We have conducted a survey to gauge perception
+vs. reality of the air quality in Lahore, and this work also
+provides the crux of these findings.
+The remainder of the paper is structured as follows. In the next
+section, we will provide specifics on the air pollution data for
+Lahore city as well as the sources. Section 3 describes the pro-
+posed context-based location recommendation approach for air
+quality sensor placement and the results achieved. Section 4
+will discuss the survey conducted during this location recom-
+mendation approach to determine how individuals view the is-
+sue of air quality in Lahore.
+Section 5 contains a brief yet
+informative discussion on the validity of the acquired results.
+Finally, in Section 6, the work is concluded, along with a dis-
+cussion on potential future directions.
+2.
+AIR QUALITY DATA OF LAHORE
+Needless to say, the poor air quality in the city of Lahore has
+significantly adverse health effects on its residents. Life Index
+(AQLI) from the Energy Policy Institute at the University of
+Chicago (EPIC) released its 2021 annual report on the effects
+of poor air quality on the health of an average Pakistani citizen
+(Greenstone and Fan, 2018, Greenstone and Fan, 2020). The
+AQLI report suggests that an average Pakistani tends to lose
+3.9 years of life expectancy if the current levels of air pollution
+2 http://sdsa.lums.edu.pk/GrandChallengeFund/
+BlogArchive/3
+persist (Greenstone and Fan, 2020). It also reports that in a
+few most polluted areas, the loss in life expectancy can go up
+to 7 years (Greenstone and Fan, 2020). An average citizen of
+Lahore is expected to gain 5.3 years’ worth of life expectancy
+if the World Health Organization (WHO) guidelines for PM2.5
+are met.
+Environmental protection departments/agencies often collect
+air quality data, and health advisories are issued based on
+pre-defined AQI readings. Pakistan, like any other develop-
+ing/underdeveloped country, does not have an adequate number
+of AQMS installed, thus there is a scarcity of available air qual-
+ity data for most of the country. Only four reference-grade air
+quality monitors and a few low-cost sensors with publicly avail-
+able air quality data are available in Lahore. We have confined
+our investigation to PM2.5 because air quality data for majority
+of Lahore is not accessible for other criteria pollutants. Figure
+1 provides the location of the reference-grade and low-cost air
+quality monitors in Lahore city.
+Figure 1. There are four reference-grade and eight low-cost air 
+quality monitoring stations in Lahore. The figure depicts the 
+location of the sensors on the map of Lahore.
+Three reference-grade sensors in Lahore are from Environ-
+mental Protection Department (EPD), Punjab3, and one from 
+US consulate4 air quality station. The data from EPD is avail-
+able at daily granularity in PDF format. The PDF files were 
+digitized using python-based tools as well as manual scrapping. 
+The data from US Embassy was available at hourly granularity. 
+We have converted both sources to daily granularity for com-
+parison and depicted the data timeline in Figure 2. There are 
+eight low-cost sensors deployed by “PurpleAir”5 with publicly 
+available PM2.5 concentration values in Lahore. We have also 
+converted them in daily granularity, and Figure 3 depicts the 
+timeline of the data availability. Here we also want to note that 
+there are a few other low-cost sensors in Lahore deployed by 
+IQAir6 but their recorded data is not publicly available.
+We have noticed that two of the reference-grade stations 
+stopped reporting PM2.5 values in mid-2020 (Dental college 
+station) and mid-2021 (Met station) respectively. Only two 
+reference-grade AQMS are reporting PM2.5 concentrations for 
+approximately 670 Square kilometers which is not acceptable
+3 https://epd.punjab.gov.pk/aqi
+4 https://www.airnow.gov/international/
+us-embassies-and-consulates/#Pakistan$Lahore$
+5 https://www2.purpleair.com/
+6 https://www.iqair.com/
+The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLVIII-4/W5-2022 
+7th International Conference on Smart Data and Smart Cities (SDSC), 19–21 October 2022, Sydney, Australia
+This contribution has been peer-reviewed. 
+https://doi.org/10.5194/isprs-archives-XLVIII-4-W5-2022-167-2022 | © Author(s) 2022. CC BY 4.0 License.
+ 
+168
+Figure 2. Timeline plot of PM2.5 data for reference grade 
+sensors
+Figure 3. Timeline plot of PM2.5 data for low-cost grade sensors
+by any stretch of the imagination. All low-cost sensors came 
+online in mid-August 2021. Their calibration and ability to 
+cater to context while reporting data lacks credibility.
+3. AIR QUALITY MONITORING NETWORK OF
+LAHORE
+In a recent verdict7, the Lahore High Court ordered the Punjab 
+government to take concrete steps to curb the air pollution in 
+Lahore. The court also stated that corporations should also ful-
+fill their corporate social responsibility and reduce emissions, 
+and government must enforce the already existing suggestions 
+from the Lahore smog commission report and Punjab clean air 
+act to mitigate the smog situation. The Lahore smog commis-
+sion report8 recommended that the Punjab government must in-
+crease the active reference-grade air quality monitoring stations 
+from three to twelve. Based on the smog commission report, 
+EPD Punjab needs to install nine more reference-grade AQMS. 
+Here the challenging bit is to determine the optimal location 
+for the installation of AQMS. Several factors need to be con-
+sidered before deciding on the optimal installation location. A 
+few of these factors are namely; availability of land, possible 
+conflicts with future urban construction and expansion plans, 
+accessibility to maintenance staff and other services, security 
+of the site, and some heuristic constraints developed by previ-
+ous experiences, etc. Despite the fact that these conditions are 
+strong administrative markers for the installation, research on 
+air quality sensor placement suggests that a context-aware data-
+driven method can give optimal installation locations.
+Sun et al. proposed a citizen-centric air quality sensor place-
+ment technique, where they have used Cambridge city traffic 
+patterns, point of interest values, and demographic statistics as 
+context information. They modelled the location recommend-
+ation as a linear integer programming model in which both the 
+objective function (location) and the constraints (context) are 
+considered to be linear, which we believe will result in a high
+7 https://data.lhc.gov.pk/reported_judgments/green_
+bench_orders
+8 \footnote{\url{https://epd.punjab.gov.pk/system/
+files/Smog\%20commission\%20report.pdf}}
+rate of false positive locations as the number of sensors (to be
+placed) increases (Sun et al., 2019). Kelp et al. presented a
+PM2.5 sensor placement approach where they used multiresol-
+ution dynamic mode decomposition (mrDMD) on 16 years of
+historical PM2.5 data to suggest new sensor location (Kelp et
+al., 2022). Zhou et al. compared five sensor placement tech-
+niques (random, minimization of the matrix condition num-
+ber for sensor placement, empirical interpolation method for
+sensor placement, local extrema-based techniques, and QR-
+factorization method for sensor placement) from the control
+theory and fluid dynamics literature on a couple of satellite-
+derived huge PM2.5 datasets from China (Zhou et al., 2022).
+Though the compared techniques are well embedded in the lit-
+erature, we do not have this sort of high-resolution spatiotem-
+poral dataset available for Lahore city. Mohar et al. used QR
+factorization, singular value decomposition (SVD), and ma-
+chine learning-based techniques to design an optimal sensor
+placement technique for signal reconstruction in control sys-
+tems (Manohar et al., 2018). Though this technique has shown
+promise in sensor and actuator placement given the small num-
+ber of sensors (in our case 09) and limited untrustworthy sparse
+historical data the technique is highly likely to produce false
+positives. There are a few other optimal sensor placement tech-
+niques from communication systems and traditional sensors
+network literature (Younis and Akkaya, 2008) but these tech-
+niques are not optimal for a gappy, untrustworthy, sparse, and
+small dataset to determine the best locations for sensor place-
+ment in Lahore city.
+Microsoft’s Urban Air Project9 is at the cutting edge of sensor
+placement research for air quality measurements. They have
+developed a method that uses attributes from the previously in-
+stalled sensors and historical air quality data from existing sta-
+tions to suggest suitable locations for future air quality stations
+(Hsieh et al., 2015). Hsieh et al. used an affinity graph-based
+technique to determine the optimal location for AQMS place-
+ment for Bejing city in China. The proposed procedure also
+incorporates the historical PM2.5 concentrations, meteorology
+data, road network, POI data, etc., to ensure that appropriate
+context is also incorporated in the optimal location selection
+(Hsieh et al., 2015), (Zheng et al., 2013). The technique pro-
+posed in this paper is an extension of the affinity graph-based
+approach where we have included various context features col-
+lected from Lahore city and used whatever historical air quality
+data is available.
+3.1
+Affinity Graph Based Location Recommendation Sys-
+tem
+Hsieh et al. used affinity graphs with a greedy entropy min-
+imization model to develop a location recommendation system
+for AQMS installation location recommendation (Hsieh et al.,
+2015). Initially, the city is divided into graph nodes and edges.
+Where every edge has an associated weight, and every node
+has an associated set of features (road networks, residential
+areas, commercial areas, industrial areas, public spaces, met-
+eorological features, and other factors that may contribute to
+variation in air pollution). Since most location recommenda-
+tion techniques are designed and tested for developed countries
+with historical data on air pollution and related context features
+are publicly available, the location recommendation for the new
+AQMS becomes a simple task. Since we are trying to predict
+the location of the AQMS for an underdeveloped/developing
+9 https://www.microsoft.com/en-us/research/project/
+urban-air/
+The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLVIII-4/W5-2022 
+7th International Conference on Smart Data and Smart Cities (SDSC), 19–21 October 2022, Sydney, Australia
+This contribution has been peer-reviewed. 
+https://doi.org/10.5194/isprs-archives-XLVIII-4-W5-2022-167-2022 | © Author(s) 2022. CC BY 4.0 License.
+ 
+169
+Figure 4. Flow chart of the station location recommendation algorithm.
+city where the available historical data is sparse and untrust-
+worthy and context features are also not available, the simple
+learning task becomes a real hassle.
+For Lahore, we have collected historical air quality data from
+all known publicly available sources. The data was cleaned and
+preprocessed by following the data science principles (clean-
+ing, normalization, outlier detection, etc). We have combined
+the reference-grade AQMS data with low-cost sensors data to
+further improve the volume of the dataset. Gathering the con-
+text data for Lahore city is challenging as to the best of our
+knowledge, it is not publicly available. We have employed Geo-
+graphic Information Systems (GIS) tools for collecting context
+information such as commercial hubs, industrial areas, traffic
+hotspots, etc. The meteorology data was available. The road
+network was extracted using satellite imagery and machine
+learning techniques. Figure 5 depicts the identified commercial
+hubs, industrial areas, drainage streams, and traffic hotspots.
+Figure 5. Identified pollution hotspots in Lahore
+Since the proposed method is inspired from (Hsieh et al., 2015), 
+we recommend the interested reader to see (Hsieh et al., 2015) 
+for in-depth details on how affinity g raphs c an b e leveraged 
+for designing location recommendation algorithms. Our model
+works in two stages. The first step is to compute the probability
+distribution of unlabeled nodes using feature weight matrices,
+graph weight matrices, and labeled nodes. The entropy for each
+node is computed in the second phase, and the node with the
+lowest entropy is marked as the labeled node and given the low-
+est rank for a recommendation for the installation of a new air
+quality station. The model is given a new set of labeled and
+unlabeled nodes iteratively. A more detailed description of the
+AQMS location inference method in the following steps:
+1. The input to the proposed location inference technique is
+labeled node list, labeled node air quality values (histor-
+ical), context features associated with each node, unla-
+belled node list (candidate node locations), and features
+associated with the unlabelled candidate nodes.
+2. Based on the input, an affinity graph is created, and graph
+weight initialization is performed (in our case, we have
+initialized it with all 1’s).
+3. After the initialization, we have computed the initial en-
+tropy with the uniform underlying distribution of un-
+labeled nodes, and the feature weight matrix is updated
+using gradient descent. The probability distribution of the
+updated unlabelled nodes is estimated using a harmonic
+function, and the entropy of the updated graph is com-
+puted.
+4. The difference between the entropy of pre and post-
+graph updates is computed and subjected to a difference
+threshold. If the entropy difference is less than the pre-
+defined threshold value, we ranked the node with the low-
+est entropy in the reverse order and assigned the node to a
+labeled node (predicted AQI assignment). Whereas, if the
+entropy difference is greater than the predefined threshold,
+the algorithm will go back and update the graph, and fea-
+ture weights and entropy is recomputed.
+5. If there is no unlabeled node left in the graph, the proposed
+algorithm will output the “N” highest-ranked nodes, which
+in our case are the first nine nodes. Since we have conver-
+ted Lahore into a graph grid, the label of the top “N” nodes
+will also provide their location information on the map.
+6. We observed an inherent problem of clustering multiple
+recommended nodes in this algorithm. We noticed that
+The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLVIII-4/W5-2022 
+7th International Conference on Smart Data and Smart Cities (SDSC), 19–21 October 2022, Sydney, Australia
+This contribution has been peer-reviewed. 
+https://doi.org/10.5194/isprs-archives-XLVIII-4-W5-2022-167-2022 | © Author(s) 2022. CC BY 4.0 License.
+ 
+170
+the conversion of unlabeled nodes from near the labeled
+nodes converged to the point where none of the nodes
+were labeled because the node with the lowest entropy was
+tagged as a labeled node. It is an issue when the number of
+recommended locations is more than one. Thus multiple
+nodes were recommended in a cluster. To tackle this prob-
+lem, we introduced another loop to recommend only one
+location in every iteration and use the previous recommen-
+ded location as a labeled node in the next iteration.
+The flow chart for the algorithm used for inferring the optimal
+AQMS placement is depicted in Figure 4.
+We tested the proposed algorithm with the available air quality
+data for Lahore city and the collected context features. The pro-
+posed AQMS location recommended algorithm provided 09 re-
+commended for new AQMS deployment. The output of the pro-
+posed model for the recommendation of 09 stations for Lahore
+city is provided in Figure 6. Reference-grade AQMS are usually
+deployed by the environmental protection department/agencies,
+which EPD Punjab will do in the future, though for now, we are
+planning to deploy 09 low-cost on the recommended locations
+to collect PM2.5 concentrations. In future work, we intend to
+analyze the efficiency of the proposed location algorithm using
+the reported data from all air quality measurement sources.
+Figure 6. Recommended locations for installation of air quality 
+stations (yellow) with the locations of currently installed stations 
+(red)
+4. PUBLIC AWARENESS
+The third component of accessing the ability of a city to deal 
+with the air quality issue is its public awareness. Following the 
+tradition in the literature (Liu et al., 2017, Pantavou et al., 2017, 
+Lou et al., 2022, Maione et al., 2021), we have designed a sur-
+vey with only ten simple questions addressing the perception of 
+the air quality among citizens and how this perception is built, 
+and whether they are taking any measures to avoid detrimental 
+consequences of the air pollution in Lahore city. The question-
+naire varied from general public perception of air pollution and 
+public information sources to the self-reported levels of health 
+impact due to air pollution.
+We have conducted this survey from 21st December 2021 to 
+10th January 2022. We have received 177 responses from dif-
+ferent universities in Lahore. As expected, nearly 60% of the
+participants were between 18-22 years old.
+67% of the re-
+sponses came from males, and 37% from female participants.
+We collected responses from 11 different public and private uni-
+versities in Lahore. Nearly 73% of the responses suggested that
+the air quality in Lahore ranges from very poor to severe (44%
+said severe and 29% said very poor). Nearly 81% of the re-
+sponses suggested that smog/fog/haze is their sensory percep-
+tion for air quality. This response statistics also show that many
+people think that air pollution only exists in winter, and as soon
+as the smog is gone, the air quality is back to normal, which is
+not the case. This response also suggests the lack of information
+about air pollution among young people. Our result also shows
+that news, mobile applications, and social circles are domin-
+ant ways to get air quality-related information. Nearly 15% of
+people responded that they do not take any precautions to deal
+with air pollution. 31% of the total responses suggested that
+they have a respiratory condition, and out of those 31% people,
+40% said that their condition aggravated due to poor air quality
+in Lahore. Lastly, 38% of people suggested that transport is the
+major contributor to poor air quality in Lahore. The rest of the
+people responded in favor of industries, agriculture, etc. The
+responses distribution about the potential sources of the survey
+are depicted in Figure 7. More details on our survey and results
+are available on our blog-post10.
+This survey suggests the need to raise public awareness about
+the dangers of air pollution, and we suggest that including com-
+ponents on air pollution, its causes, and ways to deal with it
+must be included in the school, college, and university cur-
+riculum. We also recommend public meetings, town halls, and
+seminars to increase awareness among people. We also sug-
+gest the give incentives to the residential and commercial areas
+where the air quality improves.
+Figure 7. Public awareness survey response on the perception 
+about the potential air pollution sources in Lahore.
+5. DISCUSSION AND RECOMMENDATIONS
+In this article, we assessed Lahore’s ability to cope with the 
+growing air pollution problem in three areas: data, capability, 
+and public awareness. Our findings show that Lahore’s present 
+air quality monitoring network has significant gaps, and the city 
+is unable to deal with the ever-increasing menace of air pollu-
+tion. Lahore does not have enough AQMS installed, and the 
+available AQMS data is gappy, unreliable, and does not reflect 
+the severity of the air pollution. We suggest that EPD Punjab 
+needs to increase the reference-grade AQMS and also support
+10 http://sdsa.lums.edu.pk/GrandChallengeFund/
+BlogArchive/4
+The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLVIII-4/W5-2022 
+7th International Conference on Smart Data and Smart Cities (SDSC), 19–21 October 2022, Sydney, Australia
+This contribution has been peer-reviewed. 
+https://doi.org/10.5194/isprs-archives-XLVIII-4-W5-2022-167-2022 | © Author(s) 2022. CC BY 4.0 License.
+ 
+171
+the deployment of low-cost sensors. EPD also has to ensure
+an ample amount of calibration and chemical analysis facilities
+to further the quality of sensing and source apportionment. The
+development of a public dashboard is prevalent where all public
+and private data on the air quality is gathered and analyzed and
+made available to the public. There is a dire need for academic
+and industrial partners to further enhance the agenda on gath-
+ering reliable air quality data and using machine learning and
+other predictions technique to prepare the EPD for upcoming
+air quality challenges.
+In this work, we also did our bit by designing an AQMS place-
+ment algorithm that incorporates the local context to provide
+optimal location. This effort is also a candidate solution to effi-
+ciently using the limited financial resources available. Here we
+also want to note that deploying 09 AQMS in Lahore will not
+solve the data availability issue, general public, housing societ-
+ies, and institutions also have to play an active role in the dens-
+ification of the air quality monitoring network. We recommend
+that all government and private housing societies, universities,
+industries, hospitals, etc., install AQMS (near reference or low-
+cost) and make the date available to the public and government.
+Public awareness is the third component of accessing the abil-
+ity of Lahore city to cope with the air quality issues. Our sur-
+vey indicates the lack of awareness about the air quality issues.
+Our survey also reveals disparities between public perception
+and real air quality. There is an urgent need to raise public
+knowledge about air quality through awareness campaigns and
+community activities. The general public is unaware of the vari-
+ous resources for reporting air quality. More emphasis should
+be placed on preventative measures such as wearing masks, in-
+stalling air purifiers, and reducing outside activity during pollu-
+tion. Studies on source apportionment may aid in quantifying
+the sources of air pollution in Pakistan. We recommend includ-
+ing air quality and associated information in school, college,
+and university curricula, collaborating with religious experts to
+emphasize the issue of air quality in Friday sermons and other
+religious gatherings, supporting public awareness events such
+as seminars and town halls, and offering incentives to the resid-
+ential and commercial areas where the air quality improves.
+5.1
+Challenges
+There are a few significant obstacles and trade-offs that devel-
+oping/underdeveloped nations must confront, which necessit-
+ate a concerted global effort to address the air pollution prob-
+lem. Following are a few challenges (keeping in view the un-
+derdeveloped/developing countries):
+1. Data collection and public datasets: Collecting air qual-
+ity data is a difficult process since varying concentrations
+of air contaminants are involved. Given the environmental
+and health dangers associated with poor urban air qual-
+ity, it is critical to creating a centralized real-time air qual-
+ity data monitoring and processing system. Sensor-centric
+data collection and crowd-centric data collection are two
+approaches for obtaining urban data (e.g., air quality data,
+POI, meteorological data, etc.). There are two types of
+sensor-centric paradigms. These classifications are based
+on whether the sensors gathering data are mobile (de-
+ployed on a moving item) or static (deployed on a fixed
+location). There are two types of crowd-sourced data col-
+lection: active (data created through participation surveys
+and check-ins) and passive (data generated by users pass-
+ively while using the urban infrastructure). It is important
+to understand what type of approach can help gather the
+most reliable and larage amount of air quality data (Usama
+et al., 2022).
+2. Trade-off between economic growth and air pollution:
+Most developing countries are trying to manage their eco-
+nomies, and the balance between economic expansion and
+air pollution is almost always skewed toward economic
+growth.
+Finding a middle ground between economic
+growth and air pollution is a challenging task. Health and
+environmental budgets are diminishing, making it difficult
+for developing countries to detect, report, and improve the
+air quality (Xu and Li, 2018, Usama et al., 2022).
+3. Regularization and air quality measurements:
+Un-
+derdeveloped/developing countries must implement data-
+driven policies, with regularisation based on data and local
+context. Once these policies are developed, the adminis-
+tration must guarantee that they are executed (Yamineva
+and Romppanen, 2017, Usama et al., 2022).
+4. Public
+awareness:
+Unfortunately,
+in
+under-
+developed/developing
+nations,
+public
+understanding
+of the hazards of air pollution and efforts to ameliorate its
+consequences is relatively low. With the development of
+social media applications and the Internet penetration, the
+government may easily overcome this challenge. The ad-
+ministration should use social media platforms, television
+shows, print and digital platforms, town halls, seminars,
+hackathons, conferences, and so on to disseminate as
+much information as possible about the effects of air
+pollution on human health and the local economy, major
+air pollution sources, and what options the public has to
+help reduce emissions.
+6.
+CONCLUSIONS
+In this article, we assessed Lahore’s potential to deal with the
+looming challenges of air pollution across three dimensions:
+data, capacity, and public awareness. The goal of gaining ac-
+cess to Lahore’s ability to deal with air quality on the afore-
+mentioned verticals is to establish the groundwork for building
+a framework for developing an air quality network for under-
+developed countries. We also proposed an optimal placement
+suggestion approach for installing air quality monitoring sta-
+tions. Finally, we have identified a few challenges that develop-
+ing nations must solve in order to avert the air apocalypse.
+REFERENCES
+Greenstone, M., Fan, C. Q., 2018. Introducing the air quality
+life index. AQLI Annual Report.
+Greenstone, M., Fan, Q. C., 2020. Pakistan Fact Sheet.
+Gulia, S., Nagendra, S. S., Khare, M., Khanna, I., 2015. Urban
+air quality management-A review. Atmospheric Pollution Re-
+search, 6(2), 286–304.
+Hsieh, H.-P., Lin, S.-D., Zheng, Y., 2015. Inferring air quality
+for station location recommendation based on urban big data.
+Proceedings of the 21th ACM SIGKDD international confer-
+ence on knowledge discovery and data mining, 437–446.
+The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLVIII-4/W5-2022 
+7th International Conference on Smart Data and Smart Cities (SDSC), 19–21 October 2022, Sydney, Australia
+This contribution has been peer-reviewed. 
+https://doi.org/10.5194/isprs-archives-XLVIII-4-W5-2022-167-2022 | © Author(s) 2022. CC BY 4.0 License.
+ 
+172
+Kelp, M. M., Lin, S., Kutz, J. N., Mickley, L. J., 2022. A new
+approach for determining optimal placement of PM2. 5 air qual-
+ity sensors: case study for the contiguous United States. Envir-
+onmental Research Letters, 17(3), 034034.
+Liu, H., Kobernus, M., Liu, H. et al., 2017. Public perception
+survey study on air quality issues in Wuhan, China. Journal of
+Environmental Protection, 8(10), 1194.
+Lou, B., Barbieri, D. M., Passavanti, M., Hui, C., Gupta,
+A., Hoff, I., Lessa, D. A., Sikka, G., Chang, K., Fang, K.
+et al., 2022. Air pollution perception in ten countries during
+the COVID-19 pandemic. Ambio, 51(3), 531–545.
+Maione, M., Mocca, E., Eisfeld, K., Kazepov, Y., Fuzzi, S.,
+2021. Public perception of air pollution sources across Europe.
+Ambio, 50(6), 1150–1158.
+Manohar, K., Brunton, B. W., Kutz, J. N., Brunton, S. L.,
+2018. Data-driven sparse sensor placement for reconstruction:
+Demonstrating the benefits of exploiting known patterns. IEEE
+Control Systems Magazine, 38(3), 63–86.
+Mukhtar, I., 2018. With smog season looming, Pakistan shuts
+polluting brick kilns. https://www.reuters.com/article/
+us-pakistan-climatechange-bricks-idUSKCN1MT0CI.
+[Online; accessed 15-April-2022].
+Pantavou, K., Lykoudis, S., Psiloglou, B., 2017. Air quality per-
+ception of pedestrians in an urban outdoor Mediterranean envir-
+onment: A field survey approach. Science of the total environ-
+ment, 574, 663–670.
+Sun, C., Li, V. O., Lam, J. C., Leslie, I., 2019. Optimal citizen-
+centric sensor placement for air quality monitoring: a case
+study of city of Cambridge, the United Kingdom. IEEE Access,
+7, 47390–47400.
+Usama, M., Rahman, A., Khalid, Z., Tahir, M., Uppal, M.,
+2022. Urban Air Quality Measurements: A Survey.
+Vallero, D., 2014. Fundamentals of air pollution. Academic
+press.
+Xu, J., Li, J., 2018. The tradeoff between growth and environ-
+ment: evidence from China and the United States. Problemy
+Ekorozwoju, 13(1).
+Yamineva, Y., Romppanen, S., 2017. Is law failing to address
+air pollution?
+Reflections on international and EU develop-
+ments. Review of European, comparative & international en-
+vironmental law, 26(3), 189–200.
+Younis, M., Akkaya, K., 2008. Strategies and techniques for
+node placement in wireless sensor networks: A survey. Ad Hoc
+Networks, 6(4), 621–655.
+Zheng, Y., Liu, F., Hsieh, H.-P., 2013. U-air: When urban air
+quality inference meets big data. Proceedings of the 19th ACM
+SIGKDD international conference on Knowledge discovery and
+data mining, 1436–1444.
+Zhou, C., Gao, M., Li, J., Bai, K., Tang, X., Lu, X., Liu, C.,
+Wang, Z., Guo, Y., 2022. Optimal Planning of Air Quality-
+Monitoring Sites for Better Depiction of PM2. 5 Pollution
+across China. ACS Environmental Au.
+The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences, Volume XLVIII-4/W5-2022 
+7th International Conference on Smart Data and Smart Cities (SDSC), 19–21 October 2022, Sydney, Australia
+This contribution has been peer-reviewed. 
+https://doi.org/10.5194/isprs-archives-XLVIII-4-W5-2022-167-2022 | © Author(s) 2022. CC BY 4.0 License.
+ 
+173

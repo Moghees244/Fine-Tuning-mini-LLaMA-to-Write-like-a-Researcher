@@ -1,0 +1,838 @@
+THEME ARTICLE: AI-POWERED 5G SERVICES
+Examining Machine Learning for 5G and
+Beyond Through an Adversarial Lens
+Muhammad Usama
+, Inaam Ilahi, and Junaid Qadir
+, Information Technology University, Lahore, 54000,
+Pakistan
+Rupendra Nath Mitra and Mahesh K. Marina, The University of Edinburgh, Edinburgh EH8 9YL, U.K.
+Spurred by the recent advances in deep learning to harness rich information hidden
+in large volumes of data and to tackle problems that are hard to model/solve (e.g.,
+resource allocation problems), there is currently tremendous excitement in the
+mobile networks domain around the transformative potential of data-driven
+artiﬁcial intelligence/machine learning (AI/ML) based network automation, control
+and analytics for 5G and beyond. In this article, we present a cautionary perspective
+on the use of AI/ML in the 5G context by highlighting the adversarial dimension
+spanning multiple types of ML (supervised/unsupervised/reinforcement learning)
+and support this through three case studies. We also discuss approaches to
+mitigate this adversarial ML risk, offer guidelines for evaluating the robustness of
+ML models, and call attention to issues surrounding ML oriented research in 5G
+more generally.
+A
+considerable amount of industry and aca-
+demic R&D endeavors are currently paving
+the way toward 5G and Beyond 5G (B5G)
+networks. 5G networks, unlike their 4G counter-
+parts, are foreseen to be the underpinning infra-
+structure
+for
+a
+diverse
+set
+of
+future
+cellular
+services well beyond mobile broadband to span
+multiple vertical industries. To ﬂexibly and cost-
+effectively support diverse use-cases and to enable
+complex network functions at scale, 5G network
+design espouses several innovations and technolo-
+gies such as artiﬁcial intelligence (AI) along with
+software-deﬁned networking, network function vir-
+tualization
+(NFV),
+multiaccess
+edge
+computing
+(MEC), and cloud-native architecture that are new
+to the domain of mobile telecommunications.
+Technical developments toward 5G and B5G of
+mobile networks are quickly embracing a variety of
+deep learning (DL) algorithms as a de facto approach
+to help tackle the growing complexities of the network
+problems. However, the well-known vulnerability of the
+DL models to the adversarial machine learning (ML)
+attacks can signiﬁcantly contribute to broadening the
+overall attack surface for 5G and beyond networks.
+This observation motivates us to deviate from the on-
+going trend of developing a newer ML model to
+address a 5G network problem and, instead, examine
+the robustness of the existing ML models in relation
+to the 5G networks under adversarial ML attacks. In
+particular, we focus on representative use cases for
+deep neural network (DNN) driven supervised learning
+(SL), unsupervised learning (UL), and reinforcement
+learning (RL) techniques in the 5G setting and high-
+light their brittleness when subject to adversarial ML
+attacks.
+Through this article, we would like to draw the
+attention of the research community and all stake-
+holders of 5G and beyond mobile networks to seri-
+ously consider the security risks that emerge from the
+rapid unvetted adoption of DL algorithms across the
+wide spectrum of network operations, control, and
+automation, and urge to make robustness of the ML
+models a criterion before they are integrated into
+deployed systems. Overall, we make the following two
+contributions.
+1) We highlight that despite the well-known vulner-
+ability of DL models to adversarial ML attacks,
+there is a dearth of critical scrutiny on the
+impact
+of
+the
+wide-scale
+adoption
+of
+ML
+1089-7801  2021 IEEE
+Digital Object Identiﬁer 10.1109/MIC.2021.3049190
+Date of publication 5 January 2021; date of current version
+16 April 2021.
+IEEE Internet Computing
+Published by the IEEE Computer Society
+March/April 2021
+26 Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+techniques on security attack surface of 5G and
+B5G networks.
+2) We bridge the aforementioned gap through a
+vulnerability study of the DL models in all its
+major incarnations [SL, UL, and Deep RL (DRL)]
+from an adversarial ML perspective in the con-
+text of 5G and B5G networks.
+BACKGROUND
+Primer on 5G Architecture
+A schematic diagram of the 5G network architecture
+is depicted in Figure 1. Apart from the user equipment,
+the 5G system features a cloud-native core network, a
+ﬂexible
+and
+disaggregated
+radio
+access
+network
+(RAN), and a provision for MEC cloud for reduced
+latency. The RAN comprises gNodeB (gNB) access
+nodes, split into DU and CU, to efﬁciently handle
+evolved network requirements. The gNB connects to
+the MEC to signiﬁcantly reduce the network latency
+for selected applications by availing edge server com-
+puting at the MEC cloud, which is close to the radio
+service cells. For instance, to cater to the ultrareliable
+low-latency
+communication
+(URLLC)
+use-case
+of
+industry automation, the RAN radio unit along with
+the DU, CU, and the MEC can be installed onsite.
+Thus, 5G network architecture enables applications to
+be deployed remotely (App 3 and App 4) or near the
+edge (App 1 and App 2), latter when low latency is a
+requirement. The provision of MEC also reduces the
+aggregated trafﬁc load on the transport networks
+responsible for connecting RAN to the core network.
+The 5G core network is a cloud-native network that
+stores subscriber databases and hosts essential vir-
+tualized network functions for network operations
+and management. Although the network management
+and control functions are shown to be colocated with
+the core in the ﬁgure, they can be ﬂexibly deployed at
+the edge as needed.
+ML in 5G and B5G Networks
+A wide spectrum of DL algorithms is being developed
+for the broad context of wireless communications and
+5G networking to deal with problems that are either
+hard to solve or hard to model. For instance, optimal
+physical network resource allocation for NFV is an NP-
+hard problem and so require exponential computa-
+tional power with increasing system size.1 DRL-based
+solutions are proposed to efﬁciently address resource
+allocation problems.2 Network channel estimation for
+efﬁcient beamforming is a hard to model problem for
+which DNN-based SL solution offers an effective way
+to tackle it.3 Moreover, in certain use-cases, conven-
+tional expert systems become inappropriate due to
+real-world constraints, such as limited availability of
+power, where AI can perform effectively. For instance,
+deep autoencoder based systems can replace the
+power-hungry RF chain hardware with small embed-
+ded sensor systems enabling them to sustain longer
+on onboard power supplies. DL algorithms generally
+outperform the conventional approaches in solving
+mobile network prediction problems such as physical
+layer channel prediction by SL, signal detection prob-
+lems such as recovering transmitted signals from
+FIGURE 1. Schematic diagram of 5G network architecture illustrating the disaggregated RAN architecture with distributed unit
+(DU) and centralized unit (CU) components; the MEC for improved latency; and the cloud-native core network and system
+orchestration components.
+March/April 2021
+IEEE Internet Computing
+27
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+noisy received signals by UL, and optimization prob-
+lems like resource allocation by RL.
+WIDENED ATTACK SURFACE IN
+ML-DRIVEN 5G AND B5G
+NETWORKS
+The security of the 5G networks is receiving great deal
+of attention (e.g.,4), but there is very limited focus on
+the security of 5G and B5G networks in the face of
+adversarial ML threat.5 In this section, we brieﬂy intro-
+duce the adversarial ML in general, and subsequently
+outline the adversarial ML risks in 5G and B5G
+networks.
+Overview of Security Attacks on ML
+The vulnerability of the ML algorithms, especially the
+DL models, to the adversarial attacks is now well-
+established, where adversarial inputs are small care-
+fully crafted perturbations in the test data built for
+fooling the underlying ML model into making wrong
+decisions. An adversary can often successfully target
+an ML model with no knowledge of the model (black-
+box attack), or some knowledge (gray-box attack), or
+full knowledge (white-box attack) of the target model.
+An adversary can attack the model during its training
+phase and in its testing phase as well. The training
+phase attacks are known as “poisoning attacks” and
+the test time attacks are known as “evasion attacks.”
+Evasion attacks are commonly known as adversarial
+attacks in the literature.6
+More
+formally, an
+adversarial
+example x
+is
+crafted by adding a small indistinguishable pertur-
+bation d to the test example x of a trained ML clas-
+siﬁer fð:Þ where d is approximated by the nonlinear
+optimization
+problem
+provided
+in
+Equation
+(1),
+where t is the class label
+x ¼ x þ arg min
+dx fkdk : fðx þ dÞ ¼ tg:
+(1)
+In 2013, Szegedy et al.7 observed the discontinuity
+in the DNN’s input–output mapping and reported that
+DNN is not resilient to the small changes in the input.
+Following on this discontinuity Goodfellow et al.8 pro-
+pose a gradient-based optimization method for craft-
+ing adversarial examples. This technique is known as
+fast gradient sign method. Papernot et al.9 craft adver-
+sarial
+perturbation
+using
+a
+saliency
+map-based
+approach on the forward derivatives of DNN. This
+approach is known as Jacobian saliency map based
+attack. Carlini and Wagner10 crafted three different
+adversarial attacks using three different distance
+matrices (L1, L2, and L1). More details about adversar-
+ial ML attacks are described in.6
+It is important, however, to note that the adversary
+does not need to have access to training or test data-
+sets. Instead, adversarial examples can also be gener-
+ated using query efﬁcient gradient-based techniques,11
+zeroth-order optimization techniques,6 and generative
+models.12 In such methods, the adversary uses query-
+response pairs to craft such adversarial examples
+(inputs) and mislead the ML model. Such pairs are not
+FIGURE 2. Applicability of ML across the 5G network architecture and a depiction of how ML models contribute to signiﬁcantly
+enhance the attack vectors beyond the traditional security risks4 with new adversarial ML risks.
+28
+IEEE Internet Computing
+March/April 2021
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+necessarily part of either training or testing datasets,
+therefore, adversarial examples are not just the result
+of an input data security issue.
+Added Threat From Adversarial ML for
+5G and Beyond
+Figure 2 illustrates network problems from different
+network segments of 5G, namely user devices, RAN,
+MEC, core networks, and the network management
+and control layer that have recently attracted ML-
+based solutions from all the three categories of ML.
+However, in light of the above discussion in the sec-
+tion titled “Overview of Security Attacks on ML,” the
+DL-powered ML models gaining popularity for 5G and
+B5G
+networks
+are
+vulnerable
+to
+the
+adversarial
+attacks thereby further aggravating the security risks
+of future generations of mobile networks.
+To show the feasibility of adversarial ML attacks on
+5G systems, we take three well-known ML models—one
+from each of the three ML families of algorithms (UL, SL,
+and DRL)—from wireless physical layer operations rele-
+vant to 5G and B5G context and show the vulnerability
+that naive use of ML brings to future mobile networks.
+We choose all the three ML models for our case studies
+from the physical layer network operations because of
+the maturity of ML-research in the context of AI-driven
+5G networking and the availability of open-sourced ML
+models backed up with accessible datasets (https://
+mlc.committees.comsoc.org/research-library).
+THREE CASE STUDIES
+HIGHLIGHTING ADVERSARIAL ML
+RISK FOR 5G AND BEYOND
+Attacking Supervised ML-Based 5G
+Applications
+Automatic modulation classiﬁcation is a critical task
+for intelligent radio receivers where the signal ampli-
+tude, carrier frequency, phase offsets, and distribution
+of noise power are unknown variables to the receivers
+subjected to real-world frequency-selective time-vary-
+ing channels perturbed by multipath fading and shad-
+owing.
+The conventional
+maximum-likelihood
+and
+feature-based solutions are often infeasible due to the
+high computational overhead and domain expertise
+that is required. To make modulation classiﬁers more
+common in modern 5G and B5G networked devices,
+current approaches deploy DL to build an end-to-end
+modulation classiﬁcation systems capable of auto-
+matic extraction of signal features in the wild.
+We pick a convolutional neural network (CNN)
+driven SL-based modulation classiﬁcation model in
+this case study to illustrate the added dimension of
+vulnerability introduced in the networks by it. We use
+the well-known GNU radio ML RML2016.10a dataset
+that consists of 220,000 input examples of 11 digital
+and analog modulation schemes (AM-DSB, AM-SSB,
+WBFM, PAM4, BPSK, QPSK, 8PSK, QAM16, QAM64,
+CPFSK, and GFSK) on the signal-to-noise ratio (SNR)
+ranging from 20 to 18 dB.13 However, we exclude the
+analog modulation schemes from our study and con-
+sider only the eight digital modulations from the data-
+set because from 2G onward all mobile wireless
+standards are strictly digital communications. Figure 3
+depicts the classiﬁcation performance of the CNN
+model in the multiclass modulation classiﬁcation for
+the signals between 20 and 18 dB of SNR.
+To show the feasibility of an adversarial ML attack
+on the CNN-based modulation classiﬁer, we make the
+following assumptions.
+› We consider the white-box attack model where we
+assume that the adversary has a complete knowl-
+edge about the deployed modulation classiﬁer.
+› Goal of the adversary is to compromise the
+integrity of the CNN classiﬁer leading to a signiﬁ-
+cant decay in the classiﬁcation accuracy, which
+is the measure of the success of the adversary.
+To craft the adversarial examples to fool the CNN
+classiﬁer, we use the Carlini and Wagner (C&W)
+attack10 for each modulation class by minimizing the
+L2 norm on the perturbation d, such that when the per-
+turbation d is added to the input x and sent to the
+CNN-based modulation classiﬁer C it misclassiﬁes the
+input x. More details on the C&W attack are available
+FIGURE 3. Accuracy of the CNN-based automatic modulation
+classiﬁer before and after the adversarial ML attack. A clear
+drop in the accuracy of the classiﬁer with the increasing SNR
+indicates the success of the adversary in compromising the
+integrity of the modulation classiﬁer that is seen as viable in
+the 5G and B5G networks.
+March/April 2021
+IEEE Internet Computing
+29
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+in10. The performance of the CNN-based modulation
+classiﬁer before and during the adversarial attack is
+depicted in Figure 3. A distinct drop in the accuracy of
+the modulation classiﬁcation after the adversarial
+attacks indicates the brittleness of deep supervised
+ML in 5G and B5G applications. Moreover, our results
+show that the adoption of unsafe DL models in the
+physical layer operations of the 5G and B5G networks
+can make the air-interface of the future networks vul-
+nerable to adversarial ML attacks.
+Attacking Unsupervised ML-Based 5G
+Applications
+In 2016, O’Shea et al.15 proposed the idea of channel
+autoencoders, which is an abstraction of how an end-
+to-end radio communication module functions in real-
+world wireless systems. Such a deep autoencoder-
+based communication model is seen as a viable alter-
+native to the dedicated radio hardware in the future 5G
+and beyond networks.16 Figure 4(a) depicts the concep-
+tual design of the channel autoencoder that we choose
+as a deep UL model for this case study. We assume the
+model is subjected to an additive white Gaussian noise
+(AWGN) channel and apply the parameter conﬁgura-
+tions provided in.14 To perform the adversarial ML
+attack on the channel autoencoder, we consider the
+following threat model and compare the performance
+of the model with and without attack.
+› We assume a white-box setting, where the adver-
+sary has complete knowledge of the deployed
+ML model. We further assume that the autoen-
+coder learns a broadcast channel. The proposed
+adversarial attack on channel autoencoder can
+be converted into a black-box adversarial attack,
+where the adversary has zero knowledge of the
+target ML model, by following the surrogate
+model approach provided in.11
+› The goal of the adversary is to compromise the
+integrity of channel autoencoder and the suc-
+cess of the adversary is measured by the ele-
+vated BLER with improving SNR per bit (Eb=N0).
+We take the following two-step data-independent
+approach to craft adversarial examples for the chan-
+nel autoencoder.
+1) Sample
+the
+Gaussian
+distribution
+randomly
+(because the channel is AWGN) and use it as an
+initial adversarial perturbation d.
+2) Maximize the mean activations of the decoder
+model when the input of the decoder is the per-
+turbation d.
+This produces maximal spurious activations at
+each decoder layer and results in the loss of the integ-
+rity of the channel autoencoder. Figure 4(b) shows the
+performance of the model before and under the adver-
+sarial attack. Moreover, the ﬁgure suggests that
+adversarial ML attack often outperforms the tradi-
+tional jamming attacks.
+Since the idea of channel autoencoder in a wire-
+less device is to model the on-board communica-
+tion
+system
+as
+an
+end-to-end
+optimizable
+operation, the adversarial ML attacks on channel
+autoencoder show that the application of unsuper-
+vised ML in the 5G mobile networks increases its
+vulnerability to adversarial examples. Hence, we
+FIGURE 4. (a) Architecture of channel autoencoder for 5G and future networks proposed in14. (b) Performance of the channel
+autoencoder before and under the adversarial ML attack and traditional jamming attack. The block error rate (BLER) versus
+Eb=N0 curves indicates that adversarial ML attack does not only deteriorate the model’s performance but also leads to similar
+or worse performance than with a known jamming attack.
+30
+IEEE Internet Computing
+March/April 2021
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+argue that deep UL-based 5G networked systems
+and applications need to be revisited for their
+robustness before being integrated into the 5G, IoT,
+and related systems.
+Attacking Reinforcement ML-Based 5G
+Applications
+In the ﬁnal case study, we performed the adversarial ML
+attacks on an end-to-end DRL autoencoder with a noisy
+channel feedback system.17 Goutay et al.17 take the
+same architecture we consider in the previous case
+study (see the section titled “Attacking Unsupervised
+ML-based 5G Applications”) and add a noisy feedback
+mechanism to it, as shown in Figure 5(a). The end-to-
+end training procedure involves the following.
+1) The RL-based transmitter training by a policy
+gradient theorem17 to ensure that the intelligent
+transmitter learns from the noisy feedback after
+a round of communication.
+2) SL model-based receiver training to train the
+receiver as a classiﬁer.
+More details on the design and training procedure
+are available in17. The considered threat model for this
+case study is given as follows.
+› We choose a realistic black-box setting where
+the adversary does not know the target model.
+We also assume that the adversary can perform
+an adversarial ML attack for “n”-time steps.
+› The goal of the adversary is to compromise the
+performance of the DRL autoencoder with noisy
+feedback for a speciﬁc time interval. The success
+of the adversary is measured by the degradation
+in the decoder’s performance during the attack
+interval.
+We exploit the transferability property of the adver-
+sarial examples, which states that adversarial examples
+compromising an ML model will compromise other ML
+models with high probability if the underlying data dis-
+tribution is same between two victim models. So we
+transfer the adversarial examples crafted in case study
+(see the section titled “Attacking Unsupervised ML-
+based 5G Applications”) and measure the average accu-
+racy of the receiver. We run the DRL autoencoder with
+a noisy feedback system for 600-time steps (one time-
+step is equal to one communication round) and per-
+form the adversarial attack between 200 and 400-time
+step window. We transfer 200 successful perturbations
+from the previous case study (see the section titled
+“Attacking Unsupervised ML-based 5G Applications”).
+Figure 5(b) shows the performance of the receiver
+(decoder) of the DRL autoencoder. It is evident that the
+performance of the receiver degrades from 95% to
+nearly 80% during the adversarial attack window.
+Our results, as presented in this section, conﬁrm
+the feasibility of adversarial ML attacks on DL-based
+applications from all the three types of ML algorithms
+that are prevalent in the 5G network systems, and
+highlight the additional threat landscape emerges due
+to the integration of vulnerable DL models to the 5G
+and B5G networks.
+DISCUSSION
+Toward Robust ML-Driven 5G and
+Beyond Networks
+Robustness against adversarial ML attacks is a very
+challenging problem. We ﬁrst note that there does not
+exist much work on the recommendations and guide-
+lines for evaluating the robustness of ML in 5G appli-
+cations. Moreover, to date, there does not exist a
+defense that ensures complete protection against
+FIGURE 5. (a) Architecture of the DRL-based channel autoencoder with noisy feedback for 5G and B5G networks proposed in17.
+(b) Performance of the DRL autoencoder with noisy feedback before, during, and after the adversarial ML attack. A clear drop in
+the performance of the receiver during the attack indicates the success of the adversary in compromising the DRL autoen-
+coder-based end-to-end communication system in future mobile networks.
+March/April 2021
+IEEE Internet Computing
+31
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+adversarial ML attacks. In our previous works,6,18 we
+have performed an extensive survey of the adversarial
+ML literature on robustness against adversarial exam-
+ples, and showed that nearly all defense mechanisms
+proposed in the literature take one of the following
+three approaches.
+1) Modifying data (e.g., adversarial training, feature
+squeezing, input masking).
+2) Auxiliary model addition (e.g., generative model
+addition, ensemble defenses).
+3) Modifying
+model
+(e.g.,
+defensive
+distillation,
+model masking, gradient regularization).
+Although, our results in 5G related use-cases pre-
+sented in the section titled “THREE CASE STUDIES
+HIGHLIGHTING ADVERSARIAL ML RISK FOR 5G AND
+BEYOND” indicate that the representative ML-based
+5G applications from physical layers are vulnerable to
+the adversarial ML attacks, the threat models exploit
+the underlying vulnerability inherent to known DL mod-
+els in general. For instance, we were able to attack the
+DRL autoencoder by exploiting the fact of transferabil-
+ity, which is the root-cause that enables a same pertur-
+bation to fool multiple models. Thus, we draw attention
+to the security landscape of 5G and B5G widening fur-
+ther from adoption of a plethora of DL-driven compo-
+nents,
+substantiated
+through
+results
+from
+three
+speciﬁc use cases related to 5G physical layer.
+Recommendations for Designing and
+Evaluating Defenses Against
+Adversarial ML Attacks
+Designing a Defense
+Designing a defense against adversarial examples is a
+very challenging task. Many approaches for defending
+against these attacks are available in the literature
+but these techniques are shown ineffective against
+newer variations of the attacks.6 The following are a
+few recommendations for designing a defensive inter-
+vention against adversarial examples.
+› A generic defense that can defend against any
+type of adversarial attack is not possible. So the
+ﬁrst logical step is to understand the threat
+model of the system for which the defensive
+intervention is needed.
+› In many cases, the adversarial examples are gen-
+erated/sampled from a distribution similar to the
+legitimate data. A preemptive data generation
+process (by using generative models) and aggres-
+sive labeling (labeling the preemptively generated
+examples as false positives) can improve the odds
+of detecting many adversarial attacks. In our previ-
+ous work,12 we have shown that this procedure
+can help in making a better defense.
+› Deploy all known procedures from the literature
+that is in line with the threat model.
+› Always design defenses considering adaptive
+adversaries.
+Evaluating a Defense
+In the following, we have provided a few important
+evaluation guidelines for evaluating the ML-based 5G
+applications against adversarial ML attacks. These
+insights are extracted from the Carlini et al.19 and our
+previous works.6,20
+› Many defenses are available in the literature
+against adversarial attacks but these defenses are
+limited by the design of the application. Using them
+without considering the threat model of ML-based
+5G applications can create a false sense of security.
+So, for ML-based 5G applications, threat models
+must clearly state the assumptions taken, type of
+the adversary, and the metrics used for evaluating
+the defense.
+› Always test the defense against the strongest
+known attack and use it as a baseline. Evaluating
+for an adaptive adversary is also necessary.
+› Evaluate the defense procedure for gradient-
+based, gradient-free, and random noise-based
+attacks (https://www.robust-ml.org/).
+› Clearly state the evaluation parameters (accu-
+racy, recall, precision, F1 score, receiver operat-
+ing characteristic curve (ROC), etc.) used in
+evaluating/validating the defense, and always
+look for a change in the false positive and false
+negative scores.
+› Evaluation of the defense mechanism against
+out-of-distribution examples and transferability-
+based adversarial attacks is very important.
+Although
+these
+recommendations
+and
+many
+others in6,18–20 can help in designing a suitable
+defense against adversarial examples but this is still
+an open research problem in adversarial ML and ripe
+for investigation for ML-based 5G applications.
+Beyond Vulnerability to Adversarial ML
+Attacks
+Apart from the vulnerability of the ML models to the
+adversarial ML attacks, we underline the following
+drawbacks that call into question the possibility of
+32
+IEEE Internet Computing
+March/April 2021
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+ML-driven solutions getting integrated into the real-
+world 5G networks any time soon.
+Lack of Real-World Datasets
+Due to the dearth of openly available real network
+data from the telecom operators, a large amount of
+ML research in the telecom domain still largely
+depends on simulated/experimental data that often
+falls short of truly representing real-world randomness
+and variations. Thus, current state-of-the-art ML mod-
+els in telecommunication applications are not yet
+ready to replace the domain-knowledge based expert
+systems currently in operation.
+Lack of Explainability
+In ML studies, the accuracy of a model comes at the
+cost of explainability. The DL models are highly accu-
+rate in providing output but lack an explanation of
+why a particular output is achieved. Explanation of a
+decision taken often would be a critical requirement
+in the 5G and B5G network settings, especially
+because many critical services such as transport sig-
+naling, connected vehicles, and URLLC are expected
+to be realized over the 5G infrastructure.
+Lack of Operational Success of ML in Real-
+World Mobile Networks
+A plethora of ML models exist in the mobile network-
+ing literature but use of ML models in operational
+mobile networks currently is still quite limited. When
+we perform attacks on the ML models running under
+the ideal environment, simulated or in favorable lab
+conditions, and still, the victim models cannot with-
+stand
+the
+adversarial
+attacks,
+as
+demonstrated
+through our case studies. In real-world mobile net-
+works, the ML models need to be deployed and stay
+functional under unforeseen random environments,
+leaving them more vulnerable to adversarial attacks
+that are beyond what they are designed to be robust
+against.
+CONCLUSION
+Security and privacy are uncompromising necessities
+for modern and future global networks standards
+such as 5G and B5G, and accordingly fortifying it to
+thwart attacks and withstand the rapidly evolving
+landscape of future security threats is of vital impor-
+tance. This article speciﬁcally highlights that the
+unvetted adoption of DL-driven solutions in 5G and
+B5G networking gives rise to security concerns that
+remain unattended by the 5G standardization bodies,
+such as the 3GPP. We argue this is the right time for
+cross-disciplinary research endeavors considering ML
+and cybersecurity to gain momentum, and enable
+secure and trusted future 5G and B5G mobile net-
+works for all future stakeholders. We hope that our
+work will motivate further research toward “telecom-
+grade ML” that is safe and trustworthy enough to be
+incorporated into 5G and B5G networks, thereby
+power intelligent and robust mobile networks sup-
+porting diverse services including mission-critical
+systems.
+REFERENCES
+1. A. Haider, R. Potter, and A. Nakao, “Challenges in
+resource allocation in network virtualization,” in Proc.
+20th ITC Spec. Semin., 2009, vol. 18, pp. 1–9.
+2. X. Foukas, M. K. Marina, and K. Kontovasilis, “Iris: Deep
+reinforcement learning driven shared spectrum access
+architecture for indoor neutral-host small cells,” IEEE J.
+Sel. Areas Commun., vol. 37,no. 8, pp. 1820–1837, Aug.
+2019.
+3. H. Huang, J. Yang, H. Huang, Y. Song, and G. Gui, “Deep
+learning for super-resolution channel estimation and
+DOA estimation based massive MIMO system,” IEEE
+Trans. Veh. Technol., vol. 67, no. 9, pp. 8549-8560,
+Sep. 2018.
+4. I. Ahmad, S. Shahabuddin, T. Kumar, J. Okwuibe,
+A. Gurtov, and M. Ylianttila, “Security for 5G and
+beyond,” IEEE Commun. Surv. Tut., vol. 21, no. 4,
+pp. 3682–3722, Oct.–Dec. 2019.
+5. Y. E. Sagduyu et al., “When wireless security meets
+machine learning: Motivation, challenges, and research
+directions,” 2020, arXiv:2001.08883.
+6. A. Qayyum, M. Usama, J. Qadir, and A. Al-Fuqaha,
+“Securing connected and autonomous vehicles:
+Challenges posed by adversarial machine learning and
+the way forward,” IEEE Commun. Surv. Tut., vol. 22,
+no. 2, pp. 998–1026, Apr.–Jun. 2020.
+7. C. Szegedy et al., “Intriguing properties of neural
+networks,” 2013, arXiv:1312.6199.
+8. I. J. Goodfellow, J. Shlens, and C. Szegedy, “Explaining
+and harnessing adversarial examples,” 2014,
+arXiv:1412.6572.
+9. N. Papernot, P. McDaniel, S. Jha, M. Fredrikson,
+Z. B. Celik, and A. Swami, “The limitations of deep
+learning in adversarial settings,” in Proc. IEEE Eur.
+Symp. Secur. Privacy, 2016, pp. 372–387.
+10. N. Carlini and D. Wagner, “Towards evaluating the
+robustness of neural networks,” in Proc. IEEE Symp.
+Secur. Privacy, May 2017 pp. 39–57.
+11. M. Usama, A. Qayyum, J. Qadir, and A. Al-Fuqaha,
+“Black-box adversarial machine learning attack on
+network trafﬁc classiﬁcation,” in Proc. 15th Int. Wireless
+Commun. Mobile Comput. Conf., 2019, pp. 84–89.
+March/April 2021
+IEEE Internet Computing
+33
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 
+12. M. Usama, M. Asim, S. Latif, J. Qadir, and A. Al-Fuqaha,
+“Generative adversarial networks for launching and
+thwarting adversarial attacks on network intrusion
+detection systems,” in Proc. 15th Int. Wireless Commun.
+Mobile Comput. Conf., 2019, pp. 78–83.
+13. T. J. O’Shea and N. West, “Radio machine learning
+dataset generation with GNU radio,” in Proc. GNU
+Radio Conf., vol. 1, 2016.
+14. T. O’Shea and J. Hoydis, “An introduction to deep
+learning for the physical layer,” IEEE Trans. Cogn.
+Commun. Netw., vol. 3, no. 4, pp. 563–575, Dec. 2017.
+15. T. J. O’Shea, K. Karra, and T. C. Clancy, “Learning to
+communicate: Channel auto-encoders, domain speciﬁc
+regularizers, and attention,” in Proc. IEEE Int. Symp.
+Signal Process. Inf. Technol., 2016, pp. 223–228.
+16. B. Hilburn, T. J. O’Shea, T. Roy, and N. West, “DeepSig:
+Deep Learning for Wireless Communications,”
+Accessed on: Jul. 24, 2020. [Online]. Available: https://
+developer.nvidia.com/blog/deepsig-deep-learning-
+wireless-communications/.
+17. M. Goutay, F. A. Aoudia, and J. Hoydis, “Deep
+reinforcement learning autoencoder with noisy
+feedback,” in Proc. 17th Int. Symp. Model. Optim.
+Mobile, Ad Hoc, Wireless Netw., 2019, pp. 1–6.
+18. I. Ilahi et al., “Challenges and countermeasures for
+adversarial attacks on deep reinforcement learning,”
+2020, arXiv:2001.09684.
+19. N. Carlini et al., “On evaluating adversarial robustness,”
+2019, arXiv:1902.06705.
+20. M. Usama, J. Qadir, A. Al-Fuqaha, and M. Hamdi, “The
+adversarial machine learning conundrum: Can the
+insecurity of ML become the Achilles’ heel of cognitive
+networks?” IEEE Netw., vol. 34, no. 1, pp. 196–203,
+Jan./Feb. 2020.
+MUHAMMAD USAMA is currently working toward the Ph.D.
+degree in electrical engineering with the Information Tech-
+nology University, Lahore, Pakistan. His research interests
+include adversarial machine learning and computer net-
+works. He received the B.S. degree in telecommunication
+engineering from the Government College University, Faisala-
+bad, Pakistan, in 2010, and the master’s degree from the
+National University of Computer and Emerging Sciences,
+Islamabad, Pakistan. He is the corresponding author of this
+article. Contact him at muhammad.usama@itu.edu.pk.
+RUPENDRA NATH MITRA is currently working toward the
+Doctoral degree with the School of Informatics, The Univer-
+sity of Edinburgh, Edinburgh, U.K. His research interests
+include wireless networking, 5G security, and machine learn-
+ing with applications to cyber-physical systems. He received
+the M.S. degrees in computer science and engineering from
+The Ohio State University, Columbus, OH, USA, and the Uni-
+versity of Cincinnati, Cincinnati, OH, USA. Contact him at
+rupen.mitra@ed.ac.uk.
+INAAM ILAHI is a Research Assistant with the Information
+Technology University (ITU), Lahore, Pakistan. His research
+interests include adversarial machine learning and deep
+reinforcement learning. He received the M.Phil. degree
+in
+computer
+science
+from
+the
+ITU.
+Contact
+him
+at
+mscs18037@itu.edu.pk.
+JUNAID QADIR is currently the Director of the IHSAN
+Research Laboratory and the Chairperson of the Electrical
+Engineering Department, Information Technology University,
+Lahore, Pakistan. His primary research interests include com-
+puter systems and networking, applied machine learning,
+using ICT for development, and engineering education. He
+has authored/coauthored more than 100 peer-reviewed
+articles at various high-quality research venues, including
+more than 50 impact-factor journal publications at top inter-
+national research journals, i.e., the IEEE Communication
+Magazine, IEEE Journal on Selected Areas in Communica-
+tions, IEEE Communication Surveys and Tutorials, and IEEE
+Transactions on Mobile Computing. He is a senior member of
+the ACM. He was the recipient of the highest national teach-
+ing award in Pakistan—the Higher Education Commission’s
+Best University Teacher Award—for the year 2012–2013. He
+has been appointed as the ACM Distinguished Speaker for a
+three-year term starting from 2020. Contact him at junaid.
+qadir@itu.edu.pk.
+MAHESH K. MARINA is a Professor with the School of Infor-
+matics, The University of Edinburgh, Edinburgh, U.K., and a
+Turing Fellow with the Alan Turing Institute, London, U.K.
+Before joining The University of Edinburgh, he had a two-year
+postdoctoral stint with the UCLA Computer Science Depart-
+ment. He has previously held visiting researcher positions
+with ETH Zurich and Ofcom London. He is a distinguished
+member of the ACM and a senior member of the IEEE. He
+received the Ph.D. degree in computer science from the State
+University of New York–Stony Brook, Stony Brook, NY, USA, in
+2004. Contact him at mahesh@ed.ac.uk.
+34
+IEEE Internet Computing
+March/April 2021
+AI-POWERED 5G SERVICES
+Authorized licensed use limited to: National University Fast. Downloaded on April 30,2024 at 05:56:58 UTC from IEEE Xplore.  Restrictions apply. 

@@ -1,0 +1,1205 @@
+Intelligent Resource Allocation in Dense LoRa
+Networks using Deep Reinforcement Learning
+Inaam Ilahi1, Muhammad Usama1,2, Muhammad Omer Farooq3, Muhammad Umar Janjua1, and
+Junaid Qadir1,4
+1 Information Technology University (ITU), Punjab, Lahore, Pakistan
+2 Lahore University of Management Sciences (LUMS), Pakistan
+3 Department of Systems and Computer Engineering, Carleton University, Canada
+4 Department of Computer Science and Engineering, College of Engineering, Qatar University, Doha,
+Qatar
+Abstract— The anticipated increase in the count of IoT
+devices in the coming years motivates the development
+of efﬁcient algorithms that can help in their effective
+management while keeping the power consumption low. In
+this paper, we propose an intelligent multi-channel resource
+allocation algorithm for dense LoRa networks termed as
+LoRaDRL and provide a detailed performance evaluation.
+Our results demonstrate that the proposed algorithm not
+only signiﬁcantly improves LoRaWAN’s packet delivery
+ratio (PDR) but is also able to support mobile end-devices
+(EDs) while ensuring lower power consumption hence
+increasing both the lifetime and capacity of the network.
+Most previous works focus on proposing different MAC
+protocols for improving the network capacity, i.e., Lo-
+RaWAN, delay before transmit etc. We show that through
+the use of LoRaDRL, we can achieve the same efﬁciency
+with ALOHA compared to LoRaSim, and LoRa-MAB
+while moving the complexity from EDs to the gateway thus
+making the EDs simpler and cheaper. Furthermore, we test
+the performance of LoRaDRL under large-scale frequency
+jamming attacks and show its adaptiveness to the changes
+in the environment. We show that LoRaDRL’s output
+improves the performance of state-of-the-art techniques
+resulting in some cases an improvement of more than 500%
+in terms of PDR compared to learning-based techniques.
+Index Terms—Resource Allocation, Frequency Jamming
+Attacks on Networks, Internet of Things (IoT), Deep
+Reinforcement Learning (DRL), and Cognitive Networks
+I. INTRODUCTION
+The count of Internet-of-Thing (IoT) devices is antic-
+ipated to increase manifold in the coming years. These
+non-uniformly distributed dense networks will include
+end-devices (EDs) moving with different velocities. This
+puts forward a need for effective algorithms able to
+manage all those devices while keeping the collisions
+and the energy consumption as low as possible. Long-
+Range (LoRa) is a leading Low Power Wide Area Net-
+work (LPWAN) technology and LoRaWAN is a leading
+LPWA networking protocol for LoRa. LoRa uses the
+Chirp Spread Spectrum (CSS) technique which: (i) is
+resilient to interference, (ii) uses low power, (iii) is resis-
+tant to multi-path fading, (iv) is resistant to the Doppler
+effect, and (v) has low communication link budget [1].
+LoRaWAN networks need a small infrastructure to be
+deployed and their scalability can be increased by adding
+more gateways to the network. This makes LoRaWAN
+an attractive low-cost IoT solution for transmitting data
+from the ED to the user and control commands from the
+user to the ED.
+Broadly speaking, there are two critical factors that
+decide the usefulness of LPWAN: (i) better lifetime;
+and (ii) network capacity (i.e., the maximum number
+of EDs supported by the network). Battery lifetime is
+affected by the number of transmissions and the PHY-
+layer parameters used for transmission while the network
+capacity is affected by (i) the number of available
+channels, (ii) air time (the time taken in air by the signal
+to reach the receiver), (iii) inter-transmission time, and
+(iv) transmission power. Dynamic allocation of PHY-
+layer parameters in LoRaWAN can help to increase
+the network scalability of LoRa networks by decreasing
+the number of collisions among signals coming from
+multiple EDs hence increasing their ability to co-exist.
+The network capacity of the LoRaWAN can also be
+increased by increasing the number of LoRa gateways
+and reducing the overhearing of transmissions to other
+gateways by their strategic placement.
+In LoRaWAN, a communication channel is observed
+by the ED and in case of the channel being busy,
+the PHY-layer parameters (speciﬁcally the spreading
+factor (SF) and the channel frequency) are adjusted
+reactively. The SFs are partially orthogonal and EDs
+using different SF values can transmit simultaneously
+[2]. However, such a reactive approach is not appropriate
+for low-power EDs because before any parameters se-
+lection/adjustment algorithm is invoked, several packets
+would have been re-transmitted or lost. Moreover, the
+time delay inherent in the reactive approach is also not
+acceptable in situations where decision making has to
+be done in a bounded time. Hence, there is an absolute
+need for a proactive, intelligent, and adaptive PHY-
+layer transmission parameters adjustment algorithm for
+arXiv:2012.11867v2  [cs.NI]  1 Nov 2021
+LoRaWAN.
+The presence of a large number of IoT devices in-
+creases both the intra-network and inter-network inter-
+ference causing a performance drop [3]. The integration
+of cognitive radio technology into the LoRaWAN stan-
+dard can signiﬁcantly reduce the energy consumption
+and increase the network capacity [4]. A LoRaWAN
+gateway can decode multiple simultaneous transmissions
+based on different PHY-layer transmission parameters.
+Moreover, existing research focuses on a static associa-
+tion between the resources of the IoT and the surround-
+ing real environment. IoT is extremely dynamic in nature
+and may experience unpredictable mobility, resulting in
+sudden variations of communication capabilities.
+Also, the inherent broadcast nature of wireless com-
+munications makes them vulnerable to inter-network in-
+terference and adversarial attacks. Jamming of a wireless
+signal involves the addition of noise to a signal to
+decrease the signal to noise ratio. It differs from the
+normal interference in terms of its purpose. LoRaWAN
+uses encryption techniques that only secure the packet
+content leaving the transmissions vulnerable. [5], [6],
+and [3] discuss the susceptibility of LoRa networks to
+jamming attacks. These attacks can lead the resource-
+constrained IoT devices to: (i) drain their batteries due
+to repeated data transmissions [7]; (ii) denial-of-service
+(DOS).
+As the networks are anticipated to become denser
+in the coming years, both the frequency jamming and
+dynamicity problems will become more severe. In case
+of being deployed in real-networks, the performance
+(PDR and energy consumption) of LoRa network is also
+affected by interference coming from other deployed
+networks in the area. This inter-network interference can
+cause severe performance drop if not managed. There is
+a need for algorithms that can sense this performance
+drop and hence adjust the frequencies to minimize the
+effect of inter-network interference.
+Adaptive selection of the PHY-layer parameters in
+dense LoRa networks can be performed using efﬁ-
+cient algorithms hence enabling collision-free concurrent
+transmissions [8]. The intelligent selection of parameters
+not only reduces the impact of frequency jamming
+attacks but also causes a signiﬁcant drop in energy con-
+sumption because of fewer re-transmissions required due
+to lost or collided packets. For this purpose, we proposed
+a deep reinforcement learning (DRL)-based PHY-layer
+parameters selection scheme for dense LoRa networks in
+our previous work [9]. In that article, we evaluated our
+proposed technique in uniformly distributed scenarios,
+with different percentages of intelligent devices, and
+with different power levels. We showed our technique to
+be not only able to achieve a high PDR but also reduce
+energy usage.
+In this paper, we build upon our previous work [9]
+by increasing its ability to support multiple channel fre-
+quencies and perform extensive additional experiments
+in dense networks containing mobile EDs. Furthermore,
+we test our algorithm in case of large-scale jamming
+TABLE I: Important Acronyms used in the paper
+BW
+Bandwidth
+CR
+Code Rate
+CSMA/CA
+Carrier-Sense Multiple Access / Collision Avoidance
+DDQN
+Double Deep Q-learning Network
+DL
+Deep Learning
+DNN
+Deep Neural Network
+DQN
+Deep Q-Network
+DRL
+Deep Reinforcement Learning
+ED
+End-Device
+IoT
+Internet of Things
+ISM
+Industrial, Scientiﬁc, & Medical
+LoRa
+Long-Range
+LoRaWAN
+Long-Range Wide Area Network
+MAB
+Multi-Armed Bandits
+MAC
+Medium Access Control
+PDR
+Package Delivery Ratio
+PHY
+Physical
+ML
+Machine Learning
+RL
+Reinforcement Learning
+SF
+Spreading Factor
+WAN
+Wide Area Network
+attacks on dense networks and show our algorithm to
+adapt against such attacks.
+The rest of this paper is organized as follows. In
+Section II, we have discussed the common terminologies
+used in LoRa networks and have provided the related
+work. In Section III, we have provided the complete
+system setup of the network and the DRL algorithm.
+In Section IV, we have provided a brief introduction
+of our previously proposed scheme LoRaDRL along
+with discussing the computational complexity and the
+applicability to real environments. In Section V, we have
+performed the performance evaluation of LoRaDRL
+in multiple scenarios and provided the multi-channel
+scheme. Finally, the paper is concluded in Section VI.
+A list of important acronyms used are given in Table I.
+II. BACKGROUND AND LITERATURE REVIEW
+A. LoRa Networks
+LoRaWAN is laid out in a star-of-stars topology.
+It works in the unlicensed Industrial, Scientiﬁc, and
+Medical (ISM) frequency band. LoRaWAN architecture
+consists of LoRa end devices (EDs), LoRa gateways,
+network servers, and application (user) servers. A basic
+LoRaWAN architecture containing transmitting EDs,
+gateway, and network server has been shown in Fig. 1.
+The applications of deployed LoRa EDs in LoRaWAN
+can be either event-driven or scheduled. The former one
+involves the transmission of data whenever a speciﬁc
+event occurs while the latter involves transmissions on
+scheduled intervals. Parking sensors in parking lots to
+sense the available parking spaces are an example of
+event-driven EDs while the temperature sensors mounted
+at the top of buildings to measure the temperature of the
+area exemplify scheduled transmitters.
+In LoRa, a transceiver can select a bandwidth (BW) in
+the range 7.8 to 500 kHz, and mostly a LoRa transceiver
+operates at 125 kHz, 250 kHz, or 500 kHz. Spreading
+Factor (SF) deﬁnes the ratio between the symbol rate and
+the bandwidth. LoRa provides seven SF rates to choose
+Fig. 1: Architecture of LoRaWAN consisting of LoRa EDs, LoRa gateway, network server, and end-user. The EDs serve different purposes and transmit the data
+to the gateway based on the application requirements. The received data packets are forwarded to the network server, which in turn forwards them to the end-user.
+from (SF6 to SF12). By modifying the SF parameter,
+we make a tradeoff between the communication range
+and the data rate. As discussed before that the SF
+values are partially orthogonal, they can be used to
+make multiple simultaneous communications possible
+with minimum collisions. Coding rate (CR) deﬁnes the
+level of protection against interference. LoRa deﬁnes
+four coding rates: 4
+5, 4
+6, 4
+7, 4
+8. A LoRa radio can transmit
+between -4 to 20 dBm in 1 dB steps. However, due
+to hardware limitations, the mentioned range is mostly
+limited between 2 to 20 dBm The useful bit rate (Rb)
+is given as:
+Rb = SF × (BW
+2SF ) × CR.
+(1)
+This shows that the useful bit rate is directly propor-
+tional to BW & CR and inversely to SF. LoRaWAN
+provides 3 transmission classes to satisfy the require-
+ments of different applications, namely, class A, class
+B, and class C. Class A is the most energy-efﬁcient
+class and is normally used in battery-powered devices.
+In class A, there are two downlink communication
+slots after each uplink transmission. Class B involves
+scheduled downlink communication slots and is less
+energy-efﬁcient than class A. In class C, the downlink
+communication is always active and hence this class is
+the least energy efﬁcient. Normally, class C devices are
+connected directly to the main power. To get a broader
+view of LoRaWAN technology, we refer the reader to
+[10]–[12].
+B. Deep Reinforcement Learning (DRL)
+The rapid evolution of deep learning (DL) and compu-
+tational technologies have enabled the conventional RL
+to solve the complex sequential decision problem which
+is previously deemed impossible due to dimensionality
+issues. A combination of DL with legacy RL is known
+as DRL. Mnih et al. [13] proposed Deep Q-Networks
+(DQN), a combination of Deep Neural Network (DNN)
+and Q-learning [14], as a solution to the computational
+complexity problem faced by Q-learning in complex en-
+vironments. Mnih et al. [13] also introduced the concept
+of experience replay and target network to improve the
+DQN’s performance. The Q-values are updated as given
+in Equation 2.
+Equation 2 provides a detailed description of DQN.
+Q(s, a) = R(s, a) + γ max a′ (Q(s
+′, a
+′)),
+(2)
+where s′ is the next state, a′ is the next action, R is
+the reward of a state-action pair, Q is the Q-value of the
+state-action pair, and γ is the discount factor. The policy
+π in DQN is to take the action with the maximum Q-
+value at a speciﬁc state, i.e., Q∗(s, a) = maxa Qπ(s, a)
+and is represented by the DNN.
+Why DRL? In case of normal Q-learning, a Q-table is
+built to store the Q-values corresponding to each state-
+action pair. This table can only be built when the state-
+space and action-space are both discrete. In case any
+of them is continuous, the size of the table increases
+exponentially with each possible value of actions and
+states. DQN [13] can support continuous state and action
+spaces while keeping a ﬁxed size of the model. They
+approximate the relationship of the state-action pairs and
+Q-values by the use of deep neural networks (DNNs),
+thereby removing the requirement of populating tables.
+DQNs were shown to be over-estimating the Q-values by
+[15]. As a remedy, they propose the value estimation be
+done by the target network instead of the online network.
+This not only reduces the over-estimation of Q-values
+but also increases the stability of learning.
+C. Related Work
+A number of different PHY-layer parameters selection
+algorithms for LoRaWAN have been proposed so far. We
+discuss the state-of-the-art algorithms only. There are
+two major schemes for handling dense LoRa networks:
+(i) by scheduling the transmissions, and (ii) by an
+efﬁcient selection of PHY-layer parameters. In 2016,
+Kim et al. [16] argued that the adaptive data rate control
+used by the LoRaWAN protocol is inefﬁcient as it
+doesn’t see the congestion in the LoRa networks. To
+improve this shortcoming Kim et al. [16] used a linear
+regression model and showed better performance by
+reﬂecting congestion in the adaptive data rate control.
+Bor et al. [17] proposed a LoRaSim simulator for
+experimenting with dense LoRa networks using different
+PHY-layer parameter settings. They use ﬁxed subsets of
+the PHY-layer parameter combinations to ensure colli-
+sion avoidance. The only problem with their technique
+is that it suffers from the problems associated with a
+rule-based mechanism, i.e., their technique is based on
+a ﬁxed system model and is not able to adapt to the
+environment changes which are normal in real networks.
+Slabicki et al. [18] proposed an end-to-end network
+simulator called Flora for LoRa networks and also
+proposed and validated an adaptive data rate scheme for
+dynamic selection of link parameters for scaleable and
+efﬁcient network operation. They showed their technique
+to increase the network delivery ratio under stable chan-
+nel conditions while keeping the energy consumption
+low. They showed that the network delivery rate can
+be further improved using a network-aware approach,
+wherein the link parameters are conﬁgured based on the
+global knowledge of the network. They did not consider
+the collisions among packets which can signiﬁcantly
+reduce the packet delivery ratio.
+Bianchi et al. [19] presented a “sequential water-
+ﬁlling” strategy for assigning spreading factors (SFs) to
+all LoRa nodes. Their design focused on 1) equalizing
+the time-on-air in the different SF groups; 2) balanc-
+ing the spreading factor across multiple gateways; 3)
+keeping into account the channel capture in LoRa. Their
+work showed an improvement of 38% capacity over the
+adaptive data rate provided by LoRaWAN.
+Abdelfadeel et al. [20] propose FREE, a ﬁne-grained
+scheduling scheme for reliable and energy-efﬁcient data
+collection in LoRaWAN. They propose that instead of
+transmitting the data as soon as it is generated, it is
+scheduled for ﬁxed time slots which are decided by
+their algorithm. Although this eliminates the problem
+of collisions in LoRaWAN, this scheduling solution is
+not scalable for dense networks as each ED will have
+to wait for its allocated time slot. On the other hand,
+our algorithm helps efﬁciently transmit the data as soon
+as it is generated at the ED with minimized collisions.
+This also removes the delay caused by the scheduling
+scheme proposed by [20] which might be destructive in
+EDs deployed for time-critical applications.
+The LoRa network community has also utilized DRL
+schemes for automating different tasks, such as load bal-
+ancing [21] and resource management [22]. Aihara et al.
+[23] proposed a Q-learning aided resource allocation and
+environment recognition scheme for LoRaWAN with
+CSMA/CA. They train different deep neural networks
+(DNNs) for each LoRa ED which is resource-intensive.
+Our technique is only based on training a single DNN
+for the whole network. Also, the learning of each of
+the DNN proposed by [23] is selﬁsh and every DNN
+only focuses on its own reward while our technique
+focuses on a joint reward of the system. Also, such
+schemes cannot be deployed in dense networks owing
+to the computational requirements. Techniques like [23]
+fail when they are tested against adversarial jamming
+attacks because of the inability to adapt to the changes
+in the environment.
+Farhad et al. [24] propose a pro-active mobility-aware
+resource assignment algorithm for LoRaWAN. They pro-
+pose to update the values of SF and transmission power
+value on each uplink communication. Their algorithm is
+not based on learning and hence is bound to fail in real
+environments where the conditions are different from
+simulation.
+Aggarwal and Nassipuri [25] propose to allocate dif-
+ferent SF values to the EDs present in a small range
+of the gateway. This allocation leads to a better perfor-
+mance of the network by increasing the overall PDR.
+Their algorithm requires to explicitly provide an SF-
+allocation ratio for the EDs. As our algorithm (discussed
+later) is based on reinforcement learning, it does this
+automatically and there is no need to explicitly provide
+an explicit SF-allocation ratio. An approach similar to
+[25] has also been proposed by [26].
+Chinchilla et al. [27] propose an algorithm for reduc-
+ing the collisions in LoRa networks. Their algorithm
+works by dividing the wireless medium into resource
+blocks where each research block is based on one SF
+value and one channel frequency. The objective of their
+algorithm was only to increase the capacity of the
+network and they did not consider the energy usage in
+their algorithm. Furthermore, they do not consider the
+inter-SF collisions while our algorithm (discussed later)
+takes all of these things into consideration.
+Ta et al. [28] proposed the use of RL for dynamic
+PHY-layer transmission parameters selection for LoRa-
+based EDs. They pointed out multiple issues with Lo-
+RaSim, for example, using perfectly orthogonal spread-
+ing factors. Based on their identiﬁed weakness in Lo-
+RaSim, they proposed another discrete event simulator
+named LoRa-MAB. They used the Multi-Armed Ban-
+dits technique to solve the collision issue. We identify
+multiple issues with LoRa-MAB and hence propose our
+centralized DRL-based algorithm as a solution to these
+issues. The identiﬁed issues with LoRa-MAB are listed
+below:
+1) LoRa-MAB is exponentially complex in terms of
+its computational complexity and hence not fea-
+sible for dense LoRa networks. The convergence
+time of the algorithm is high and is bound to
+increase with an increase in the count of EDs.
+2) It does not account for the mobility of EDs. This
+makes it inapplicable in a network consisting of
+mobile EDs, such as health-care, smart vehicles,
+aging society, and post-emergency networks.
+3) The focus on optimizing power consumption is not
+done properly. Due to a missing specialized objec-
+tive function, EDs have the option of choosing any
+of the available power levels without particularly
+focusing on saving power. This random choice
+does not always lead to the optimal power level
+selection.
+4) The computations are being performed at the EDs
+without considering the power limitations in the
+case of battery-powered EDs.
+5) To reduce the complexity of the problem, LoRa-
+MAB reduces the action space of individual EDs
+based on their distance from the gateway. In case
+the EDs are mobile, a change in their position
+makes the learning sub-optimal.
+We refer the reader to [29] and [30] for getting a
+comprehensive review of the several adaptive resource
+allocation schemes proposed for LoRaWAN.
+In our previous work [9], we showed that the perfor-
+mance deteriorates in a LoRa-MAB based system when
+EDs are mobile. In this paper, we perform further ex-
+periments with LoRaDRL [9] and show the applicability
+of LoRaDRL to real LoRa networks. Furthermore, we
+test the performance of LoRaDRL in case of large-scale
+jamming attacks and show its adaptability to changes
+in the environment. We also show the susceptibility of
+rule-based techniques against these attacks.
+III. SYSTEM SETUP
+We have previously described the working of our
+DDQN-based adaptive PHY-layer parameter selection
+algorithm for dynamically deployed networks in [9].
+In this paper, we further discuss the complexity and
+applicability aspects in detail in the following section.
+One of the major problems seen in the previously
+proposed resource allocation techniques for LoRaWAN
+is the missing support for real dynamic environments
+which keep on changing with time. Furthermore, in the
+experiments section we show that LoRaDRL can sense
+the performance drop due to frequency jamming and
+hence can shift the system to the less interfered channels
+and hence maintain the performance of the network. We
+also show the ineffectiveness of the rule-based system
+LoRaSim against such attacks.
+A. Problem Statement
+LoRa provides multiple SF values for transmission
+which lead to different data rates. The signals generated
+using different SF values are partially orthogonal to each
+other. By compromising the data rate, the concurrent
+transmissions can be increased by the use of different SF
+values and transmission channels. The efﬁcient selection
+of these parameters in dense networks can not only save
+energy but also increase the capacity of the network.
+B. System Model
+In our proposed scheme, we consider a single-gateway
+LoRa network containing k LoRa EDs uniformly dis-
+tributed over an area of a radius of 4500m with the
+gateway present in the center. The EDs can choose to
+transmit the data using different PHY-layer parameter
+combinations over multiple available transmission chan-
+nels. We do not limit the SF values for the EDs and
+all the EDs are free to use any of the SF values. The
+gateway acts as the agent whose goal is to decide the
+PHY-layer parameters for each of the EDs. It is assumed
+that a new ED arrives at each time-step and is located
+at an arbitrary location. The normalized count of each
+of the actions (taken until the current step) and the
+approximate distance of the new-coming LoRa ED is
+taken as the state of the environment.
+The basic mapping of our algorithm on the workﬂow
+of DRL has been given in Fig. 2. The agent takes a
+speciﬁc action (choosing a PHY-layer parameters combi-
+nation for the new LoRa ED) at a time-step and receives
+a reward based on the achieved packet delivery ratio
+(PDR) and power-usage based on that chosen action.
+Fig. 2: Mapping of our problem setup on DRL. The gateway is considered the
+agent and the LoRa network represents the environment.
+We use PDR and energy consumption as our per-
+formance metrics. The PDR is deﬁned as the ratio of
+correctly delivered messages to transmitted messages
+over a period of time. The achievable PDR depends on
+the position, count, and behavior of LoRa EDs.
+For experimental purposes, we are assuming a LoRa
+network consisting of class C devices for training. After
+training our model can be deployed with any class of
+the LoRa devices. We use the Gauss-Markov Model
+for the mobility of the EDs. This model eliminates the
+sudden stops and sharp turns encountered in the Random
+Walk Mobility Model by allowing past velocities and
+directions to inﬂuence future velocities and directions.
+Our previous results [9] showed that when the mo-
+bility was introduced in the LoRa-MAB system [28],
+the performance started to degrade immediately due to
+non-adaptability and no support for mobile EDs. The
+learning in LoRaDRL is performed on the gateway
+which is independent of the EDs and hence can handle
+the mobility of EDs. As far as state calculation is
+concerned, our states are based on the actions taken
+by the agent until the current step and the approximate
+distance of the ED from the gateway. The former one
+can be easily calculated by populating a table while the
+latter can be approximated using the received power of
+the signals from the EDs. It is to be noted that the EDs
+present near buildings will show less received power
+than in case of open space. This will lead the algorithm
+to choose higher SF values for such devices which is a
+good choice.
+The LoRa devices can support a power level as low as
+2 dB. In case multiple power level choices are included
+in the action-space, the energy consumption can reduce
+considerably. Due to the high training/convergence time
+of LoRaDRL, we propose the training of LoRaDRL to
+be performed in simulation and then the model be de-
+ployed in real networks with the learning to be continued
+with a small learning rate. This will help our proposed
+model adapt and ﬁt itself to the real environment.
+It is to be noted that we assume that the number of
+EDs and packet arrival rate is known at the gateway.
+It takes around 5 packet transmissions for the gateway
+to get a reliable estimate of PDR. For mobile EDs, we
+assume that the current PDR is being averaged with the
+previous 4 transmissions’ PDR. As we are not assuming
+very high velocities, hence the time required to get a
+good estimate of PDR is acceptable.
+IV. PROPOSED SCHEME FOR ADAPTIVE PHY-LAYER
+PARAMETER SELECTION
+A. Reward Function
+To assist in the learning process, we have designed a
+specialized reward/cost function to optimize PHY-layer
+transmission parameters selection for LoRa EDs. By
+using this reward function, the maximum reward is given
+to the optimal combination of PHY-layer parameters.
+The reward function is given in the below equations.
+Equation 3 is the reward for optimizing the PDR of the
+network only. Equation 4 is the modiﬁed equivalent to
+include power optimization.
+rt = α ∗PDRED −β ∗airtimeED
+(3)
+rt = α∗PDRED −β∗airtimeED +γ∗PowerED (4)
+where,
+PowerED = PowerMax −PowerChosen
+PowerMax −PowerMin
+.
+(5)
+ED is the new-coming ED that has arrived in the
+previous time-step, PDR is the package delivery ratio,
+and airtimeED is the airtime of the speciﬁc ED in
+seconds. α, β & γ are the relative constants used to
+assign appropriate weights to PDR, airtimeED, and
+PowerED. These constants act as hyper-parameters and
+can be chosen depending on the dynamics of the LoRa
+network. Power is the reward based on the power choice
+for the ED. This part of the reward function is designed
+in such a way that if we have 3 available power levels
+3 dB, 6 dB, and 12 dB, the reward is also deﬁned in a
+distributed fashion. In this way, more reward say 4x will
+be given to the agent if it chooses 3 dB power, lesser
+reward 3x will be given if it chooses the 6 dB power,
+and the least reward x will be given if it chooses the 12
+dB power.
+B. Proposed Algorithm
+The proposed DDQN-based algorithm for learning
+the PHY-layer transmission parameters for EDs in a
+LoRa network has been given in Algorithm 1. Q-network
+structure is taken as input to the model and it returns
+a trained DDQN network at the output. The algorithm
+trains for a given number of episodes where each episode
+is run for time-steps equal to the maximum number
+of EDs present in the system (we assume that a new
+ED arrives at each time-step). The replay buffer is
+populated by the agent by taking different actions at
+different states. Samples from this replay buffer are then
+used to train the neural network. This trained network
+provides the optimal policy for determining the best
+PHY-layer parameters for the EDs based on the state
+of the environment.
+Algorithm 1: LoRaDRL
+Input: Q-Network Structure
+Output: Trained Q-Network
+1: Initialize both the Target & Online Q-Networks
+2: Initialize the memory (replay buffer)
+3: for maxEpisodes do
+4:
+while steps < maxEdCount do
+5:
+Initialize the LoRa Network
+6:
+Compute state of the Network st
+7:
+Feed the state to the DNN to get action at
+8:
+Taken action at at state st
+9:
+Simulate the environment
+10:
+Compute reward rt and next state st+1
+11:
+Collect m data-points (st, at, st+1, rt) using
+policy π and add it to the memory
+12:
+Sample mini-batch from memory
+13:
+Compute the change in values using target
+Q-network Q′
+φ:
+yj = rj + γ maxa′
+j Qφ′(s′
+j, a′
+j)
+14:
+Update the Online Q-Network:
+φ ←φ −α P
+j
+dQφ(sj,aj)
+dφ
+(Qφ(sj, aj) −yj)
+15:
+if steps > targetUpdateInterval then
+16:
+Update the Target Q-Network φ
+′
+17:
+end if
+18:
+st ←st+1
+19:
+end while
+20: end for
+LoRa EDs are sleeping except when they need to
+transfer the data. The transmissions are carried out on
+the base of the different transmission classes, i.e., class
+A, B, & C. We propose that the LoRa ED send the
+packets to the gateway, which in return either sends
+an acknowledgment (to use the previous parameters) or
+sends the new PHY-layer parameters combination, to
+be used for carrying out further transmissions, through
+the control packets using the ﬁxed bandwidth channel
+of 125 kHz. In case the LoRa ED does not receive
+the parameters or acknowledgment from the gateway,
+it either chooses the maximum available power and SF
+to transmit the signal or uses the last allocated PHY-
+layer parameters for the transmission. This mechanism
+has also been shown in Fig. 3. Our algorithm also
+works well on the reduced action space by allowing the
+agent to choose from a speciﬁc subset of actions. This
+reduced subset can be made according to the data-rate
+requirements of different applications by ﬁxing a certain
+SF, CR, or transmission channel.
+Fig. 3: Proposed mechanism for implementing our proposed algorithm in real
+LoRa networks.
+C. DRL Speciﬁcations
+The neural network is kept small to make the solution
+more practical. A discount factor of 0.7 has been used
+to ensure the dependence of the current action on future
+rewards. Furthermore, we also use the ϵ-greedy learning
+procedure to fully explore the state-space where action
+at time-step t is given as:
+at =
+
+maxaQt(s, a)
+with probability (1 −ϵ)
+Random Action
+with probability ϵ
+(6)
+We have chosen linear activation at the output layer
+so that we get a probability for each of the actions. In
+this way, if some of the EDs can choose only a subset
+of actions, then that ED can choose the action with the
+maximum probability from that subset of actions. The
+target Q-network is updated on regular intervals with the
+weights of the online network.
+D. Computational Complexity
+We have taken the same state-space as our previous
+submission [9], i.e., the normalized count of each action
+and the approximate distance of the new-coming ED
+from the gateway. Due to this specialized state-space,
+the complexity of the problem does not increase with
+the increase of the end-devices. Also, we have chosen
+a minimal size for the DNN which requires minimal
+resources for training. In the later sections, we have
+enhanced our previously proposed scheme to support
+dense networks. Although the introduction of multiple
+channels increases both the action and the state count,
+the same DNN can learn as the goal of the agent in both
+these cases is the same. The overall complexity of our
+algorithm is ONN+O(1), where ONN is the complexity
+of the neural network which is a constant in our case.
+E. Applicability to Real Environments
+We have kept the size of the neural networks the
+smallest possible. This makes it applicable to gateways
+being backed by low-end computers. The activation on
+the last layer has been set to linear. Due to this, our
+neural network does not train itself to focus on just one
+action but gives probability to each action in the action-
+space. So, in case a speciﬁc ED is only able to support
+a sub-space of actions, the ED can choose the possible
+action with the highest probability.
+The DDQN can see the change in the performance
+of the network based on the reward achieved by taking
+certain actions in certain states. This ability makes the
+algorithm adaptive as whenever the DDQN observes a
+sub-optimal action being performed, it adapts the policy
+in favor of the better available action. This adaptive be-
+havior is a core beneﬁt of RL. Our proposed centralized
+approach offers many signiﬁcant beneﬁts including the
+ability to adapt (a feature missing in previous solutions)
+and support for ED’s mobility.
+F. Multi-Channel Extension of LoRaDRL
+In our previous work, our focus was only on a single-
+channel and single-gateway scheme. In this work, we
+have performed a performance evaluation of the scheme
+under new scenarios and extended the scheme to multi-
+channel LoRa networks. Modiﬁcation of the action space
+is involved in order to include multiple channels to
+support dense LoRa deployments. We have tested the
+multi-channel scheme in dense LoRa deployments and
+shown its ability to manage. We have also tested the
+performance of LoRaDRL against frequency blocking
+and shown its ability to adapt to the environmental
+interference.
+V. EXPERIMENTS & RESULTS
+For analysis and comparison of our algorithm with
+the existing state-of-the-art techniques [17], [28], we
+perform experiments to evaluate performance under (i)
+different mobility velocities; (ii) multi-channel dense
+scenarios; (iii) multiple MAC protocols; and (iv) large-
+scale frequency jamming attacks. These experiments
+have been discussed in the following subsections. All
+of the provided results have just been simulated for
+experimental purposes. We have made certain design
+choices just to make it easier for the reviewer to compare
+the performance of our proposed technique with the
+other counterparts.
+In our experiments, we use a data frame size of
+50 bytes. Typical IoT use cases generate small data
+packets, hence 50-byte frame size can represent a large
+number of IoT use cases. In our experiments, the data
+generation model is based on Poisson distribution as
+it can model multitude of IoT use-cases’ data trafﬁc
+generation pattern. We use a mean inter-arrival time, i.e.,
+the average time between two consecutive transmissions
+of the same ED, of 4 minutes. The available bandwidth
+of the LoRa EDs has been ﬁxed to 125 kHz owing to
+TABLE II: Speciﬁcations of the LoRa Network Simulations
+Average Transmission Interval
+1 × 104 milliseconds
+Mean Rate
+4 minutes
+Bandwidth
+125 kHz
+Radius
+4500 meters
+Transmission Class of EDs
+C
+Number of Base Stations
+1
+Capture Effect
+True
+Inter SF Interference
+True
+Simulation Time of 1 Epoch
+50 × Mean Rate
+Velocity
+5 ± 5 km/h
+TABLE III: Speciﬁcations of the DDQN in LoRaDRL
+No. of Layers
+2
+No. of Neurons
+[16, 16]
+Activations
+[ReLU, ReLU, Linear]
+Learning Rate
+0.0005
+Memory Capacity
+30000
+Batch Size
+128
+Gamma for Q-Values
+0.7
+Initial Epsilon
+1
+Final Epsilon
+0.05
+Change in Epsilon
+0.00005
+Update Frequency for Online Network
+3000
+test the performance based on different limitations in
+different regions. An ED’s mean velocity is set to 5
+km/h with a variance of 5. We have chosen this velocity
+to cover the use case of devices mounted on bicycles,
+UAVs, buildings, etc. for multiple purposes ranging from
+tracking and transferring sensory data to the central
+gateway. The speciﬁcations of the LoRa simulation have
+been provided in Table II. The speciﬁcations of the
+neural network have been provided in Table III.
+A. Performance Under Increasing Mobility
+As discussed in the introduction section, the real
+networks are a combination of mobile and non-mobile
+EDs. The mobile EDs move with varying velocities
+between low and high. In this subsection, we perform
+experiments to show the ability of LoRaDRL to manage
+such uniformly distributed heterogeneous networks. We
+consider a network of 100 EDs and a single frequency
+channel available for transmission. The EDs have only a
+single power level to choose from, i.e., 14 dB. Different
+velocities of mobile EDs were chosen, i.e., 5 ± 3 km/hr,
+and 30 ± 10 km/hr. The former relates to the health
+monitoring devices like smartwatches etc communicat-
+ing with the gateway while the latter relates to EDs
+mounted on bicycles, carts, etc. As we are currently
+considering a network consisting of a single gateway,
+we have not considered velocities greater than 30 km/hr.
+Fig. 4 shows the performance of LoRaDRL, the
+rule-based algorithm proposed by Bor et al. [17] and
+the decentralized algorithm LoRa-MAB. It is visible
+that the performance of LoRa-MAB drops more with
+velocities while LoRaSim and LoRaDRL can keep the
+performance at the same level. The performance of
+LoRa-MAB drops because of the slow learning process.
+However, our proposed PHY-layer parameters selection
+algorithm can support LoRa networks without any de-
+pendence on mobility velocities.
+Fig. 4: Performance evaluation based on different mobility velocities:
+Comparison of PDR of LoRa networks under LoRaSim, LoRa-MAB, and
+LoRaDRL with a conﬁdence interval of 95%. It can be seen that mobility
+does not affect the performance of LoRaDRL & LoRaSim while the increase in
+velocity causes a deterioration in the performance of LoRa-MAB.
+B. Performance In Multi-channel Scenarios
+As we know, the spreading factors from SF7-SF12
+are partially orthogonal and transmissions with different
+SFs can be received on the same channel concurrently.
+Similarly, the frequency channels are also orthogonal
+and the same SF can be received on different channels
+without any inter-channel collisions. Current LoRa gate-
+ways can receive transmissions from LoRa devices on
+8 different channels simultaneously. For this purpose,
+multi-channel transceivers are used in the LoRa gateway.
+Different frequencies do not interfere with each other
+hence the devices can choose from the available SFs
+without compromising on the PDR.
+In our previous work, we had taken the combination of
+SF and power as the action of the agent. For converting
+into a multi-channel scheme, we add the channel fre-
+quency to the action space hence increasing the action
+count according to the available frequencies. For testing
+the performance of LoRaDRL in dense deployments, we
+consider an environment consisting of 1000 LoRa EDs
+and a single gateway. The available choices of frequency
+channels are set to 8 which is the maximum number
+of frequency channels a LoRa gateway can receive and
+decode simultaneous transmissions. The EDs have only
+a single power level to choose from, i.e., 14 dB.
+The node-count wise PDR of LoRaDRL during learn-
+ing in dense LoRa networks has been shown in Ta-
+ble IV. The results show that our model can manage
+these networks effectively. In the table, a very small
+drop of PDR can be seen with the increase in the
+count of EDs. Table V(a) shows the percentage of SF
+values allocated to the devices in this dense network
+across all the frequencies. Table V(b) shows the per-SF
+PDR performance of the LoRa network. These tables
+show that LoRaDRL allocates the PHY-layer parameter
+values dynamically and adaptively. On the other hand,
+LoRaSim and LoRa-MAB allocate the values based on
+the distance from the gateway.
+TABLE IV: Table showing the performance of an 8-channel LoRaDRL in a dense
+LoRa network consisting of a single base-station. The values are presented with
+95% conﬁdence interval.
+No. of Nodes
+DER
+250
+0.94 ± 0.0091
+500
+0.91 ± 0.0093
+750
+0.88 ± 0.0093
+1000
+0.83 ± 0.01
+TABLE V: (a) Table showing the percentage of SF values of an 8-channel
+LoRaDRL in a dense LoRa network consisting of a single base-station. (b)
+Table showing the per-SF PDR performance of an 8-channel LoRaDRL in a
+dense LoRa network consisting of a single base-station.
+SF-value
+Percentage of Devices
+Allocated
+SF-7
+4.93
+SF-8
+15.09
+SF-9
+23.4
+SF-10
+19.73
+SF-11
+18.38
+SF-12
+18.47
+(a)
+SF-value
+Per-SF PDR Performance
+SF-7
+0.99
+SF-8
+0.98
+SF-9
+0.79
+SF-10
+0.83
+SF-11
+0.8
+SF-12
+0.76
+(b)
+C. Performance With Different MAC Protocols
+Much previous work has been focused on improving
+the LoRa performance using different MAC protocols
+than pure ALOHA. By using our proposed algorithm
+LoRaDRL, we can use the basic ALOHA to perform
+similar to complex MAC protocols. In this subsection,
+we test the performance of our proposed algorithm
+LoRaDRL with multiple MAC protocols. We consider
+a 2-channel LoRa network containing 100 uniformly
+placed EDs. The delay in case of “delay before transmit”
+is calculated using the following equation:
+TD = (EDID × Ud) mod Pktiat,
+(7)
+where EDID is the ID of the respective ED, Ud is
+the delay in microseconds, and Pktiat is the node mean
+packet arrival time. For these experiments, Ud was set
+to 1000. Fig. 5 shows the observed performance. Only
+a minor difference in performance can be seen as all the
+features of these MAC protocols are already present in
+LoRaDRL. Furthermore, LoRaDRL reduces the burden
+on ordinary nodes by pushing the complexity to a central
+entity (the gateway). The performance of LoRaSim with
+different MAC protocols has been shown in [31].
+Channel sensing multiple access (CSMA) involves the
+sensing of the channel before transmission and transmit-
+ting if the channel is free else waiting for a certain time
+Fig. 5: Figure showing the performance of LoRaDRL with different MAC
+protocols. It can be seen that there is a minor performance difference while
+using different MAC protocols with LoRaDRL. The bars are plotted with 95%
+conﬁdence interval.
+interval and then sensing the transmission channel again.
+In this way, the EDs have to wait for the channel to
+become free which is a rare case in dense networks.
+LoRaDRL enables concurrent data transmissions and
+removes the requirement of sensing the channel and
+waiting. This reduces the power requirement for the EDs
+and shifts the complexity from the resource-constrained
+EDs to the gateway. Furthermore, most of the state-of-
+the-art MAC layer protocols for LoRa are complex while
+LoRaDRL is based on ALOHA.
+D. Performance Under Adversarial Frequency Jamming
+Attacks
+Large-scale
+frequency
+jamming
+attacks
+can
+be
+avoided by a continuous shifting of frequencies hence
+making the jamming difﬁcult [32]. However, in realistic
+settings, the presence of an intermediary to continuously
+change the settings is not necessary. This puts forward
+the need for intelligent algorithms that can adapt to the
+changing environment in the favor of optimal settings.
+Our technique can adapt to jamming attacks and can re-
+tain the performance of the LoRa network by frequency
+hopping. In the case of RL, the learning and prediction
+go hand in hand which makes it proactive to adversarial
+attacks and adaptive to the changing conditions [33].
+For this experiment, we assume that there is another
+network present in the area who is generating very high
+inter-network interference hence reducing the perfor-
+mance of our (LoRa) network. We consider a network
+consisting of 100 LoRa EDs and two frequency channels
+available for transmission. The EDs have only a single
+power level to choose from, i.e., 14 dB. The network is
+taken to be uniformly distributed with the EDs moving
+with random velocities under 1 km/hr.
+Fig. 6 shows the training of multi-channel LoRaDRL
+algorithm. At epoch 900, one frequency out of the two
+Fig. 6: Figure showing the performance of a multi-channel LoRaDRL and
+LoRaSim scheme under frequency jamming attack. A small drop of performance
+is seen in the case of LoRaDRL as it shifts to the other available frequency. While
+in the case of LoRaSim, a sudden drop of performance can be seen because of
+the absence of a feedback loop.
+available ones is jammed. This jamming results in a
+sudden drop in performance. The system later learns on
+the base of the current performance and can adapt to
+the changing environment and achieve the performance
+of single-channel LoRaDRL. While in the case of a
+frequency jamming attack on a rule-based LoRaSim,
+the performance drops to half. The reason for this
+is the random selection of a frequency channel for
+each transmission. The performance of LoRaSim under
+frequency jamming attack has been shown in this ﬁgure
+which shows no retention of performance. It is to be
+noted here that the collisions and jamming with respect
+to the downlink communication is left as future work.
+All of the provided experiments were performed on
+a low-end 4th generation i3 laptop. It took on average
+0.3s for LoRaDRL to make a decision while LoRaSim
+took on average 0.01s to make a decision. An important
+aspect is the learning ability of the LoraDRL based on
+the changes in the environment whereas loraSim assigns
+parameters based on a deﬁned set of rules.
+VI. CONCLUSIONS
+We have proposed an intelligent multi-channel re-
+source allocation algorithm for dense LoRa networks
+termed as LoRaDRL. We have provided a detailed
+performance evaluation of this proposed algorithm by
+testing it in LoRa networks consisting of LoRa end-
+devices (EDs) having different mobility velocities, and
+in dense LoRa deployments. Our scheme has shown
+exceptional results when compared with similar previous
+techniques. Furthermore, we have proposed a multi-
+channel scheme for LoRaDRL to support multiple chan-
+nels. We tested the performance of LoRaDRL with
+different MAC protocols and show its ability to manage
+the system while shifting the complexity from the EDs to
+the gateway. We have also tested our proposed technique
+under large-scale jamming attacks where the rule-based
+techniques fail badly. The results show the effectiveness
+of our proposed technique against such attacks and its
+adaptiveness to the changes in the environment.
+REFERENCES
+[1] B. Reynders and S. Pollin, “Chirp spread spectrum as a modu-
+lation technique for long range communication,” in 2016 Sym-
+posium on Communications and Vehicular Technologies (SCVT).
+IEEE, 2016, pp. 1–5.
+[2] D. Croce, M. Gucciardo, I. Tinnirello, D. Garlisi, and S. Man-
+gione, “Impact of spreading factor imperfect orthogonality in
+lora communications,” in International Tyrrhenian Workshop on
+Digital Communication.
+Springer, 2017, pp. 165–179.
+[3] B. Reynders, W. Meert, and S. Pollin, “Range and coexistence
+analysis of long range unlicensed communication,” in 2016 23rd
+International Conference on Telecommunications (ICT).
+IEEE,
+2016, pp. 1–6.
+[4] F. Adelantado, X. Vilajosana, P. Tuset-Peiro, B. Martinez,
+J. Melia-Segui, and T. Watteyne, “Understanding the limits of
+LoRaWAN,” IEEE Communications magazine, vol. 55, no. 9,
+pp. 34–40, 2017.
+[5] I. Butun, N. Pereira, and M. Gidlund, “Analysis of LoRaWAN
+v1.1 security,” in Proceedings of the 4th ACM MobiHoc Work-
+shop on Experiences with the Design and Implementation of
+Smart Objects, 2018, pp. 1–6.
+[6] J. P. S. Sundaram, W. Du, and Z. Zhao, “A survey on LoRa net-
+working: Research problems, current solutions and open issues,”
+IEEE Communications Surveys & Tutorials, 2019.
+[7] N. Namvar, W. Saad, N. Bahadori, and B. Kelley, “Jamming
+in the internet of things: A game-theoretic perspective,” in
+2016 IEEE Global Communications Conference (GLOBECOM).
+IEEE, 2016, pp. 1–6.
+[8] S. Latif, F. Pervez, M. Usama, and J. Qadir, “Artiﬁcial in-
+telligence as an enabler for cognitive self-organizing future
+networks,” arXiv preprint arXiv:1702.02823, 2017.
+[9] I. Ilahi, M. Usama, M. Omer Farooq, M. Umer Janjua,
+and J. Qadir, “LoRaDRL: Deep reinforcement learning based
+adaptive PHY layer transmission parameters selection for Lo-
+RaWAN,” in Local Computer Networks (LCN).
+IEEE, 2020.
+[10] M. A. Ert¨
+urk, M. A. Aydın, M. T. B¨
+uy¨
+ukakkas
+¸lar, and H. Evirgen,
+“A survey on LoRaWAN architecture, protocol and technolo-
+gies,” Future Internet, vol. 11, no. 10, p. 216, 2019.
+[11] J. de Carvalho Silva, J. J. Rodrigues, A. M. Alberti, P. Solic, and
+A. L. Aquino, “Lorawan—a low power wan protocol for internet
+of things: A review and opportunities,” in 2017 2nd International
+Multidisciplinary Conference on Computer and Energy Science
+(SpliTech).
+IEEE, 2017, pp. 1–6.
+[12] U. Raza, P. Kulkarni, and M. Sooriyabandara, “Low power wide
+area networks: An overview,” IEEE Communications Surveys &
+Tutorials, vol. 19, no. 2, pp. 855–873, 2017.
+[13] V. Mnih, K. Kavukcuoglu, D. Silver, A. A. Rusu, J. Veness,
+M. G. Bellemare, A. Graves, M. Riedmiller, A. K. Fidjeland,
+G. Ostrovski et al., “Human-level control through deep rein-
+forcement learning,” Nature, vol. 518, no. 7540, p. 529, 2015.
+[14] C. J. Watkins and P. Dayan, “Q-learning,” Machine learning,
+vol. 8, no. 3-4, pp. 279–292, 1992.
+[15] H. Van Hasselt, A. Guez, and D. Silver, “Deep reinforcement
+learning with double Q-learning,” in Thirtieth AAAI conference
+on artiﬁcial intelligence, 2016.
+[16] D.-Y. Kim, S. Kim, H. Hassan, and J. H. Park, “Adaptive data
+rate control in low power wide area networks for long range IoT
+services,” Journal of computational science, vol. 22, pp. 171–
+178, 2017.
+[17] M. C. Bor, U. Roedig, T. Voigt, and J. M. Alonso, “Do LoRa
+low-power wide-area networks scale?” in Proceedings of the
+19th ACM International Conference on Modeling, Analysis and
+Simulation of Wireless and Mobile Systems.
+ACM, 2016, pp.
+59–67.
+[18] M. Slabicki, G. Premsankar, and M. Di Francesco, “Adaptive
+conﬁguration of LoRa networks for dense IoT deployments,” in
+NOMS 2018-2018 IEEE/IFIP Network Operations and Manage-
+ment Symposium.
+IEEE, 2018, pp. 1–9.
+[19] G. Bianchi, F. Cuomo, D. Garlisi, and I. Tinnirello, “Sequential
+waterﬁlling for adaptive data rate allocation in LoRaWAN,”
+arXiv preprint arXiv:1907.12360, 2019.
+[20] K. Q. Abdelfadeel, D. Zorbas, V. Cionca, and D. Pesch, “FREE–
+Fine-Grained Scheduling for Reliable and Energy-Efﬁcient Data
+Collection in LoRaWAN,” IEEE Internet of Things Journal,
+vol. 7, no. 1, pp. 669–683, 2019.
+[21] C. Gomez, A. Shami, and X. Wang, “Machine learning aided
+scheme for load balancing in dense IoT networks,” Sensors,
+vol. 18, no. 11, p. 3779, 2018.
+[22] F. Hussain, S. A. Hassan, R. Hussain, and E. Hossain, “Machine
+learning for resource management in cellular and IoT net-
+works: Potentials, current solutions, and open challenges,” arXiv
+preprint arXiv:1907.08965; accepted in IEEE Communications
+Surveys Tutorials, 2019.
+[23] N. Aihara, K. Adachi, O. Takyu, M. Ohta, and T. Fujii, “Q-
+learning aided resource allocation and environment recogni-
+tion in LoRaWAN with CSMA/CA,” IEEE Access, vol. 7, pp.
+152 126–152 137, 2019.
+[24] A. Farhad, D.-H. Kim, B.-H. Kim, A. F. Y. Mohammed, and J.-
+Y. Pyun, “Mobility-aware resource assignment to iot applications
+in long-range wide area networks,” IEEE Access, vol. 8, pp.
+186 111–186 124, 2020.
+[25] S. Aggarwal and A. Nasipuri, “Improving scalability of lorawan
+networks by spreading factor distribution,” in SoutheastCon
+2021.
+IEEE, 2021, pp. 1–7.
+[26] A. Farhad, D.-H. Kim, and J.-Y. Pyun, “Resource allocation to
+massive internet of things in lorawans,” Sensors, vol. 20, no. 9,
+p. 2645, 2020.
+[27] N.
+Chinchilla-Romero,
+J.
+Navarro-Ortiz,
+P.
+Mu˜
+noz,
+and
+P. Ameigeiras, “Collision avoidance resource allocation for lo-
+rawan,” Sensors, vol. 21, no. 4, p. 1218, 2021.
+[28] D.-T. Ta, K. Khawam, S. Lahoud, C. Adjih, and S. Martin,
+“LoRa-MAB: A ﬂexible simulator for decentralized learning
+resource allocation in IoT networks,” in 2019 12th IFIP Wireless
+and Mobile Networking Conference (WMNC).
+IEEE, 2019, pp.
+55–62.
+[29] R. Kufakunesu, G. P. Hancke, and A. M. Abu-Mahfouz, “A
+survey on adaptive data rate optimization in lorawan: Recent
+solutions and major challenges,” Sensors, vol. 20, no. 18, p. 5044,
+2020.
+[30] C. Lehong, B. Isong, F. Lugayizi, and A. M. Abu-Mahfouz,
+“A survey of lorawan adaptive data rate algorithms for possi-
+ble optimization,” in 2020 2nd International Multidisciplinary
+Information Technology and Engineering Conference (IMITEC).
+IEEE, 2020, pp. 1–9.
+[31] M. O. Farooq and D. Pesch, “A search into a suitable channel
+access control protocol for lora-based networks,” in 2018 IEEE
+43rd Conference on Local Computer Networks (LCN).
+IEEE,
+2018, pp. 283–286.
+[32] E. Aras, N. Small, G. S. Ramachandran, S. Delbruel, W. Joosen,
+and D. Hughes, “Selective jamming of LoRaWAN using com-
+modity hardware,” in Proceedings of the 14th EAI International
+Conference on Mobile and Ubiquitous Systems: Computing,
+Networking and Services, 2017, pp. 363–372.
+[33] F. Restuccia, S. D’Oro, and T. Melodia, “Securing the internet
+of things in the age of machine learning and software-deﬁned
+networking,” IEEE Internet of Things Journal, vol. 5, no. 6, pp.
+4829–4842, 2018.

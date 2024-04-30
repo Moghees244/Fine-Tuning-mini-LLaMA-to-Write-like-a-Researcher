@@ -1,0 +1,985 @@
+1
+Emotions Beyond Words: Non-Speech
+Audio Emotion Recognition With Edge
+Computing
+Ibrahim Malik1, Siddique Latif2, Sanaullah Manzoor3, Muhammad Usama4, Junaid Qadir5, and
+Raja Jurdak2
+1EmulationAI
+2Queensland University of Technology (QUT), Brisbane, Australia
+3University of the West Scotland, United Kingdom
+4National University of Computer and Emerging Sciences (NUCES), Pakistan
+5Qatar University, Doha
+Abstract—Non-speech emotion recognition has a
+wide range of applications including healthcare, crime
+control and rescue, and entertainment, to name a few.
+Providing these applications using edge computing has
+great potential, however, recent studies are focused on
+speech-emotion recognition using complex architectures.
+In this paper, a non-speech-based emotion recognition
+system is proposed, which can rely on edge comput-
+ing to analyse emotions conveyed through non-speech
+expressions like screaming and crying. In particular,
+we explore knowledge distillation to design a computa-
+tionally efﬁcient system that can be deployed on edge
+devices with limited resources without degrading the
+performance signiﬁcantly. We comprehensively evaluate
+our proposed framework using two publicly available
+datasets and highlight its effectiveness by comparing
+the results with the well-known MobileNet model. Our
+results demonstrate the feasibility and effectiveness of
+using edge computing for non-speech emotion detection,
+which can potentially improve applications that rely on
+emotion detection in communication networks. To the
+best of our knowledge, this is the ﬁrst work on an edge-
+computing-based framework for detecting emotions in
+non-speech audio, offering promising directions for
+future research.
+Index Terms—non-speech emotion recognition, edge
+computing, knowledge distillation, and computational
+efﬁciency.
+I. INTRODUCTION
+T
+HE age of the Internet of Things (IoT) is
+upon us. The raging increase in IoT devices
+and the race among tech manufacturers to capture
+the market share has reached a point where the
+communication systems are struggling to fulﬁl the
+quality of service and experience requirements. The
+merging of Artiﬁcial Intelligence (AI) with the IoT
+has resulted in a plethora of practical applications
+in recent years. These applications span a wide
+range of ﬁelds, from image classiﬁcation to stable
+diffusion [1] and speech recognition to real-time
+speech generation [2], [3]. The healthcare industry has
+seen signiﬁcant progress in disease detection, with AI
+outperforming human doctors in the early detection
+of disease [4]. Data collection and cleaning, as well
+as urban computing [5], have also beneﬁted from
+Email: siddique.latif@qut.edu.au
+this combination. Additionally, voice assistants and
+adaptive emotion recognition [6] are just a few of the
+many other applications that have emerged as a result
+of the fusion of AI and IoT. These developments have
+unprecedented levels of data storage and computa-
+tional requirements. The traditional communication
+system design was not enough to fulﬁl the needs
+of these data and compute-hungry applications. It
+gave rise to cloud computing [7], the backbone of AI-
+enabled IoT applications, and the widespread adoption
+of IoT applications is also credited to cloud computing
+technologies.
+Edge
+computing
+is
+a
+distributed
+computing
+paradigm that decreases the data transmission load
+to the cloud by bringing enterprise applications
+near the data sources such as IoT devices or edge
+servers. This proximity to data at its sources has the
+potential to bring strong business beneﬁts including
+better response times, improved bandwidth availabil-
+ity, faster decision-making, and privacy preservation.
+The development of computational technologies like
+graphics processing units, tensor processing units, etc.,
+makes it feasible to ofﬂoad some computational tasks
+to potent edge servers. When it comes to real-time ser-
+vices/applications (e.g., trafﬁc monitoring systems, fa-
+cial recognition, control system applications), latency,
+quality of service, and experience become increasingly
+critical. In particular, low latency is crucial in emotion
+recognition applications, where the computing device
+needs to classify the user’s emotional state from given
+input audio or visual data for a particular application.
+Real-time emotion identiﬁcation becomes even more
+important in a life-threatening serious situation. In
+such cases, edge computing has the potential to meet
+the latency requirements. In this work, we present an
+edge computing-based non-speech emotion detection
+system.
+Emotion recognition systems gained traction and
+their performance has increased dramatically owing
+to cutting-edge DL-enabled face, voice, language, and
+psychological signal models. The majority of emotion-
+sensing services use a system paradigm in which raw
+data collected via IoT sensors is transferred to a distant
+server for processing and decision-making as shown
+arXiv:2305.00725v1  [cs.SD]  1 May 2023
+2
+Fig. 1: State-of-the-art non-speech emotion-sensing system that transmits raw speech signals over the
+communication network for emotion analysis.
+in Figure 1. Since emotion recognition systems are
+intended to detect and classify emotion in real-time,
+it is critical to create a system with an acceptable
+level of end-to-end latency, from data acquisition to
+emotion classiﬁcation.
+Existing studies on speech-based emotion detection
+mainly focus on improving the accuracy of the
+systems for enabling their real-time applications [8].
+In these systems, they use audio conversations and
+pass them to different deep-learning models to predict
+different emotions [9]. The audio conversations used
+in these systems contain scripted speech datasets.
+However, emotions do not always exist in speech.
+Non-speech signals like screams also contain rich
+emotions. The timely identiﬁcation of screams has a
+wide range of applications in public spaces, healthcare
+[10], age care, rescue services, crime control, and
+gaming. The delays in classiﬁcation might result
+in a fatality, and the latency issue becomes even
+more concerning. In addition, state-of-the-art emotion-
+sensing applications follow the system model in which
+raw speech is transmitted to the remote server for
+processing and decision-making. Such systems are
+successful in real-life, however, they involve complete
+sharing of speech over the communication network,
+which may lead to adverse consequences to people’s
+privacy [11], [12]. Edge computing addresses the
+latency concerns and privacy related concerns by
+processing data at the edge server in a federated
+environment [6].
+Most of the emotion-sensing services follow the
+system model in which raw speech is transmitted to
+the remote server for processing and decision-making.
+This has been shown in Figure 1. Such systems
+are successful in real-life, however, they involve
+complete sharing of speech over the communication
+network, which may lead to adverse consequences to
+people’s privacy [12], [13]. Speech signal contains
+sensitive information about the message, speaker,
+gender, language, etc., which may be misused by
+eavesdropping adversary without users’ consent [11].
+In this paper, we propose a framework for IoT-
+based edge computing-enabled non-speech emotion
+recognition systems. We have made the following
+contributions:
+1) We propose to leverage edge computing to
+design a low-latency non-speech-based emotion
+recognition system for resource-constrained
+devices.
+2) We develop a computationally efﬁcient non-
+speech emotion detection system by utilising
+knowledge distillation.
+3) We provide a detailed discussion on the poten-
+tial of using non-speech emotions for various
+applications such as healthcare, rescue services,
+etc.
+4) We show the effectiveness of the proposed
+framework by evaluating the system using
+two publicly available datasets. Results show
+that our proposed model can achieve bet-
+ter performance compared to the well-known
+MobileNetV3-small model [14] and provide
+better computational efﬁciency.
+II. APPLICATIONS OF SCREAM RECOGNITION
+In this section, we will provide a brief description
+of the available scream detection systems from the
+literature. The objective here is to provide a non-
+exhaustive list of works based on non-speech emotion
+recognition-based systems.
+A. Healthcare and Rescue Services
+Understanding non-verbal emotions is a growing
+area of investigation in healthcare research. In the
+recent pandemic, many researchers investigated the
+prospect of producing an early forecast of COVID-
+19 by understanding the sound of coughs. Similarly,
+many elderly patients care researchers sought to
+comprehend the patients’ requirements by detecting
+and interpreting coughs and screams [15], [16].
+Psychologists are also seeking to detect and com-
+prehend non-verbal emotional activity to identify
+various psychiatric disorders. We have also seen
+remarkable growth in assistive technology for the
+sick and the elderly in recent years. Several of
+them were in the form of wrist/hand bands and
+lightweight sensors placed on and within the human
+body. These assistive technologies discern non-speech-
+based human emotions and other human capabilities
+by combining cutting-edge IoT technology with
+broad-ranging learning algorithms. Alam et al. [16]
+designed a portable hand band for scream detection
+for dementia patients. The band is inexpensive and
+convivial (that is, HealthBand) for monitoring the
+activities of dementia patients and the vigilance of
+the people in all the trouble.
+3
+Another application of non-verbal speech detection
+which is partly related to healthcare is rescue services.
+Scream detection techniques play a vital role in locat-
+ing the victim (human or animal) in catastrophes such
+as earthquakes, wildﬁres, etc. Since rescue-related
+operations are time sensitive and require vigilance,
+using AI/ML techniques for scream detection can aid
+in the rescue of the trapped victims under debris and
+in the burning sites. Saeed et al. [17] designed an
+AI/ML-enabled scream detection system mounted on a
+small autonomous vehicle that can help rescue victims
+from a burning site. The scream detection model in
+this system was based on support vector machines
+(SVM) and long short-term memory (LSTM). Given
+the dynamic inherent nature of their occupations,
+mobile workers are constantly at risk of being hurt;
+scream detectors can aid in the rescue of personnel
+in the event of an emergency [17], [18].
+B. Crime Control
+With the advent of AI and advanced communi-
+cation technologies, crime detection is becoming a
+booming research direction. Scream detection has a
+direct relation with violent crimes and using AI/ML
+techniques aided by the data gathered from multiple
+sensors deployed across urban spaces is an interesting
+application. Lafﬁtte et al. [19], [20] proposed an
+ML-based screaming/shouting detection mechanism.
+Marteau et al. [21] proposed deep learning-based
+methods to identify audio events such as screams,
+glass breaks, gunshots, and sprays. Unfortunately, the
+crimes of racism, harassment, and rape are on the rise
+in society [22]–[24]. Urban spaces are increasingly
+becoming unsafe for women, transgenders, and other
+genders. The application of scream detection with
+other surveillance technologies can help protect people
+from these crimes. In 2018, Seoul Metro, Korea
+installed scream detectors in women’s bathrooms in
+metro stations to ensure women’s safety1. Similarly,
+the Paris metro company is also considering AI-
+enabled scream detection technologies in the subways
+to prevent abnormal situations [19], [25]. We strongly
+believe that scream detection techniques can help
+reduce a lot of crimes.
+C. Home Applications
+Scream detection is becoming an essential tool
+accompanying visual monitoring in homes, security
+applications, nursing homes, etc. For instance, Huang
+et al. [26] proposed an energy continuity-based
+approach for feature extraction from at-home audio
+recordings and then used the support vector machine
+(SVM) for identifying the screams in the recorded
+data. O’Donovan et al. [27] proposed and evaluated
+an ML-based method for scream detection (behavioral
+disorders) in publicly available datasets of at-home
+voice recordings. They used a pre-trained CNN for
+learning scream detection from an audio dataset. For
+validation, they chose the dataset from the famous
+TV show “Supernanny” because of its similarity with
+1Seoul Metro installs scream detection system in women’s
+bathrooms, Korea Herald. https://www.koreaherald.com/view.php?
+ud=20180323000689. Access Date: 15 April 2023.
+the clinical data. These results indicate that using
+public datasets for learning the behavioural disorders
+(screams and tantrums) and then using them for
+clinical recordings is more appropriate than collecting
+a corpus of expensive private sensitive clinical data
+for training the behavioural disorder detector models.
+Domestic violence and violent relationships have
+increased dramatically in recent years [28]. Scream
+detection techniques, along with IoT-enabled voice
+assistive technology, can identify these heinous crimes
+and potentially save many individuals from harm.
+Fleury et al. [29] used recordings from eight micro-
+phones placed in a ﬂat and use speech recognition
+algorithms to determine various elements of human
+speech. This notion of autonomous voice detection
+may be expanded to identify screaming and assist a
+large number of individuals suffering from domestic
+violence and abusive relationships [30]. Despite its
+technical feasibility, signiﬁcant ethical and privacy is-
+sues remain in creating these security and surveillance
+applications.
+D. Gaming Applications
+Screams are a signiﬁcant component of speech, and
+comprehending the emotions associated with these
+screams is vital for speech detection and translation
+systems. Conventional speech dialogue datasets do not
+contain enough screams for learning and investigating
+the screams properly. Mori et al. [31] used combat
+games to record a dialogue corpus with more samples
+of screams and used that corpus for analysing the
+nature of social screams. Virtual and augmented
+reality-based games are getting popular for training
+rescue workers, ﬁrst responders, ordinary people,
+and kids for dealing with emergencies. The scream
+detection system is expected to play a vital role in
+the gamiﬁed preparation for dealing with emergencies
+[32].
+III. PROPOSED SYSTEM
+In this section, we discuss the details of the
+proposed edge-based non-speech emotion recognition
+system. The proposed framework in this study (Figure
+2) offers data collection and analytics support within
+the 5G network architecture, which is commonly
+referred to as the network data analytics framework
+(NWDA) according to 3GPP standards. Basically, the
+proposed framework can invoke NWDA functions
+to provide these two core functionalities; ﬁrst, data
+collection from network functions (NFs) i.e., local
+data processing, and second, data analytics and non-
+speech emotion recognition. Speciﬁcally, the proposed
+framework serves the following key layers including
+sensing, edge computing, and decision-making layers.
+A. Non-Speech signal Sensing Layer
+In order to perform edge-based non-speech emotion
+recognition, we devised a specialised speech sensing
+layer. The non-Speech signal-sensing layer enables
+end-user devices to collect non-speech data from
+cyber-physical space. Nowadays, we witness a vast
+proliferation of smart edge devices ranging from
+4
+Fig. 2: Components of the proposed system: (1) a non-speech signal sensing layer that collects speech data
+from mobile phones, personal assistants, or smartwatches, and converts it into speech features; (2) an edge
+computing layer that uses these features to train a deep learning model for non-speech emotion recognition;
+and (3) a decision-making layer that analyses non-speech emotions and makes decisions based on their
+positivity or negativity, potentially sending alerts to an ambulance or police.
+smartphones, smartwatches and personal assistants
+such as Alexa Home, Google Assistant, Siri, etc.
+These edge devices, speciﬁcally the personal voice
+assistants take speech input and perform certain
+actions such as turning on lights, shutting down
+appliances, or playing demanded music. In most of
+these applications, the input speech is converted into
+text that helps to determine the user’s intent using
+natural language processing and the speciﬁc action
+that needs to be taken. In our proposed framework,
+the non-Speech signal sensing layer inputs raw speech
+signals and essential pre-processing is performed
+to mitigate the background noise effects. The layer
+processes the input signal and converts it into the
+features, i.e., melspectrograms. As shown in Fig 2, in
+the non-Speech signal sensing layer, the audio features
+are propagated to the network instead of transmitting
+raw signals directly to the cloud server.
+B. Edge Computing Layer
+In our proposed model, the system has edge and
+core layers. The edge layer consists of end devices,
+i.e., mobile phones, tablets, etc., and the edge server
+which is placed near the base station (BS) as mobile-
+edge computing (MEC) server [33]. It is assumed
+that the MEC server can process edge signals and is
+also able to perform analytics on non-speech emotion
+data [34]. It is also assumed that the edge server
+has enough computational resources to execute data-
+intensive machine-learning tasks. The proposed frame-
+work adopts the 3rd generation partnership project
+(3GPP) release 16 support for machine learning-based
+data-driven optimization [35].
+The edge server is an important component of
+our proposed architecture. The edge server leverages
+low-consumption computational and storage hardware
+such i.e., edge cloudlets [36] and operates within a
+radio access network (RAN) in the close vicinity of
+end-users [33]. In our proposed architecture (as shown
+in Figure 2), the edge server not only performs trafﬁc
+aggregation gateway and network service control,
+but it also acts as an intelligent edge server that is
+responsible for the identiﬁcation of screams from the
+given speech features.
+Deploying deep learning models on edge computing
+devices is an active area of research and many
+techniques have been proposed to improve the latency
+and performance of these models. Some prominent
+techniques include pruning, quantization, knowledge
+distillation, and training computationally efﬁcient
+models. In our experiments, we use knowledge
+distillation [37] to train a small and efﬁcient model
+that can be deployed on edge devices.
+1) Knowledge Distillation: The process of knowl-
+edge distillation as the name suggests is the method of
+transferring knowledge from a larger computationally
+expensive model to a relatively smaller model. The
+larger and smaller models are called the teacher
+and student models respectively. Thus, knowledge
+distillation consists of three principal components: (1)
+knowledge; (2) distillation algorithm; and (3) teacher-
+student architecture. While there are now multiple
+methods of distillation algorithms we selected the
+5
+response-based algorithm. As shown in Figure 3, the
+hypothesis is that the student model will learn to
+mimic the predictions of the teacher model. This
+can be achieved by using a loss function, termed the
+distillation loss, that captures the difference between
+the logits of the student and the teacher model
+respectively.
+Fig. 3: Response-based knowledge distillation. The
+output logits from the student and teacher model are
+used to calculate the distillation loss between the
+student and teacher.
+As this loss minimizes overtraining, the student
+model will improve at making the same predictions
+as the teacher. In the ofﬂine training scheme, the
+teacher model is ﬁrst trained and the weights are then
+frozen. Next, we train the student model using the
+distillation loss and the logits from the teacher model
+as targets. Following is the equation of the distillation
+loss.
+Ld = αT 2 · KL
+
+softmax(T −1 · f(T, x)),
+softmax(T −1 · g(T, x))
+
+,
+where:
+Ld: the loss function for knowledge distillation
+α: a hyperparameter that controls the trade-off
+between the classiﬁcation loss and the distillation
+loss
+T: the temperature hyperparameter used to soften the
+logits (outputs of the last layer before softmax) of
+the teacher and student models
+KL: the Kullback-Leibler divergence, a measure of
+how different two probability distributions are
+softmax: a function that converts the logits to
+probabilities
+f(T, x): the logits of the teacher model for input x
+g(T, x): the logits of the student model for input x
+2) Teacher Model: Generally, for the teacher
+model a larger and deeper network is chosen so
+that it performs well on the task at hand. We chose
+ResNet18 [38] as our teacher model. ResNet18
+contains 18 residual blocks stacked together which
+alleviates the degradation and vanishing gradient
+problem. Figure 4 shows a single layer, where the
+outputs of the previous layer are added to the outputs
+of the next layer, and Figure 5 depicts the complete
+architecture of ResNet18 used for the teacher model.
+To ensure consistent size prior to addition, the input
+may undergo an operation that aligns it with the
+output dimensions. This operation is typically a
+convolution.
+Fig. 4: Residual layer. The weights of the input are
+added to the outputs from proceeding convolution
+layers.
+Fig. 5: Resnet18/Teacher architecture. The coloured
+blocks represent the convolution layers and the
+respective kernel sizes, output ﬁlters and the reduction
+of input size. The lines between the convolution layers
+represent residual connections, whereas the dashed
+represents that the input of the residual goes through
+a convolution for dimension consistency. The ﬁnal
+FC layer is a dense layer.
+3) Student Model: Unlike the teacher model, the
+student model is smaller and shallower, making it
+more computationally efﬁcient. Our proposed student
+network simply consists of 3 convolutional layers
+followed by 3 fully connected layers. Figure 6
+provides details on the relatively shallower student
+model. The ﬁrst convolution layer has a kernel size
+of 7 × 7 and the remaining two have 5 × 5 each. The
+number of ﬁlters in each layer is 6, 16, and 32, and
+after each convolution layer, we apply a maxpool layer
+of 2×2 window size. The fully connected layers have
+the outputs in this order: 128, 64, 2. For regularisation,
+6
+we add a dropout after each convolution and fully
+connected layer with a dropout probability of 10%.
+The non-linear activation chosen between the layers
+is Rectiﬁed Linear Unit or commonly referred to as
+ReLU.
+Fig. 6: Student model. Each coloured block is a
+convolution layer where K denotes the kernel size
+and F denotes the number of output ﬁlters. The ﬁnal
+FC layers are dense layers.
+C. Decision Making Layer
+We train our scream detection model at edge
+devices. Edge device communicates with the cloud
+server via cellular infrastructure and shares model
+outcome. The cloud server is responsible for scream
+analytics, decision-making, and storage services. We
+deploy the proposed classiﬁer to the edge devices
+to perform the identiﬁcation tasks. The output from
+the model is sent to the decision-making layer that
+can take necessary action based on the situation. For
+instance, if scream emotions are classiﬁed as negative
+emotions i.e., the person is in pain or sorrow, the cloud
+system will send an alert to the healthcare centre or to
+the police because the person can be injured or hurt
+by someone. If the scream emotions are classiﬁed as
+positive emotions such as joyous screams, the cloud
+system would not be sending any alerts.
+IV. EXPERIMENTAL SETUP
+In this section, we preset the details on datasets,
+input features, and training protocol.
+A. Datasets Used in Our Experiments
+• ASVP-ESD: The Audio, Speech, and Vision Pro-
+cessing Lab Emotional Sound database (ASVP-
+ESD) is a dataset that contains speech and non-
+speech utterances. There are a total of 12625
+audio samples, that are collected from various
+sources. The samples include both male and
+female speakers and the emotions are boredom
+(sigh, yawn), neutral, happiness (laugh, gaggle),
+sadness (cry), anger, fear (scream, panic), sur-
+prise (amazed, gasp), disgust (contempt), excite
+(triumph, elation), pleasure (desire), pain (groan),
+disappointment.
+• VIVAE: The Variably Intense Vocalizations of
+Affect and Emotion Corpus (VIVAE) dataset
+[39] consists of human non-speech emotion
+utterances. The full-set contains a total of 1085
+samples from eleven speakers. The utterances are
+divided into three positive (achievement/ triumph,
+sexual pleasure, and surprise) and three negative
+(anger, fear, physical pain) emotional states. The
+audio has a sampling rate of 44.1kHz.
+• DEMAND: We use this dataset to evaluate the
+performance of the proposed framework in noisy
+conditions. The Diverse Environments Multi-
+channel Acoustic Noise Database (DEMAND)
+dataset [40] provides recordings that can be
+used to evaluate algorithms using realistic noises
+captured in various real-world settings. The
+dataset spans over 6 categories. 4 of these are
+in an inside environment and the remaining
+category samples are collected in an outdoor
+setting. The dataset recordings are available
+in 48kHz and 16kHz sample rates. The audio
+was initially recorded for a long duration and
+afterwards trimmed to a total of 300 seconds
+each.
+B. Input Features
+In speech and audio research, melspectrograms
+are a popular method to represent input signal [41].
+Similarly, we chose to represent our audio samples as
+melspectrograms using a short-time Fourier Transform
+of size 1024, a hop size of 256, and a window size
+of 1024. The frequency range was chosen between
+0-8kHz and a total of 128 bands were computed.
+Each melspectrogram was normalized in the range
+of [−1, 1]. Since the sample utterances were not
+consistent in length, we decided on a cutoff of 3
+seconds for larger audios and padded the smaller
+ones with zeros, giving us consistent 3-second audios.
+Before converting the audios to melspectrograms of
+higher sampling rates we resample them to 16kHz.
+This sampling rate is kept consistent throughout the
+experiments and datasets.
+C. Training Protocol
+The training of the classiﬁcation tasks was done
+using an Nvidia GeForce RTX 3090 24-GB GPU
+with PyTorch as the framework of choice. The model
+was trained on a batch size of 64 using the binary
+cross entropy loss as the criterion. The weights of
+each layer were randomly initialized with Adam as
+the optimizer with the following parameters: β1 =
+0.9, β2 = 0.9999, ϵ = 1e−8. We experimented with
+multiple learning rates and found that a learning rate
+of 1e−5 gave better results with less training time.
+All experiments were conducted on 80% and 20%
+random splits for training and testing respectively. For
+our scream detection task conducted on the ASVP-
+ESD dataset, we had to balance the scream and non-
+scream utterances as scream utterances totalled 1170
+samples. To balance the dataset, we randomly selected
+1170 non-scream utterances, giving us effectively
+2340 samples to train the scream detector.
+During experimentation, we noticed that the model
+would overﬁt, resulting in a high train and low test
+accuracy. This high bias could be attributed to small
+dataset sizes and to mitigate this problem of high
+bias we added augmentations to our training data.
+These augmentations were composed of stretching
+and contracting audio samples and adding a low-
+amplitude Gaussian noise. Additionally, we randomly
+masked the time and frequency axes of the computed
+melspectrograms. This augmentation scheme proved
+helpful in terms of model generalisability and training.
+7
+TABLE I: Classiﬁcation results for experiments with-
+out added noise.
+Model
+Task
+Accuracy
+Teacher
+Scream Detection
+85.47
+Scream Type Classiﬁcation
+73.80
+MobileNetV3s
+Scream Detection
+76.92
+Scream Type Classiﬁcation
+65.80
+Student (proposed)
+Scream Detection
+80.58
+Scream Type Classiﬁcation
+67.16
+V. RESULTS AND DISCUSSIONS
+The objective of this proposed system is to detect
+non-speech emotions in the communication network
+using edge computing. We primarily focus on two
+types of experiments: scream detection and scream
+emotion detection. The former separates scream utter-
+ances from non-scream ones and the latter classiﬁes
+whether a person’s scream is in a situation of danger
+or duress. This is motivated by the fact that not
+all screams warrant an investigation or point to
+emergency situations. It is thus important to cluster
+screams in positive and negative categories so that the
+user can be notiﬁed of the type of scream detected
+by the system. For each of our experiments, we
+provide a comparison between the teacher, student,
+and a MobileNetV3-small model [14], a popular
+choice for edge computing. For brevity, we refer to
+MobileNetV3-small simply as MobileNetV3s in the
+proceeding sections.
+A. Non-Speech Emotion Detection
+In this section, we present the results of our scream
+detection and scream type classiﬁcation tasks. The
+former was conducted on the ASVP-ESD dataset and
+the latter on the VIVAE dataset. The results of the
+experiments are presented in Table I. We can observe
+that the model performs well in classifying scream and
+non-scream samples. However, the model struggles
+to cluster the utterances into positive and negative
+categories.
+We can see how the samples might be clustered by
+using the t-SNE algorithm [42] for dimensionality
+reduction. In Figure 7 we provide T-distributed
+stochastic neighbourhood embedding (tSNE) plots
+using the raw melspectrograms from the datasets
+and the penultimate activations of the teacher and
+student model. The plots illustrate that there is little
+to no clustering within the raw melspectrograms.
+This changes when we train the model on scream
+classiﬁcation tasks. We can observe that for the scream
+detection task, we get distinct clusters for both the
+teacher and student models. The clustering is sparse
+for the scream type classiﬁcation from the teacher
+and student models but still better than the results
+from the raw melspectrograms. This sparsity might
+explain the complexity of this task.
+B. Evaluations in Noisy Conditions
+In real-world scenarios, the background is often
+not static in nature which causes the inclusion of
+noise in the environment. To simulate a real-world
+scenario, we added noise from the DEMAND dataset
+to our audio samples and tested our evaluations in a
+simulated noisy real-world environment. The noise
+samples were randomly selected from the following
+environments: bus, metro, cafe, kitchen, and ofﬁce.
+Within each noise sample, we randomly select a chunk
+equal to the input audio sample. Table II. summarises
+the results of this experiment. To test the robustness
+of the model performance we added noise only in the
+test split. The results show that the model generalises
+well when the noise is added for evaluation only.
+TABLE II: Classiﬁcation results for experiments in a
+noisy setting.
+Model
+Task
+Accuracy
+Teacher
+Scream Detection
+82.26
+Scream Type Classiﬁcation
+69.74
+MobileNetV3s
+Scream Detection
+76.92
+Scream Type Classiﬁcation
+60.15
+Student (proposed)
+Scream Detection
+78.60
+Scream Type Classiﬁcation
+66.42
+To further test the performance of the student model
+in noisy situations, we compare the evaluation results
+for each noise category used previously. Table III.
+highlights that the results for individual noises do not
+decrease drastically, giving us overall similar results
+as discussed earlier.
+TABLE III: Classiﬁcation results of student model
+for individual noise categories.
+Task
+Noise Type
+Accuracy
+Scream
+Detection
+Cafe
+72.86
+Kitchen
+78.85
+Ofﬁce
+80.13
+Metro
+73.50
+Scream Type
+Classiﬁcation
+Cafe
+65.68
+Kitchen
+63.10
+Ofﬁce
+63.84
+Metro
+65.31
+C. Computational Complexity
+The benchmarks presented in this section are
+conducted on an UpBoard (shown in Figure 8) having
+an Intel(R) Atom E3940 CPU operating at 1.60GHz,
+with an onboard memory of 4GBs. The tests are
+recorded on the standard Ubuntu 20.04 LTS operating
+system (we did not use the server/headless version)
+and PyTorch version 1.13. The results are concluded
+without the use of post-processing features offered by
+PyTorch. These features claim to lower the inference
+time but generally with some trade-offs.
+The total time to load the model and the time
+it takes for a single forward pass of an utterance
+are two metrics that are of primary concern when it
+comes to deploying models in production. Likewise,
+we benchmark these metrics for the teacher, student,
+and MobileNetV3s models. Figure 9 provides a
+graphical comparison between the benchmarks of
+the mentioned models, which shows that in terms
+of latency, the student model is almost twice as fast
+as the teacher model and is about 20ms faster than
+the MobileNetV3s model. Furthermore, there is a
+signiﬁcant difference in terms of load times where
+the student model takes the least time to load into
+the memory. The difference between these metrics
+might better be explained by the total parameters
+and the size of each model presented in Table IV.
+8
+Fig. 7: t-SNE plots on raw melspectrograms and the penultimate activations (embeddings) of the teacher and
+student model. There is no clustering on raw melspectrogreams, however, the t-SNE plots after using the
+trained models show samples getting clustered.
+Fig. 8: Labelled diagram of UpBoard with Intel(R)
+Atom E3940 CPU, Source [43].
+A larger number of parameters in a model increases
+the computational cost. Similarly, a large memory
+footprint contributes to higher model loading times.
+These results highlight the deployment of the pro-
+posed system into memory and computation constraint
+devices such as personal assistants (Alexa Home,
+Fig. 9: Comparison of latency and loading times in
+milliseconds between teacher, student (proposed), and
+MobileNetV3s models.
+Google Assistant, and Siri). Personal assistants are
+9
+TABLE IV: Size and total parameters of the teacher,
+student, and MobileNetV3s models.
+Model
+Total
+Parameters
+Size
+(MBs)
+Teacher
+11177616
+42.676
+MobileNetV3s
+1519906
+5.844
+Student (proposed)
+712778
+2.719
+then made an effective choice for the tasks of scream
+detection and classiﬁcation. Based on scream positive
+or negative nature, these personal assistants can send
+alerts to the Police or medical centre to help the
+person.
+VI. CONCLUSIONS
+This paper presents a knowledge distillation-based
+non-speech emotion identiﬁcation system for edge
+computing. We covered various applications of non-
+speech emotion identiﬁcation and provided a case
+study based on real-life scenarios. We evaluated
+system performance based on two publicly available
+datasets. We designed our experiment setup to distin-
+guish scream sound from other utterances and classify
+non-speech utterances based on their emotional states.
+To highlight the robustness of the proposed system,
+we also evaluated these experiments by adding typical
+real-world background noises to our inputs to mimic
+real-world scenarios. Results demonstrated that the
+proposed framework provides better computational
+efﬁciency compared to the well-known MobileNetV3
+and achieves improved performance. These results
+showed the feasibility and effectiveness of our pro-
+posed non-speech emotion identiﬁcation system in
+communication networks. In the future, we aim to
+study the energy efﬁciency of the proposed non-
+speech emotion identiﬁcation system.
+REFERENCES
+[1] F.-A. Croitoru, V. Hondru, R. T. Ionescu, and M. Shah,
+“Diffusion models in vision: A survey,” arXiv preprint
+arXiv:2209.04747, 2022.
+[2] J. Li et al., “Recent advances in end-to-end automatic speech
+recognition,” APSIPA Transactions on Signal and Information
+Processing, vol. 11, no. 1, 2022.
+[3] A. Wali, Z. Alamgir, S. Karim, A. Fawaz, M. B. Ali, M. Adan,
+and M. Mujtaba, “Generative adversarial networks for speech
+processing: A review,” Computer Speech & Language, vol. 72,
+p. 101308, 2022.
+[4] Z. Hu, J. Tang, Z. Wang, K. Zhang, L. Zhang, and
+Q. Sun, “Deep learning for image-based cancer detection
+and diagnosis- a survey,” Pattern Recognition, vol. 83, pp.
+134–149, 2018.
+[5] Y. Zheng, L. Capra, O. Wolfson, and H. Yang, “Urban
+computing: concepts, methodologies, and applications,” ACM
+Transactions on Intelligent Systems and Technology (TIST),
+vol. 5, no. 3, pp. 1–55, 2014.
+[6] S. Latif, H. S. Ali, M. Usama, R. Rana, B. Schuller,
+and J. Qadir, “Ai-based emotion recognition: Promise,
+peril, and prescriptions for prosocial path,” arXiv preprint
+arXiv:2211.07290, 2022.
+[7] T. Dillon, C. Wu, and E. Chang, “Cloud computing: issues
+and challenges,” in 2010 24th IEEE international conference
+on advanced information networking and applications. IEEE,
+2010, pp. 27–33.
+[8] S. Latif, R. Rana, S. Khalifa, R. Jurdak, J. Qadir, and
+B. W. Schuller, “Deep representation learning in speech
+processing: Challenges, recent advances, and future trends,”
+arXiv preprint arXiv:2001.00378, 2020.
+[9] S. Latif, A. Zaidi, H. Cuayahuitl, F. Shamshad, M. Shoukat,
+and J. Qadir, “Transformers in speech processing: A survey,”
+arXiv preprint arXiv:2303.11607, 2023.
+[10] S. Latif, J. Qadir, A. Qayyum, M. Usama, and S. Younis,
+“Speech technology for healthcare: Opportunities, challenges,
+and state of the art,” IEEE Reviews in Biomedical Engineering,
+2020.
+[11] S. Latif, S. Khalifa, R. Rana, and R. Jurdak, “Federated
+learning for speech emotion recognition applications,” in 2020
+19th ACM/IEEE International Conference on Information
+Processing in Sensor Networks (IPSN).
+IEEE, 2020, pp.
+341–342.
+[12] S. Manzoor, A. N. Mian, A. Zoha, and M. A. Imran,
+“Federated learning empowered mobility-aware proactive
+content ofﬂoading framework for fog radio access networks,”
+Future Generation Computer Systems, vol. 133, pp. 307–319,
+2022.
+[13] M. Jaiswal and E. M. Provost, “Privacy enhanced multimodal
+neural representations for emotion recognition.” in AAAI,
+2020, pp. 7985–7993.
+[14] A. Howard, M. Sandler, G. Chu, L. Chen, B. Chen, M. Tan,
+W. Wang, Y. Zhu, R. Pang, V. Vasudevan, Q. V. Le,
+and H. Adam, “Searching for mobilenetv3,” CoRR, vol.
+abs/1905.02244, 2019. [Online]. Available: http://arxiv.org/
+abs/1905.02244
+[15] A. Imran, I. Posokhova, H. N. Qureshi, U. Masood, M. S.
+Riaz, K. Ali, C. N. John, M. I. Hussain, and M. Nabeel,
+“AI4COVID-19: AI enabled preliminary diagnosis for COVID-
+19 from cough samples via an app,” Informatics in medicine
+unlocked, vol. 20, p. 100378, 2020.
+[16] Z. Alam, H. Samin, and O. B. Samin, “Healthband for
+dementia patients: fall and scream detector and caretaker
+helper,” in Journal of Physics: Conference Series, vol. 976,
+no. 1.
+IOP Publishing, 2018, p. 012015.
+[17] F. S. Saeed, A. A. Bashit, V. Viswanathan, and D. Valles,
+“An initial machine learning-based victim’s scream detection
+analysis for burning sites,” Applied Sciences, vol. 11, no. 18,
+p. 8425, 2021.
+[18] V. Kalbag and A. Lerch, “Scream detection in heavy metal
+music,” arXiv preprint arXiv:2205.05580, 2022.
+[19] P. Lafﬁtte, Y. Wang, D. Sodoyer, and L. Girin, “Assessing
+the performances of different neural network architectures for
+the detection of screams and shouts in public transportation,”
+Expert systems with applications, vol. 117, pp. 29–41, 2019.
+[20] P. Lafﬁtte, “Automatic detection of screams and shouts in the
+metro,” Ph.D. dissertation, Lille 1, 2017.
+[21] T. Marteau, S. Afanou, D. Sodoyer, S. Ambellouis, and
+F. Boukour, “Audio events detection in noisy embedded
+railway environments,” in Dependable Computing-EDCC
+2020 Workshops: AI4RAILS, DREAMS, DSOGRI, SERENE
+2020, Munich, Germany, September 7, 2020, Proceedings.
+Springer, 2020, pp. 20–32.
+[22] J. M. Le´
+on-P´
+erez, J. Escart´
+ın, and G. Giorgi, “The presence
+of workplace bullying and harassment worldwide,” Concepts,
+approaches and methods, pp. 55–86, 2021.
+[23] N. Borumandnia, N. Khadembashi, M. Tabatabaei, and
+H. Alavi Majd, “The prevalence rate of sexual violence
+worldwide: a trend analysis,” BMC public health, vol. 20, pp.
+1–7, 2020.
+[24] H. Walia, Border and rule: Global migration, capitalism, and
+the rise of racist nationalism.
+Haymarket Books, 2021.
+[25] P. Lafﬁtte, D. Sodoyer, C. Tatkeu, and L. Girin, “Deep
+neural networks for automatic detection of screams and
+shouted speech in subway trains,” in 2016 IEEE International
+Conference on Acoustics, Speech and Signal Processing
+(ICASSP).
+IEEE, 2016, pp. 6460–6464.
+[26] W. Huang, T. K. Chiew, H. Li, T. S. Kok, and J. Biswas,
+“Scream detection for home applications,” in 2010 5th IEEE
+Conference on Industrial Electronics and Applications. IEEE,
+2010, pp. 2115–2120.
+[27] R. O’Donovan, E. Sezgin, S. Bambach, E. Butter, S. Lin
+et al., “Detecting screams from home audio recordings to
+identify tantrums: Exploratory study using transfer machine
+learning,” JMIR Formative Research, vol. 4, no. 6, p. e18279,
+2020.
+[28] J. Usta, H. Murr, and R. El-Jarrah, “Covid-19 lockdown
+and the increased violence against women: Understanding
+domestic violence during a pandemic,” Violence and gender,
+vol. 8, no. 3, pp. 133–139, 2021.
+[29] A. Fleury, N. Noury, M. Vacher, H. Glasson, and J.-F. Seri,
+“Sound and speech detection and classiﬁcation in a health
+smart home,” in 2008 30th Annual International Conference
+of the IEEE Engineering in Medicine and Biology Society.
+IEEE, 2008, pp. 4644–4647.
+[30] A. Chen, Q. He, X. Wang, and Y. Li, “Home security
+surveillance based on acoustic scenes analysis,” in 2017
+10th International Congress on Image and Signal Process-
+10
+ing, BioMedical Engineering and Informatics (CISP-BMEI).
+IEEE, 2017, pp. 1–5.
+[31] H. Mori and Y. Kikuchi, “Gaming corpus for studying social
+screams.” in INTERSPEECH, 2020, pp. 3132–3135.
+[32] A. Lochmannov´
+a, “Using virtual reality to prepare paramedics
+for emergencies,” in INTED2023 Proceedings. IATED, 2023,
+pp. 3358–3363.
+[33] Y. Liu, M. Peng, G. Shou, Y. Chen, and S. Chen, “Toward
+edge intelligence: Multiaccess edge computing for 5G and
+internet of things,” IEEE Internet of Things Journal, vol. 7,
+no. 8, pp. 6722–6747, 2020.
+[34] G. Muhammad and M. S. Hossain, “Emotion recognition
+for cognitive edge computing using deep learning,” IEEE
+Internet of Things Journal, vol. 8, no. 23, pp. 16 894–16 901,
+2021.
+[35] 3rd Generation Partnership Project, “3GPP, “Architecture
+enhancements for 5G System to support network data
+analytics services,” TS 23.288, 2019, version 16.0.0. [On-
+line]. Available: http://www.3gpp.org/DynaReport/23288.htm,”
+March 2019.
+[36] T. Taleb, K. Samdanis, B. Mada, H. Flinck, S. Dutta, and
+D. Sabella, “On multi-access edge computing: A survey
+of the emerging 5G network edge cloud architecture and
+orchestration,” IEEE Communications Surveys & Tutorials,
+vol. 19, no. 3, pp. 1657–1681, 2017.
+[37] G. Hinton, O. Vinyals, and J. Dean, “Distilling the knowledge
+in a neural network,” arXiv preprint arXiv:1503.02531, 2015.
+[38] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning
+for image recognition,” CoRR, vol. abs/1512.03385, 2015.
+[Online]. Available: http://arxiv.org/abs/1512.03385
+[39] N. Holz, P. Larrouy-Maestri, and D. Poeppel, “The Variably
+Intense Vocalizations of Affect and Emotion Corpus (VIVAE),”
+Oct. 2020. [Online]. Available: https://doi.org/10.5281/zenodo.
+4066235
+[40] J. Thiemann, N. Ito, and E. Vincent, “DEMAND: a collection
+of multi-channel recordings of acoustic noise in diverse
+environments,” Jun. 2013, Supported by Inria under the
+Associate Team Program VERSAMUS. [Online]. Available:
+https://doi.org/10.5281/zenodo.1227121
+[41] S. Latif, R. Rana, S. Khalifa, R. Jurdak, J. Qadir, and
+B. W. Schuller, “Survey of deep representation learning for
+speech emotion recognition,” IEEE Transactions on Affective
+Computing, 2021.
+[42] L. van der Maaten and G. Hinton, “Visualizing data using t-
+SNE,” Journal of Machine Learning Research, vol. 9, no. 86,
+pp. 2579–2605, 2008. [Online]. Available: http://jmlr.org/
+papers/v9/vandermaaten08a.html
+[43] “Up2
+speciﬁcation,
+[online].
+available:
+https://up-
+board.org/wp-content/uploads/2021/06/up-squared-datasheet-
+v2.pdf.”

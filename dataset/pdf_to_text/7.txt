@@ -1,0 +1,1769 @@
+1
+AI-Based Emotion Recognition: Promise, Peril,
+and Prescriptions for Prosocial Path
+Siddique Latif1, Haﬁz Shehbaz Ali2, Muhammad Usama3, Rajib Rana1, Bj¨
+orn Schuller4,5, and Junaid
+Qadir6
+1University of Southern Queensland, Australia
+2Emulation AI
+3National University of Computer and Emerging Sciences (NUCES), Pakistan
+4Imperial College London, UK
+5University of Augsburg, Germany
+6Qatar University, Doha, Qatar.
+Abstract—Automated emotion recognition (AER) technology can detect humans’ emotional states in real-time using facial
+expressions, voice attributes, text, body movements, and neurological signals and has a broad range of applications across many
+sectors. It helps businesses get a much deeper understanding of their customers, enables monitoring of individuals’ moods in
+healthcare, education, or the automotive industry, and enables identiﬁcation of violence and threat in forensics, to name a few.
+However, AER technology also risks using artiﬁcial intelligence (AI) to interpret sensitive human emotions. It can be used for economic
+and political power and against individual rights. Human emotions are highly personal, and users have justiﬁable concerns about
+privacy invasion, emotional manipulation, and bias. In this paper, we present the promises and perils of AER applications. We discuss
+the ethical challenges related to the data and AER systems and highlight the prescriptions for prosocial perspectives for future AER
+applications. We hope this work will help AI researchers and developers design prosocial AER applications.
+Index Terms—automated emotion recognition, artiﬁcial intelligence, ethical concerns, prosocial perspectives.
+!
+1
+INTRODUCTION
+Automated emotion recognition (AER) is an emerging mul-
+tidisciplinary research area that leverages advances in ar-
+tiﬁcial intelligence (AI) to algorithmically retrieve a per-
+son’s emotional state using knowledge from psychology,
+linguistics, signal processing, and machine learning (ML).
+Development of AER capabilities can have a transformative
+effect on society with wide-ranging implications due to the
+critical role emotions play in human lives ranging from
+perception, learning, and decision-making [1] [2] [3]. AER
+is an umbrella term that encompasses various related terms
+such as affective computing, affect recognition, emotional
+AI, or artiﬁcial emotional intelligence (AEI) that have been
+proposed in the literature for automated recognition of
+human emotions [4].
+In this paper, we use the term AER and focus on human-
+target AER. Human-targeted AER starts with active or pas-
+sive sensors (e.g., a video camera, microphone, physiologi-
+cal sensor) that mainly captures contextual and behavioural
+data related to affective facial expressions, speech signals,
+body pose, gestures, gait, or physiological signals. It is im-
+perative to utilise contextual information while identifying
+emotions [5]. The data obtained through the sensing devices
+extract emotional cues by the AI systems for categorical or
+dimensional emotion recognition as depicted in Figure 1.
+Email: siddique.latif@usq.edu.au
+Fig. 1. An overview of AER systems, which can process emotional infor-
+mation from different emotional information sources to predict emotions
+by utilising different AI techniques.
+AER has evolved over the years and achieved remark-
+able advances; however, it faces various complex and critical
+challenges that escalate the need for further research to de-
+sign more trustful and beneﬁcial systems [11]. Some major
+challenges faced in AER are:
+arXiv:2211.07290v1  [cs.HC]  14 Nov 2022
+2
+TABLE 1
+comparison of our paper with related articles.
+Focus
+Paper/Author (Year)
+Focus
+Promise
+Perils
+Ethical Concerns
+Prescriptions
+Kolakowska et al. [6] (2014)
+AER
+
+
+
+Feng et al. [7] (2020)
+AER
+
+
+
+Batliner et al. [8] (2020)
+Computational paralinguistics
+
+
+Liu et al. [9] (2021)
+AER (EEG only)
+
+
+
+Mohammad et al. [10] (2022)
+AER
+
+Our paper (2022)
+AER
+1)
+Unavailability of large datasets, which restricts the
+exploitation of powerful DL models to achieve bet-
+ter performance [12];
+2)
+Collection of real-life data for modalities such as
+brain activity and neurotransmitters is very chal-
+lenging;
+3)
+Varied idiosyncratic nature of human emotions due
+to which it is hard to accurately recognise them;
+4)
+Judging varying emotions in real-time is hard as
+most vision and speech-based AER algorithms focus
+on identifying the peak high-intensity expression by
+ignoring lower-intensity ones, which can result in
+inaccuracies; and
+5)
+Cultural differences in manifesting emotions, which
+makes the problem of developing global AER very
+difﬁcult.
+The public use of AER services also raises multiple
+privacy and security-related concerns due to the intimate
+nature that the AER systems detect, process, recognise, and
+communicate. This paper presents promising applications of
+AER and discusses its various perils. In particular, we focus
+on presenting the ethical concerns related to AER systems
+and databases to highlight the prescriptions for future AER
+prosocial systems.
+We note here the speciﬁcity or universality of human
+emotions has been a long-standing debate [13]. The propo-
+nents of the universality of emotions suggest that emotions
+can be recognised regardless of the different cultural back-
+grounds. While theoretical studies [14], [15] on multicultural
+studies have suggested six basic universal emotions, current
+AER systems do not perform well in multicultural settings.
+The novelty and contributions of our paper are high-
+lighted in Table 1, where we compare this paper with the
+existing articles on AER. The article by Mohammad et al.
+[10] enlists the ethical challenges for AER and suggests
+future directions but does not cover AER applications or
+the challenges related to bias, adversarial attacks, explain-
+ability, etc. Similarly, other articles only focus on modality-
+speciﬁc applications [9] or general challenges [7] without
+focusing on ethical issues. In this paper, we attempt to
+present AER’s promise, perils, and ethical concerns. We also
+provide prescriptions for designing prosocial AER systems.
+We hope this paper will guide navigating research and
+ethical implementation choices for anyone who wants to
+build or use AER for research or commercial purposes.
+The rest of the paper is organised as follows. The promise
+of AER is described in Section 2. The various perils of AERs
+are detailed in Section 3. The major ethical concerns with
+AER are discussed in Section 4. We elucidate a prospective
+path to a prosocial future for AER in Section 5. The paper is
+concluded in Section 6.
+2
+PROMISE OF AER
+AER has a wide range of applications in ﬁelds such as
+healthcare, entertainment, advertising, customer service,
+transportation, employment decisions, tutoring systems,
+law enforcement, and human-computer interaction. Appli-
+cations of AER are classiﬁed according to the input signal
+provided in Table 2. A broad description of frequently
+targeted AER applications in different domains is presented
+in Table 3 and brieﬂy discussed below.
+TABLE 2
+Applications of AER and input data.
+Human
+expression
+Data
+Possible applications
+Vocal
+expressions
+Audio
+Call centres, meetings, voice
+assistants, social robots, educations,
+human resource, healthcare, etc.
+Facial
+expressions
+Visual
+Autonomous vehicles, industrial
+and social robots, surveillance,
+social media, gaming,
+education, healthcare.
+Body movements
+and posture
+Visual
+Surveillance, education, healthcare.
+Physiological
+signals
+EEG and ECG
+records, heart rate
+Wearable devices and
+medical equipment
+.
+2.1
+Healthcare
+Developing AER methods in healthcare can greatly enhance
+the quality of life, enable individuals to better understand
+and control their affective states (e.g., fear, happiness, lone-
+liness, anger, interest, and alertness), and mitigate various
+psychological issues (that could have resulted in incidents
+of suicide, homicide, disease, and accident) [16]. This can
+greatly improve quality of life and help achieve long-term
+goals [13]. It can help save many lives by monitoring people
+and regulating their emotions through stressful times (e.g.,
+in pandemics or economic crises). It also minimises counter-
+productive behaviour such as suicidal tendencies and or
+anti-social behaviour. In healthcare settings, AER services
+play a pivotal role in shaping the healthcare functionality
+and communication among professionals, thereby improv-
+ing professional-patient relations [17]. It can help design
+assessment and monitoring of emotional consequences due
+to different illnesses. For example, AER systems can be
+3
+TABLE 3
+Summary of promises of AER technology in different domains.
+Domains
+Promise
+Healthcare
+Monitoring people and regulating emotion.
+Improves patient-physician relationships.
+Analyses and understands emotions in
+natural disasters and crises.
+Education
+Improves student-teacher interaction.
+Quantiﬁes student moods and engagement
+in the classroom.
+Promotes effective learning and increase
+students’ interest.
+Safety
+Improves workplace safety.
+Enables help for emotionally suffered
+co-workers.
+Monitors the drivers’ fatigue, stress, etc.
+Law enforcement
+and forensics
+Helps identify threats of violence
+and terrorism.
+Provides additional aid in criminal
+investigation.
+Advertising and Retail
+Helps maximise customers’ engagement.
+Helps retailers to make decisions on
+product pricing, packaging, branding, etc.
+Helps improve advertisement strategies.
+Emotional and Social
+Intelligence
+Helps inﬂuence the mood of the
+overall population.
+Helps leaders and decision-makers to
+handle highly challenging situations.
+Monitoring and Evaluation
+Enables monitoring of employees
+performance.
+Enables monitoring of major psychiatric
+problems in both military and civilian.
+Gaming
+Monitors players’ emotional states
+and dynamics during gameplay.
+Helps design affect-aware video games.
+potentially used to monitor the patient-physician relation-
+ship in chronic diseases [18]. This will help improve the
+management of chronic illnesses.
+The importance of AER technology has also come to the
+fore amid the ongoing global economic and public health
+crisis during the COVID-19 pandemic [19]. The pandemic
+situation impacts people physically, mentally, and econom-
+ically. AER systems can help to analyse and understand
+emotional responses during such crises affecting mental
+health. Studies [20], [21], [22] show that the negative emo-
+tions among the population increase during the pandemic,
+i.e., COVID-19, and people become optimistic over time by
+adapting to the pandemic. In global crisis situations like
+COVID-19, AER systems can help measure cross-cultural
+emotional trends to learn the correlation among populations
+despite the socio-economic and cultural differences [21].
+2.2
+Education
+Emotions are very crucial in the education systems due
+to their important role in the cognitive processes respon-
+sible for assimilating and learning new information [23].
+Unfortunately, the current education system fails to track
+students’ emotions and hidden indicators of their internal
+feelings, thus, making it delicate to adapt and keep the
+communication channel intact. It has been found that the
+identiﬁcation and monitoring of the learner’s emotional
+state greatly facilitates the teacher in taking actions that
+signiﬁcantly enhance the tutoring quality and execution and
+improve student-teacher interactions [24]. Therefore, it is
+worthwhile to utilise smart systems that can model the
+relations between emotions, cognition, and action in the
+learning context [25]. In this regard, AER systems can be
+considered by schools to quantify student moods and en-
+gagement in the classroom [26]. AER could help to reinforce
+students’ attention, motivation, and self-regulation toward
+studies. It could also help promote effective learning by
+increasing students’ interest [25]. On the other hand, AER
+systems can improve certain emotional qualities teachers
+must have to facilitate pedagogical approaches in education.
+2.3
+Safety
+Emotions are directly linked to human problem-solving
+abilities [27]. Safety behaviours can be predicted from the
+individuals’ ability to manage and process emotions during
+a time of stress. There is ample evidence that negative
+emotions such as anger, fear, and anxiety strongly affect hu-
+man behaviour and occupational safety [28]. For example,
+emotions can impact workplace safety and health. In the
+workplace, the negative mood of a person can contaminate
+an entire team or group. This may damage workplace safety
+and impair team performance. If such behaviours are left
+unaddressed, negative emotions can be a workplace hazard,
+with visible effects on team safety. AER systems can provide
+better solutions to monitor an individual’s mood and emo-
+tions. In addition, these systems can help ﬁnd workers who
+might need help.
+In transport, AER systems can be utilised to improve the
+safety of drivers as well as anyone on the road. Driving
+occupies a large portion of our daily life and is often
+associated with the cognitive load that can trigger emotions
+like anger or stress, which can badly impact human health
+and road safety [29], [30]. Studies [31], [32] show that in-
+duced negative emotions like anger can decrease a driver’s
+perceived safety and performance compared to neutral and
+fearful emotional states. AER services are being utilised in
+automotive environment to monitor the drivers’ fatigue,
+alertness, attention, and stress level to improve automotive
+and industrial safety by avoiding serious accidents [29].
+Mass adoption of AER systems to monitor psychological
+and physiological parameters can signiﬁcantly enhance the
+detection of dangerous situations.
+2.4
+Law enforcement and forensics
+AER systems are increasingly being used for law enforce-
+ment, and forensics, where such systems have many pos-
+sible applications in identifying threats of violence and
+terrorism and detecting lies and fraud [33]. In a forensic
+investigation, a lie can arise from denial, evasion, distortion,
+outright fabrication, and concealment by offenders to ap-
+pear non-accountable for their exertions [34]. AER systems
+can help law enforcement agencies to detect deception or
+malingering by identifying reliable emotional clues. In this
+way, AER systems provide additional aid and insights to
+law-enforcement agencies while pursuing criminal investi-
+gations [35]. AER systems can also help detect and differen-
+tiate between acted and genuine victims [34].
+2.5
+Advertising and Retail
+In marketing, one of the best ways to sell products is
+to engage the customers emotionally. Companies employ
+vast resources for affective marketing by maximising user
+4
+engagement with AI. They attempt to understand and
+appeal to the customers’ interests, and emotions [36]. In
+order to gauge a shopper’s emotion, AER systems use
+sensing devices installed in high-trafﬁc locations, including
+entrances, aisles, checkouts, etc. AER systems detect the
+emotional responses of individual shoppers, which help
+retailers in making decisions on crucial factors, including
+product pricing, packaging, branding, or shelf placement.
+In this way, AER systems help retailers understand how
+consumers communicate both verbally and non-verbally,
+which may help fuel customers’ buying decisions.
+Emotions highly impact individuals’ responses to re-
+ceiving marketing messages. Therefore, sending an emo-
+tionally tailored message to the target audience increases
+the customers’ attention to the advertisement. This helps
+companies to increase the product’s appeal and achieve a
+higher level of brand recall [37]. Indeed, advertisements
+with emotional content have more potential to be remem-
+bered than those conveying notiﬁcation [38].
+2.6
+Emotional and Social Intelligence
+Emotional and social intelligence involves understanding
+inside oneself, observing, and interpreting others for cogni-
+tive and emotional empathy, and responding constructively
+in a given situation. There is great interest in politics to
+capture and inﬂuence the mood of the overall popula-
+tion or community to understand patterns of emotional
+contagion [39]. Emotional and social intelligence can help
+leaders and decision-makers pick up emotional cues from a
+population and handle highly challenging situations. Social
+networks are particularly utilised to understand population
+behaviours [40].
+2.7
+Monitoring and Evaluation
+AER systems are being utilised to screen candidates in
+interviews [41] and to evaluate and monitor employees’
+fatigue, stress, happiness, and job performance [42]. It is
+widely accepted that emotional intelligence directly inﬂu-
+ences an employee’s intellectual capital, organisational re-
+activity and retentively, production, employee appeal and
+ability to provide good customer service [43]. AER sys-
+tems can contribute to assess a candidate’s suitability for
+a job and measure important traits like dependability and
+cognitive abilities. In particular, embedded AER systems
+enabled through IoT can provide ﬁne-grained analysis of
+emotions and sentiments [44], which can be used in various
+ways for monitoring and evaluations. In the military and
+other defence-related departments, AER systems are par-
+tially used to track how sets of people or countries ‘feel’
+about a government or other entities [10].
+2.8
+Gaming
+Video games are related to the burgeoning area of enter-
+tainment applications. Millions of users across the globe
+are entertained by violent games [45], and most selling
+games contain violence and aggression. These video games
+are played by adolescents [46]. For instance, in the United
+States, 81% of adolescents have access to digital games, and
+on average, a gamer spends 6 to 8 hours a week playing
+video games [47]. AER systems are highly suited to be
+utilised for the design of affect-aware gaming platforms
+that can monitor players’ emotional states and dynamically
+change the game’s theme to more effectively engage the
+player [48]. In these ways, affect-aware video games with
+an entertainment character can also be utilised to initiate
+pro-social behaviour by preventing anti-social actions along
+with various applications such as e-learning, marketing
+systems, and psychological training or therapy.
+3
+PERILS OF AER
+AER technology has a wide range of potentially intrusive
+applications, as discussed in the previous Section 2. It uses
+biometric data that may be used to reveal private informa-
+tion about individuals’ physical or mental states, feelings,
+and thoughts. It can also be used to interfere with the for-
+mation of beliefs, ideas, and opinions. Modern AER systems
+often use deep learning (DL) models to obtain state-of-the-
+art performance. However, such DL models are known to be
+inscrutable and are also not robust and are vulnerable to bias
+and poor performance in the face of distribution shifts and
+adversarial attacks [49]. This raises concerns about using
+the validity of AER services since it is not uncommon to see
+that even well-intentioned technologies can have negative
+consequences and how technologies can end up harming
+rather than beneﬁtting people [50], [51]. We discuss some of
+the prominent perils of AER next.
+3.1
+Risk of Exploitative Manipulation
+AER technology can be exploited and used to inﬂuence
+and control driving markets, politics, and violence. Al-
+ready, there is a big concern in the community about major
+technology companies morphing into empires of behaviour
+modiﬁcation [52]. With AER having access to intimate hu-
+man emotions, the risk of exploitative manipulation rises
+further as such information can be used to interfere with
+the formation of beliefs, ideas, opinions, and identity by
+inﬂuencing emotions or feelings [53].
+3.2
+Lack of Consent and Privacy Violations
+AER systems utilise AI technology in their design with
+biometrics or other kinds of personal data (speech, facial
+image, among others). This allows for information about
+physical or mental health, thoughts, or feelings—which an
+individual may not want to choose to share—to be automat-
+ically inferred without the person’s consent or knowledge.
+This has grave privacy concerns and can be used to establish
+and strengthen oppressive dystopian societies.
+3.3
+Lack of Explainability/Accountability
+AER systems usually lack explainability due to the complex
+internal mechanics of the AI model and the wide-scale
+adoption of BlackBox models based on “deep learning”
+technology. This inability to understand how AI performs
+in AER systems hinders its deployment in law, healthcare,
+and enterprises from handling sensitive consumer data.
+Understanding how AER data is handled and how AI has
+reached a particular decision is even more critical for data
+5
+protection regulation. Explainability of AER services will
+allow companies to track AI decisions and monitor biased
+actions. This will also ensure that AER processes align with
+regulation and that decision-making is more systematic and
+accountable.
+3.4
+Vulnerability to Adversarial Attacks
+Modern AER-based tools typically rely on “deep learning”
+based models such as those built on deep neural networks
+(DNNs), which are composed of multiple hidden layers.
+DNNs are also quite fragile to very small specially-crafted
+adversarial perturbations to their inputs. This can cause
+false prediction in AER systems [54], which might have
+adverse consequences. For instance, an adversarially crafted
+example can cause an AER system to diagnose mental
+diseases inaccurately. This is one of the critical concerns of
+integrating AI-based services like AER in real-life.
+3.5
+Vulnerability to Bias
+There is scepticism in the community regarding the efﬁcacy
+of AER and fears that using AER may accentuate and
+institutionalise bias [55]. Since getting accurately labelled
+data is very expensive and time-consuming, any embedded
+bias in large annotated emotional training data is likely to
+be built into any systems developed using such data. Most
+of the AER systems use laboratory-designed datasets based
+on actors simulating emotional states in front of a camera.
+Furthermore, the labels used by ML models typically rep-
+resent perceived emotion rather than felt emotion since the
+majority of the existing AER datasets are labelled by human
+annotators based on their perception [53]. For instance,
+in facial emotion recognition, the labels for a photograph
+are provided by annotators, not by the individual in the
+photographs [53]. This might not represent genuine inner
+emotions and may contain hidden biases that may become
+apparent only after deployment.
+3.6
+Reductionist Emotional Models
+AER algorithms base their working on basic emotion theo-
+ries [56] that have been widely critiqued [57]. For instance,
+the widely applied theory posited by Paul Ekman regarding
+six universal emotions (happiness, sadness, fear, anger, sur-
+prise, and disgust) that can be recognised across cultures
+from facial expressions has been criticised by experts as
+being too reductionist [58]. An automatic link between facial
+movements and emotions is assumed—e. g., a smile means
+someone is happy. However, this might not always be
+true. For instance, in the US and many other parts of the
+world [59], it is common to smile at strangers, which might
+not represent inner feelings or states. It follows that more
+contextual details are required to understand the emotion,
+potentially requiring more data and invasive practices.
+3.7
+AI’s White Guy Problem or Neo-Colonialism
+Some ﬁndings indicate that AI technology suffers from
+problems such as sexism, racism, and other forms of dis-
+crimination [60]. A major aspect related to this arises from
+homogeneous or unrepresentative data. Another reason
+could be focusing on the majority class since optimising
+for the majority class will usually improve overall accuracy.
+Unfortunately, this translates into discrimination against
+the minority classes as AI models typically do not auto-
+matically provide fairness unless constraints are placed for
+ensuring fairness (in which case, the overall accuracy will
+usually reduce as fairness and accuracy are different objec-
+tives, and it is not uncommon for them to have tradeoffs)
+[61]. If we do not work to make AI more inclusive, we
+risk creating machine intelligence that “mirrors a narrow
+and privileged vision of society, with its old, familiar bi-
+ases and stereotypes” (Kate Crawford, New York Times,
+https://tinyurl.com/2h6fu8dv)). Experts are now calling
+out for using decolonial theory as a tool for sociotechnical
+foresight in AI to ensure that the hegemony resulting from
+the domination of the AI industry by a limited number of
+demographic groups and nations does not have harmful
+effects globally [62].
+4
+ETHICAL CONCERNS WITH AER
+Giving emotions to a computer is another term for AER
+technology [63]. It is exciting and a pipe dream to have a
+human-like or superior emotion detection system. In the last
+decade, techniques based on advanced techniques in ML
+and deep learning have outperformed almost all classical
+methods in recognising and understanding human emo-
+tions from facial, speech, and text inputs. These advanced
+learning techniques have produced effective and efﬁcient
+results in AER and automated the whole process. AER
+systems are used in the commercial market for understand-
+ing user engagement, sentiment analysis, attention tracking,
+behaviour understanding, etc. However, these AER systems
+are also prone to shortcomings and biases in the training
+and testing data. The literature on the shortcomings of
+traditional and deep ML techniques suggests that data and
+algorithmic biases can impact the performance of these
+learning techniques [58]. AER systems are developed using
+data acquired from humans, and human biases are likely
+to be translated into the learning process, impairing AER
+system judgements [64]. There is a need to enforce respon-
+sible AI practices [65], and ethical guidelines for the design,
+development, and integration of AER systems in the wild
+[66].
+The use of AER for emotional surveillance raises many
+ethical concerns, which motivates the need to identify basic
+ethical principles and guidelines that address ethical issues
+arising from the use of AER technology on human subjects
+to ensure that human subjects are not exploited or manipu-
+lated. In this regard, we can look at a traditional consensus
+on basic principles such as those expressed in the Belmont
+Report produced in 1979 by the US National Commission
+for the Protection of Human Subjects of Biomedical and
+Behavioural Research (https://tinyurl.com/5pr5rpe9). The
+Belmont Report identiﬁed three main principles—(1) respect
+for persons; (2) beneﬁcence; and (3) justice—in their study
+focused on documenting the basic ethical principles and
+guidelines that should direct the conduct of biomedical and
+behavioural research involving human subjects. In light of
+the described perils of uncritical use of technology and the
+various ethical and moral dilemmas posed by AI [67], a
+6
+Fig. 2. Summary of ethical concerns associated with AER.
+lot of attention has focused on incorporating ethics in the
+ﬁeld of AI leading to a proliferation of AI ethics principles
+and code of ethics. Interestingly, Jobin et al. [68] have high-
+lighted 84 such codes of ethics related to AI in 2019 and
+found that four high-level ethical principles—beneﬁcence,
+non-maleﬁcence, autonomy, and justice—capture the essence
+of most AI declarations with Floridi and Cowls [69] also
+adding explicability as a high-level principle demanding that
+AI models should not work as inscrutable blackboxes. We
+summarise the AER-related ethical concerns in Figure 2 and
+discuss these concerns in detail next.
+4.1
+Ethical Concerns Related to Justice
+AI is being used in every facet of daily life, including
+criminal justice, social media, social justice, health care,
+smart cities, and urban computing. Although it has been
+well stated in the literature that AI-based systems are in-
+capable of understanding the concepts of justice and so-
+cial standards [70]. Buolamwini et al. [71] emphasise that
+the AI-based facial detection system discriminates against
+gender and people of colour. They also demonstrated that
+commercial AI-based facial detection systems need a ﬁrmer
+grasp of ethics and auditing [72]. Cathy O’Neil et al. [51]
+exposed the ﬂaws in employing big data and AI-based
+algorithms to make choices with real-life consequences,
+and these consequences are leading to a societal split and
+shattered democracy. The ethics of applying AI in law and
+its obstacles are discussed in [73], [74], [75], [76]. In contrast,
+the ethical issues of employing AER systems for learning ex-
+pressions and privacy concerns are detailed in [77]. Wright
+[78] explains the opacity of algorithms employed in AER
+systems, the inadequacy of AI in comprehending human
+emotions, and how these failings lead to an unjust society
+[79]. Carrillo [80] discusses the ethical AI debate from the
+standpoint of law and how AI shortcomings impede the
+general application of the AI-based judicial system. Finally,
+Khan et al. [81] present a thorough discussion of AI-enabled
+face recognition systems and their ethical implications in the
+criminal justice system.
+In the last few years, AI-based predictive policing tools
+are becoming a part of global criminal justice systems. These
+systems are largely based on facial recognition technology
+with added emotion recognition and DNA matching. These
+tools have many ethical issues [51], [71]. Millerai
+[82]
+provides a comprehensive discussion on the ethical issues of
+predictive policing and facial recognition systems in crimi-
+nal justice systems. They argued that these systems violate
+privacy rights, autonomy rights, and basic human morality.
+They also discuss the misuse of AI-based predictive policing
+and facial/emotion recognition tools in liberal democra-
+cies and the dangers of similar technology in authoritarian
+states. In order to use With AI-based systems making critical
+judgements about individuals (hiring process, advertising
+process, etc.), it is vital to consider and address ethical
+concerns. Automated physiognomy refers to the use of AI
+models to identify a person’s gender, emotional state, level
+of intellect, and other characteristics from only one photo-
+graph of them. Engelmann et al. [83] debated the fairness
+and ethical concerns of automated physiognomy with a
+comprehensive experiment in which thousands of non-AI
+individuals were invited to respond on what AI should
+ethically infer from faces. The questions also include the
+number of characteristics inferred from faces by well-known
+AI models (including AER models), such as gender, emo-
+tional expression, likeability, assertiveness, intellect, colour,
+trustworthiness, and use of spectacles. Because all these
+characteristics are subjective, participants were asked to pro-
+vide a Likert scale score and a written explanation of why
+a particular score was awarded for two speciﬁc use cases:
+advertising and hiring [83]. The overall ﬁndings show that
+individuals, independent of context, substantially disagree
+with the automated physiognomy regarding assertiveness,
+likeability, trustworthiness, and intellect. Participants were
+also observed to be more dissatisﬁed (ethically) with the
+AI inferences about race, gender, emotional expression, and
+wearing spectacles in the hiring use case [83]. AER systems
+suffer from the same issue, and the results reveal that a lack
+of auditing will result in an unfair automated judgement,
+which will have far-reaching effects on the social justice
+system.
+Podoletz [84] investigated the use of emotional AI (a
+blend of affective computing [63] and AI that gives prob-
+abilistic predictions of a person’s or community’s emotional
+state based on data points about the individual or com-
+munity) in criminology, police, and surveillance. Given the
+ethical concerns, algorithmic biases, and annotation issues,
+Podoletz urge that emotional AI not be implemented in
+public spaces since these technologies will expand policing
+7
+authority, raise privacy concerns, and operate as an op-
+pressive instrument in authoritarian states. Podoletz goes
+on to claim that deploying emotional AI tools like AER
+would result in a highly regulated and controlled society,
+causing a severe schism in the social justice system. Lastly,
+[84] discusses the repercussions of using emotional AI tools
+in crime predictions and preemptive deception detection.
+Minsky [85] in his famous book “The emotion machine:
+commonsense thinking, artiﬁcial intelligence, and the future
+of the human mind” talked about emotional AI and its rela-
+tion to basic cognition and neuroscience. He also talks about
+the ethical challenges in AI systems designed for emotion
+recognition. Emotional AI (affective computing paired with
+AI) technologies are used for reading, interpreting, repli-
+cating, and inﬂuencing human behaviour and sentiments,
+according to Yonck [86] in his book “Heart of the machine:
+our future in a world of artiﬁcial intelligence.” The author
+also discusses the moral dilemmas raised by the commercial
+application of these technologies. He further contends that
+the code of ethics designed for emotional AI tools like
+AER systems would be subverted in markets in favour of
+monetary and political gains, thus undermining the sociopo-
+litical justice of society [86]. Van [87] elaborated upon the
+ethical issues in AI-based facial recognition technologies
+(face, gender, class, race classiﬁcation, AER systems, and
+others). The report demonstrates how one could use face
+recognition technology as an instrument of oppression, with
+a huge surveillance engine created to monitor and classify
+minorities and, by extension, a whole country.
+The AER sector is predicted to be worth $26 billion by
+2026 [88]. Crawford et al. [88] recommend that AER systems
+be regulated as soon as possible. She claims that several
+technology businesses used the pandemic as a justiﬁcation
+to introduce emotion detection systems to assess the emo-
+tional state of employees and even children. She presented
+the example of an AER system called 4 Little Things1, which
+is used to infer children’s emotions while carrying out their
+classwork with no supervision or regulation. She also states
+that with AER systems now being widely employed in
+many socioeconomic areas (hiring, healthcare, education,
+advertising, among others), it is important that this industry
+be regulated to avoid injustice and the fostering of an unjust
+society. A report on the ethical issues related to biometric ap-
+plications (including AER) in public settings was published
+by the Citizens’ Biometrics Council [89]. The suggestions
+are based on conversations in public concerning the ethics of
+using AER and other biometric technology. The report urges
+the establishment of a comprehensive regulatory framework
+for biometric systems, a credible oversight agency, and
+minimum standards for designing and deploying face and
+AER systems [89].
+As previously described, it has been observed in the
+literature that AI models do not automatically provide
+fairness or justice unless it is explicitly asked for [90]. As
+Stuart Russell describes in his book, a problem underlying
+the model of conventional optimisation-based AI is that
+you only get what you explicitly ask for with the unstated
+assumption being that you implicitly agree that you do not
+care at all about everything you do not specify [91]. The
+1. https://www.4littletrees.com/
+author calls this the King Midas problem of AI referring to
+the Greek mythological story in which King Midas gets all
+that he speciﬁes, but the situation still ends unacceptably
+since he did not specify exactly what he did not want
+(and unacceptable values were incorrectly inferred) [91].
+Various studies have shown that AER technology is prone
+to bias and can suffer from a lack of fairness, accountability,
+and transparency. This has real consequences when such
+technology is used for critical decisions, such as in judi-
+cial systems for making judgements about sentencing [51],
+[58]. Therefore, AER technology requires a continued and
+concerted effort to address such issues, because misreading
+an individual’s emotions can cause severe consequences in
+speciﬁc scenarios.
+4.2
+Ethical Concerns Related to Beneﬁcence/ Non-
+maleﬁcence
+Ethical principles of beneﬁcence (“do only good”) and non-
+maleﬁcence (“do no harm”) are closely related. Beneﬁcence
+encourages the creation of AI services to promote the well-
+being of humanity and the planet, while non-maleﬁcence
+concerns the negative consequences of AI [92]. These con-
+cerns are also important in the designing and deployment
+of AER technology. Therefore, AER services should avoid
+causing both foreseeable and unintentional harm. This re-
+quires a complete understanding of AER technology and
+its scientiﬁc limitations to manage the attendant risks. The
+services should be designed to beneﬁt human beings and
+increase their well-being to make AER prosocial.
+Designing a Prosocial AER system requires mitigation
+of ethical concerns highlighted in the literature [78]. With
+the unprecedented penetration of social media applications
+and the use of surveillance technologies, the opt-in and opt-
+out model of data sharing is long gone. Now, most of the
+applications gather data irrespective of permissions, and the
+written conditions that one agrees to upon usage are written
+in a language that is a challenge for the regular user. It is
+problematic, and many incidents of unethical use of the data
+are being reported in the literature. Unfortunately, the idea
+of beneﬁcence / non-maleﬁcence is not considered as vital
+as it should have been in designing AER systems.
+Beneﬁcence / non-maleﬁcence principles are based on
+moral conscientiousness, social good, and trustworthiness
+of people, companies, and algorithms. Raquib et al. [93] pro-
+pose a virtue-based ethical design of AI systems, although
+the debate is philosophical and many areas of the subject
+suffer from a lack of generality. The topic of virtue-based
+ethical systems and the ethical quandaries raised are also
+pertinent to AER systems. Because AER systems are meant
+to learn from user behaviour and how that behaviour may
+be watched, hugged, and altered, the essential nature of the
+data and the inﬂuence of the AER system on society neces-
+sitates an AER design that is founded on beneﬁcence / non-
+maleﬁcence. Examination supervision technologies have
+saturated the market under the guise of COVID-19. These
+tools are often AI-based, with face and emotion recognition
+algorithms used to monitor exam participants. Though these
+methods are intended to assure that the examination is
+conducted correctly, they lack core ethical standards such
+as privacy, transparency, fairness, and beneﬁcence. Coghlan
+8
+et al. [94] examined and reported ethical challenges with
+AI-based examination supervision tools, arguing that the
+issues will not be resolved until ethical standards are not
+included in the basic design principles of AI-based auto-
+mated systems like facial recognition and AER. Similarly,
+the reality of social robots is just around the horizon, and
+numerous AER-based robots are presently being employed
+in a variety of social contexts, and the number of these
+robots is rapidly increasing. The ethical challenges raised by
+social robots originate from the fundamental debate about
+the uncertainty and responsibility of AI systems. Bosch et al.
+[95] provide a brief description of the ethical risks involved
+in social robotics, including how the concept of doing only
+good and not harm is required for social robots, as well as
+various technological and social challenges associated with
+developing such ethics in robots.
+4.3
+Ethical Concerns Related to Privacy
+AER services mostly use DL algorithms that are trained
+on masses of data to learn and perform decision-making.
+Ethical concerns related to privacy require protecting in-
+dividuals’ data and preserving their privacy. Over the last
+two decades, the rise of surveillance capitalism went largely
+unchallenged. Tech companies like Google and Facebook
+provide free online services and use personal data for
+mass surveillance over the internet. Such companies collect
+and scrutinise users’ online behaviours including searches,
+purchases, likes, dislikes, and more, to predict, modify, and
+control users’ behaviours. Lanier has coined the term BUM-
+MER2, or “Behaviours of Users Modiﬁed, and Made into an
+Empire for Rent”, for the economic model followed by big
+tech corporations in the world of surveillance capitalism.
+The design of AER systems depends heavily on face
+recognition technologies, and it is advised in the literature
+that emotion recognition systems should be regularly up-
+dated and audited [88]. Bowyer [96] discuss facial recogni-
+tion systems’ security vs the privacy dilemma. The right to
+privacy is a fundamental right guaranteed by practically ev-
+ery country’s constitution. Many countries use facial recog-
+nition systems, and by extension AER systems, for mass
+surveillance without the agreement or scrutiny of regulatory
+organisations, which is a serious concern in the domain of
+technology’s social effect. Bowyer [96] argues that utilising
+these recognition technologies violates the constitutionally
+guaranteed right to privacy. AER systems not only employ
+facial recognition technologies but also infer the emotional
+state and other aspects of the face without consent, which
+is an abuse of power and a blatant violation of the fun-
+damental right to privacy. The effectiveness of a security
+surveillance system is determined by the performance of
+the facial recognition system and a combination of the
+algorithms to measure the underlying emotional states and
+motives from just an image of the face and body. These
+algorithms and facial recognition systems have shown to
+be biased and unreliable in the literature [97]; false positives
+and negatives have life-threatening repercussions, and pri-
+vacy infringement concerns are unprecedented [98].
+2. https://www.theguardian.com/technology/2018/may/27/
+jaron-lanier-six-reasons-why-social-media-is-a-bummer
+The discussion of privacy and the right to privacy
+has become prevalent with the advent and adoption of
+new technological applications such as internet-of-things
+(IoT), robotics, pervasive technologies, biometric technolo-
+gies, augmented and virtual reality, and digital platforms
+[99]. AER systems are used in homes, health care facilities,
+childcare centres, social media apps, and other digital plat-
+forms for monitoring, data collecting, emotion inference,
+and feedback translation. Because the data collected by
+AER systems is the property of the device manufacturers,
+these spaces are becoming more open, and prone to privacy
+violation [99]. Though there are a few traditional privacy
+limitations in place, it is challenging to ensure privacy when
+AI-driven inference is involved without suitable monitoring
+and regulatory mechanisms. Camera-based assistive aids
+are quickly becoming popular among the sight impaired.
+AI-based vision technologies and, in certain situations, AER
+systems are actively used in these assistive technologies.
+Akter et al. [100] conducted a couple of surveys on the
+privacy and ethical considerations associated with these
+assistive devices. According to their surveys, the majority
+of respondents were concerned about the fairness, privacy,
+and other ethical concerns associated with these assistive
+technologies.
+In the last few years, ethical concerns related to pri-
+vacy have become a promising area of research thanks to
+the active integration of AI-enabled applications such as
+camera-based surveillance systems, AER systems, and oth-
+ers. Ribaric et al. [101] surveyed de-identiﬁcation techniques
+for ensuring privacy in vision-based applications such as
+AER systems and healthcare applications where privacy is
+critical and provide an insightful discussion on how de-
+identiﬁcation can help resolve ethical challenges. Das et
+al. [102] provide a procedure for identifying and mitigat-
+ing privacy-related concerns in camera-based IoT devices
+in digital homes and other places through privacy-aware
+notiﬁcations and infrastructure. Their work also outlines the
+technique for privacy-aware video streaming and policy-
+related guidelines for ensuring privacy and mitigation of
+the risks involved in vision data (surveillance data, AER
+systems, etc.) being misused by adversaries. Hunkenschroer
+et al. [103] conducted a systematic review of the literature
+on ethical problems in AI-based hiring procedures. Though
+the emphasised problems concern the employment process,
+some of the issues (human and algorithmic bias, privacy
+and data leakage hazards, and fairness) are also prevalent in
+AER systems. Boutros et al. [104] used class conditional gen-
+erative models to generate a privacy-friendly synthetic faces
+dataset and trained facial recognition models and tested
+its performance in three different experimental settings:
+multi-class classiﬁcation, label-free knowledge transfer, and
+combined learning settings. Their results indicate that the
+synthetic dataset showed a promising performance, and the
+authors recommend that privacy-friendly synthetic data is
+good enough to train facial recognition systems.
+Privacy is not just about hiding information; it is about
+the agency: the agency to opt-in or opt-out. Unfortunately,
+the concept of agency is frequently overlooked in the design
+thinking component of AER systems, resulting in biased
+and untrustworthy AER systems. Because AER systems
+predict/infer a person’s or a social group’s emotions, the
+9
+agency to convey the emotional data (through any input
+methods such as voice, video, picture, and language) should
+be with the individual or the social group. Woensel et al.
+[105] raised the problem of agency in AER systems and
+linked it to data gathering from people and social groupings
+without proper consent and agency. The critical concern
+raised in the paper was the potential of using AER systems
+for targeted and mass surveillance, which in any rational
+society is considered a violation of social standards, privacy,
+and ethics. The paper recommended imposing strict con-
+trols on data collection for AER systems or for prohibiting
+them until the necessary ethical standards are satisﬁed.
+Cavoukian et al. [106] outlined seven rules for introducing
+privacy by design in systems. We show these rules in Figure
+3. These rules can help improve privacy while providing
+a reasonable design path toward ethics-centred privacy for
+AER systems [10].
+Fig. 3. Seven rules for introducing privacy by design in systems [106].
+4.4
+Ethical Concerns Related to Autonomy
+When we adopt AER services in daily life, we willingly cede
+some of our decision-making power to AI. This may un-
+dermine the ﬂourishing of human autonomy with artiﬁcial
+autonomy. Therefore, it is crucial to balance the decision-
+making power delegated to AER agents and that we retain
+for ourselves. AER systems must not impair the freedom of
+their users so they can live according to their standards and
+norms.
+For AI to yield any beneﬁts for the human race, it
+must be focused on the autonomy of humans rather than
+the popular belief of giving more autonomy to machines
+[107]. This argument stems from the classical discussions
+on whether AI techniques are tools to help improve life by
+making tasks easier or AI understanding the problems by
+itself and ﬁxing them without categorically consenting the
+humans. Here, it is essential to understand what autonomy
+means. Autonomy is described as the sense of willingness
+and a cognitive process of committing to a course of action.
+Calvo et al. [108] take a closer look at human autonomy and
+technology under the pretext of ethics. They highlight that,
+in 2019, most of the literature around autonomy was focused
+on machine autonomy, whereas, now, this trend is shifted
+towards human autonomy-based technology design after
+critical technical and ethical issues with machine autonomy
+and design of machine autonomy were highlighted. AER
+systems are designed to translate the state-of-the-art in
+human psychology using AI and psycho graphs techniques.
+Unfortunately, human autonomy and ethical questions such
+as willingness to interact and adopt are not appropriately
+addressed. Abbass [109], and [110] argue that since AI
+techniques are now being integrated into various aspects
+of society, it is paramount to prefer humans in the loop or
+humans on the loop-based algorithms for decision making.
+It will ensure that human autonomy and ethical practices
+are followed in making critical decisions.
+Emotion recognition systems are trained on the data
+harvested from social media and digital platforms to un-
+derstand and infer emotions. Andalibi et al. [111] surveyed
+13 social media users about the fact that the data from
+social media applications are used for training emotion
+recognition systems without getting users’ consent. Even
+if consent is taken, it is collected through a ‘terms and
+condition’ form, which is mainly forced and in a legal
+language that is not user-friendly. Their results indicate
+that most of the participants viewed it as scary, invasive,
+unethical, and a loss of power and human autonomy. The
+paper further recommends that ethical usage be ensured in
+these critical applications at an individual and societal level.
+Gender bias is another ethical quandary in the AER system,
+and using these tools in the ﬁeld necessitates a gender bias
+evaluation in emotion recognition systems. Domnich et al.
+[65] assessed the performance of several AI approaches
+and showed which kind of networks are employed for
+certain types of emotions. The results of the experiments
+revealed that speciﬁc AI designs are discriminatory, with
+signiﬁcant differences in performance between males and
+females in terms of emotion recognition. Another vertical
+of this discussion on the autonomy-related AER system is
+the categorisation of complex human emotions into a set of
+classes and then the offering solutions/interventions based
+on these categories. Unfortunately, this classiﬁcation concept
+has a fundamental weakness since human emotions (both
+as individuals and as social groupings) are complicated,
+private, unique, and occasionally indeﬁnable, and reducing
+these aspects to a data point and using it to tweak the
+behaviour raises various ethical issues.
+5
+PATH TO A PROSOCIAL FUTURE FOR AER
+As motivated in the previous sections, AER systems are
+promising for contributing to social good in a wide variety
+of applications such as healthcare, education, safety, and law
+enforcement, but at the same time, it is beset with several
+risks and perils, which must be addressed. Qadir et al.
+[112] have stressed the need for a more humane human-
+centred AI that is accountable and have outlined promising
+directions for achieving accountable human-centred AI. In
+this section, we highlight some approaches we can adopt to
+pave the way for a prosocial future for AER systems.
+5.1
+Better Awareness and Education
+The development of AER software is bringing enormous
+changes to society through data analysis. AER Technology
+has the positive effect of revolutionising many areas by
+solving various existing problems. On the other hand, AER
+technologies are two-sided, which can also cause problems.
+Therefore, it is crucial to raise awareness among the broader
+population about AER’s role in our lives and the use and
+purchase of AER services. This can help to achieve large-
+scale adoption of AER services among the general popula-
+tion and minimise the risk of being negatively proﬁled by
+AER technology.
+10
+5.2
+Auditable AER
+The auditability of AI describes the possibility of evaluating
+models, algorithms, and datasets in terms of operation,
+results, and effects. It has two parts, including technical
+and ethical. The technical part assesses the reliability and
+accuracy of results; however, the ethical part apprehends its
+individual and collective impacts and checks the risks of
+breaching certain principles, including equality or privacy.
+AER systems learn from the data they are exposed to and
+make decisions using ML algorithms. They can develop,
+or even amplify, biases and discrimination. Therefore, it is
+essential to audit and test AER algorithms throughout their
+life cycle to pinpoint the origin of errors and detect risks to
+avoid their impact on the lives of individuals and society.
+It will help to systematically probe AER systems, uncover
+biases, and avoid undesirable behaviour.
+5.3
+Explainable and Interpretable AER
+A key reason behind the fragility of AER services is the
+black-box nature of ML models used for the decision-
+making process. These ML models are neither explainable
+nor their outcomes interpretable. To realise the real potential
+of AER systems, it is highly desirable to make them ex-
+plainable in a human-understandable way. In recent years,
+signiﬁcant research has been devoted to developing novel
+methods for explaining and interpreting ML models. In the
+literature, different explainable approaches can be broadly
+classiﬁed as white-box and black-box explanation methods.
+The white-box explanation method describes the model by
+identifying the most critical features that contributed to a
+speciﬁc prediction [113]. Another method for white-box ex-
+planation is to compute the prediction’s gradient concerning
+individual input samples to discover the prediction’s rele-
+vant features. White-box explanation mainly provides the
+model-speciﬁc explanation, while the black-box technique
+provides local explanations of a model for a prediction [114].
+Explaining ML models and their decision is critical, as it
+is the key enabling factor for building trust and ensuring
+fairness in decision making. This is also important for AER
+applications, where decisions directly impact human life.
+5.4
+Privacy Preserving AER
+In AER services, the privacy of the users’ data is a growing
+concern, mainly when AER is performed on cloud plat-
+forms. AER companies gather a large amount of user data
+to perform emotion analysis. The data gathered by these
+companies is kept forever and the user does mostly not
+have any or little control over it. The images, video, and
+voice samples, but also textual bits also contain sensitive
+background information such as faces, gender, language,
+etc. The leakage of this data can be used maliciously without
+the user’s consent by an eavesdropping adversary and may
+cause threatening consequences to people’s lives. Therefore,
+it is crucial to utilise privacy-preserving AI models in AER
+systems to protect users’ privacy. The methods and tech-
+niques for developing AI systems that ensure privacy falls
+under the umbrella of privacy-preserving AI.
+Privacy-preserving AI has four major pillars:
+1)
+Training data privacy, which can be ensured by
+Differentially Private Stochastic Gradient Descent
+(DPSGD) and PATE [115] and similar solutions.
+2)
+Input privacy, which can be ensured via Homomor-
+phic Encryption, Secure Multiparty Computation
+(MPC), and Federated Learning.
+3)
+Output privacy, which can be ensured by using
+Homomorphic Encryption, Secure Multiparty Com-
+putation (MPC), and Federated Learning
+4)
+Model privacy, which can be ensured by applying
+differential privacy on the output of an AI model.
+5.5
+Ethical Framework for AER
+In recent times, there has been much work on developing
+ethical principles and frameworks for AI [68]. A report on
+the ethics of AI and the applications of automated emotional
+intelligence and its risk is presented in [53]. There is a
+need for similar efforts focused on developing an ethical
+framework for AI-based AER, which can enable various
+beneﬁts as presented in Table 4.
+TABLE 4
+Advantages of prosocial AER systems.
+Ethical principles
+Advantages
+Transparency
+Reduces risk
+Increases fairness
+Satisﬁes regulatory and compliance laws
+Full disclosure
+Improves explainability
+Increases understanding
+Personal consent
+Improves reliability and safety
+Increases regulation
+Protects vulnerable participants
+Ethical data sharing
+Creates an ethical imperative
+Increases trust
+Data ownership
+Establishes accountability
+Assigns responsibility
+Security and privacy
+Consent-based data collection
+Regulated surveillance
+Improved privacy
+We propose that in order to operate an ethical, privacy-
+protective AER system, an entity should embrace the fol-
+lowing principles:
+•
+Transparency: An entity must describe its policies
+related to the duration it retains data, how the data
+is used, how the government might access the data,
+and the necessary technical speciﬁcations to verify
+accountability.
+•
+Full disclosure: An entity must receive informed,
+written, and speciﬁc consent from individuals before
+enrolling her, him, or them in an AER database.
+Enrolment is the storage of personal data such as
+voice and face prints to perform emotion recognition
+or identiﬁcation.
+•
+Personal consent: An entity must receive informed,
+written consent from an individual before using the
+individual’s data in a manner that was not men-
+tioned in the existing consent. When individuals
+consent to use an AER system for one purpose, an
+entity must seek consent from that individual for us-
+ing AER technology for another purpose. However,
+users should be free to withdraw their consent at
+11
+any time. An entity must not use the AER system
+to determine an individual’s colour, race, religion,
+gender, age, nationality, or disability.
+•
+Ethical data sharing: Individuals’ data should not be
+shared or sold without the informed, written consent
+of the individual whose information is being shared
+or sold.
+•
+Data ownership: An individual must have the right
+to access, correct, and remove his or her data print.
+•
+Security and privacy: AER data must be kept secure
+and private by the entity maintaining the data.
+Simply deﬁning principles is not sufﬁcient. These princi-
+ples should be embedded into practice and operationalised.
+An entity must maintain a system that measures compliance
+with these principles, including an audit trail memorialising
+the collection, use, and sharing of information in an AER
+system. The audit trail must include a record of the date,
+location, consent veriﬁcation, and provenance of emotional
+data. It must also allow evaluation of the AER algorithm for
+accuracy. This data may also be incorporated in a watermark
+to ease the ability to audit.
+6
+CONCLUSIONS AND RECOMMENDATIONS
+This paper discussed the promises and perils of artiﬁcial
+intelligence-based automatic emotion recognition systems.
+We believe AER technology has a wide range of real-
+life applications; however, we aim to caution AER users
+and service providers about ethical concerns. AER systems
+have biases that can lead to incorrect results, just like any
+other artiﬁcial intelligence (AI) based intelligent systems.
+We cannot fully rely on AER systems in making deci-
+sions; however, help from them can be taken to improve
+the ﬁnal decision. We also must carefully consider AER
+systems’ fairness, transparency, accountability, and ethics
+during their development and applications. For this, we
+proposed guidelines for designing future prosocial AER
+solutions. We are summarising below the recommendations
+for designing such responsible AER systems:
+•
+Full examination across various dimensions is re-
+quired for the data used by AER systems. Expres-
+sions of emotion are variable across different lan-
+guages. This variability must be taken into account
+while designing datasets, systems, and deployment
+of AER systems.
+•
+One needs to examine the choice of AI techniques
+across interpretability, concerns, privacy, energy ef-
+ﬁciency, and data needs. AI tends to perform well
+for individuals who are well-represented in the data
+but fails for others. Therefore, it is crucial to explore
+inclusive methods to avoid spurious correlations that
+perpetuate sexism, racism, and stereotypes.
+•
+AER systems are often trained on static data; how-
+ever, emotions, perceptions, and behaviour change
+over time. It is important to incorporate adaptability
+in AER services for predictions on current data. This
+may include drifting target learning approaches.
+•
+Privacy is not only secrecy but also a personal choice.
+Applying AER to a mass gathering without personal
+consent is an invasion of privacy, harmful to the
+individual, and dangerous to society. Therefore, it is
+important to follow suited privacy principles such
+as the seven by Cavoukian while designing AER
+systems.
+•
+It is crucial to realise ethical concerns related to
+privacy, manipulation, and bias while designing AER
+systems. Therefore, anonymisation of information at
+various levels is required.
+•
+The use of AER for fully automated decision-making
+is unsuited. AER systems may be utilised for assis-
+tance in decision-making. AER services should be
+transparent to all stakeholders.
+These
+recommendations
+are
+primarily
+for
+the
+re-
+searchers, engineers, educators, and developers who build,
+make use of or teach about AER technologies. These guide-
+lines will help engender trust with customers and also
+improve the proﬁtable drive growth of AER technology.
+With all these guidelines in mind, we shall be ready to
+fully beneﬁt and enjoy the many good Automatic Emotion
+Recognition holds as promise.
+REFERENCES
+[1]
+K. C. Barrett and J. J. Campos, “Perspectives on emotional devel-
+opment ii: A functionalist approach to emotions.” 1987.
+[2]
+H. Zacharatos, C. Gatzoulis, and Y. L. Chrysanthou, “Automatic
+emotion recognition based on body movement analysis: a sur-
+vey,” IEEE computer graphics and applications, vol. 34, no. 6, pp.
+35–45, 2014.
+[3]
+L. Mlodinow, Emotional: The New Thinking About Feelings.
+Pen-
+guin UK, 2022.
+[4]
+D. Schuller and B. Schuller, “The Age of Artiﬁcial Emotional
+Intelligence,” IEEE Computer Magazine, vol. 51, no. 9, pp. 38–46,
+September 2018.
+[5]
+S. Latif, R. Rana, S. Khalifa, R. Jurdak, and J. Epps, “Direct
+modelling of speech emotion from raw speech,” in Proceedings
+of the 20th Annual Conference of the International Speech Communi-
+cation Association (INTERSPEECH 2019).
+International Speech
+Communication Association (ISCA), 2019, pp. 3920–3924.
+[6]
+A. Kołakowska, A. Landowska, M. Szwoch, W. Szwoch, and
+M. R. Wrobel, “Emotion recognition and its applications,” in
+Human-Computer Systems Interaction: Backgrounds and Applications
+3.
+Springer, 2014, pp. 51–62.
+[7]
+K. Feng and T. Chaspari, “A review of generalizable transfer
+learning in automatic emotion recognition,” Frontiers in Computer
+Science, vol. 2, p. 9, 2020.
+[8]
+A. Batliner, S. Hantke, and B. W. Schuller, “Ethics and good
+practice in computational paralinguistics,” IEEE Transactions on
+Affective Computing, 2020.
+[9]
+Y. Liu, O. Sourina, and M. K. Nguyen, “Real-time eeg-based
+emotion recognition and its applications,” in Transactions on
+computational science XII.
+Springer, 2011, pp. 256–277.
+[10]
+S. M. Mohammad, “Ethics sheet for automatic emotion recogni-
+tion and sentiment analysis,” Computational Linguistics, vol. 48,
+no. 2, pp. 239–278, 2022.
+[11]
+H. Gunes, B. Schuller, M. Pantic, and R. Cowie, “Emotion repre-
+sentation, analysis and synthesis in continuous space: A survey,”
+in Face and Gesture 2011.
+IEEE, 2011, pp. 827–834.
+[12]
+S. Latif, R. Rana, S. Khalifa, R. Jurdak, J. Qadir, and B. W. Schuller,
+“Survey of deep representation learning for speech emotion
+recognition,” IEEE Transactions on Affective Computing, 2021.
+[13]
+C. Darwin, The expression of the emotions in man and animals.
+University of Chicago press, 2015.
+[14]
+P. Ekman, “Strong evidence for universals in facial expressions: a
+reply to russell’s mistaken critique.” 1994.
+[15]
+——, “Are there basic emotions?” 1992.
+[16]
+S. Latif, J. Qadir, A. Qayyum, M. Usama, and S. Younis, “Speech
+technology for healthcare: Opportunities, challenges, and state of
+the art,” IEEE Reviews in Biomedical Engineering, 2020.
+12
+[17]
+D. Blanch-Hartigan, “An effective training to increase accurate
+recognition of patient emotion cues,” Patient education and coun-
+seling, vol. 89, no. 2, pp. 274–280, 2012.
+[18]
+A. Brezulianu, A. Burlacu, I. V. Popa, M. Arif, and O. Geman,
+““not by our feeling, but by other’s seeing”: Sentiment analysis
+technique in cardiology—an exploratory review,” Frontiers in
+Public Health, vol. 10, 2022.
+[19]
+T. Zhang, M. Liu, T. Yuan, and N. Al-Nabhan, “Emotion-aware
+and intelligent internet of medical things towards emotion recog-
+nition during covid-19 pandemic,” IEEE Internet of Things Journal,
+2020.
+[20]
+M. Y. Kabir and S. Madria, “Emocov: Machine learning for emo-
+tion detection, analysis and visualization using covid-19 tweets,”
+Online Social Networks and Media, vol. 23, p. 100135, 2021.
+[21]
+A. S. Imran, S. M. Daudpota, Z. Kastrati, and R. Batra, “Cross-
+cultural polarity and emotion detection using sentiment analysis
+and deep learning on covid-19 related tweets,” Ieee Access, vol. 8,
+pp. 181 074–181 090, 2020.
+[22]
+A. Al-Laith and M. Alenezi, “Monitoring people’s emotions and
+symptoms from arabic tweets during the covid-19 pandemic,”
+Information, vol. 12, no. 2, p. 86, 2021.
+[23]
+M. Bouhlal, K. Aarika, R. A. Abdelouahid, S. Elﬁlali, and E. Ben-
+lahmar, “Emotions recognition as innovative tool for improving
+students’ performance and learning approaches,” Procedia Com-
+puter Science, vol. 175, pp. 597–602, 2020.
+[24]
+M. Bulut ¨
+Ozek, “The effects of merging student emotion recogni-
+tion with learning management systems on learners’ motivation
+and academic achievements,” Computer applications in engineering
+education, vol. 26, no. 5, pp. 1862–1872, 2018.
+[25]
+M. E. Pritchard and G. S. Wilson, “Using emotional and social
+factors to predict student success,” Journal of college student devel-
+opment, vol. 44, no. 1, pp. 18–28, 2003.
+[26]
+S. Denervaud, C. Mumenthaler, E. Gentaz, and D. Sander, “Emo-
+tion recognition development: Preliminary evidence for an effect
+of school pedagogical practices,” Learning and Instruction, vol. 69,
+p. 101353, 2020.
+[27]
+G. L. Clore and J. R. Huntsinger, “How emotions inform judg-
+ment and regulate thought,” Trends in cognitive sciences, vol. 11,
+no. 9, pp. 393–399, 2007.
+[28]
+J. Zhang, C. Xie, and A. M. Morrison, “The effect of corporate
+social responsibility on hotel employee safety behavior during
+covid-19: The moderation of belief restoration and negative emo-
+tions,” Journal of Hospitality and Tourism Management, vol. 46, pp.
+233–243, 2021.
+[29]
+S. Zepf, J. Hernandez, A. Schmitt, W. Minker, and R. W. Picard,
+“Driver emotion recognition for intelligent vehicles: a survey,”
+ACM Computing Surveys (CSUR), vol. 53, no. 3, pp. 1–30, 2020.
+[30]
+D. Ding, K. Gebel, P. Phongsavan, A. E. Bauman, and D. Merom,
+“Driving: a road to unhealthy lifestyles and poor health out-
+comes,” PloS one, vol. 9, no. 6, p. e94602, 2014.
+[31]
+L. Davoli, M. Martal`
+o, A. Cilfone, L. Belli, G. Ferrari, R. Presta,
+R. Montanari, M. Mengoni, L. Giraldi, E. G. Amparore et al., “On
+driver behavior recognition for increased safety: a roadmap,”
+Safety, vol. 6, no. 4, p. 55, 2020.
+[32]
+M. Jeon, B. N. Walker, and J.-B. Yim, “Effects of speciﬁc emotions
+on subjective judgment, driving performance, and perceived
+workload,” Transportation research part F: trafﬁc psychology and
+behaviour, vol. 24, pp. 197–209, 2014.
+[33]
+H. F. Hollien, Forensic voice identiﬁcation.
+Academic Press, 2002.
+[34]
+L. S. Roberts, “A forensic phonetic study of the vocal responses
+of individuals in distress,” Ph.D. dissertation, University of York,
+2012.
+[35]
+“Federal
+law
+enforcement
+use
+of
+facial
+recog-
+nition
+technology,
+accessed
+on:
+17-July-2021,”
+https://fas.org/sgp/crs/misc/R46586.pdf.
+[36]
+N. Alajmi, E. Kanjo, N. El Mawass, and A. Chamberlain, “Shop-
+mobia: An emotion-based shop rating system,” in 2013 Humaine
+Association Conference on Affective Computing and Intelligent Inter-
+action.
+IEEE, 2013, pp. 745–750.
+[37]
+F. J. Otamendi and D. L. Sutil Mart´
+ın, “The emotional effective-
+ness of advertisement,” Frontiers in Psychology, vol. 11, p. 2088,
+2020.
+[38]
+T. J. Page, E. Thorson, and M. P. Heide, “The memory impact of
+commercials varying in emotional appeal and product involve-
+ment,” Emotion in advertising, pp. 255–268, 1990.
+[39]
+F. Lievens and D. Chan, “Practical intelligence, emotional intelli-
+gence, and social intelligence,” Handbook of employee selection, pp.
+342–364, 2017.
+[40]
+J. Krause, D. P. Croft, and R. James, “Social network theory in the
+behavioural sciences: potential applications,” Behavioral Ecology
+and Sociobiology, vol. 62, no. 1, pp. 15–27, 2007.
+[41]
+Y.-S. Su, H.-Y. Suen, and K.-E. Hung, “Predicting behavioral
+competencies automatically from facial expressions in real-time
+video-recorded interviews,” Journal of Real-Time Image Processing,
+pp. 1–11, 2021.
+[42]
+T. Momm, G. Blickle, Y. Liu, A. Wihler, M. Kholin, and J. I.
+Menges, “It pays to have an eye for emotions: Emotion recog-
+nition ability indirectly predicts annual income,” Journal of Orga-
+nizational Behavior, vol. 36, no. 1, pp. 147–163, 2015.
+[43]
+R. Subhashini and P. Niveditha, “Analyzing and detecting em-
+ployee’s emotion for amelioration of organizations,” Procedia
+Computer Science, vol. 48, pp. 530–536, 2015.
+[44]
+M. A. Jarwar and I. Chong, “Exploiting iot services by integrating
+emotion recognition in web of objects,” in 2017 International
+Conference on Information Networking (ICOIN).
+IEEE, 2017, pp.
+54–56.
+[45]
+Z. Teng, Q. Nie, C. Guo, Q. Zhang, Y. Liu, and B. J. Bushman,
+“A longitudinal study of link between exposure to violent video
+games and aggression in chinese adolescents: The mediating role
+of moral disengagement.” Developmental Psychology, vol. 55, no. 1,
+p. 184, 2019.
+[46]
+S. M. Coyne, L. A. Stockdale, W. Warburton, D. A. Gentile,
+C. Yang, and B. M. Merrill, “Pathological video game symptoms
+from adolescence to emerging adulthood: A 6-year longitudinal
+study of trajectories, predictors, and outcomes.” Developmental
+psychology, vol. 56, no. 7, p. 1385, 2020.
+[47]
+E. Miedzobrodzka, J. Buczny, E. A. Konijn, and L. C. Krabben-
+dam, “Insensitive players? a relationship between violent video
+game exposure and recognition of negative emotions,” Frontiers
+in psychology, vol. 12, p. 651759, 2021.
+[48]
+M. Szwoch and W. Szwoch, “Emotion recognition for affect aware
+video games,” in Image Processing & Communications Challenges 6.
+Springer, 2015, pp. 227–236.
+[49]
+N. Pitropakis, E. Panaousis, T. Giannetsos, E. Anastasiadis, and
+G. Loukas, “A taxonomy and survey of attacks against machine
+learning,” Computer Science Review, vol. 34, p. 100199, 2019.
+[50]
+S. Latif, A. Qayyum, M. Usama, J. Qadir, A. Zwitter, and
+M. Shahzad, “Caveat emptor: the risks of using big data for hu-
+man development,” IEEE Technology and Society Magazine, vol. 38,
+no. 3, pp. 82–90, 2019.
+[51]
+C. O’neil, Weapons of math destruction: How big data increases
+inequality and threatens democracy.
+Crown, 2016.
+[52]
+S. Russell, Human compatible: Artiﬁcial intelligence and the problem
+of control.
+Penguin, 2019.
+[53]
+G. Greene, “The ethics of AI and emotional intelligence:
+Data
+sources,
+applications,
+and
+questions
+for
+evaluating
+ethics risk,” https://www.partnershiponai.org/the-ethics-of-ai-
+and-emotional-intelligence/, 2020.
+[54]
+S. Latif, R. Rana, S. Khalifa, R. Jurdak, and B. W. Schuller, “Deep
+architecture enhancing robustness to noise, adversarial attacks,
+and cross-corpus setting for speech emotion recognition,” Proc.
+Interspeech 2020, pp. 2327–2331, 2020.
+[55]
+M. Purdy, J. Zealley, and O. Maseli, “The risks of using ai to
+interpret human emotions,” Harvard Business Review, Boston, MA,
+USA, 2019.
+[56]
+P. Ekman and W. V. Friesen, “Constants across cultures in the face
+and emotion.” Journal of personality and social psychology, vol. 17,
+no. 2, p. 124, 1971.
+[57]
+R. Leys, “The turn to affect: A critique,” Critical inquiry, vol. 37,
+no. 3, pp. 434–472, 2011.
+[58]
+K. Crawford, The atlas of AI: Power, politics, and the planetary costs
+of artiﬁcial intelligence.
+Yale University Press, 2021.
+[59]
+J. L. Tsai, J. Y. Z. Ang, E. Blevins, J. Goernandt, H. H. Fung,
+D. Jiang, J. Elliott, A. K¨
+olzer, Y. Uchida, Y.-C. Lee et al., “Leaders’
+smiles reﬂect cultural differences in ideal affect.” Emotion, vol. 16,
+no. 2, p. 183, 2016.
+[60]
+J.-W. Hong, S. Choi, and D. Williams, “Sexist ai: an experiment in-
+tegrating casa and elm,” International Journal of Human–Computer
+Interaction, vol. 36, no. 20, pp. 1928–1941, 2020.
+[61]
+U. Sahbaz, “Artiﬁcial intelligence and the risk of new colonial-
+ism,” Horizons: Journal of International Relations and Sustainable
+Development, no. 14, pp. 58–71, 2019.
+13
+[62]
+S. Mohamed, M.-T. Png, and W. Isaac, “Decolonial AI: decolo-
+nial theory as sociotechnical foresight in artiﬁcial intelligence,”
+Philosophy & Technology, vol. 33, no. 4, pp. 659–684, 2020.
+[63]
+R. W. Picard, Affective computing.
+MIT press, 2000.
+[64]
+M. D. Dubber, F. Pasquale, and S. Das, The Oxford handbook of
+ethics of AI.
+Oxford Handbooks, 2020.
+[65]
+A.
+Domnich
+and
+G.
+Anbarjafari,
+“Responsible
+ai:
+Gen-
+der bias assessment in emotion recognition,” arXiv preprint
+arXiv:2103.11436, 2021.
+[66]
+J. Shaw, “Artiﬁcial intelligence and ethics,” Harvard Magazine,
+vol. 30, 2019.
+[67]
+P. J. Denning and D. E. Denning, “Dilemmas of artiﬁcial intel-
+ligence,” Communications of the ACM, vol. 63, no. 3, pp. 22–24,
+2020.
+[68]
+A. Jobin, M. Ienca, and E. Vayena, “The global landscape of AI
+ethics guidelines,” Nature Machine Intelligence, vol. 1, no. 9, pp.
+389–399, 2019.
+[69]
+L. Floridi and J. Cowls, “A uniﬁed framework of ﬁve principles
+for AI in society,” Harvard Data Science Review, vol. 1, no. 1, 7
+2019,
+[70]
+H. Surden, “Machine learning and law: an overview,” Research
+Handbook on Big Data Law, pp. 171–184, 2021.
+[71]
+J. Buolamwini and T. Gebru, “Gender shades: Intersectional
+accuracy disparities in commercial gender classiﬁcation,” in Con-
+ference on fairness, accountability and transparency.
+PMLR, 2018,
+pp. 77–91.
+[72]
+I. D. Raji and J. Buolamwini, “Actionable auditing: Investigating
+the impact of publicly naming biased performance results of
+commercial ai products,” in Proceedings of the 2019 AAAI/ACM
+Conference on AI, Ethics, and Society, 2019, pp. 429–435.
+[73]
+H. Surden, “Ethics of ai in law,” in The Oxford handbook of ethics of
+AI, 2020.
+[74]
+——, “Artiﬁcial intelligence and law: An overview,” Georgia State
+University Law Review, vol. 35, pp. 19–22, 2019.
+[75]
+——, “Machine learning and law,” Wash. L. Rev., vol. 89, p. 87,
+2014.
+[76]
+——, “Values embedded in legal artiﬁcial intelligence,” IEEE
+Technology and Society Magazine, vol. 41, no. 1, pp. 66–74, 2022.
+[77]
+A. McStay, “Emotional ai, soft biometrics and the surveillance of
+emotional life: An unusual consensus on privacy,” Big Data &
+Society, vol. 7, no. 1, p. 2053951720904386, 2020.
+[78]
+J. Wright, “Suspect ai: Vibraimage, emotion recognition technol-
+ogy and algorithmic opacity,” Science, Technology and Society, p.
+09717218211003411, 2021.
+[79]
+K. Crawford, “Artiﬁcial intelligence is misreading human emo-
+tion,” The Atlantic, 2021.
+[80]
+M. R. Carrillo, “Artiﬁcial intelligence: From ethics to law,”
+Telecommunications Policy, vol. 44, no. 6, p. 101937, 2020.
+[81]
+Z. A. Khan and A. Rizvi, “Ai-based facial recognition technol-
+ogy and criminal justice issues and challenges,” Turkish Journal
+of Computer and Mathematics Education (TURCOMAT), vol. 12,
+no. 14, pp. 3384–3392, 2021.
+[82]
+S. Miller, “Ai and criminal justice.”
+[83]
+S.
+Engelmann,
+C.
+Ullstein,
+O.
+Papakyriakopoulos,
+and
+J. Grossklags, “What people think ai should infer from faces,” in
+2022 ACM Conference on Fairness, Accountability, and Transparency,
+2022, pp. 128–141.
+[84]
+L. Podoletz, “We have to talk about emotional ai and crime,” AI
+& SOCIETY, pp. 1–16, 2022.
+[85]
+M. Minsky, The emotion machine: Commonsense thinking, artiﬁcial
+intelligence, and the future of the human mind.
+Simon and Schuster,
+2007.
+[86]
+R. Yonck, Heart of the machine: Our future in a world of artiﬁcial
+emotional intelligence.
+Arcade, 2020.
+[87]
+R. Van Noorden, “The ethical questions that haunt facial-
+recognition research,” Nature, vol. 587, no. 7834, pp. 354–359,
+2020.
+[88]
+K. Crawford et al., “Time to regulate ai that interprets human
+emotions,” Nature, vol. 592, no. 7853, pp. 167–167, 2021.
+[89]
+A. L. Institute, “The citizens’ biometrics council: Recommenda-
+tions and ﬁndings of a public deliberation on biometrics technol-
+ogy, policy, and governance,” 2021.
+[90]
+M. Kearns and A. Roth, The ethical algorithm: The science of socially
+aware algorithm design.
+Oxford University Press, 2019.
+[91]
+S. J. Russell, Artiﬁcial intelligence a modern approach.
+Pearson
+Education, Inc., 2010.
+[92]
+L. Floridi and J. Cowls, “A uniﬁed framework of ﬁve principles
+for ai in society,” Available at SSRN 3831321, 2019.
+[93]
+A. Raquib, B. Channa, T. Zubair, and J. Qadir, “Islamic virtue-
+based ethics for artiﬁcial intelligence,” Discover Artiﬁcial Intelli-
+gence, vol. 2, no. 1, pp. 1–16, 2022.
+[94]
+S. Coghlan, T. Miller, and J. Paterson, “Good proctor or “big
+brother”? ethics of online exam supervision technologies,” Phi-
+losophy & Technology, vol. 34, no. 4, pp. 1581–1606, 2021.
+[95]
+A. Boch, L. Lucaj, and C. Corrigan, “A robotic new hope: Oppor-
+tunities, challenges, and ethical considerations of social robots.”
+[96]
+K. W. Bowyer, “Face recognition technology: security versus
+privacy,” IEEE Technology and society magazine, vol. 23, no. 1, pp.
+9–19, 2004.
+[97]
+L. Stark, “Facial recognition, emotion and race in animated social
+media,” First Monday, 2018.
+[98]
+J. Bullington, “’affective’computing and emotion recognition sys-
+tems: the future of biometric surveillance?” in Proceedings of the
+2nd annual conference on Information security curriculum develop-
+ment, 2005, pp. 95–99.
+[99]
+L. Royakkers, J. Timmer, L. Kool, and R. van Est, “Societal and
+ethical issues of digitization,” Ethics and Information Technology,
+vol. 20, no. 2, pp. 127–142, 2018.
+[100] T. Akter, T. Ahmed, A. Kapadia, and M. Swaminathan, “Shared
+privacy concerns of the visually impaired and sighted bystanders
+with camera-based assistive technologies,” ACM Transactions on
+Accessible Computing (TACCESS), vol. 15, no. 2, pp. 1–33, 2022.
+[101] S. Ribaric, A. Ariyaeeinia, and N. Pavesic, “De-identiﬁcation
+for privacy protection in multimedia content: A survey,” Signal
+Processing: Image Communication, vol. 47, pp. 131–151, 2016.
+[102] A. Das, M. Degeling, X. Wang, J. Wang, N. Sadeh, and M. Satya-
+narayanan, “Assisting users in a world full of cameras: A
+privacy-aware infrastructure for computer vision applications,”
+in 2017 IEEE Conference on Computer Vision and Pattern Recognition
+Workshops (CVPRW).
+IEEE, 2017, pp. 1387–1396.
+[103] A. L. Hunkenschroer and C. Luetge, “Ethics of ai-enabled re-
+cruiting and selection: A review and research agenda,” Journal of
+Business Ethics, pp. 1–31, 2022.
+[104] F. Boutros, M. Huber, P. Siebke, T. Rieber, and N. Damer, “Sface:
+Privacy-friendly and accurate face recognition using synthetic
+data,” arXiv preprint arXiv:2206.10520, 2022.
+[105] L. V. Woensel and N. Nevil, “What if your emotions were
+tracked
+to
+spy
+on
+you?”
+URL
+https://www.
+europarl.
+eu-
+ropa. eu/RegData/etudes/ATAG/2019/634415/EPRS ATA (2019), vol.
+634415, 2019.
+[106] A. Cavoukian et al., “Privacy by design: The 7 foundational prin-
+ciples,” Information and privacy commissioner of Ontario, Canada,
+vol. 5, p. 2009, 2009.
+[107] C. Prunkl, “Human autonomy in the age of artiﬁcial intelligence,”
+Nature Machine Intelligence, vol. 4, no. 2, pp. 99–101, 2022.
+[108] R. A. Calvo, D. Peters, K. Vold, and R. M. Ryan, “Supporting hu-
+man autonomy in ai systems: A framework for ethical enquiry,”
+in Ethics of Digital Well-Being.
+Springer, 2020, pp. 31–54.
+[109] H. A. Abbass, “Social integration of artiﬁcial intelligence: func-
+tions, automation allocation logic and human-autonomy trust,”
+Cognitive Computation, vol. 11, no. 2, pp. 159–171, 2019.
+[110] P. Formosa, “Robot autonomy vs. human autonomy: Social
+robots, artiﬁcial intelligence (ai), and the nature of autonomy,”
+Minds and Machines, vol. 31, no. 4, pp. 595–616, 2021.
+[111] N. Andalibi and J. Buss, “The human in emotion recognition
+on social media: Attitudes, outcomes, risks,” in Proceedings of the
+2020 CHI Conference on Human Factors in Computing Systems, 2020,
+pp. 1–16.
+[112] J. Qadir, M. Q. Islam, and A. Al-Fuqaha, “Toward accountable
+human-centered ai: rationale and promising directions,” Journal
+of Information, Communication and Ethics in Society, 2022.
+[113] M. D. Zeiler and R. Fergus, “Visualizing and understanding con-
+volutional networks,” in European conference on computer vision.
+Springer, 2014, pp. 818–833.
+[114] S. M. Lundberg and S.-I. Lee, “A uniﬁed approach to interpreting
+model predictions,” in Advances in neural information processing
+systems, 2017, pp. 4765–4774.
+[115] N. Papernot, S. Song, I. Mironov, A. Raghunathan, K. Talwar,
+and ´
+U. Erlingsson, “Scalable private learning with PATE,” arXiv
+preprint arXiv:1802.08908, 2018.

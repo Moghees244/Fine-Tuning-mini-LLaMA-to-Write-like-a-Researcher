@@ -1,0 +1,580 @@
+data driven framework for analysis of air quality landscape for
+the city of lahore
+a rahman m usama m tahir m uppal
+lahore university of management sciences lums pakistan
+abdurrahman muhammadusama tahir mominuppallumsedupk
+commission iv wg iv
+key words air quality air quality monitoring system low cost air quality monitoring stations air quality data
+abstract
+several pakistani cities are among the worlds most polluted in the previous three years air pollution in lahore has been con
+siderably over world health organization guideline levels endangering the lives of the citys more than  million citizens in 
+this paper we investigate the citys capability to combat air pollution by analyzing three essential aspects  data  capacity 
+and  public awareness several studies have reported the need for expansion of the current air quality monitoring network in 
+this work we also provide a contextaware location recommendation algorithm for installing the new air quality stations in lahore 
+data from four publicly available referencegrade continuous air quality monitoring stations and nine lowcost air quality measuring 
+equipment are also analyzed our findings show that in order to measure and mitigate the effects of air pollution in lahore there 
+is an urgent need for capacity improvement installation of referencegrade and lowcost air quality sensors and public availability 
+of reliable air quality data we further assessed public awareness by conducting a survey the questionnaire results showed huge 
+gaps in public awareness about the harms of the air quality conditions lastly we provided a few recommendations for designing 
+datadriven policies for dealing with the current apocalyptic air quality situation in lahore
+introduction
+air pollution is defined as the contamination of indoor or out
+door air with chemical physical or biological agents modifying
+the characteristics of air most common sources of outdoor air
+pollution include exhaust combustion from motor vehicles in
+dustrial emissions forest fires livestock farming fertilizer and
+power plants major constituents of air pollution are particu
+late matter pm carbon monoxide co ozone o nitrous
+nox and sulfur oxide sox
+pm includes fine particles
+suspended in the air these particles are usually  micro
+meter pm and  micrometer pm in diameter vallero
+ these particles are a byproduct of combustion in mo
+tor vehicles burning fossil fuels industrial processes and other
+sources of smoke other indirect sources are different chem
+ical reactions of nox and sox in air major health effects of
+the pm pollutants are decreased lung function eye nose and
+throat irritation difficulty breathing aggravated asthma non
+fatal heart attacks and even premature deaths in people with a
+lung or heart disease history
+particulate matter is a significant contributor to air pollution
+air quality is measured using air quality monitoring systems
+aqms which are technically validated by organizations such
+as the united states environmental protection agency epa
+among others and are also known as referencegrade aqms
+referencegrade aqms are costly and require a significant
+amount of upkeep
+the pm values recorded by these
+referencegrade stations are regarded authentic and are utilized
+by appropriate authorities to issue health advisories in most
+developed and underdeveloped countries there is a severe gap
+in the installed referencegrade aqms resulting in huge cover
+age gaps and inconsistent air quality data considering sparse
+corresponding author
+resources and the overburdened economies of developing coun
+tries expansion of the current air quality measurement network
+in a short time is a challenge on the other hand lowcost al
+ternatives exist but the trustworthiness of their reported values
+is frequently questioned many studies have been conducted to
+enhance the performance of lowcost sensors according to the
+literature a mix of referencegrade aqms and lowcost sensors
+can aid in the development of urban cityscale measurement
+networks while keeping the economic aspects of developing na
+tions in check gulia et al  usama et al 
+air pollution has emerged as a significant issue in the subcon
+tinent pakistan has recently seen a yearly smog season that
+lasts from november to february each year multiple pakistani
+cities have made the list of the worlds most polluted cities in
+recent years lahore the provincial capital of punjab is one
+of the worlds three most polluted cities the current state of
+lahores air quality puts the lives of the citys  million resid
+ents in grave danger for the most part of the last three years
+the air quality index aqi stayed between poor to severe the
+aqi is a metric used to quantify the effect of air pollution on hu
+man health based on limited exposure the higher the aqi the
+more health risks there are in winters the smog fog and haze
+results in the closure of the major highways airports and trans
+portation incurring economic losses and social unrest many
+road accidents due to smog are also reported resulting in deaths
+and financial losses
+conditions deteriorated to the point where the government was
+compelled to take action to protect the public from additional
+exposure and pollution it includes the closure of brick kilns
+in  and the enforcement of conventional brick kiln conver
+sion to zigzag technology with lower air pollutants mukhtar
+ httpswwwpbsgovpkcontent
+finalresultscensus
+the international archives of the photogrammetry remote sensing and spatial information sciences volume xlviiiw 
+th international conference on smart data and smart cities sdsc  october  sydney australia
+this contribution has been peerreviewed 
+httpsdoiorgisprsarchivesxlviiiw   authors  cc by  license
+ 
+ in recent years the government has also issued orders
+to shut down industries during the pollution season which has
+had a disastrous effect on the economy in  punjab govern
+ment also decided to close every monday for nearly a month to
+combat smog these circumstances need a thorough examina
+tion of the citys air quality landscape in this study we focused
+on the available pm data sources in lahore pakistan and in
+vestigated the capability of the city to handle the issue of poor
+air quality
+air quality and a citys capability to tackle air pollution are
+quantified using three indicators  capacity  data and 
+public awareness here capacity refers to public and private
+measurement infrastructure data refers to the public availabil
+ity of air quality measurements to develop datadriven policies
+and public awareness refers to the general publics interest in
+the issue and how the public views the ramifications of air qual
+ity issues in this paper we make the following analysis and
+contributions
+ we have collected and prepared a dataset of the
+pm measurement data from various publicaly available
+sources referencegrade aqms and lowcost sensors and
+analyze it to further reflect on the robustness and authenti
+city of the reported data from the public sources
+ based on the prepared dataset and the context information
+of lahore city we have developed an algorithm for recom
+mending deployment positions of new air quality measure
+ment sensors we have also reflected upon the validity of
+these results and how more context information can yield
+better sensor deployment
+ perception versus reality plays a vital role in swaying the
+opinion of the urban public to adopt better practices for en
+suring prevention against the hazardous effects of air pol
+lution we have conducted a survey to gauge perception
+vs reality of the air quality in lahore and this work also
+provides the crux of these findings
+the remainder of the paper is structured as follows in the next
+section we will provide specifics on the air pollution data for
+lahore city as well as the sources section  describes the pro
+posed contextbased location recommendation approach for air
+quality sensor placement and the results achieved section 
+will discuss the survey conducted during this location recom
+mendation approach to determine how individuals view the is
+sue of air quality in lahore
+section  contains a brief yet
+informative discussion on the validity of the acquired results
+finally in section  the work is concluded along with a dis
+cussion on potential future directions
+air quality data of lahore
+needless to say the poor air quality in the city of lahore has
+significantly adverse health effects on its residents life index
+aqli from the energy policy institute at the university of
+chicago epic released its  annual report on the effects
+of poor air quality on the health of an average pakistani citizen
+greenstone and fan  greenstone and fan  the
+aqli report suggests that an average pakistani tends to lose
+ years of life expectancy if the current levels of air pollution
+ httpsdsalumsedupkgrandchallengefund
+blogarchive
+persist greenstone and fan  it also reports that in a
+few most polluted areas the loss in life expectancy can go up
+to  years greenstone and fan  an average citizen of
+lahore is expected to gain  years worth of life expectancy
+if the world health organization who guidelines for pm
+are met
+environmental protection departmentsagencies often collect
+air quality data and health advisories are issued based on
+predefined aqi readings pakistan like any other develop
+ingunderdeveloped country does not have an adequate number
+of aqms installed thus there is a scarcity of available air qual
+ity data for most of the country only four referencegrade air
+quality monitors and a few lowcost sensors with publicly avail
+able air quality data are available in lahore we have confined
+our investigation to pm because air quality data for majority
+of lahore is not accessible for other criteria pollutants figure
+ provides the location of the referencegrade and lowcost air
+quality monitors in lahore city
+figure  there are four referencegrade and eight lowcost air 
+quality monitoring stations in lahore the figure depicts the 
+location of the sensors on the map of lahore
+three referencegrade sensors in lahore are from environ
+mental protection department epd punjab and one from 
+us consulate air quality station the data from epd is avail
+able at daily granularity in pdf format the pdf files were 
+digitized using pythonbased tools as well as manual scrapping 
+the data from us embassy was available at hourly granularity 
+we have converted both sources to daily granularity for com
+parison and depicted the data timeline in figure  there are 
+eight lowcost sensors deployed by purpleair with publicly 
+available pm concentration values in lahore we have also 
+converted them in daily granularity and figure  depicts the 
+timeline of the data availability here we also want to note that 
+there are a few other lowcost sensors in lahore deployed by 
+iqair but their recorded data is not publicly available
+we have noticed that two of the referencegrade stations 
+stopped reporting pm values in mid dental college 
+station and mid met station respectively only two 
+referencegrade aqms are reporting pm concentrations for 
+approximately  square kilometers which is not acceptable
+ httpsepdpunjabgovpkaqi
+ httpswwwairnowgovinternational
+usembassiesandconsulatespakistanlahore
+ httpswwwpurpleaircom
+ httpswwwiqaircom
+the international archives of the photogrammetry remote sensing and spatial information sciences volume xlviiiw 
+th international conference on smart data and smart cities sdsc  october  sydney australia
+this contribution has been peerreviewed 
+httpsdoiorgisprsarchivesxlviiiw   authors  cc by  license
+ 
+figure  timeline plot of pm data for reference grade 
+sensors
+figure  timeline plot of pm data for lowcost grade sensors
+by any stretch of the imagination all lowcost sensors came 
+online in midaugust  their calibration and ability to 
+cater to context while reporting data lacks credibility
+ air quality monitoring network of
+lahore
+in a recent verdict the lahore high court ordered the punjab 
+government to take concrete steps to curb the air pollution in 
+lahore the court also stated that corporations should also ful
+fill their corporate social responsibility and reduce emissions 
+and government must enforce the already existing suggestions 
+from the lahore smog commission report and punjab clean air 
+act to mitigate the smog situation the lahore smog commis
+sion report recommended that the punjab government must in
+crease the active referencegrade air quality monitoring stations 
+from three to twelve based on the smog commission report 
+epd punjab needs to install nine more referencegrade aqms 
+here the challenging bit is to determine the optimal location 
+for the installation of aqms several factors need to be con
+sidered before deciding on the optimal installation location a 
+few of these factors are namely availability of land possible 
+conflicts with future urban construction and expansion plans 
+accessibility to maintenance staff and other services security 
+of the site and some heuristic constraints developed by previ
+ous experiences etc despite the fact that these conditions are 
+strong administrative markers for the installation research on 
+air quality sensor placement suggests that a contextaware data
+driven method can give optimal installation locations
+sun et al proposed a citizencentric air quality sensor place
+ment technique where they have used cambridge city traffic 
+patterns point of interest values and demographic statistics as 
+context information they modelled the location recommend
+ation as a linear integer programming model in which both the 
+objective function location and the constraints context are 
+considered to be linear which we believe will result in a high
+ httpsdatalhcgovpkreported_judgmentsgreen_
+bench_orders
+ footnoteurlhttpsepdpunjabgovpksystem
+filessmogcommissionreportpdf
+rate of false positive locations as the number of sensors to be
+placed increases sun et al  kelp et al presented a
+pm sensor placement approach where they used multiresol
+ution dynamic mode decomposition mrdmd on  years of
+historical pm data to suggest new sensor location kelp et
+al  zhou et al compared five sensor placement tech
+niques random minimization of the matrix condition num
+ber for sensor placement empirical interpolation method for
+sensor placement local extremabased techniques and qr
+factorization method for sensor placement from the control
+theory and fluid dynamics literature on a couple of satellite
+derived huge pm datasets from china zhou et al 
+though the compared techniques are well embedded in the lit
+erature we do not have this sort of highresolution spatiotem
+poral dataset available for lahore city mohar et al used qr
+factorization singular value decomposition svd and ma
+chine learningbased techniques to design an optimal sensor
+placement technique for signal reconstruction in control sys
+tems manohar et al  though this technique has shown
+promise in sensor and actuator placement given the small num
+ber of sensors in our case  and limited untrustworthy sparse
+historical data the technique is highly likely to produce false
+positives there are a few other optimal sensor placement tech
+niques from communication systems and traditional sensors
+network literature younis and akkaya  but these tech
+niques are not optimal for a gappy untrustworthy sparse and
+small dataset to determine the best locations for sensor place
+ment in lahore city
+microsofts urban air project is at the cutting edge of sensor
+placement research for air quality measurements they have
+developed a method that uses attributes from the previously in
+stalled sensors and historical air quality data from existing sta
+tions to suggest suitable locations for future air quality stations
+hsieh et al  hsieh et al used an affinity graphbased
+technique to determine the optimal location for aqms place
+ment for bejing city in china the proposed procedure also
+incorporates the historical pm concentrations meteorology
+data road network poi data etc to ensure that appropriate
+context is also incorporated in the optimal location selection
+hsieh et al  zheng et al  the technique pro
+posed in this paper is an extension of the affinity graphbased
+approach where we have included various context features col
+lected from lahore city and used whatever historical air quality
+data is available
+affinity graph based location recommendation sys
+tem
+hsieh et al used affinity graphs with a greedy entropy min
+imization model to develop a location recommendation system
+for aqms installation location recommendation hsieh et al
+ initially the city is divided into graph nodes and edges
+where every edge has an associated weight and every node
+has an associated set of features road networks residential
+areas commercial areas industrial areas public spaces met
+eorological features and other factors that may contribute to
+variation in air pollution since most location recommenda
+tion techniques are designed and tested for developed countries
+with historical data on air pollution and related context features
+are publicly available the location recommendation for the new
+aqms becomes a simple task since we are trying to predict
+the location of the aqms for an underdevelopeddeveloping
+ httpswwwmicrosoftcomenusresearchproject
+urbanair
+the international archives of the photogrammetry remote sensing and spatial information sciences volume xlviiiw 
+th international conference on smart data and smart cities sdsc  october  sydney australia
+this contribution has been peerreviewed 
+httpsdoiorgisprsarchivesxlviiiw   authors  cc by  license
+ 
+figure  flow chart of the station location recommendation algorithm
+city where the available historical data is sparse and untrust
+worthy and context features are also not available the simple
+learning task becomes a real hassle
+for lahore we have collected historical air quality data from
+all known publicly available sources the data was cleaned and
+preprocessed by following the data science principles clean
+ing normalization outlier detection etc we have combined
+the referencegrade aqms data with lowcost sensors data to
+further improve the volume of the dataset gathering the con
+text data for lahore city is challenging as to the best of our
+knowledge it is not publicly available we have employed geo
+graphic information systems gis tools for collecting context
+information such as commercial hubs industrial areas traffic
+hotspots etc the meteorology data was available the road
+network was extracted using satellite imagery and machine
+learning techniques figure  depicts the identified commercial
+hubs industrial areas drainage streams and traffic hotspots
+figure  identified pollution hotspots in lahore
+since the proposed method is inspired from hsieh et al  
+we recommend the interested reader to see hsieh et al  
+for indepth details on how affinity g raphs c an b e leveraged 
+for designing location recommendation algorithms our model
+works in two stages the first step is to compute the probability
+distribution of unlabeled nodes using feature weight matrices
+graph weight matrices and labeled nodes the entropy for each
+node is computed in the second phase and the node with the
+lowest entropy is marked as the labeled node and given the low
+est rank for a recommendation for the installation of a new air
+quality station the model is given a new set of labeled and
+unlabeled nodes iteratively a more detailed description of the
+aqms location inference method in the following steps
+ the input to the proposed location inference technique is
+labeled node list labeled node air quality values histor
+ical context features associated with each node unla
+belled node list candidate node locations and features
+associated with the unlabelled candidate nodes
+ based on the input an affinity graph is created and graph
+weight initialization is performed in our case we have
+initialized it with all s
+ after the initialization we have computed the initial en
+tropy with the uniform underlying distribution of un
+labeled nodes and the feature weight matrix is updated
+using gradient descent the probability distribution of the
+updated unlabelled nodes is estimated using a harmonic
+function and the entropy of the updated graph is com
+puted
+ the difference between the entropy of pre and post
+graph updates is computed and subjected to a difference
+threshold if the entropy difference is less than the pre
+defined threshold value we ranked the node with the low
+est entropy in the reverse order and assigned the node to a
+labeled node predicted aqi assignment whereas if the
+entropy difference is greater than the predefined threshold
+the algorithm will go back and update the graph and fea
+ture weights and entropy is recomputed
+ if there is no unlabeled node left in the graph the proposed
+algorithm will output the n highestranked nodes which
+in our case are the first nine nodes since we have conver
+ted lahore into a graph grid the label of the top n nodes
+will also provide their location information on the map
+ we observed an inherent problem of clustering multiple
+recommended nodes in this algorithm we noticed that
+the international archives of the photogrammetry remote sensing and spatial information sciences volume xlviiiw 
+th international conference on smart data and smart cities sdsc  october  sydney australia
+this contribution has been peerreviewed 
+httpsdoiorgisprsarchivesxlviiiw   authors  cc by  license
+ 
+the conversion of unlabeled nodes from near the labeled
+nodes converged to the point where none of the nodes
+were labeled because the node with the lowest entropy was
+tagged as a labeled node it is an issue when the number of
+recommended locations is more than one thus multiple
+nodes were recommended in a cluster to tackle this prob
+lem we introduced another loop to recommend only one
+location in every iteration and use the previous recommen
+ded location as a labeled node in the next iteration
+the flow chart for the algorithm used for inferring the optimal
+aqms placement is depicted in figure 
+we tested the proposed algorithm with the available air quality
+data for lahore city and the collected context features the pro
+posed aqms location recommended algorithm provided  re
+commended for new aqms deployment the output of the pro
+posed model for the recommendation of  stations for lahore
+city is provided in figure  referencegrade aqms are usually
+deployed by the environmental protection departmentagencies
+which epd punjab will do in the future though for now we are
+planning to deploy  lowcost on the recommended locations
+to collect pm concentrations in future work we intend to
+analyze the efficiency of the proposed location algorithm using
+the reported data from all air quality measurement sources
+figure  recommended locations for installation of air quality 
+stations yellow with the locations of currently installed stations 
+red
+ public awareness
+the third component of accessing the ability of a city to deal 
+with the air quality issue is its public awareness following the 
+tradition in the literature liu et al  pantavou et al  
+lou et al  maione et al  we have designed a sur
+vey with only ten simple questions addressing the perception of 
+the air quality among citizens and how this perception is built 
+and whether they are taking any measures to avoid detrimental 
+consequences of the air pollution in lahore city the question
+naire varied from general public perception of air pollution and 
+public information sources to the selfreported levels of health 
+impact due to air pollution
+we have conducted this survey from st december  to 
+th january  we have received  responses from dif
+ferent universities in lahore as expected nearly  of the
+participants were between  years old
+ of the re
+sponses came from males and  from female participants
+we collected responses from  different public and private uni
+versities in lahore nearly  of the responses suggested that
+the air quality in lahore ranges from very poor to severe 
+said severe and  said very poor nearly  of the re
+sponses suggested that smogfoghaze is their sensory percep
+tion for air quality this response statistics also show that many
+people think that air pollution only exists in winter and as soon
+as the smog is gone the air quality is back to normal which is
+not the case this response also suggests the lack of information
+about air pollution among young people our result also shows
+that news mobile applications and social circles are domin
+ant ways to get air qualityrelated information nearly  of
+people responded that they do not take any precautions to deal
+with air pollution  of the total responses suggested that
+they have a respiratory condition and out of those  people
+ said that their condition aggravated due to poor air quality
+in lahore lastly  of people suggested that transport is the
+major contributor to poor air quality in lahore the rest of the
+people responded in favor of industries agriculture etc the
+responses distribution about the potential sources of the survey
+are depicted in figure  more details on our survey and results
+are available on our blogpost
+this survey suggests the need to raise public awareness about
+the dangers of air pollution and we suggest that including com
+ponents on air pollution its causes and ways to deal with it
+must be included in the school college and university cur
+riculum we also recommend public meetings town halls and
+seminars to increase awareness among people we also sug
+gest the give incentives to the residential and commercial areas
+where the air quality improves
+figure  public awareness survey response on the perception 
+about the potential air pollution sources in lahore
+ discussion and recommendations
+in this article we assessed lahores ability to cope with the 
+growing air pollution problem in three areas data capability 
+and public awareness our findings show that lahores present 
+air quality monitoring network has significant gaps and the city 
+is unable to deal with the everincreasing menace of air pollu
+tion lahore does not have enough aqms installed and the 
+available aqms data is gappy unreliable and does not reflect 
+the severity of the air pollution we suggest that epd punjab 
+needs to increase the referencegrade aqms and also support
+ httpsdsalumsedupkgrandchallengefund
+blogarchive
+the international archives of the photogrammetry remote sensing and spatial information sciences volume xlviiiw 
+th international conference on smart data and smart cities sdsc  october  sydney australia
+this contribution has been peerreviewed 
+httpsdoiorgisprsarchivesxlviiiw   authors  cc by  license
+ 
+the deployment of lowcost sensors epd also has to ensure
+an ample amount of calibration and chemical analysis facilities
+to further the quality of sensing and source apportionment the
+development of a public dashboard is prevalent where all public
+and private data on the air quality is gathered and analyzed and
+made available to the public there is a dire need for academic
+and industrial partners to further enhance the agenda on gath
+ering reliable air quality data and using machine learning and
+other predictions technique to prepare the epd for upcoming
+air quality challenges
+in this work we also did our bit by designing an aqms place
+ment algorithm that incorporates the local context to provide
+optimal location this effort is also a candidate solution to effi
+ciently using the limited financial resources available here we
+also want to note that deploying  aqms in lahore will not
+solve the data availability issue general public housing societ
+ies and institutions also have to play an active role in the dens
+ification of the air quality monitoring network we recommend
+that all government and private housing societies universities
+industries hospitals etc install aqms near reference or low
+cost and make the date available to the public and government
+public awareness is the third component of accessing the abil
+ity of lahore city to cope with the air quality issues our sur
+vey indicates the lack of awareness about the air quality issues
+our survey also reveals disparities between public perception
+and real air quality there is an urgent need to raise public
+knowledge about air quality through awareness campaigns and
+community activities the general public is unaware of the vari
+ous resources for reporting air quality more emphasis should
+be placed on preventative measures such as wearing masks in
+stalling air purifiers and reducing outside activity during pollu
+tion studies on source apportionment may aid in quantifying
+the sources of air pollution in pakistan we recommend includ
+ing air quality and associated information in school college
+and university curricula collaborating with religious experts to
+emphasize the issue of air quality in friday sermons and other
+religious gatherings supporting public awareness events such
+as seminars and town halls and offering incentives to the resid
+ential and commercial areas where the air quality improves
+challenges
+there are a few significant obstacles and tradeoffs that devel
+opingunderdeveloped nations must confront which necessit
+ate a concerted global effort to address the air pollution prob
+lem following are a few challenges keeping in view the un
+derdevelopeddeveloping countries
+ data collection and public datasets collecting air qual
+ity data is a difficult process since varying concentrations
+of air contaminants are involved given the environmental
+and health dangers associated with poor urban air qual
+ity it is critical to creating a centralized realtime air qual
+ity data monitoring and processing system sensorcentric
+data collection and crowdcentric data collection are two
+approaches for obtaining urban data eg air quality data
+poi meteorological data etc there are two types of
+sensorcentric paradigms these classifications are based
+on whether the sensors gathering data are mobile de
+ployed on a moving item or static deployed on a fixed
+location there are two types of crowdsourced data col
+lection active data created through participation surveys
+and checkins and passive data generated by users pass
+ively while using the urban infrastructure it is important
+to understand what type of approach can help gather the
+most reliable and larage amount of air quality data usama
+et al 
+ tradeoff between economic growth and air pollution
+most developing countries are trying to manage their eco
+nomies and the balance between economic expansion and
+air pollution is almost always skewed toward economic
+growth
+finding a middle ground between economic
+growth and air pollution is a challenging task health and
+environmental budgets are diminishing making it difficult
+for developing countries to detect report and improve the
+air quality xu and li  usama et al 
+ regularization and air quality measurements
+un
+derdevelopeddeveloping countries must implement data
+driven policies with regularisation based on data and local
+context once these policies are developed the adminis
+tration must guarantee that they are executed yamineva
+and romppanen  usama et al 
+ public
+awareness
+unfortunately
+in
+under
+developeddeveloping
+nations
+public
+understanding
+of the hazards of air pollution and efforts to ameliorate its
+consequences is relatively low with the development of
+social media applications and the internet penetration the
+government may easily overcome this challenge the ad
+ministration should use social media platforms television
+shows print and digital platforms town halls seminars
+hackathons conferences and so on to disseminate as
+much information as possible about the effects of air
+pollution on human health and the local economy major
+air pollution sources and what options the public has to
+help reduce emissions
+conclusions
+in this article we assessed lahores potential to deal with the
+looming challenges of air pollution across three dimensions
+data capacity and public awareness the goal of gaining ac
+cess to lahores ability to deal with air quality on the afore
+mentioned verticals is to establish the groundwork for building
+a framework for developing an air quality network for under
+developed countries we also proposed an optimal placement
+suggestion approach for installing air quality monitoring sta
+tions finally we have identified a few challenges that develop
+ing nations must solve in order to avert the air apocalypse

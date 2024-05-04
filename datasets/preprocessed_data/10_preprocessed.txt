@@ -1,0 +1,1416 @@
+
+sparks of large audio models
+a survey and outlook
+siddique latif moazzam shoukat fahad shamshad muhammad usama yi ren heriberto cuay
+ahuitl
+wenwu wang xulong zhang roberto togneri erik cambria and bj
+orn w schuller
+abstractthis survey paper provides a comprehensive overview of the recent advancements and challenges in applying large language
+models to the field of audio signal processing audio processing with its diverse signal representations and a wide range of sources 
+from human voices to musical instruments and environmental sounds  poses challenges distinct from those found in traditional natural
+language processing scenarios nevertheless large audio models epitomised by transformerbased architectures have shown marked
+efficacy in this sphere by leveraging massive amount of data these models have demonstrated prowess in a variety of audio tasks
+spanning from automatic speech recognition and texttospeech to music generation among others notably recently these
+foundational audio models like seamlessmt have started showing abilities to act as universal translators supporting multiple speech
+tasks for up to  languages without any reliance on separate taskspecific systems this paper presents an indepth analysis of
+stateoftheart methodologies regarding foundational large audio models their performance benchmarks and their applicability to
+realworld scenarios we also highlight current limitations and provide insights into potential future research directions in the realm of
+large audio models with the intent to spark further discussion thereby fostering innovation in the next generation of audioprocessing
+systems furthermore to cope with the rapid development in this area we will consistently update the relevant repository with relevant
+recent articles and their opensource implementations at httpsgithubcomemulationaiawesomelargeaudiomodels
+index termslarge language models foundation models large audio models audio processing speech processing music signal
+processing multimodality
+introduction
+a
+udio processing encompassing the broad categories of
+speech music and environmental sounds is a vibrant
+research area that has a myriad of realworld applications
+these applications range from voiceactivated assistants like
+siri and alexa   to transcription services  and extend
+to telecommunication systems  and hearing aids  tradi
+tional audio processing systems were built on meticulously
+handcrafted features and extensive linguistic knowledge 
+despite their effectiveness these handcrafted approaches
+often lacked scalability and struggled with the variability and
+complexity inherent in audio signals  however in the past
+decade the field has experienced a significant paradigm shift
+with the emergence of datadriven methodologies 
+this progression towards datacentric techniques paves the
+way for systems that can learn to understand and interpret
+complex audio patterns directly from raw data  
+however
+these
+datadriven
+models
+despite
+their
+siddique latif is with queensland university of technology qut australia
+email siddiquelatifusqeduau
+moazzam shoukat is with emulation ai australia
+fahad shamshad is with mohamed bin zayed university of artificial
+intelligence abu dhabi uae
+muhammad usama is with nuces pakistan
+yi ren is with the speech and audio team bytedance ai lab singapore
+heriberto cuay
+ahuitl is with the university of lincoln uk
+wenwu wang is with the university of surrey uk
+xulong zhang is with lab of large audio models ping an technology china
+roberto togneri is with the university of western australia australia
+erik cambria is with nanyang technological university singapore
+bj
+orn w schuller is with glam  the group on language audio  music
+imperial college london uk and is also with the chair eihw university of
+augsburg germany
+prowess typically perform well only for the specific tasks
+they are trained on and generally struggle with situations
+that deviate from their training environments meanwhile
+large ai models particularly large language models llms
+have demonstrated outstanding accomplishments in almost
+every ai domain reshaping how humans interact with
+machines  these large models characterised by their
+billions of parameters and training on massive datasets
+have manifested emergent abilities to tackle a multitude of
+intricate tasks across various fields  such capabilities
+have elevated ai algorithms to unprecedented levels of
+power and efficacy in particular the emergence of models
+such as chatgpt and gpt has rekindled discussions about
+the potential of artificial general intelligence   unlike
+earlier learningbased models that were tailored for specific
+tasks these large models boast versatility in addressing
+diverse tasks   given their immense potential these
+expansive ai models signify a new technological wave that
+promises a rich ecosystem of realworld applications and
+have already found extensive applications in various sectors
+such as vision   language health education robotics
+and governance among others
+while large ai models have made remarkable advance
+ments in the domains of language  images  and
+videos  the audio arena has followed a more gradual
+trajectory nevertheless recently these large models have
+made significant strides in a variety of audio processing tasks
+characterised by techniques that adeptly integrate audio
+data representations with traditional text token embeddings
+equipping these large models with the capacity to interpret
+and manage a wide range of audio content  despite
+arxivv  cssd   sep 
+table  comparison between this paper and other review articles concerning foundation models fmslarge language
+models llms andor audio signal processing
+authors
+year
+fm
+audio
+domain
+focus
+karita et al 
+speech
+comprehensive study to compare the performance of transformer and recurrent
+neural networks in numerous speech applications
+latif et al 
+speech
+first survey paper of applications of transformer models in speech processing
+mehrish et al 
+speech
+comprehensive survey covering applications of deep learning in speech processing
+latif et al 
+speech
+first survey paper of applications of reinforcement learning in audio processing
+bommasani et al 
+general
+a comprehensive survey paper on the applications and risks of foundation models
+in diverse fields including language vision health among others
+zhao et al 
+general
+first comprehensive survey paper on llms including their background key findings
+in the literature and mainstream techniques
+chang et al 
+general
+comprehensive review of these evaluation methods for llms focusing on three key
+dimensions what to evaluate where to evaluate and how to evaluate
+kaddour et al 
+general
+identify several unsolved challenges of llms provide an overview of their current
+applications and discuss how the former constrain the latter
+wang et al 
+general
+first survey to provide an uptodate review on the alignment process of llms
+gan et al 
+vision
+this survey categorises visionlanguage pretraining frameworks covering various
+architectures objectives and downstream tasks
+zhang et al 
+vision
+comprehensive review of the visually prompted foundation segmentation model
+segment anything sam and discusses potential downstream tasks
+zhang et al 
+vision
+survey of different visionlanguage pretraining network architectures objectives
+and downstream tasks and categorises visionlanguage pretraining frameworks
+awais et al 
+vision
+reviews vision and language foundational models focusing on their architecture
+types training objectives downstream task adaption and their prompting designs
+with a broad coverage of their applications in a variety of visual tasks
+kasneci et al 
+education
+emphasise the potential of large models models to enhance educational content boost
+student engagement and tailor individual learning experiences
+kung et al 
+education
+assess chatgpts performance on the united states medical licensing exam
+usmle where it impressively achieved scores near the passing threshold without
+any dedicated specialised training
+qadir et al 
+education
+review regarding promise and pitfalls of chatgpt in engineering education
+rudoph et al 
+education
+examine the implications of technology for higher education focusing on the future
+of learning teaching and assessment in the context of ai chatbots like chatgpt
+moor et al 
+health
+identify potential applications for medical foundation models and outline specific
+technical capabilities and training data needed to enable them
+qiu et al 
+health
+comprehensive review of large ai models in health informatics including drug
+discovery medical diagnosis and decisionmaking medical imaging medical
+informatics medical education public health and medical robotics
+wornow et al 
+health
+reviews  foundation models using nonimaging emr data categorising their
+architectures training sources and applications
+zhang et al 
+health
+survey of medical foundation models from general vision to modality and task
+specific ones emphasising their challenges opportunities and uses
+hu et al 
+comp bio
+review the latest developments in large models and protein large models focusing on
+their architectures pretraining methods and prevalent protein databases
+tran et al 
+comp bio
+survey a number of representative embedding models for execution time memory
+needs and their ability to perform various tasks related to global properties for
+different protein sets
+cyphert et al 
+law
+article delves into the ethical implications of integrating gpt into legal practices
+sun et al 
+law
+survey of llms in legal tasks like judgement prediction and document analysis also
+highlights related legal challenges including privacy bias and transparency
+nay et al 
+law
+examines llms proficiency in tax law application noting improvements in newer
+models compared to older ones
+yang et al 
+robotics
+explore applications of foundation models in practical decisionmaking using
+prompting generative modeling planning and reinforcement learning
+this paper
+audio
+first survey paper of applications of large ai models in audio signal processing
+substantial progress and promising potential the integration
+of large models into audio processing presents unique chal
+lenges and requires dedicated exploration this highlights
+the imperative for an allencompassing survey centred on the
+application of these large models within the audio domain
+encompassing speech music and other auditory facets this
+paper aims to fulfil this requirement providing an exhaustive
+overview of the methods limitations and future directions
+in this emerging field specifically our key contributions are
+as follows
+this is the first survey paper that comprehensively
+covers applications of large ai models in the domain
+of audio signal processing thereby covering the recent
+progress in this emerging area
+we also shed light on how large ai models handle
+the distinct characteristics of audio processing and
+how they can be further enhanced to handle the
+complexities of spoken language in particular we
+cover the applications of these large models in the
+broad categories of speech and music
+fig  paper outline
+we discuss challenges limitations and potential
+directions for future research through this survey
+we aim to provide a comprehensive understanding
+of the current landscape of large models in the realm
+of audio processing thus paving the way for future
+innovations in this exciting area
+paper organisation the organisation of this paper is
+shown in figure  section  provides insights into the
+applications of sequential models and transformers within
+the audio processing sphere while also briefly discussing
+large language models and the pivotal role of datasets
+in training expansive audio models section  provides a
+comprehensive overview of the applications of large ai
+models in the speech and music domains section  discusses
+open problems and charts potential avenues for future
+research finally in section  we summarise and conclude
+the paper
+related surveys and differences
+while several com
+prehensive surveys delve into the applications of deep
+learning for audio processing     including
+speech   music  and other categories  
+none concentrate on the advent and deployment of llms
+in this field numerous surveys exist that cover the vast
+landscape of llms each focusing on specific aspects or
+applications among these the work by zhao et al 
+closely parallels ours as it provides a broad overview of
+llms and related topics similarly mialon et al  turn
+their attention towards augmented language models those
+with advanced reasoning capabilities and tool usage skills
+on a similar vein tornede et al  explore llms in the con
+text of automated machine learning automl techniques
+discussing existing methodologies and the challenges of
+using them to enhance llm performance tang et al 
+focus on techniques for detecting text generated by llms
+while chang et al  have examined the various ways to
+evaluate llms additionally there are a number of surveys
+dedicated to investigating the specialised applications of
+large models in various fields such as vision    
+education   healthcare   computational
+biology   computer programming   law 
+  or robotics    among others on the other
+hand our survey stands apart in its exclusive focus on
+the applications of large ai models in the realm of audio
+signal processing and fills an existing gap in the current
+body of research to round off our review we provide a brief
+summary of the contributions of existing surveys in table 
+background
+in this section we provide an overview of llms begin
+ning with a brief overview of sequential models and the
+difficulties they encounter while processing sequential data
+subsequently we will probe the principal ideas that underpin
+the operation of large language models emphasising the dis
+tinctive traits that equip these models to surpass traditional
+recurrent neural networks ultimately we will examine the
+widely used large language models in the domain of audio
+processing
+sequential models for audio processing
+initial applications of deep learning in the field of audio
+processing primarily utilised versions of convolutional neu
+ral networks cnns  however the inability of these
+cnnbased methodologies to encapsulate the sequential
+essence of speech data was a substantial disadvantage this
+shortcoming led to the inception of sequencetosequence
+seqseq architectures such as recurrent neural networks
+rnns  and long shortterm memory networks
+lstms  specifically engineered for handling sequential
+data rnns proved to be a suitable fit for sequential data
+given their ability to process extensive sequences incre
+mentally maintaining a constrained memory of preceding
+sequence components a recent trend in research merges the
+unique strengths of both cnns and rnns this involves
+using cnns to derive audio features which are then fed as
+input for rnn training however rnns are known to suffer
+from the challenges of vanishing or exploding gradients
+to combat this lstms implement a gating mechanism
+alongside memory cells to regulate the information flow and
+mitigate issues related to gradients   there have been
+fig  architecture of standard transformer a fundamental building block of large ai models adapted from vaswani
+et al  and tay et al  it consists of encoder and decoder layers both equipped with stacked selfattention and
+feedforward components the encoder derives hidden states from an input token sequence and the decoder utilises these
+states alongside its own output token sequence to produce predictions
+various adaptations of lstms such as frequencylstm
+timefrequency lstms bidirectional lstms convlstms
+and stacked lstms each proposed to cater to specific speech
+processing tasks despite their potency seqseq models have
+certain restrictions for instance they struggle to leverage
+parallel computing hardware efficiently and have difficulty
+in modelling longterm contexts due to their inherently
+sequential nature
+transformers for audio processing
+transformers utilise selfattention mechanisms to capture
+temporal correlations from sequential data  this equips
+transformers with the ability to capture extensive temporal
+contexts while maintaining reduced computational complex
+ity transformers employ selfattention layers to effectively
+capture distant relationships within input sequences unlike
+traditional rnns which struggle with such interactions self
+attention also enables greater parallelisation compared to
+rnns allowing transformers to process speech sequences
+holistically without relying on past states vaswani et al 
+introduced two types of attention scaled dotproduct at
+tention and multihead attention additionally positional
+encoding conveys information about token positions see
+figure  these benefits have spurred significant interest
+in transformers across various ai domains  notably
+the audio community this has given rise to diverse archi
+tectures such as wavvec  whisper  fastpitch 
+musicbert  and others   
+furthermore transformers have not only revolutionised
+natural language processing and audio processing but have
+also paved the way for the development of llms that can
+understand generate and interact with human language
+and its underlying contexts in increasingly nuanced and
+sophisticated ways their remarkable ability to efficiently
+capture contextual dependencies and relationships within
+sequences has been instrumental in the creation of llms with
+billions of parameters such as gpt this breakthrough
+in capturing contextual information has extended beyond
+text generation to various modalities like speech and audio
+giving rise to the emergence of large audio models that
+have transformed tasks such as speech recognition emotion
+detection and music generation we discuss the large audio
+model in the next subsection
+overview of large language models
+investigations reveal that the act of scaling pretrained lan
+guage models plms either through enhancing the model
+size or expanding the data size typically yields superior
+model performance on subsequent tasks adhering to what is
+known as the scaling law  numerous investigations have
+probed the limits of performance by training increasingly
+larger plms such as the gpt model with  billion
+parameters and the palm model with  billion parameters
+while the majority of scaling endeavours primarily focus on
+model size preserving similar architectures and pretraining
+tasks these expanded plms exhibit distinct characteristics
+compared to their smaller counterparts such as bert with
+ million parameters and gpt with  billion parameters
+they exhibit unexpected proficiency referred to as emergent
+abilities in tackling a variety of intricate tasks for example
+gpt has demonstrated the ability to address fewshot tasks
+via incontext learning a feat that gpt struggles with
+hence the term large language models llms has been
+coined by the research community to describe these enlarged
+plms and these models have garnered increasing interest
+a notable example of an llm application is chatgpt which
+adapts the gpt series llms for dialogue showcasing excep
+tional conversational capabilities with humans a significant
+surge in arxiv papers pertaining to llms can be observed
+following the launch of chatgpt
+fig  overview of foundational audio models a foundational audio model aggregates information from diverse data
+modalities once trained this model can be tailored to various downstream audio tasks
+recently gpt  has been developed which is a large
+scale multimodal model that can accept image and text as
+input and produce text outputs gpt is capable of achieving
+humanlevel performance on some professional and aca
+demic benchmarks including achieving a score around the
+top  of testtakers in a simulated bar exam various other
+multimodal large language models are proposed by utilising
+multimodal information including visual audio and text
+these llms are considered a crucial step towards artificial
+general intelligence agi most importantly large audio
+models see figure  attract significant interest from the
+research community to build llms that have intrinsic cross
+modal conversational abilities and are capable of perceiving
+and generating audio or multimodal content we also show
+a brief timeline for large audio models in figure  in the next
+section we cover popular large audio models and a summary
+of these models is presented in table 
+popular large audio models
+in this section we provide a brief overview of popular large
+audio models
+speechgpt
+zhang et al  proposed speechgpt a large language
+model that has intrinsic crossmodal conversational abilities
+that allow it to generate multimodal content the model is
+based on three significant elements a discrete unit extractor
+a large language modal and a unit vocoder they utilised
+hiddenunit bert hubert  as a discrete unit extractor
+for the transformation of continuous speech to discrete units
+the meta ai llama  model as llm and hifigan as
+a unit vocoder the low availability of publicly available
+speech data compelled them to construct the speechinstruct
+a speechtext crossmodal instructionfollowing dataset com
+prised of two parts crossmodal instructions and chainof
+modality instruction the training process of this model
+is broken down into three steps modality adaptation pre
+training on unpaired speech data crossmodal instruction
+finetuning and chainofmodality instruction finetuning
+they employ an unlabelled speech corpus to train the llm
+in a nexttoken prediction task which empowers the large
+language model llm to effectively handle discrete units
+of modality in the crossmodal instruction finetuning
+they utilised the paired data to align speech and text
+subsequently they applied the parameterefficient lowrank
+adaptation lora technique  to perform finetuning
+consequently they found the model to perform various
+tasks with correct output on different instructions although
+this model has shown remarkable crossmodal instruction
+recognition and speech dialogue abilities it also has some
+limitations that can be listed as paralinguistic information
+sequential response generation and context length limitation
+audiopalm
+rubenstein et al  introduce a multimodal generative
+model called audiopalm see figure  for speech and
+text capable of both understanding and generating speech
+the model is built upon the foundation of palm  and
+palm  initially devised for textonly pretraining
+the models training encompasses three primary stages
+tokenisation of text and audio modification of pretrained
+text decoders and transformation of the models output
+into audio they adopt token extraction techniques from
+raw audio   following token processing the tokens
+are fed into a transformer decoder which subsequently
+passes through an audio decoding process they employ
+autoregressive techniques as in audiolm  as well as
+nonautoregressive approaches similar to  to translate
+decoding tokens into audio their findings demonstrate
+fig  timeline of large audio models
+improved asrast performance with llm size and a
+single model is effectively trained across multiple tasks
+audiolm
+borsos et al  present the audiolm framework designed
+to facilitate highquality audio synthesis while prioritising
+the preservation of longterm consistency coherence and
+uniformity across extended time spans this framework
+is composed of three integral components a tokeniser
+model a decoderonly transformer and a detokeniser model
+drawing from soundstream  wvbert  the k
+means quantiser for wvbert embeddings and decoder
+only transformers all of which have been trained on the
+extensive librilight  english dataset encompassing
+ hours of speech data the authors assembled these
+components this amalgamation incorporates adversarial
+neural audio compression selfsupervised representation
+learning and language modelling techniques they have
+shown a comparison between the acoustic tokens from
+soundstream and the semantic tokens extracted from a pre
+trained wvbert model on a speech dataset to show that
+these two types of tokens complement each other regarding
+enhancing phonetic discriminability and attaining high
+quality rebuilding of the audio content through training
+on comprehensive raw audio waveform datasets audiolm
+acquires the proficiency to generate highquality and logically
+coherent audio extensions from concise prompts converting
+input audio into a series of tokens audiolm approaches
+audio generation as a language modelling task
+audiogen
+meta recently introduced audiocraft an extensive frame
+work designed to facilitate a diverse range of generative
+audio tasks encompassing music generation sound effects
+creation and posttraining compression using raw audio sig
+nals this comprehensive framework consists of three essen
+tial components musicgen  audiogen and encodec
+both musicgen and audiogen incorporate independent
+autoregressive language models lms tailored to operate
+with discrete audio representations in the form of tokens in
+contrast encodec is built upon neural networks
+audiogen  a critical component of this framework
+is an autoregressive model that effectively addresses the
+challenge of generating audio while incorporating textual
+inputs this model adopts a transformerbased architecture
+functioning with discrete audio representations the oper
+ational mechanism of this model can be distilled into two
+primary steps firstly an autoencoding method  
+is employed to comprehend the discrete representation of
+raw unprocessed audio subsequently these acquired repre
+sentations are employed to train the transformer language
+model the transformer decoder language model is extended
+from the gptlike model imbuing the entire system with
+an encoderdecoder configuration empirical evaluations un
+derscore the models commendable performance across both
+objective and subjective evaluation metrics positioning it
+favourably in comparison to assessed baselines notably the
+proposed methodology excels in generating audio continua
+tions adeptly navigating both conditional and unconditional
+scenarios
+audioldm and audioldm 
+audioldm  is a texttoaudio generation framework
+with an encoder built on a contrastive language audio
+pretrained clap model and the latent diffusion model
+ldm for sound generation with audio embedding as input
+and text embedding as conditions the clap model is
+pretrained with datasets including laionaudiok
+audioset audiocaps and clotho with the clap encoder
+the training of the ldm does not require audiotext pairs
+any more which is substantially different from the previous
+method such as audiogen  and diffsound  as a
+result a large number of audio clips without the paired texts
+could be used to train the ldm model and this leads to a
+generation model capable of generating more diverse sounds
+with potentially better quality as compared with audiogen
+and diffsound in addition due to the operation in the latent
+space the training of audioldm is much more efficient
+fig  overview of the audiopalm model  designed for speechtospeech translation and automatic speech recognition
+a pretrained textonly model denoted by dashed lines is modified to incorporate an extended embedding matrix for
+new audio tokens the overall structure remains consistent accepting a combined sequence of text and audio tokens and
+decoding either type the subsequent stages of audiolm or soundstorm then revert audio tokens back to raw audio figure
+taken from 
+as compared with audiogen and diffsound and only one
+gpu is required for training on the audiocaps dataset in
+addition the audioldm model enables a number of other
+audiorelated tasks to be performed in zeroshot fashion such
+as textguided superresolution inpainting and style transfer
+built on the success of audioldm the authors have created a
+more advanced model called audioldm   which aims
+to develop a general audio representation method called
+language of audio loa for speech music and general
+sound effects with this method a single foundation model
+is learned with the same method and is able to generate
+highquality speech music and sound effects the self
+supervised learning method audiomae is used to convert
+any audio modality into the language of audio with the
+loa representation the audio signal can be generated with
+a selfsupervised learning process with a ldm with loa
+as conditions this technique leverages the strengths of in
+context learning the pretrained audiomae and ldm this
+method is shown to give stateoftheart performance in
+texttosound generation
+ltu
+gong et al  present an audio model known as ltu
+listen think and understand designed to perform audio
+classification and captioning tasks based on the openaqa
+m dataset which comprises  million diverse audio
+samples the training of ltu involves the creation of a novel
+dataset openaqam by amalgamating eight datasets
+containing audio questions and answers the architec
+ture of the ltu model draws from various components
+including an audio spectrogram transformer ast 
+as the audio encoder llama  as the large language
+model llm enhanced with vicuna  instructions low
+rank adapter  and specific generation settings to align
+the embedding dimensions with llama a pretrained
+audio spectrogram transformer is used alongside the cav
+mae  and finetuned on audiosetm  for audio
+encoding
+during training the authors maintained the llama
+unchanged to minimise catastrophic forgetting  they
+focused solely on training the ast audio encoder the audio
+projection layer and the lora adapters llama underwent
+selfsupervised pretraining on both natural language and
+programming language datasets while vicuna was fine
+tuned using instructions generated by gpt models the
+arbitrary initialisation of the audio projection layer led to
+training this component in conjunction with closedended
+classification and acoustic feature description tasks while
+keeping ast and lora adapters unaltered evaluation of
+ltu against a stateoftheart model clap showcased its
+significant performance in audiototext tasks achieving an
+average relative improvement of  across classification
+eight benchmarks
+viola
+wang et al  introduce viola a codec language model
+encompassing a multilingual multimodal autoregressive
+transformer decoderonly network this model exhibits
+proficiency in speech recognition speech synthesis and
+translation covering speechtotext stt texttospeech
+tts and machine translation mt tasks viola is built
+upon valle  and valle x  which share tts
+capabilities akin to gpt the authors utilise an offline neural
+model encodec to convert speech waveforms into discrete
+tokens this transformation enables speech representations
+to be treated as textual tokens effectively leveraging a
+decoderonly model for adept optimisation of multimodal
+tasks viola is trained using multitask learning strategies
+encompassing asr mt and tts tasks the results under
+score violas effectiveness in addressing both singlemodal
+and crossmodal tasks despite its versatility in numerous
+speech tasks viola is not without limitations its training
+relies solely on supervised data neglecting the untapped
+potential of unsupervised data including unlabelled speech
+and diverse text corpora the models scope encompasses
+incontext learning for speech synthesis tasks but it does
+not encompass other speech processing sp tasks addi
+tionally viola currently lacks endtoend capabilities in
+comprehensive speechprocessing tasks
+musicgen
+musicgen a part of the audiocraft framework  is a
+texttomusic generation language model lm that oper
+ates on discrete audio representations to generate music
+from provided text descriptions this study introduces a
+model for generating coherent music based on text and
+melody conditions with extensive objective and subjective
+evaluations the architecture relies on an autoregressive
+transformerbased decoder  conditioned on textual and
+musical representations enodec  is employed to encode
+audio into a continuous tensor the model is trained on
+ instances of licensed music data and evaluated against
+musiccaps benchmarks  surpassing evaluated baselines
+in subjective assessments
+musiclm
+musiclm  has the main idea of generating music from
+the textual description and it can generate highquality
+music at  khz that has consistency over several minutes
+it leverages the multistage autoregressive modelling of
+audiolm  as the generative component and extends it to
+include text conditioning it also uses mulan  a joint
+musictext model to address the main challenge of paired
+data scarcity the authors created a new handcurated dataset
+musiccaps which contains the k examples prepared by
+expert musicians they trained the musiclm to generate long
+and coherent music for textual descriptions of significant
+complexity based on the results they showed that the musi
+clm can generate up to minute long clips and outperforms
+previous research in music quality as well as it adheres to
+the textual description musiclm inherits the limitations
+from mulan which makes the model misunderstand the
+negations which causes the model to not adhere to the
+temporal ordering described in the text
+wavjourney
+wavjourney see figure  is a method that uses llms to
+analyse text instructions and then connects a variety of
+audio models for compositional sound generation  first
+structured audio scripts are generated based on the text
+instruct using llms and these scripts are organised in terms
+of their spatiotemporal relations a script compiler is then
+used to convert the audio scripts into computer programs
+which then calls for various acoustic models and operation
+functions in order to synthesise the audio content this
+method offers a powerful creative tool for audio content
+generation for a number of potential applications including
+storytelling science fiction radio play and education
+seamlessmt
+seamlessmt  short for massively multilingual 
+multimodal machine translation see figure   offers a
+comprehensive solution for a wide range of translation tasks
+spanning  languages this model operates on the multi
+task unity architecture  facilitating the direct generation
+of translated text and speech as well as supporting asr and
+various translation modes the architecture encompasses
+text and speech encoders a text decoder and a textto
+unit model further strengthened by the selfsupervised
+encoder speechtotext texttotext translation and textto
+unit model pretraining these components contribute to the
+conversion of decoded discrete units into speech through
+a multilingual hifigan unit vocoder  notably the
+selfsupervised speech encoder wvbert  demonstrates
+fig  overview of the seamlessmt model  illustrates
+the pretrained models employed during the finetuning
+of multitasking unity   depicts the multitasking
+unity structure including its dual encoders text decoder
+tu encoderdecoder and accompanying vocoders for sst
+speech synthesis figure taken from 
+improved training stability and representation quality en
+abling the extraction of structural and semantic insights
+from multilingual speech alongside this a text encoder
+trained across nearly  languages captures valuable text
+representations enhancing the efficiency of multilingual
+translation tasks
+literature review
+in this section we extensively provide the literature review
+of large audio models in various tasks including speech
+processing and music signal processing for the evaluation
+of these tasks various datasets are available and being used
+in audio processing research in table  we provide details
+of various public datasets used in the development of large
+audio models for a comprehensive list of datasets readers
+are referred to the github page below we cover various
+audiorelated tasks using large audio models or llms
+automatic speech recognition asr
+automatic speech recognition asr empowers machines
+to convert the spoken language into corresponding text
+sequences comprising words or even subwords in asr
+research recurrent neural networks rnns embedded with
+long shortterm memory lstm  units are considered
+as core architecture until the transformers have been pro
+posed  in contrast to rnns transformers can model
+temporal correlations within sequential data by utilising
+selfattention mechanisms  in addition transformers
+offer the advantage of parallelising computations enabling
+faster training of deeper models on larger datasets recently
+language models have shown their power in capturing high
+level longterm patterns across different data types including
+text   and image   and speech  this
+has also opened avenues for developing large audio models
+in the speech and audio domain
+ httpsgithubcomemulationaiawesomelargeaudiomodels
+table  some recent large audio models asr automatic speech recognition ss speech synthesis tts text to speech st
+speech translation sp speech paralinguistics sd spoken dialogue system code official code release  will be released
+later
+llmpaper
+train data
+tasks
+asr
+tts
+st
+sp
+sd
+others
+code
+speechgpt 
+gigaspeech
+common voice
+librispeech
+speechinstruct
+audiopalm 
+covost cvss
+voxpopuli asr
+common voice
+conversational esen
+librispeech
+youtube asr
+wmtted tts
+palm mt tts
+machine translation
+audiolm 
+librilight
+piano continuation
+speech continuation
+ltu 
+openaqam
+audio classification
+audio captioning
+summarisation
+viola 
+wenetspeech
+librilight
+librispeech
+ai challenger
+wmt
+emime
+machine translation
+speechx 
+librilight
+dns challenge corpus
+noise suppression
+speech removal
+target speaker extraction
+clean speech editing
+noisy speech editing
+valle 
+librilight
+muslam 
+mc dataset
+voxpopuli mls
+babel covost
+fleurs
+machine translation
+soundstorm 
+librilight
+audiogpt 
+libritts
+mustc
+chime
+audioset
+audiocaption
+and others
+style transfer
+speech enhancement
+speech separation
+monotobinaural
+audio inpainting
+sound extraction
+imagetoaudio
+singing synthesis
+and others
+pengi 
+clotho
+audiocaps
+urbansoundk
+tut 
+cremad
+fsdk
+and others
+audio captioning
+audio question answering
+sound sence classification
+music analysis
+instrument classification
+vocal sound classification
+and others
+seamlessmt 
+ million hours
+of open speech
+audio data
+machine translation
+speechtexttotext
+translation
+nextgpt 
+tm
+mosit
+texttoimage
+texttovideo
+texttoimage
+for instance wu et al  introduced the concept of
+speechllama a technique that involves seamlessly inte
+grating acoustic embeddings into a textbased large language
+model to enhance translation capabilities this integration
+empowers the language model to base its translation on
+acoustic cues this model comprises three fundamental
+elements a pretrained text neural lm an audio encoder and
+a connectionist temporal classification ctc compressor
+they utilise llamab  as their text neural lm due to
+its flexibility the ctc compressor a pretrained component
+ensures the alignment of text and speech lengths simulta
+neously an audio encoder facilitates the transformation of
+continuous speech vectors notably the approach bypasses
+the conversion of speech into discrete tokens instead directly
+mapping continuous speech representation into the lms
+semantic space this tailored architecture effectively accom
+table  list of audio datasets asr automatic speech
+recognition st speech translation mt machine translation
+ac audio classification sed sound event detection amg
+affective music generation mag music analysis and gen
+eration mu music understanding sc sound classification
+sg symphony generation ttm text to music mt music
+tagging mag music arrangement generation mgr music
+genre recognition
+title
+application
+size
+multi
+lingual
+public
+access
+commonvoice  
+asr
+ hours
+librilight 
+asr
+ hours
+wenetspeech 
+asr
+ hours
+gigaspeech 
+asr
+ hours
+mustc 
+asr mt
+and slt
+ hours
+voxpopuli 
+asr sst
+k hours
+covost 
+st
+ hours
+cvss 
+st
+ hours
+emime 
+st
+audiocaps 
+ac
+k audios
+clotho 
+ac
+ audios
+ captions
+audio set 
+sed
+k hours
+emopia 
+amg
+ piano
+solo sounds
+metamidi 
+mca
+ midi
+files
+dali 
+mu
+ songs
+million midi 
+mu
+k songs
+vggsound 
+sc
+k videos
+fsdk 
+sed
+ sound
+clips
+symphony 
+sg
+ midi
+files
+musiccaps 
+ttm
+ music
+text pairs
+jamendo 
+mt
+ tracks
+pop 
+mag
+ songs
+multiple piano
+arrangements
+fma 
+mgr
+ clips
+modates acoustic embeddings within textbased language
+models proficiently processing both acoustic embeddings
+and text cues to generate outputs that seamlessly integrate
+textual and acoustic insights kubo et al  present a
+strategy to tackle this challenge through knowledge transfer
+from a neural network language model initially pretrained
+on textonly data the core focus lies in transferring the
+inherent semantic understanding embedded within large
+scale language model vectors these vectors serve as implicit
+representations of linguistic aspects like partofspeech and
+intent holding potential as valuable cues for asr decoders
+the proposed approachs effectiveness manifests in the form
+of reduced error rates achieved without introducing extra
+computational complexities during the decoding phase
+ling et al  explore a methodology involving the
+use of pretrained llm for fully formatted endtoend ee
+asr transcriptions their model architecture demonstrates
+flexibility in integrating a speech decoder with a pretrained
+llm offering both encoderdecoder and decoderonly con
+figurations drawing from a rich dataset of  hours of
+diverse formatted audio data spanning multiple domains
+their approach remains highly adaptable the composability
+of their model allows for the seamless integration of a
+speech encoder into a pretrained llm featuring either an
+encoderdecoder or decoderonly structure in the encoder
+decoderbased llm approach a pretrained llm is har
+nessed utilising its text tokeniser for speech recognition
+their training strategy encompasses three loss functions
+ctc crossentropy ce and masked language modeling
+mlm facilitating the acquisition of transcription knowl
+edge from both textual and speechtext data in the case
+of the decoderonly llm approach for speech recognition
+ling et al leverage the lora adapter to integrate it with
+the pretrained llm this adaptation effectively minimises
+trainable parameters by updating pairs of decomposition
+matrices while preserving the original weights unaltered for
+the encoderdecoderbased llm the zcode model 
+serves as the text encoder and decoder conversely the
+decoderonly llm approach employs the gpt model 
+as the decoderbased llm for performance comparison the
+authors conduct thorough evaluations on a range of datasets
+analysing the outcomes of five distinct models in their study
+in written text meaningful sentence boundaries are often
+indicated by punctuation marks however this clear demar
+cation is lacking in spoken realworld utterances to tackle
+this issue huang et al  devised a strategy to extract
+punctuation insights from a bidirectional teacher language
+model lm trained on written and punctuated text their
+approach involves a comparison between their segmenter
+distilled from the lm teacher and another segmenter derived
+from an acousticpausebased teacher utilised in previous
+research the evaluation of both segmenters took place
+within a streaming asr pipeline the incorporation of their
+segmenter led to a  relative reduction in word error
+rate wer and a significant  ms reduction in median
+endofsegment latency during a youtube captioning task
+in the previous section we discussed audiopalm 
+a substantial large audio models designed to encompass
+both speech comprehension and generation with a unified
+vocabulary bridging text and speech through a limited set of
+discrete tokens and a basic markup description of tasks this
+model facilitates training a single decoderonly model for
+various tasks including asr evaluation efforts delved into
+asr performance across multiple datasets including cvss
+voxpopuli asr commonvoice  conversational esen and
+youtube asr datasets the results highlight the models
+competitive performance across these diverse datasets in
+a different study huang  introduces strategies for
+curating language modelling data to enhance the recognition
+of rare words without compromising overall performance
+these strategies demonstrate substantial impact leading to
+an enhanced language model achieving a noteworthy up
+to  relative reduction in wer for sentences containing
+rare words importantly this enhancement in rare word
+recognition is achieved without causing any adverse impact
+on the overall wer
+fathullah et al  delve into extending the practicality
+of llms by directly incorporating a compact audio encoder
+thus enabling them to perform speech recognition tasks
+this approach for constructing multilingual speech recogni
+tion systems relies on decoderonly llms conditioned on
+audio sequences the underlying concept revolves around
+utilising large language models to capture sequences of
+embeddings irrespective of their modality by utilising
+a conformerbased audio encoder to generate embedding
+sequences and validating them through simple ctc loss
+training this study leverages the llamab  model
+with lora  adaptation the multilingual librispeech
+mls dataset derived from librivox  encompassing
+ hours of speech recordings in  different languages
+serves as the basis for evaluation the studys observations
+emphasise the alignment between audio embeddings and
+text as well as the significance of audio encoder strides and
+size zhuo et al  introduce lyricwhiz a multilingual
+automatic lyrics transcription alt method designed
+for zeroshot scenarios across diverse lyrics transcription
+datasets including unique genres like rock and metal gpt
+ a large language model serves as the annotator while
+the whisper speech recognition model  assists in audio
+transcription leveraging the mtgjamendo dataset with
+ audio songs in various languages the model requires
+no training and undergoes direct testing on multiple datasets
+including jamendo  hansen  musdb  and
+dsing  this combined approach not only transcribes
+lyrics in multiple languages but also contributes to reducing
+the wer in english furthermore the model generates an
+extensive multilingual publicly available lyrics dataset based
+on mtgjamendo offering a humanannotated subset for
+noise level estimation and evaluation
+table  average normalised wer comparison on fleurs
+dataset for asr where n is the number of languages
+model
+size
+wer
+fleurs
+n
+fleurs
+n
+whisperlargev
+b
+mmsl
+b
+mmsl
+b
+seamlessmtmedium
+b
+seamlessmtlarge
+b
+in summary recent advancements in leveraging llms
+or designing large audio models for speechrelated tasks
+demonstrate the growing potential of combining linguistic
+and acoustic insights table  provides a concise overview
+of the various studies and their contributions these studies
+highlight diverse strategies from incorporating audio en
+coders to enhancing rareword recognition and multilingual
+transcription table  compares the performance of seam
+lessmt with stateoftheart asr models including whisper
+and mms which shows that large audio model considerably
+improves the asr performance as the field continues
+to evolve these innovations underscore the capacity of
+language models to bridge the gap between speech and
+text opening up new avenues for more efficient and effective
+solutions in speech processing and understanding
+neural speech synthesis
+neural speech synthesis also referred to as neural textto
+speech tts is considered an important area of research
+with the aim of generating humanlike speech from the
+text traditional tts systems have complex architecture
+by encompasses intricate components including acoustic
+frontends duration models acoustic prediction models
+and vocoder models this complexity of tts systems has
+recently been overcome with the advent of deep endtoend
+tts architectures these systems possess the capacity to
+generate convincingly realistic speech by being trained on
+pairs of text and audio popular tts models include tacotron
+ deep voice model  and clarinet  and many
+other  these models produce melspectrograms from
+textual inputs which are subsequently employed for speech
+synthesis by vocoders like griffinlim  wavenet 
+and waveglow  lately transformers become popular
+structures in tts by showing improved performance and
+accelerated training 
+more recently large audio models have become popular
+in solving problems in tts research various studies either
+utilise llms or develop large audio models to show their
+effectiveness in the tts domain for example kakouros et
+al  explore the concept of word surprisal as a potential
+factor enhancing prosody in speech synthesis word surprisal
+a linguistic and nlp concept quantifies the information
+conveyed by a word within a sentence or language model
+context their primary focus was investigating the interplay
+between word surprisal derived from llms and their
+capacity to capture prosodic prominence in both human and
+synthesised speech their study employed gpt models and
+gptj an opensource and openaccess alternative to gpt
+ utilising the lj speech corpus as their dataset to assess
+surprisal rates in the textual content the authors identified
+tokens and common sequences within the text serving not
+only to satisfy the models dictionary requirements but also
+to reduce the models dictionary size and manage outof
+vocabulary oov words hassid et al  introduced
+twist an innovative approach to training speechlms that
+employs a warmstart strategy with a pretrained textual
+llm this method capitalises on the shared characteristics be
+tween text and semantic tokens by initialising a decoderonly
+audio generator with the pretrained weights of a textbased
+language model through a comprehensive combination
+of automated and human evaluations twist consistently
+showcases superior performance compared to a coldstart
+speechlm across various aspects based on the results the
+authors emphasise the importance of both model and dataset
+scale in enhancing the effectiveness of speechlms
+wang et al  trained a neural codec language model
+called valle using discrete codes obtained from a readily
+available neural audio codec model they approached tts as
+a conditional language modelling task differing from prior
+methods that treated it as a continuous signal regression in
+the pretraining phase they significantly expanded the tts
+training dataset to  hours of english speech a several
+hundredfold increase over existing systems experimental
+results show that valle outperforms the leading zeroshot
+tts system particularly in terms of speech naturalness and
+speaker similarity additionally results indicate that vall
+e effectively maintains emotional nuances and acoustic
+characteristics from the provided acoustic prompt during
+synthesis valle x introduced in  is designed for
+crosslingual speech synthesis it builds upon the foundation
+of valle  and is trained to predict acoustic token
+sequences in the target language speech using both source
+language speech and target language text as cues valle x
+inherits robust incontext learning capabilities enabling its
+application in zeroshot crosslingual texttospeech synthesis
+and speechtospeech translation tasks experimental results
+showcase its ability to generate highquality speech in the
+target language using just a single speech utterance in the
+source language as input this preservation of the unseen
+speakers voice emotion and acoustic context is a prominent
+aspect of valle xs performance
+kharitonov et al  presented a multispeaker tts
+speartts with two features of minimum data requirement
+for training and speech synthesis maintaining voice charac
+teristics of a previously unseen speaker using a second
+long voice example in particular they integrate bartt
+style pertaining   with back translation  to
+substantially decrease the quantity of parallel supervision
+necessary for training speartts to control the voice
+employed by speartts during utterance generation they
+utilise an illustrative prompting mechanism similar to textual
+language models  they utilise librilight data as a source
+of training data and show that speartts attains a character
+error rate cer that is comparable with stateoftheart tech
+niques by only using  minutes of parallel data moreover it
+matches the naturalness and acoustic quality of groundtruth
+speech as assessed through subjective tests viola 
+discussed in section  is a multilingual multimodal auto
+regressive transformer decoderonly network that presents
+promising results in tts their findings showcase a notable
+enhancement of  in speaker similarity a reduction of
+ in wer and an improvement in speech naturalness
+by 
+maiti et al  introduced an autonomous evaluation
+approach known as speechlmscore aimed at assessing
+generated speech samples using speechlanguage models
+this unsupervised speech evaluation metric leverages a pre
+trained language model to gauge the similarity between
+synthesised speech and natural human speech the authors
+harnessed pretrained models from gslm  through
+fairseq  and employed the voicemos challenge dataset 
+which encompasses speech from diverse sources encoding
+was accomplished using the pretrained tokeniser hubert
+baselsh  complemented by a kmeans cluster
+ing model for quantisation this combination of hubert
+features and corresponding clustering models facilitated
+the development of ulm within gslm with heightened
+efficiency the model was exclusively trained with a dataset
+eliminating the need for extensive humanevaluated data
+in the context of an extensive dataset and larger model the
+system was configured into four layers speechlmscore pre
+speechlmscore lstm speechlmscore lstmrep and
+speechlmscore large
+wang et al  presented an lmbased approach named
+lmvc for zeroshot voice transformation this model
+draws inspiration from audiolm and hubert lmvc is
+structured in two stages  coarse acoustic modelling and 
+fine acoustic modelling within the lmvc architecture three
+distinct lms are employed a masked prefix lm mplm an
+external lm elm and a prefix lm plm leveraging the
+benefits of hubert and soundstream the model capitalises
+on separate sequences of semantic tokens and acoustic tokens
+for training the authors utilised libritts and an internal
+dataset for both their model and soundstream testing
+was conducted on a selection of  pairs from emime
+vctk and cmu arctic datasets the model demonstrated
+efficiency in terms of the proximity of generated speech to
+natural speech and its similarity with the original speaker
+ httpsgithubcomfacebookresearchfairseq
+wang  proposed a method to assess phrase breaks util
+ising pretrained language models and llms the approach
+encompasses two key components evaluating phrase breaks
+within speech and conducting a comprehensive analysis of
+each pause or break position bert was chosen for pre
+training due to its vast training data and contextual under
+standing of word relationships additionally the authors
+investigated the potential of chatgpt for zeroshot and few
+shot phrase break assessments the authors used lj speech
+data for pretraining and curated a dataset comprising 
+samples from diverse chinese esl learners categorised as
+poor fair great and humanly validated they demonstrate
+that the dependency of pretrained language models has
+significantly decreased leading to improved performance
+based on the results
+table  neural speech synthesis comparison using lib
+rispeech dataset
+model
+wer 
+spk
+smos
+speechtospeech systems
+gslm 
+audiolm
+tts systems
+yourtts 
+valle
+vallecontinual
+groundtruth
+we cover various recent papers on large audio models
+or llms for neural speech synthesis table  presents the
+benchmark results on the librispeech dataset here wer is
+calculated on the generated speech and speaker similarity
+score spk is calculated using the speech pairs from the
+same speaker in the test set human evaluation is performed
+to calculate smos on  speakers on librispeech testclean
+with a second enrolled recording results show that vall
+e considerably outperforms other stateoftheart models
+in summary speech synthesis has greatly benefited from
+complementing large audio models with acousticphonetic
+linguistic models as shown by the systems deployed in table
+ summarise recently proposed large audio models evaluated
+on speech synthesis tasks
+table  summary of recent large audio models evaluated
+on text to speech tts task
+modelpaper
+dataset
+evaluations
+mosp
+mosq
+moss
+mos
+megatts
+vctk
+  
+  
+  
+librispeech
+  
+  
+megatts 
+librispeech
+  
+  
+  
+prompttts 
+multilingual
+librispeech
+  
+foundationtts
+combined libritts
+vctk and internal
+  
+speech translation st
+speech translation st involves the conversion of spoken
+speech from the source language into the target language
+st systems are typically categorised into two main groups
+cascaded systems and endtoend systems cascaded st
+systems comprise an automatic speech recognition asr
+component and a machine translation mt component in
+contrast endtoend st systems aim to optimise a single
+model that directly translates the spoken utterance into the
+target language various studies have explored methods
+and techniques to improve both cascaded st systems 
+and endtoend st systems  in endtoend st systems
+transformerbased models  have played a significant role
+in addressing various challenges recently the use of large
+audio models is becoming increasingly popular in speech
+translation and showing promising results
+in the landscape of recent advancements the introduction
+of seamlessmt  as outlined in section   stands
+out as a groundbreaking multimodal translation model
+denoted as massively multilingual  multimodal machine
+translation seamlessmt the scope of this model is all
+encompassing spanning a multitude of translation tasks such
+as speechtospeech speechtotext texttospeech textto
+text and asr its capabilities extend across a wide linguistic
+panorama spanning up to  languages seamlessmt
+utilises the seamlessalign corpus a monumental multimodal
+translation dataset totalling k hours facilitated by the
+sonar sentence embedding space adept at capturing both
+speech and text nuances notably seamlessmt sets a new
+translation benchmark exhibiting a  bleu improvement
+over prior direct speechtotext methods on the fleurs
+dataset
+dong et al  introduced the innovative poly voice
+framework which hinges upon a versatile language model
+lm proficient in speechtotranslation sst capabilities
+this framework comprises two pivotal components a transla
+tion language model and a speech synthesis language model
+the former operates as a decoderonly model while the
+latter involves discrete units the translation model further
+delves into speechtounit translation sut effectively
+converting audio into languagespecific units while the
+speech synthesis model identified as unittospeech us
+undertakes the task of generating translated speech while
+preserving the original speakers style the authors use
+hubert for semantic unit extraction sut while the
+us component employs the valle x approach to execute
+speech synthesis additionally soundstream is enlisted to
+acquire embeddings of audio tokens the training process
+involves multiple datasets spanning various domains encom
+passing asr librilighten inhouse zh mt inhouse
+and ss gigaspeech wenet speech in the evaluation phase
+two established benchmarks namely emime and cvss are
+utilised to gauge speech and translation quality providing
+comprehensive insights into the frameworks performance
+as outlined in models rubenstein et al  proposed a
+multimodal generative model called audiopalm for speech
+based on the foundation of palm  and palm 
+the model can perform multiple tasks including speech to
+speech translation sst to build palm mt tts they
+employed palm for translating youtube commonvoice
+and babel  consequently after the training described
+earlier their model outperformed the baselines in ast
+and sst building upon the previous discussion wang et
+al  proposed viola a language model encompassing a
+decoderonly transformer network which is multilingual
+and multimodal based on an autoregressive approach
+that exhibits proficiency in speechrelated tasks with the
+capability of speech translation the model is based on vall
+e  and valle x  an offline neural model and
+encodec the training procedure of the model has been
+previously outlined in the model section  as a result they
+found the model achieving improvement in blue scores
+the integration of speech and language training is
+confronted by challenges stemming from data and gpu
+requirements as well as the inherent distinctions between
+spoken and textual information le et al  introduce
+comsl a novel speechlanguage model formulated through
+a composite architecture that harnesses the power of pre
+trained speech and language models this strategy opti
+mises data utilisation for tasks involving spoken language
+specifically comsl incorporates crossmodality learning into
+transfer learning and concurrently applies these mechanisms
+within a multitask learning framework for downstream
+tasks notably comsl demonstrates efficacy in endtoend
+speechtotext translation assignments it achieves a remark
+able new stateoftheart average bleu score of  on the
+multilingual speechtoenglish text translation task across
+ languages as assessed on the publicly available covost
+dataset wu et al  conducted pioneering research that
+explores the application of prompt tuning to enhance speech
+language models for a wide array of generation tasks this
+innovative approach is implemented within a unified frame
+work known as speechgen characterised by its capacity
+to harness around  million trainable parameters this
+cohesive framework holds significant promise delivering
+increased efficiency and efficacy the authors evaluated
+speechgen across three speechrelated tasks including
+speech translation and demonstrated promising results
+in summary the landscape of speech translation is
+evolving rapidly with a growing focus on bridging the
+gap through innovative large audio models the studies
+discussed in this section as outlined in  underscore the
+progress in this field from leveraging large language models
+like audiopalm to tackle multilingual speech translation
+to the development of viola a versatile language model
+proficient in speechrelated tasks these advancements hold
+the potential to revolutionise the accuracy and naturalness
+of translated speech as the demand for seamless communi
+cation across languages continues to rise these models offer
+a promising path forward in achieving enhanced speech
+translation capabilities
+spoken dialogue systems
+spoken dialogue systems sdss have garnered significant
+attention in the audio processing community due to their
+versatile applications in customer service and goaloriented
+humancomputer interactions these systems encompass key
+components such as speech recognition intent recognition
+a knowledge base andor database backend a dialogue
+manager language generation and speech synthesis 
+within the architecture of sdss the dialogue manager plays
+a pivotal role in making action selections based on observed
+events  researchers have effectively demonstrated how
+rnns and transformers can be employed to optimise action
+selection adeptly modelling the dynamic nature of spoken
+dialogue using fully or partially observable markov decision
+processes however transformers have recently emerged
+as a superior alternative to rnns to optimise the action
+selection process within sdss   by leveraging their
+selfattention mechanism transformers have demonstrated
+exceptional capabilities in modelling dynamic dialogue
+system scenarios 
+this evolution has led to numerous studies that harness
+the power of transformers to enhance spoken dialogue
+systems while textbased dialogue systems can be trained
+directly on extensive text data   a large number
+of sdss have relied on user simulations for training due
+to the scarcity of real training dialogues available for both
+training and evaluation purposes
+ the integration
+of transformers into sdss presents a promising avenue for
+improving dialogue management offering the potential to
+better comprehend user inputs context and p

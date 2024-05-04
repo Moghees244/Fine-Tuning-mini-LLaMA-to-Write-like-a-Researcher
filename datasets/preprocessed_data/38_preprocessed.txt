@@ -1,0 +1,399 @@
+ieee geoscience and remote sensing letters vol  
+waveformer spectralspatial wavelet transformer
+for hyperspectral image classification
+muhammad ahmad  usman ghous muhammad usama and manuel mazzara
+abstract transformers have proven effective for hyperspec
+tral image classification hsic but often incorporate average
+pooling that results in information loss this letter presents
+waveformer a novel transformerbased approach that leverages
+wavelet transforms for invertible downsampling this preserves
+data integrity while enabling attention learning specifically
+waveformer unifies downsampling with wavelet transforms to
+decompress feature maps without loss this provides an efficient
+tradeoff between performance and computation furthermore
+the wavelet decomposition enhances the interaction between
+structural and shape information in image patches and chan
+nel maps to evaluate waveformer we conducted extensive
+experiments on two benchmark hyperspectral datasets our
+results demonstrate that waveformer achieves stateoftheart
+classification accuracy obtaining overall accuracies of 
+and  on the pavia university and the university of
+houston datasets respectively by integrating wavelet transforms
+waveformer presents a new transformer architecture for hyper
+spectral imagery that achieves superior classification without
+information loss from average pooling
+index
+terms hyperspectral
+image
+classification
+hsic
+spatialspectral feature spatialspectral transformers ssts
+wavelet transformer waveformer
+i introduction
+h
+yperspectral imaging hsi has emerged as a
+powerful remote sensing technique capturing contiguous
+spectral information across various wavelengths its appli
+cations span diverse fields including remote sensing 
+ earth observation  urban planning  agricul
+ture  forestry  targetobject detection  mineral
+exploration  environmental monitoring   and cli
+mate change  notably hsi excels in capturing detailed
+spatial and spectral information although its sensors charac
+terized by high spectral resolution may face challenges in
+achieving optimal spatial resolution especially in complex
+scenarios
+hyperspectral image classification hsic involves catego
+rizing pixels based on their spectral and spatial characteristics
+manuscript
+received
+november
+revised
+january
+accepted  january  date of publication  january  date of current
+version  february  corresponding author muhammad ahmad
+muhammad ahmad usman ghous and muhammad usama are with
+the department of computer science national university of computer
+and emerging sciences nuces islamabad  pakistan email
+mahmadgmailcom usmanghousnuedupk musamanuedupk
+manuel mazzara is with the institute of software development and
+engineering
+innopolis
+university
+innopolis
+russia
+email
+mmazzarainnopolisru
+digital object identifier lgrs
+facilitating object identification traditionally hsic used
+both traditional machine learning tml and deep learning
+dl techniques  dl particularly convolutional neural
+networks cnns addresses challenges in handling multi
+modal data however cnns struggle with capturing longterm
+dependencies for spectrally similar classes recurrent neural
+networks rnns can model these dependencies but lack the
+ability for simultaneous model training a vital consideration
+for the extensive hsi data comprising numerous samples 
+on the other hand transformers using selfattention mech
+anisms  represent stateoftheart networks for handling
+dependencies and enabling parallel training specifically tai
+lored for hsic challenges vision transformers vits have
+emerged as promising candidates vits use selfattention
+to capture relationships in image sequences represented as
+patches proving beneficial for modeling longrange depen
+dencies across the entire hsi cubes   however
+vits encounter challenges related to scale invariance and
+texture features their fixedsize input may hinder recognizing
+objects at different scales and their emphasis on global context
+may limit their effectiveness in extracting finegrained texture
+details  in addition the extensive data requirements for
+vits may pose challenges in scenarios where a large number
+of training samples are not readily available for hsic 
+to address the aforementioned issues this letter pro
+poses waveformer a novel approach that combines the
+strengths of wavelets and transformers for improved hsic
+it introduces spatialspectral wavelet convolution within a
+transformer architecture enhancing the interaction between
+structural and shape information of image tokens this
+leads to more accurate classification compared with the
+traditional transformerbased models waveformer extracts
+waveletbased multiscale spatialspectral features from the
+hsi data which are then input into a classification model the
+combination of wavelets and transformers allows waveformer
+to capture both local and global relationships in the data
+resulting in improved classification accuracy in this letter
+we made the following contributions
+ this work introduces waveformer which integrates
+wavelet transformation and transformers for hsic
+within the transformer architecture the waveformer
+model incorporates a trainable spatialspectral wavelet
+network thereby improving the interaction between the
+structural and shape information of hsi tokens and class
+tokens
+   ieee personal use is permitted but republicationredistribution requires ieee permission
+see httpswwwieeeorgpublicationsrightsindexhtml for more information
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee geoscience and remote sensing letters vol  
+ the
+proposed
+method
+extracts
+multiscale
+spatialspectral
+features
+based
+on
+wavelets
+from
+the hsi cube these features are subsequently input
+into a classification model to capture a broader range
+of information beneficial for hsic
+ this
+work
+showcases
+the
+combined
+impact
+of
+waveletbased feature extraction and transformerbased
+modeling of global relationships indicating the potential
+for improved accuracy compared with the traditional
+transformer approaches for hsic
+ii problem formulation
+let us consider hsi data comprising b spectral bands each
+with a spatial resolution of m  n pixels the hsi data
+cube x rmnb is first divided into overlapping d
+patches each patch is centered at a spatial location α β
+and covers a spatial extent of s  s pixels across all bbands
+the total number of d patches m extracted from x ie
+x rssb is m sn s a patch located at
+α β is denoted as pαβ and spans spatially from αs
+to α  s  in width and β s  to β  s 
+in height the labeling of these patches is determined by the
+label assigned to the central pixel within each patch the
+transformed patches as explained in algorithm are then
+processed by the baseline dcnn model specifically the
+activation value at spatial location x y z in the jth feature
+map of the ith layer vxyz
+i j
+ is computed as
+vxyz
+i j
+ φ
+bi j 
+dl
+x
+τ
+ν
+x
+λν
+γ
+x
+ργ
+δ
+x
+σδ
+wσρλ
+i jτ  vxσyρzλ
+iτ
+where φ is the activation function bi j is the bias for the jth
+feature map at the ith layer dl is the number of feature maps
+in the lth layer and wi j is the depth of the kernel for the
+jth feature map at the ith layer γ  δ and ν define
+the width height and depth of the kernel respectively along
+the spatialspectral dimension
+algorithm  wavelet transformation
+input image patch x patch
+ set l   and initialize empty output array o
+ for i   to s do
+for j   to b do
+coffs  wavedecx patchi   j haar l
+oi   j  wavereccoffs haar
+end
+ end
+the d feature maps vxyz
+i j
+are transformed into
+ˆ
+x 
+x ed with reduced channel dimensions via embedding matrix
+ed rdd ie ˆ
+x rmnd decomposed into four
+wavelet subbands which is downsampled through wavelet
+transformation note that here we used the classical haar
+wavelet as expressed in  and  concretely the wavelet
+transformation is applied using a lowpass filter denoted as
+fl 
+ 
+ and a highpass filter denoted
+as fh 
+ 
+ along the rows of the input
+data ˆ
+x this process results in the creation of two subbands
+namely ˆ
+x l and ˆ
+x h subsequently the same lowpass filter
+fl and highpass filter fh are used this time along the
+columns of the derived subbands ˆ
+x l and ˆ
+x h this leads
+to the formation of four subbands in total
+ˆ
+x ll
+ˆ
+x l h
+ˆ
+x h l and ˆ
+x h h each of these wavelet subbands can be
+viewed as a downsampled version of the original input ˆ
+x
+they collectively preserve all the input details without any
+loss of information the four wavelet subbands are created
+ˆ
+x ll ˆ
+x l h ˆ
+x h l and ˆ
+x h h these feature maps are then
+linearly transformed into downsampled keys k w rmd
+and values v w
+rmd where m
+ m  n
+denotes the total number of patches multiheaded selfattention
+learning attention is then performed on the queries and their
+respective downsampled keys and values for each attention
+head
+headj  attentionq j k w
+j  v w
+j 
+ softmax
+ q j k w j t
+dh
+v w
+j
+where k w
+j and v w
+j represent the downsampled keys and values
+specific to the jth head respectively it is worth noting that the
+collective output of selfattention learning for each head can be
+understood as the incorporation of longrange contextualized
+information from the input data finally the features are
+fed into a fully connected layer for classification and the
+softmax function is applied to generate the class probability
+distributions from which the final groundtruth maps are gen
+erated the waveformer captures the essence of the wavelet
+for hsic by integrating spatialspectral information through
+attention mechanisms and linear projections waveformer can
+effectively process the hsi cube with reduced computational
+complexity making it suitable for resourceconstrained envi
+ronments fig  explains the complete model in detail
+iii experimental results and discussion
+a comparison with cnnbased networks
+a uniform experimental methodology is imperative when
+evaluating cnnbased approaches it is crucial to uphold
+consistency in the distribution of samples assigned to training
+validation and testing each comparative model underwent
+training and validation using  of the samples respec
+tively while the remaining  were used for classification
+based on    pixel patches the performance evaluation
+of waveformer is conducted on the university of houston
+dataset to compare the performance against several models d
+cnn  hybrid inception net  d inception net 
+d inception net  d cnn  and hybrid cnn 
+fig  presents a graphical representation of accuracy and loss
+convergence over  training epochs for both the training and
+validation sets in addition the results highlight the advantage
+of decoupling spatialspectral information proving to be a
+superior approach in approximating information within an hsi
+cube compared with the alternative strategy of convolutions at
+distinct layers of the architectures when contrasted with the
+d models fig  illustrates that the proposed waveformer
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ahmad et al waveformer spectralspatial wavelet transformer for hisc
+fig 
+hsi cube was initially partitioned into overlapping d patches each of which was centered at a spatial point and covered a s  s pixel extent
+over all the spectral bands wavelet transform was applied to these patches using haar wavelets resulting in four subbands that captured different frequency
+components and spatial features the subbands were then concatenated to generate a new d representation locally contextualized feature maps were
+produced through a d convolution to define spatial locality within this representation to incorporate longrange contextualized information these feature
+maps were further translated into downsampled keys and values and multiheaded attention learning was performed
+fig 
+accuracy and loss trends on the university of houston dataset
+achieves comparable results notably achieving impressive
+scores of  approx in particular models using d
+convolutions exhibit varying performance on the uh dataset
+with d cnn achieving oa aa and κ scores of  and
+the d inception net attaining oa aa and κ scores of 
+the marginal difference in accuracy between the proposed
+model and comparative methods is noteworthy and can be
+attributed to the computational efficiency of waveformer its
+ability to mitigate overfitting and its enhanced capacity to
+model spatial and spectral dependencies effectively
+b comparison with transformerbased networks
+for comparison we selected several stateoftheart net
+works including attention is all you need transformer
+ spectralformer  hyperspectral image transformer
+classification networks hits  and csit a multiscale vit
+for hsic  the transformer architecture uses a standard
+vit  adapted for pixelwise hsi input with five encoder
+blocks spectralformer retains the original five transformer
+encoder architecture with pixelwise embeddings and cross
+layer fusion hit incorporates two depthwise convolution
+table i
+pavia university proposed waveformer versus comparative
+models all these models are evaluated using    patch size
+with  trainingvalidationtest samples respectively
+layers for spatial processing and one pointwise convolution
+layer for spectral processing relying solely on patchwise input
+csit uses a consistent backbone transformer architecture in
+each branchfour heads in the smallscale branch and six
+heads in the largescale branch token sequences are input
+into two crossattention transformers each with a fourhead
+attention layer and multilayer perceptron layer csit is evalu
+ated with and without crossspectral attention fusion csaf
+modules all the results use the specified parameter configu
+rations from the original papers to enable direct comparison
+the comprehensive results of the earlier mentioned models
+are provided in tables i and ii in summary the proposed
+waveformer model demonstrates remarkable performance
+outperforming the stateoftheart vitbased models across a
+spectrum of evaluation metrics encompassing overall accu
+racy oa average accuracy aa and the κ coefficient
+a thorough analysis of the quantitative performance reveals
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee geoscience and remote sensing letters vol  
+fig 
+proposed waveformer achieves  on the uh dataset showing competitive performance compared with the recent stateoftheart cnn models
+for hsic a twodimensional inception net  training time   test time   oa   aa   and kappa  
+b threedimensional inception net  training time   test time   oa   aa   kappa   c hybrid
+inception net  training time   test time   oa   aa   and kappa   d d cnn  training time 
+ test time   oa   aa   and kappa   e d cnn  training time   test time   oa 
+ aa   and kappa   f hybrid cnn  training time   test time   oa   aa   and
+kappa   g waveformer training time   test time   oa   aa   and kappa  
+table ii
+university of houston proposed waveformer versus
+comparative models all these models are evaluated using
+   patch size with  trainingvalidationtest
+samples respectively
+that waveformer consistently achieves superior results across
+diverse categories exhibiting substantial improvement in accu
+racy as evidenced in table ii notably while performance
+differences remain relatively modest in the pu dataset due
+to the abundance of samples the uh dataset poses a signifi
+cant challenge to modeling capabilities for example when
+assessing the challenging uh dataset waveformer outper
+forms the baseline vit by more than  and it surpasses
+spectralformer by approximately  furthermore the aa
+achieved by the waveformer exceeds that of both vit and
+spectralformer by margins ranging from  emphasizing
+the potential efficacy of spatialspectral feature extraction
+in a comparative context with the most recent spatialspectral
+transformer and csit models the waveformer consistently
+presents results showcasing its proficiency in both the spectral
+and spectralspatial feature extraction tasks it is worth noting
+that while hit excels in identifying landcover or landuse
+classes with spectralspatial information the waveformer
+approaches similar levels of performance to sum up these
+findings emphasize the robustness and effectiveness of the
+waveformer model in the field of hsic particularly in
+scenarios where the extraction of spatialspectral information
+holds importance especially when considering the limited
+availability of training samples
+iv conclusion
+this letter introduced waveformer which combines the
+power of wavelet transforms and vit for hsic by extracting
+multiscale spatialspectral features using wavelets and feeding
+them into a transformer encoder waveformer can capture both
+the local texture patterns and global contextual relationships
+in an endtoend trainable model a notable innovation is the
+use of wavelet convolution within the transformers attention
+mechanism allowing for enhanced integration of spectral
+and structural information extensive experiments demonstrate
+waveformer achieves the stateoftheart performance partic
+ularly for challenging datasets with limited training data where
+its multiscale extraction of spatialspectral cues proves valu
+able beyond superior classification accuracy waveformer
+attains robustness and generalizability that hold promise for
+addressing real problems in remote sensing future work
+could explore selfsupervised pretraining and network opti
+mizations to maximize waveformers potential when data are
+scarce

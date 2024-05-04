@@ -1,0 +1,440 @@
+oj logo
+ revised 
+affective computing and the road to
+an emotionally intelligent metaverse
+farrukh pervez
+ moazzam shoukat
+ muhammad usama
+ moid sandhu
+siddique latif
+ junaid qadir
+college of aeronautical engineering national university of sciences  technology nust pakistan
+emulationai
+national university of computer and emerging sciences nuces pakistan
+australian ehealth research centre aehrc csiro australia
+queensland university of technology qut australia
+qatar university qatar
+corresponding author junaid qadir email jqadirqueduqa
+abstract the metaverse is currently undergoing a profound transformation fundamentally reshaping
+our perception of reality it has transcended its origins to become an expansion of human consciousness
+seamlessly blending the physical and virtual worlds amidst this transformative evolution numerous
+applications are striving to mould the metaverse into a digital counterpart capable of delivering immersive
+humanlike experiences these applications envisage a future where users effortlessly traverse between
+physical and digital dimensions taking a step forward affective computing technologies can be utilised to
+identify users emotional cues and convey authentic emotions enhancing genuine meaningful and context
+aware interactions in the digital world in this paper we explore how integrating emotional intelligence
+can enhance the traditional metaverse birthing an emotionally intelligent metaverse eim our work
+illuminates the multifaceted potential of eim across diverse sectors including healthcare education gaming
+automotive customer service human resources marketing and urban metaverse cyberspace through our
+examination of these sectors we uncover how infusing emotional intelligence enriches user interactions
+and experiences within the metaverse nonetheless this transformative journey is riddled with challenges
+and we address the obstacles hindering the realisation of eims full potential by doing so we lay the
+groundwork for future research endeavours aimed at further enhancing and refining the captivating journey
+into the world of eim
+index terms metaverse affective computing arvr technologies artificial intelligence speech
+emotion recognition emotionally intelligent metaverse
+i introduction
+the concept of the metaverse is a captivating vision
+that combines a fully immersive and interconnected digital
+realm  through the convergence of virtual reality vr
+augmented reality ar and other digital technologies such
+as spatial computing in an expansive ecosystem that allows
+seamless transition between physical and digital domains 
+the metaverse concept goes beyond the traditional boundaries
+of vr forging a comprehensive virtual universe where
+individuals can interact collaborate and engage with digital
+environments and entities in ways that mirror aspects of
+the physical world   as technology advances the
+metaverse holds the potential to redefine social interactions
+entertainment education commerce and more offering a
+new dimension of interconnectedness and experience  
+the success of metaverse technology relies heavily on
+its humancentric and social dimensions considering the
+fundamental role of affect and emotions in human interactions
+it becomes imperative to incorporate insights and technologies
+from affective computing  into the metaverse  to enable
+a virtual world possessing the capability to simulate interpret
+and respond to human emotions in realtime in this paper
+we posit the idea of an emotionally intelligent metaverse
+eim the envisaged future of traditional metaverse that
+leverages affective computing technologies to recognise users
+emotional cues and express realistic emotions thus fostering
+genuine meaningful and contextaware interactions within
+the digital realm eim offers multifaceted benefits including
+but not limited to humanlike social virtual interactions en
+hanced users emotional immersion personalised therapeutic
+interventions adaptive emotional designs and creationbased
+learning elevating the overall quality of user experience
+metaverse designers use various elements like materials
+lighting layouts and cultural nuances to craft virtual spaces
+this work is licensed under a creative commons attribution  license for more information see httpscreativecommonsorglicensesby
+volume 
+this article has been accepted for publication in ieee open journal of the computer society this is the authors version which has not been fully edited and 
+content may change prior to final publication citation information doi ojcs
+this work is licensed under a creative commons attributionnoncommercialnoderivatives  license for more information see httpscreativecommonsorglicensesbyncnd
+figure  affective computing can transform the traditional metaverse
+into an emotionally intelligent metaverse
+that boost social interaction learning healing and most
+importantly emotional connections within such eim 
+the concept of an eim holds immense potential but
+introduces intricate challenges demanding thoughtful con
+sideration eim can be used to support practical activities
+like meditation personalised healthcare gaming content
+creation emotiondriven education and refining products
+with feedback as depicted in figure 
+translating human emotions into the digital realm however
+requires meticulous precision due to the complexity of emo
+tional expressions spanning facial features vocal intonations
+gestures body language and physiological responses
+to capture and transmit emotional nuances accurately
+avatars and digital entities require advanced algorithms that
+decode realtime contextdependent cues adapting affective
+computing models to accommodate this variability necessi
+tates technological sophistication and deep comprehension of
+the interplay between emotions and human behaviour within
+the eim
+this paper embarks on a thorough exploration envisioning
+the creation of an eim empowered by affective computing
+our primary focus centres on delineating potential features
+and applications of eim illustrating how affective computing
+can enhance the traditional metaverse in various ways as
+demonstrated in figure  however amidst these opportuni
+ties we engage in an open discussion regarding the challenges
+that might hinder seamless integration these challenges en
+compass intricacies in accurately translating human emotions
+ethical considerations regarding privacy and data security and
+the need to adapt to the everevolving emotional landscape
+of the metaverse hence this paper orchestrates a scholarly
+discourse navigating both the promises and complexities
+involved in harnessing affective computing to propel the
+metaverse towards heightened engagement and authenticity
+the key contributions of this paper are appended below
+ metaverse overview the paper introduces the meta
+verse covering its history enabling technologies and
+limitations
+ exploration of eim it explores how affective com
+puting transforms the metaverse with a focus on its
+impact in healthcare education gaming and business
+ challenges outlined the paper highlights challenges
+in designing eim systems including ethical considera
+tions responsible ai practices and security
+ future research directions this paper also identifies
+promising research avenues for advancing emotional
+intelligence integration in the metaverse fostering
+innovation and ethical use
+numerous surveys   elucidating latest advance
+ments in the metaverse have been published in the recent
+years various others   focus on metaverse potential
+with regards to a particular applicationarea such as healthcare
+similarly existing affective computing surveys  
+focus on specific aspects of emotion recognition we present
+the contributions of our paper in contrast to the existing
+metaverse surveys in table 
+a methodology
+for the literature search in our survey we curated ref
+erences from wellestablished databases including ieee
+xplore google scholar scopus and web of science using
+search terms related to healthcare metaverse and artificial
+intelligence to ensure comprehensive coverage we also
+examined the bibliographies of relevant papers identifying
+additional sources that extend the breadth and depth of our
+discussion on affective computing within the metaverse this
+layered search strategy allowed us to incorporate seminal
+works and contemporary studies fostering a rich dialogue on
+the evolution and future of emotionally intelligent interactions
+in eim we selectively gathered papers pivotal to advancing
+the conversation at the nexus of these fields ensuring that
+each selected work significantly enriched our understanding of
+eim after thoroughly reading each paper we made informed
+decisions on whether to include or exclude it from our survey
+based on its relevance alignment with our papers scope
+and publication date selecting papers not earlier than 
+our narrative synthesis informed by an extensive array of
+academic contributions captures the historical evolution and
+the anticipated forward momentum of eim presenting a
+nuanced and comprehensive perspective shaped by a wealth
+of academic discourse
+b organisation
+the paper is structured as follows section ii explores the
+metaverses history and core technologies noting limitations
+section iii covers affective computing in eim its impact
+on user immersion and uses in healthcare education and
+gaming section iv addresses eim development challenges
+like performance adversarial robustness realtime processing
+and privacy section v looks at future eim research directions
+including methodological and ethical aspects the conclusion
+volume 
+this article has been accepted for publication in ieee open journal of the computer society this is the authors version which has not been fully edited and 
+content may change prior to final publication citation information doi ojcs
+this work is licensed under a creative commons attributionnoncommercialnoderivatives  license for more information see httpscreativecommonsorglicensesbyncnd
+oj logo
+table  comparison of our paper with existing papers
+research paper
+year
+metaverse
+emotionally intelligent metaverse
+history
+enabling
+technologies
+limitations
+literature
+review
+features
+applications
+challenges
+future
+directions
+lee et al 
+sun et al 
+wang et al 
+ning et al 
+coutinho et al 
+very limited
+very few
+this work
+detailed
+comprehensive
+table  organisation of this paper
+sections
+subsections
+i introduction
+ia methodology
+ib organisation
+ii background of metaverse
+history enabling
+technologies and limitations
+iia the timeline of metaverse
+iib metaverses enabling technologies
+iic limitations
+iii affective computing
+for eim
+iiia authentic humanai interaction
+iiib enhanced user immersion
+iiic emotionaware resource dimensioning
+iiid meditation and adaptive
+health surgeries
+iiie personalised gameplay and content
+iiif emotiondriven virtual education
+iiig product refinement and feedback
+iiih impact and practicality of eim in
+diverse industries
+iv challenges in developing
+eim
+iva performance considerations of emotion
+recognition
+ivb securing eim against
+adversarial attacks
+ivc privacy and security considerations
+in eim
+ivd addressing the uncanny valley
+phenomenon in eim
+ive modelling dynamic and evolving
+emotional states in eim
+ivf challenges of realtime emotion
+processing in eim
+v future prospects for eim
+research
+va foundational models and eim
+vb cultural and contextual sensitivity in
+eim using deep reinforcement learning
+vc improving transparency and
+explainability in eim
+vd ethical and social considerations in
+developing applications for eim
+vi conclusions
+summarises key findings and their significance for eims
+future the papers structure is summarised in table  for
+reference
+ii background of metaverse history enabling
+technologies and limitations
+the metaverse combines meta beyond and verse
+universe to describe a threedimensional spacetime internet
+it aims to create a virtual world parallel to the real one
+with its own societal and economic systems the metaverses
+evolution technological underpinnings and challenges have
+been extensively discussed in research   next we
+outline its historical progress key technologies and inherent
+constraints
+a a timeline of metaverse
+the metaverse has evolved notably since the introduction
+of the first headmounted vr and ar displays in the s
+nasas utilisation of vr for astronaut training followed
+by ars application in theatre by  demonstrates these
+technologies versatile use cases the term metaverse was
+table  the timeline of the emergence of arvr technologies and the
+metaverse  
+year
+event
+first vr headmounted display
+first headmounted ar display
+nasa used vr simulator to train astronauts
+a nasa engineer developed a vr system that lets you
+pilot a mars rover
+snow crash the first novel to introduce the metaverse
+and avatar
+vr in the gaming sector
+ar used in theatre and entertainment
+artoolkit an opensource computer tracking library for
+creating strong ar applications
+second life d personalised virtual space
+roblox a rudimentary form of the metaverse
+google brings its maps service with streetlevel degree
+images
+ar emerged in print media
+emergence of unique cryptographic tokens nft
+wearable ar technology google glass
+ar headset microsoft hololens
+ar applications in retail
+two standalone vr systems oculus go and oculus quest
+that need no computer or phone to work
+the critical point of virtual social
+the birth of metaverse
+popularised by neil stephensons  novel snow crash
+ gaming applications of vr began in  and by
+ roblox introduced an early version of the metaverse
+integrating usergenerated content googles vrsupported
+street view in  and the emergence of nfts in 
+marked significant milestones in virtual technologies the
+covid pandemics influence expedited the transition
+towards virtual social interaction boosting the metaverses
+development as outlined in table 
+in  robloxs public offering and googles starline
+project underscored the growing focus on metaverse technolo
+gies facebooks rebranding to meta signified its commitment
+to developing a metaverse ecosystem microsofts mesh
+for teams and nvidias omniverse platform reflected the
+corporate worlds increasing investment in the metaverse
+disneys venture into the metaverse with its ip imagery and
+microsofts acquisition of activision blizzard in january 
+for  billion have both been pivotal to the metaverses
+rapid progression  these developments illustrate a
+sustained trend towards immersive digital environments
+supported by advanced technology
+b metaverses enabling technologies
+the metaverse characterised by spatiotemporal extensibil
+ity virtualreal interaction and humancomputer symbiosis
+leverages advanced technologies for its existence and growth
+volume 
+this article has been accepted for publication in ieee open journal of the computer society this is the authors version which has not been fully edited and 
+content may change prior to final publication citation information doi ojcs
+this work is licensed under a creative commons attributionnoncommercialnoderivatives  license for more information see httpscreativecommonsorglicensesbyncnd
+figure  metaverse enabling technologies
+as shown in figure  spatiotemporal extensibility allows it
+to extend beyond physical limitations offering endless virtual
+dimensions while the virtualreal interaction integrates digital
+and physical realities humancomputer symbiosis in the
+metaverse indicates a cooperative relationship transcending
+traditional internet capabilities   
+ ai plays a critical role with ml nlp and computer
+vision driving content diversity and enhancing user
+interaction within the metaverse
+ telecommunications enable realtime virtualphysical
+synchronicity the advent of g and the anticipated
+transition to g is key to minimizing latency in the
+metaverse 
+ xr comprising ar vr and mr serves as a pillar
+for the metaverse merging the physical and virtual
+through varied immersive experiences 
+ blockchain a part of decentralised ledger technologies
+ensures secure decentralised metaverse transactions
+fundamental to its widespread adoption and functional
+ity 
+ digital twins provide digital replicas of physical enti
+ties underpinned by distributed computing and ledger
+technologies enabling realtime authentic metaverse
+interactions  
+ distributed computing along with cloud and edge
+computing optimises data processing for the metaverse
+essential for delivering a realtime experience 
+c limitations
+despite its potential the metaverse encounters challenges
+in emulating the complex dynamics of human communication
+that are intrinsic to the physical world  avatars and virtual
+characters the metaverses inhabitants are often limited in
+their capacity to interpret and react to human emotions
+social cues and the subtleties of context  as a result
+metaverse interactions can lack the depth authenticity and
+richness that characterise facetoface encounters leading
+to experiences that may feel superficial and disconnected
+when users engage in the metaverse for specific activities
+like business negotiations or personal conversations the
+virtual entities insufficient emotional intelligence can lead
+to inaccurate perceptions of the users emotional states this
+could prevent avatars from providing empathetic responses
+to emotions like joy or sadness frustration or anger making
+interactions within the metaverse less compelling authentic
+and satisfying
+the traditional metaverse is constrained by several limita
+tions particularly in terms of personalisation options as
+identified in  these constraints inhibit the systems
+ability to tailor experiences to individual user needs leading
+to possible frustration and diminished engagement this is
+of significant concern in domains such as healthcare and
+mental health therapy where customisation is vital table 
+delineates these limitations in contrast to the capabilities of
+eim in virtual environments fostering meaningful human
+interactions which are fundamental depends on the ability to
+establish deep emotional connections which is a challenging
+task without emotional intelligence traditional metaverses
+limited by poor content moderation and marketing from
+lacking emotional intelligence face negative impacts on user
+experience and revenue this issue also perpetuates problems
+like hate speech and cyberbullying further damaging user
+experience and platform standing to overcome these hurdles
+incorporating emotional intelligence into the metaverse and
+creating an eim is imperative the following section delves
+into how affective computing can revolutionise the metaverse
+addressing the aforementioned limitations to realise the full
+potential of the metaverse
+iii affective computing for eim
+affective computing an interdisciplinary field focuses
+on understanding and utilizing human emotions it inte
+grates engineering psychology education cognitive science
+and sociology to explore how technology can enhance
+our comprehension of emotions this field examines the
+complex relationship between emotions humantechnology
+interactions and system design for leveraging affective states
+it provides numerous solutions to challenges in the traditional
+metaverse aiding the shift to an emotionally intelligent
+metaverse eim the key emotional indicators that eim
+systems aim to interpret include facial expressions  body
+language  and voice tones  etc that are captured via
+advanced metaverse technologies and further processed by
+sophisticated ai algorithms
+eim is defined as a novel iteration of the metaverse that
+integrates affective computing distinguishing itself from
+volume 
+this article has been accepted for publication in ieee open journal of the computer society this is the authors version which has not been fully edited and 
+content may change prior to final publication citation information doi ojcs
+this work is licensed under a creative commons attributionnoncommercialnoderivatives  license for more information see httpscreativecommonsorglicensesbyncnd
+oj logo
+table  comparison of feature limitations in the traditional metaverse versus enhancements in eim
+features
+traditional
+metaverse
+eim
+adaptive interaction to user emotions
+x
+dynamic emotionaware content personalization
+x
+advanced emotional communication tools
+x
+personalized user experience based on emotional data
+x
+emotionally responsive healthcare solutions
+x
+learning modules tailored to emotional and psychological state
+x
+deep emotional data analysis and insights
+x
+enhanced privacy measures for sensitive emotional data
+x
+affective humanai interaction
+x
+figure  presenting the eim framework showcasing the incorporation of emotional intelligence into the traditional metaverse the conventional
+metaverse applications are depicted in shades of pink while the eim applications are represented in blue users affective states are incorporated in
+traditional metaverse through sophisticated stateoftheart metaverse technologies as presented in table  this integration of the traditional metaverse and
+affective computing unlocks a broad range of possibilities enriching interactions and immersing users in the eim experience
+table  features of emotionally intelligent metaverse
+feature
+description

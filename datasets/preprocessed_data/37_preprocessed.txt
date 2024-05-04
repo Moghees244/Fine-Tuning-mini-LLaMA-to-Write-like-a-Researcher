@@ -1,0 +1,459 @@
+see discussions stats and author profiles for this publication at httpswwwresearchgatenetpublication
+vector indexing algorithm for post processing of otdr data
+conference paper  july 
+citation
+reads
+ authors
+muhammad usama
+ publications    citations   
+see profile
+sajid sheikh muhammad
+national university of computer and emerging sciences
+ publications    citations   
+see profile
+all content following this page was uploaded by muhammad usama on  september 
+the user has requested enhancement of the downloaded file
+vector indexing algorithm for post 
+processing of otdr data 
+muhammad usama s sheikh muhammad
+dept of electrical engineering
+national university of computer and emerging sciences fastnu lahore pakistan 
+ 
+abstractthe paper details the vector indexing 
+algorithm for post processing of data in optical time 
+domain reflectometer post processing is necessary in 
+otdr for event detection and feature extraction 
+from the acquired traces the vector indexing 
+algorithm uses the acquired data trace to extract 
+accurate event location and improve upon the spatial 
+resolution of the otdr the proposed algorithm has 
+been tested on our selfdeveloped otdr board and 
+its performance has been benchmarked against the 
+real measured event locations   
+keywords optical time domain reflectometer 
+otdr fiber under test fut vector index event 
+detection feature extraction  
+ 
+i 
+introduction 
+optical 
+time 
+domain 
+reflectometery 
+or 
+backscattering has been widely used for measuring 
+the distribution of attenuation along an optical fiber 
+since   otdr is a valuable technique for 
+characterizing losses and locating faults in fiber 
+communication links  otdr testing is the most 
+common method available for determining the exact 
+location of break in an installed fiber optic cable 
+when the cable jacket is not visibly damaged  
+otdrs are used to measure a fibers length endto
+end loss location of optical loss and reflectivity of 
+components along the fiber  otdr works on the 
+principle of rayleigh backscattering the basic idea 
+lies in transmitting a short pulse of light through a 
+fiber and examining the time dependent response of 
+the resulting backscattered signal    
+ a small part of injected light is captured by the 
+core of the fiber and propagates backwards any 
+change in the backscattered level along the fiber is 
+due to a defect or an alteration in the properties of 
+the fiber often called an event otdr measures 
+the backscatter light as a function of time from the 
+initial pulse injection performance metrics for 
+comparing and contrasting various approaches in 
+optical time domain reflectometery exists and 
+primarily uses one way fiber attenuation range 
+ldb which results in a reflectometer output snr 
+of unity    
+as the users of optical fiber have migrated to 
+longer transmission wavelengths because of lower 
+loss and as higher quality fibers have become 
+available there is literally less backscattered light to 
+be measured  event detection and classification 
+becomes tough for minute reflections in otdr 
+signal processing as the rayleigh backscatter is 
+about db lower than the launch power  variety 
+of techniques has been used to detect such weak 
+signals a composite coding scheme for snr 
+enhancement has been used for such weak signal 
+detection and tested for our inhouse built otdr 
+the notion lies in combining complementary 
+correlation codes with the simplex codes to achieve 
+higher gain than conventional coding techniques 
+  
+ research in the postprocessing algorithm for 
+otdr revolves around the ways of improving the 
+method of extracting the event information and 
+features from the otdr signature in this paper an 
+algorithm is presented for the detection of the 
+discontinuities in otdr signature that will describe 
+optical fiber attenuation characteristic buried in high 
+level additive signal such algorithms are employed 
+to post process the output of an otdr that will not 
+only locate the position of the connector splice 
+crack bend and cut along the fiber it will also 
+provide loss characteristic of each individual event 
+an otdr output consists of two parameters the 
+distance in km and attenuation in db an otdr 
+plot its output in a graph format on the otdr 
+screen with distance on xaxis and attenuation on 
+yaxis a conventional otdr trace is shown in 
+figure  
+ 
+fig  examplary otdr trace  
+ in upcoming sections existing techniques for 
+post processing of otdr data our proposed 
+methodology and experimental testbed is discussed 
+followed by a section on main requirements for post 
+processing and finally the achieved results are 
+quantified in the experimental results section 
+ii 
+existing event detection techniques 
+three distinct techniques exist which are useful 
+for the post processing of otdr output data   
+a least square approximation 
+least square approximation is the most famous 
+method used in post processing algorithms for 
+th european conference on network and optical communications  th conference on optical cabling and infrastructure  nococi 
+isbn  july   graz austria
+th european conference on network and optical communications  th conference on optical cabling and infrastructure  nococi 
+isbn  july   graz austria
+th european conference on network and optical communications  th conference on optical cabling and infrastructure  nococi 
+isbn  july   graz austria
+th european conference on network and optical communications  th conference on optical cabling and infrastructure  nococi 
+isbn  july   graz austria
+otdrs best line fit is calculated for noisy data 
+which ensures minimum mean square error 
+mmse then it is subjected to threshold 
+detection sharp changes in the backscatter data are 
+identified and extracted a general rule with least 
+square approximation is that an events magnitude 
+should be at least double the magnitude of noise to 
+be accurately located  if data is very noisy the 
+line fitted to the data may not represent the true 
+slope and would produce inaccurate results the 
+accuracy of processing is difficult to ensure in 
+acquired low snr data 
+b wavelet analysis 
+wavelet analysis method is used for finding 
+discontinuities in the otdr signatures data curve 
+data is subjected to wavelet transform and the 
+coefficients are subjected to a threshold value filter 
+to extract the high frequency information as sharp 
+changes lies in the high frequency portion 
+denoising is performed and finally the positions of 
+the sharp changes are located by using maximum 
+mold algorithm  the whole process is 
+summarized in the figure  
+ 
+fig   event detection using wavelet transform 
+     another approach using morlets complex 
+wavelet transform has also been used which 
+incorporates two important properties  
+a the phase of the wavelet transform wt 
+of an exponentially decaying function ft 
+is independent of time shifting since ft 
+is a homogeneous function 
+b the phase of the wt of a gaussian white 
+noise has a special distribution in π π  
+property a is applied for estimating attenuation 
+parameters and property b is used to identify end 
+of fiber a binary detection criterion is established 
+based on phase of wt of the otdr data to detect 
+events 
+morlets 
+complex 
+wavelet 
+transform 
+approach faces difficulties in limited operation time 
+and uncertainty in detected events    
+c waveshape analysis 
+waveshape analysis is the most advanced 
+approach in otdr event detection algorithms 
+wave shape analysis algorithm is the highly 
+sophisticated method of data processing that 
+accurately locates the events in the data based on 
+inflection points in the data previously discussed 
+algorithm can give inappropriate events or even 
+miss some events wave shape algorithm has the 
+capacity to overcome these shortcomings wave 
+shape algorithm can accurately locate and measure 
+events having magnitude one half of the magnitude 
+of the noise in the data  this improvement in 
+performance is achieved by analyzing the curve 
+shape of whole data this technique produces 
+superior amplitude measurements of the event 
+wave shape analysis is the proprietary algorithm of 
+nettek otdr 
+iii 
+vector indexing algorithm 
+the proposed algorithm works on vector index 
+matching fiber response consist of two parameters 
+namely distance and backscatter power which are 
+plotted on xaxis and yaxis simultaneously the 
+response out of otdr board will be discrete in 
+nature and looks like exponentially decaying signal 
+as shown in fig the events in the signature curve 
+are abrupt changes in the consecutive recorded 
+values first otdr curve data is stored in two 
+separate vectors distance vector and backscatter 
+vector simultaneously since the sudden changes in 
+information exist in the backscatter vector the 
+numerical difference operation is applied on it prior 
+to threshold detection values crossing the threshold 
+limit are events and cardinality of each event is 
+mapped 
+on 
+the 
+distance 
+vector 
+to 
+find 
+corresponding distance of the event meanwhile the 
+value of sample before the event and the value after 
+the event are gathered and linear interpolation is 
+performed to find the exact sample that crosses the 
+threshold this helps to improve the efficiency and 
+accuracy in terms of distance measurement the 
+computational complexity is reduced and the spatial 
+resolution capability of event detection improves 
+the details of vector indexing algorithm are being 
+provided through the pseudo code 
+vector indexing algorithm 
+ 
+input    backscatter vector 
+  
+      distance vector 
+ 
+     threshold  
+output distance from source to event location 
+ 
+      attenuation of events 
+begin 
+ store the cardinality of backscatter vector 
+in c 
+  
+foreach counter  c  
+ apply numerical difference operation on 
+backscatter vector store in result vector 
+end foreach 
+ 
+ pad zero to starting index of the result vector 
+ 
+ store the cardinality of result in c 
+ 
+ while counter  c 
+ compare the result index values with threshold 
+ 
+   
+if result value is greater than threshold 
+store the value and its index in output 
+vector 
+ 
+ else print no event is detected 
+  
+endwhile 
+  
+foreach counterdistance 
+compare the index number of the value 
+stored in output with distance vector 
+ 
+extract the value of the matched index 
+ 
+perform interpolation 
+ 
+ 
+store to event array 
+end foreach 
+end 
+nococi  isbn 
+iv 
+experimental setup 
+to experimentally verify our post processing 
+algorithm an inhouse otdr board was built a 
+pigtailed pulsed type laser photo diode was used as 
+an optical source and laser power was coupled into 
+the fiber spool by using a fiber directional coupler 
+an ingaas pin photo diode receiver was used to 
+detect the response from the fiber to the front end  
+a transimpedance amplifier is used to convert the 
+receivers current into voltage then a bit two 
+port adc was used to sample the incoming voltage 
+to mbps with a  bit resolution offering enough 
+dynamic range to detect the events properly whole 
+assembly source coupler receiver tia and adc 
+was built on the daughter board called analog front 
+end afe showed in figure    
+ 
+fig  afe daughter board 
+for signal processing an onboard signal 
+processor blackfin bf dsp was used which 
+performs control decoding and post signal 
+processing functions meanwhile xilinx spartan iii 
+fpga was also used to perform downconversion 
+of mbps for the processor and additionally fpga 
+control triggering capturing received optical signals 
+and averaging fpga is controlled by adsp which 
+uses its control signals to initiate the acquisition 
+process whole assembly adsp fpga and 
+memories was built on a separate board as shown 
+in figure  
+ 
+fig   signal processing board 
+afe and signal processing board was connected 
+together via dspafe connector sram and 
+prom are used for data storage and they are 
+connected and controlled by fpga figure  is a 
+picture of the inhouse build otdr including the 
+afe and signal processing board  
+ 
+fig   self developed otdr board 
+  trace is captured by shooting controlled coded 
+pulse into the fiber and response is collected for a 
+specified time period and stored in sram after that 
+averaging is performed to get the final trace and 
+then post processing algorithm is employed to 
+extract events 
+v 
+post processing of otdr data 
+a offset compensation  
+             once the trace is acquired it needs to be 
+converted in final presentable form by performing 
+logarithmic operation on the otdr signal the 
+logarithmic operations are sensitive to any fixeddc 
+offset added to the signal all adcs have some 
+inherent fixeddc offset which is defined as the 
+difference between the ideal least significant bit 
+lsb transition to the actual transition point if the 
+offset is not properly removed the logged trace rolls 
+up when the backscatter reaches the noise floor it is 
+necessary to remove the adc offset before post 
+processing after the offset is removed the final 
+trace needs to be analyzed for events and their 
+parameters offset compensation is an important 
+task in post processing of acquired traces as it 
+ensures offset errors removed and a linear trace 
+display 
+b trace analysis  
+ 
+the purpose of the trace analysis step is to 
+find different reflective and nonreflective events 
+along the fiber and to measure their locations and 
+losses nonreflective events are of two types 
+namely loss and gain for each nonreflective event 
+the insertion loss is measured the accurate method 
+of determining the nonreflective event is to find 
+four marker locations two before the event and two 
+after the event 
+for each nonreflective event the insertion loss 
+il needs to be measured the accurate method for 
+determining the loss is to find four marker locations 
+two before the event and two after the event least 
+square ls fits are found for sections of fiber 
+between each pair of markers as shown in figure  
+ 
+nococi  isbn 
+ 
+fig  use of markers and ls fitting 
+the red lines show the fits between markers m 
+and m and between m and m the loss is found 
+as the difference between the two fits from which 
+expected fiber loss needs to be subtracted a user 
+defined input loss threshold puts a lower limit for 
+the identification of a nonreflective event 
+reflective events begin with a slope rising sharply 
+hitting the peak and then falling back to the normal 
+value this identifies reflective event    
+vi 
+experimental results 
+in this section the experimental results are 
+discussed which are gathered by employing 
+proposed post processing algorithm to the otdr 
+data from live optical fibers of km each named 
+as fiber under test fut and fut once the 
+signatures are acquired and converted into the final 
+presentable form by performing filtering averaging 
+correlation and logarithmic operations they need to 
+be analyzed for events since the logarithmic 
+operation is sensitive to any fixeddc offset that 
+may have been added to the otdr signal the 
+source of such offset is usually the adc all 
+adcs have some inherent offset value if the offset 
+is not removed properly the logged trace rolls up or 
+down when the backscatter reaches the noise floor 
+level it is very important point in acquiring the 
+final trace that offset must be removed the 
+signature of fut is given in figure  
+ 
+ 
+fig   signature of fiber under test fut 
+after the post processing algorithm the resultant 
+detected events are shown by the normalized bar 
+plot in figure  
+ 
+fig   bar plot of detected events in fut 
+similarly proposed algorithm is applied on 
+fut and results are gathered the trace plot and 
+detected events for fut are shown in figure  and 
+ respectively 
+fig   signature of fut 
+ 
+fig   bar plot of detected events in fut 
+results are compared in terms of distance with 
+the actual values of distance and the values of the 
+events 
+from 
+commercially 
+available 
+otdr 
+specifying the distance from the point of injection 
+is critically important in the post processing of 
+otdr data increasing the spatial resolution of the 
+distance measurement has been achieved through 
+the vector indexing algorithm table  summarizes 
+the experimental results showing that the vector 
+indexing algorithm on the otdr curve data is 
+practical feasible and highly accurate 
+nococi  isbn 
+table i 
+note 
+event type  
+ blind spot  
+ reflective events 
+ 
+                nonreflective events  end of fiber 
+ 
+blind spot occurs when the receiver is saturated 
+by a very high reflection and its duration depends 
+upon the pulse width selected and recovery time of 
+otdr detector the sudden change due to 
+reflective event is followed by a return of the 
+rayleigh backscatter to its nominal value for 
+reflective events the reflectance threshold is set by 
+the otdr user at the start of testing events having 
+threshold less than the specified threshold are not 
+identified nonreflective events are identified by 
+subjecting the numerical difference values to the 
+lower loss threshold end of fiber eof is 
+identified by using eof threshold depending upon 
+the user defined input parameters at the start of 
+testing detection thus remains dependent on the 
+threshold definition for different types of events  
+vii 
+conclusion 
+in this paper we have focused our work on the 
+post processing algorithm for event detection and 
+feature extraction from acquired otdr traces by 
+using numerical difference operation combined with 
+vector index matching improvement in event 
+detection feature extraction and spatial resolution 
+has been achieved the performance results on 
+experimental setup indicate that the implementation 
+of the vector indexing algorithm shall allow 
+accurate event detection and classification hence 
+the proposed vector indexing algorithm provides an 
+effective solution for event detection in optical time 
+domain reflectometers 

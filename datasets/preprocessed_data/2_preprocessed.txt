@@ -1,0 +1,644 @@
+adversarial attacks on cognitive selforganizing
+networks the challenge and the way forward
+muhammad usama
+information technology university
+punjab pakistan
+muhammadusamaituedupk
+junaid qadir
+information technology university
+punjab pakistan
+junaidqadirituedupk
+ala alfuqaha
+western michigan university usa
+alaalfuqahawmichedu
+abstractfuture communications and data networks are ex
+pected to be largely cognitive selforganizing networks cson
+such networks will have the essential property of cognitive self
+organization which can be achieved using machine learning
+techniques eg deep learning despite the potential of these
+techniques these techniques in their current form are vulnerable
+to adversarial attacks that can cause cascaded damages with
+detrimental consequences for the whole network in this paper
+we explore the effect of adversarial attacks on cson our
+experiments highlight the level of threat that cson have to deal
+with in order to meet the challenges of nextgeneration networks
+and point out promising directions for future work
+i introduction
+the idea that networks should learn to drive themselves is
+gaining traction  taking inspiration from selfdriving cars
+where driving and related functionality do not require human
+intervention the networking community wants to build a
+similar cognitive control in networks where networks are able
+to conﬁgure manage and protect themselves by interacting
+with the dynamic networking environmentwe refer to such
+networks as cognitive selforganizing networks cson the ex
+pected complexity and heterogeneity of cson makes machine
+learning ml a reasonable choice for realizing this ambitious
+goal recently artiﬁcial intelligence ai based cson have
+attained a lot of attention in industry and academia
+in  clark et al  proposed that ml and cognitive
+techniques should be used for operating the network this
+knowledge plane incorporation will bring many advantages
+in networks such as automation of network management
+efﬁcient and realtime anomaly and intrusion detection and
+many related tasks due to limited computational resources
+and lack of ml abilities the idea of knowledge plane was not
+implemented in networks in recent years the ﬁeld of ml
+especially neural networks have evolved rapidly and we
+have witnessed its success in vision speech and language
+processing this huge success motivated networking research
+community to utilize deep ml tools for building cson
+deep ml or deep learning dl is a branch of ml
+where hierarchical architectures of neural networks are used
+for unsupervised feature learning and these learned features
+are then used for classiﬁcation and other related tasks dl
+classiﬁers are function approximators that require a lot of data
+for generalization although they have outperformed all other
+statistical approaches on large datasets due to generalization
+error they are very vulnerable to adversarial examples adver
+sarial examples are carefully crafted perturbations in the input
+which when mldl algorithms are subjected to get classiﬁed
+in a different class with high probability
+in this paper we take security to encompass the securing
+of all of the functional areas of cson ie iso deﬁned func
+tional areas often abbreviated as fcaps fault conﬁguration
+accounting performance and security and experiment with
+multiple adversarial attacks on mldl based malware clas
+siﬁcation systems our experimental results demonstrate that
+the current state of the art mldl based networking solutions
+do not have substantial deterrence against adversarial attacks
+speciﬁcally our experiments utilize the highly cited malware
+image dataset provided by nataraj et al  to perform
+adversarial attacks on malware classiﬁer to demonstrate that
+using current mldl techniques in conjunction with csons
+can be a potential security risk
+contributions in this paper we have made the following
+contributions
+ to the best of our knowledge we have made the ﬁrst
+attempt to show that cson utilizing mldl techniques
+are very vulnerable to attacks based on adversarial per
+turbations
+ we have argued that existing defenses to overcome ad
+versarial perturbations are not appropriate and efﬁcient
+for cson applications we have also highlighted that
+protection schemes against adversarial examples create
+an arms race between adversaries
+the rest of the paper is organized as follow in the next
+section we review related research studies that focus on
+cson and adversarial attacks on networking applications
+section iii describes our research methodology particularly
+with reference to the dataset the mldl model used dataset
+and threat model assumptions and the adversarial attacks
+in section iv we provide the details of our experimental
+evaluations and the potential defense against these attacks in
+section v we discuss the posed questions as well as some
+future directions and challenges finally section vi concludes
+our study
+ii related work
+many applications of mldl in networking have been
+proposed in the last few years highlighting the applications
+arxivv  cscr   sep 
+opportunities and challenges of using mldl in networking
+domain          
+although many mlbased solutions for networking appli
+cations have been proposed the networking community has
+not yet standardized any mlbased solutions for csons this
+arises partly from the complexity of the cson environment
+that is characterized by dynamically changing network envi
+ronment data sparsity expected tussles between control loops
+high dimensionality label data scarcity heterogeneity ofﬂine
+data processing and many other architectural issues
+cson are expected to resolve the challenges of op
+timization conﬁguration healing and coordination in the
+communication and data networks by incorporating aiml
+based cognitive techniques latif et al  highlights ai
+as a potential enabler for cson similar ideas based on
+deep reinforcement learning for learning from environment
+and experience termed as experiencedriven networking are
+presented in  feamster et al  termed this idea of
+learning from network environment for measuring analyzing
+and conﬁguring network without any human intervention as
+selfdriving networks jiang et al  highlighted the ben
+eﬁts and challenges in developing an intelligent datadriven
+network with the ability of learning from dynamic nature of the
+networking environment by using exploration and exploitation
+processes koley et al  proposed and provided a frame
+work for zerotouch networking and highlighted the need for
+cson using googles infrastructure network as an example
+mestres et al  revisited the possibilities of embedding
+artiﬁcial intelligence in networking and proposed an mldl
+based knowledge plane for networking applications and this
+new networking paradigm was termed as knowledge deﬁned
+networking
+while mldl applications will be a core part of cson
+recent studies demonstrated that mldl models are very
+susceptible to adversarial examples   although most
+existing studies in this domain have targeted image classi
+ﬁcation applications in which highdimensional images are
+perturbed in a way that fools the algorithm without being the
+change being conspicuous to naked human eye these attacks
+also pose a signiﬁcant challenge to cson since the underlying
+algorithms are largely similar
+such adversarial attacks are performed to compromise the
+integrity in terms of misclassiﬁcation accuracy reduction
+targeted misclassiﬁcation or decision boundary evasion of the
+mldl techniques we can divide these adversarial attacks
+into two broader categories based on the adversarysattackers
+knowledge
+ whitebox attack this attack assumes that the adver
+sary has complete knowledge about the mldl architec
+ture training data and hyperparameters for adversarial
+attacks on cson we assume a whitebox attack setting
+ blackbox attack this attack assumes that the ad
+versaryattacker has no information about the mldl
+technique and hyperparameters the adversary acts as
+a standard user who can query the mldl based system
+and gets a response these queryresponse pairs are later
+used for crafting the adversarial examples
+most of the adversarial attacks are whitebox attacks but
+whitebox adversarial examples can be converted into black
+box attacks by exploiting the mldl transferability property
+since these adversarial attacks on ml algorithms have not
+yet been applied much in the case of networks we will initially
+review their applications in other domains szegedy et al
+ proposed the ﬁrst successful adversarial attack that has
+fooled the state of the art image classiﬁers with very high
+probability goodfellow et al  proposed an adversarial
+sample generation method called fast gradient sign method
+where adversarial perturbation was generated by taking the
+sign of the gradient of the cost function with respect to the
+input kurakin et al  explored the vulnerability of mldl
+techniques in the physical world and demonstrated that a small
+invisible tweak to the input of an mldl techniques can result
+in incorrect results carlini et al  proposed three attacks by
+exploiting the three different distance matrices l l and
+l and showed that the defensive distillation method 
+used to prevent against adversarial attacks does not increase
+the robustness of the mldl techniques papernot et al 
+proposed a saliency map based attack where saliency map
+is used to ﬁnd the most discriminative features of the input
+that are then fractionally perturbed to form an adversarial
+attack on the mldl based classiﬁers in  papernot et
+al  proposed a blackbox attack where adversarial attack
+transferability  is exploited to form a successful evasion
+attack further details about adversarial attacks on different
+vision language and text processing systems can be found in
+ and 
+adversarial attacks have not yet been explored for cson
+we will cover some general networking applications in 
+corona et al  highlighted the possibilities and open re
+search challenges of adversarial attacks on intrusion detection
+systems hu et al  proposed a generative adversarial
+network gan based blackbox attack on malware examples
+but training a gan on malware examples is difﬁcult and
+computationally exhaustive grosse et al  proposed an
+adversarial perturbation attack against deep neural networks
+for malware classiﬁcation where a restricted amount of feature
+perturbations are used to fool a deep neural network with 
+probability which was previously classifying malware with
+ accuracy in the next section we provide the details of
+the proposed approach to perform multiple adversarial attacks
+on cson
+iii methodology
+in this section we describe the approach followed in
+designing adversarial examples to evade the mldl based
+malware classiﬁcation system which we use as a proxy for
+the functional areas of cson to the best of our knowledge
+no standardized deep learning based solution for malware
+classiﬁcation in the cson has been proposed yet in this
+work we propose a deep neural network based solution for
+malware classiﬁcation before delving deep into the details of
+fig  depiction of malware executable as an image
+the proposed model we describe the threat model and few
+related assumptions
+a threat model
+in the following we outline the salient assumptions regard
+ing the adversarial threat
+ the adversary may have the knowledge about the trained
+model which includes model architecture and hyper
+parameters but the adversary cannot make any changes to
+the architecture or model parameters this is a common
+assumption in the adversarial machine learning domain
+ the adversary can only perform attacks during the testing
+phase attacks on the training data ie poisoning attacks
+are not within the scope of this study
+ for malware classiﬁcation we assume that similar fam
+ilies of malware when represented as grayscale images
+exhibit similar visual and texture representations this
+hypothesis was proposed and defended in  in this
+work we utilize convolutional neural networks cnn
+for malware classiﬁcation because cnn is by far the best
+feature extractors
+ the goal of an attack is to compromise the integrity
+of the mldl based classiﬁcation techniques through
+a reduction in the classiﬁcation accuracy with small
+perturbations
+b malware image representation
+in this paper we have used grayscale malware image dataset
+provided in  where a malware executable is converted
+to a grayscale image this approach of conversion includes
+both static and dynamic code analysis the executable code
+is converted to binary and then represented as bit unsigned
+vectors these bit unsigned vectors are then reshaped to a d
+array which can be visualized as a grayscale image figure 
+is depicting the procedure of converting malware executable
+to a grayscale image
+c malware classiﬁcation model
+we propose a cnn based malware classiﬁcation architec
+ture table i depicts the proposed architecture cnn is a pow
+erful dl technique that learns spatial feature representations
+using convolutional ﬁlters cnn has the capability to tolerate
+the distortion and spatial shifts in the input data and extract
+features from raw input data cnn provides the stateoftheart
+solution for network trafﬁc feature extraction and classiﬁcation
+ motivated by these successes we explore the use of cnn
+for grayscale malware image classiﬁcation
+in the proposed architecture we rescale the input grayscale
+images of various sizes to  pixel wide and  pixel high
+where pixel values are between  to  these input values
+are subjected to a twodimensional convolutional layer with
+ ﬁlters of receptive ﬁeld  pixel wide and  pixel high
+after that we use a rectiﬁed linear unit ie relu as an
+activation function the resultant activation values are then
+passed on to a second convolution layer with  ﬁlters and
+   receptive ﬁeld again we use a relu as an activation
+function similarly the third convolution layer follows the
+same procedure mentioned earlier but with  ﬁlters of
+   receptive ﬁeld after the third convolution layer the
+resultant activation values are ﬂattened and passed on to a
+fully connected layer with softmax as an activation function
+producing resulting probabilities we use a variant of the
+stochastic gradient descent sgd as an optimization function
+and categorical crossentropy as a loss function to train the
+cnn
+table i proposed cnn architecture for malware classiﬁca
+tion
+input malware gray scale image
+size 
+d convolution layer
+filter size 
+no of ﬁlters 
+activation function relu
+d convolution layer
+filter size 
+no of ﬁlters 
+activation
+function relu
+d convolution layer
+filter size 
+no of ﬁlters 
+activation
+function relu
+dense layer
+number of neurons 
+activation function softmax
+output
+malware
+classiﬁcation probabilities
+d adversarial attacks
+we performed fast gradient sign method basic iterative
+method and jacobianbased saliency map attacks on mal
+ware classiﬁers to demonstrate that mldl based malware
+classiﬁcation methods in cson are vulnerable to adversarial
+examples
+ fast gradient sign method goodfellow et al 
+proposed a fast method of generating adversarial examples
+this method is called the fast gradient sign method fgsm
+this method exploits the vulnerability of deep neural networks
+to adversarial perturbations fgsm performs one step gradient
+update along the sign of the gradient to solve the optimization
+problem formally the perturbation is calculated as
+η  ϵsignxjθx l
+in equation  ϵ represents the update step width or magnitude
+of the perturbation η is the difference between original and
+perturbed input x represents the gradient with respect to
+each example lastly jθx l is the loss function used for
+training the neural network for original example x and its
+corresponding label l the generated adversarial example x
+is calculated as
+x
+  x  η
+fgsm is a very powerful attack because it is resilient to
+the regularization techniques such as dropout and normbased
+regularization methods
+ basic iterative method kurakin et al  proposed
+an elementwise basic iterative method bim for adversarial
+falsiﬁcation it is an iterative procedure for generating adver
+sarial example for physical world applications they improved
+the success rate of the fgsm attack by including an iterative
+clipping method for each pixel to avoid large changes in the
+pixel valuesthe generated adversarial example is calculated
+via multiple iterations the adversarial example generation
+procedure is given as
+x  x
+xn  clipxξxn  ϵsignxjθx l
+where xn is an adversarial example after n   iterations
+the rest of the parameters are similar to the one utilized in
+the fgsm attack
+ jacobianbased saliency map attack papernot et al
+ proposed a new efﬁcient method for generating adver
+sarial examples called the jacobianbased saliency map attack
+jsma this attack is an iterative method for generating a
+saliency map to ﬁnd out the most discriminative features a
+small perturbation is added to these discriminative features
+to fool the classiﬁer this attack is based on calculating the
+jacobian of the forward propagating examples with respect to
+the input sample the procedure of generating the saliency
+map of each sample is given as
+jx  fx
+x
+ f jx
+xi 
+this attack achieved  accuracy by altering only  of
+the input features although this attack provides very effective
+adversarial examples but it is computationally very expensive
+iv experimental evaluation
+we evaluated the cnn based malware classiﬁer against
+adversarial examples through our experiments we want to
+answer the following questions
+ question  since mldl techniques are necessary to
+fuel the cson do these techniques provide the necessary
+robustness required to deal with adversarial perturba
+tions
+ question  how to build deterrence against adversarial
+attacks in cson
+ question  do the deterrence techniques against ad
+versarial examples create an arms race between adver
+saries
+before answering these questions we provide the details of
+the dataset used for our experiments
+fig  malware image and related features in the image
+a dataset
+nataraj et al  provided a malware grayscale images
+dataset based on their novel image processing technique where
+malware executeable are viewed as a grayscale image for
+visualizing malware families for classiﬁcation purposes we
+evaluated the performance of our proposed cnn architec
+ture and adversarial attacks on malware classiﬁers using this
+dataset the dataset consists of   malware images divided
+into  different malware families like allaplel allaplea
+lolyda aa etc these malware families belong to major
+malware types such as worm pws trojan dialer tdown
+loader rouge and backdoor more details about malware types
+and related families in the dataset is available in  here
+we want to highlight that to keep the excutability of the
+malware we have limited the scope of the perturbation to the
+uninitialized data and zero padding portion of the malware
+image we utilized  of the data for training and 
+for testing figure  depicts a sample malware image and its
+associated attributes
+b results
+we evaluated the performance of adversarial attacks on
+cson using malware classiﬁers as a proxy the dataset details
+are provided in section iva both fgsm and bim attacks
+are elementwise attacks with individual perturbation scope
+nontargeted speciﬁcity and same perturbation magnitude pa
+rameter ϵ we performed both attacks using multiple values
+of ϵ with   and  epochs our experimental results
+are shown in tables ii and iii jsma is a targeted iterative
+euclidean distance based attack it has two major controlling
+parameters namely maximum distortion parameter γ and rate
+of perturbation in the features θ for this experiment we ﬁxed
+θ to be  and varied the value of γ between   and
+ for   and  epochs the achieved adversarial test
+accuracy values along with the average number of features
+perturbed for a successful adversarial example are reported in
+table iv for all aforementioned experiments a batch size of
+ and a learning rate of  were used
+ performance impact the cnn based malware classiﬁer
+has a classiﬁcation accuracy of  when trained on
+legitimate examples this accuracy is better than the best
+accuracy reported on the dataset in consideration adversarial
+test examples created by employing fgsm have reduced the
+classiﬁcation accuracy from approximately  to 
+table ii fgsm attack and defense results with different values of epochs and ϵ
+fast gradient sign method attack
+epochs
+epsilon
+test accuracy on
+legitimate samples in 
+test accuracy of
+adversarial examples in 
+test accuracy after
+adversarial training in 
+table iii bim attack and defense results with different values of epochs and ϵ
+basic iterative method attack
+epochs
+epsilon
+test accuracy on
+legitimate samples in 
+test accuracy of
+adversarial examples in 
+test accuracy after
+adversarial training in 
+table iv jsma attack with average number of features perturbed for different values of epochs and γ
+jacobianbased saliency map attack
+epochs
+gamma
+test accuracy on
+legitimate samples in 
+test accuracy of
+adversarial examples in 
+average number of
+features perturbed 
+which is nearly  loss in the accuracy of classiﬁcation and
+prevention against adversarial examples it also means that the
+probability of an adversary evading the malware classiﬁer has
+increased from  to  which is very alarming similarly
+the bim attack reduces the test accuracy of adversarial samples
+to  which is even worse than the fgsm attack in case
+of jsma the classiﬁcation accuracy decreased from 
+to  but it requires an  of average feature per
+turbations to create successful adversarial examples which is
+computationally very expensive the full experimental results
+are summarized in tables  iii and iv
+malware classiﬁers are an integral part of the security
+architecture of cson and we demonstrated that a very small
+perturbation in the test example has the potential to evade
+the integrity of the classiﬁer this performance degradation
+depicts the potential risks of applying mldl methods in
+the context of cson without considering the robustness of
+mldl classiﬁers and building proper deterrence against ad
+versarial examples without such deterrence mldl models
+might cause more harm than good in cson
+ computational complexity adversarial attacks are not
+just random noisevalues added to the test samples instead
+they are carefully calculated perturbations these perturbations
+are based on exploiting the inherent generalization error and
+gradient variations in of mldl techniques as the shown in
+table iv detecting and exploiting these errors to make effec
+tive adversarial examples is a computationally very complex
+and expensive process since jsma works on saliency maps
+and forward derivatives to ﬁnd the most discriminant features
+it becomes computationally very expensive table iv depicts
+the average number of features perturbed to construct an adver
+sarial example for each class these values are surprisingly very
+high because for each example the underlying data contains
+ features and each feature has a value greater than zero
+which is not the case in other standard datasets like mnist
+ this unusual property of the malware image dataset
+increases the search space to ﬁnd the most discriminating
+features thus resulting in rapid increase in that computational
+complexity and poor performance of the jsma attack
+c adversarial defense
+we need to identify that adversarial settings have been
+assumed in networks before through tools such as game theory
+but unique challenges emerge and the stakes get higher when
+we give more control of the network to ml and algorithms
+in cson  barreno et al  provided a taxonomy of
+defences against adversarial attacks they have highlighted
+that regularization randomization and information hiding can
+ensure defence against adversarial perturbation but these coun
+termeasures are not very effective against attacks described in
+section iiid
+there are two major types of defenses against adversarial
+examples namely proactive and reactive proactive defenses
+include adversarial training and network distillation whereas
+reactive defenses include input reconstruction and adversarial
+detection in this paper we only consider proactive coun
+termeasures against adversarial examples more detail about
+reactive countermeasures against adversarial examples are
+explored in 
+ adversarial training one countermeasure against ad
+versarial examples is to include adversarial examples in the
+training data for mldl techniques goodfellow et al 
+proposed this idea and showed that mldl classiﬁers can be
+made more robust against adversarial examples by training
+them with adversarial examples the purpose of including
+adversarial examples in the training is to regularize the mldl
+technique this regularization helps to avoid overﬁtting which
+in turn increases the robustness of the mldl technique
+against adversarial examples
+in this paper we also explored adversarial training for
+making cnn models robust against fgsm and bim attacks
+test accuracies before and after the adversarial training are
+reported in tables ii and iii the results clearly show that
+performing adversarial training can increase the deterrence
+against adversarial attacks but it only provides defense against
+the adversarial examples on which it is trained while other
+adversarial perturbations continue to pose a threat of evading
+the integrity of the classiﬁer
+ network distillation network distillation is another
+approach of forming a defense against adversarial examples
+hinton et al  proposed the idea of distillation to improve
+the generalization of the deep neural networks papernot et al
+ used the distillation process to form a defense against ad
+versarial examples network distillation is a process of training
+a classiﬁer such that the generation of adversarial examples
+becomes very difﬁcult this defense is based on hiding the
+gradients between presoftmax layers and the softmax output
+which reduces the chances of developing a gradientbased
+attack against deep neural networks since in this paper we
+consider whitebox attacks where an adversary knows the
+model parameters ie architecture hyperparameters gradi
+ents etc this defensive scheme is not applicable to our study
+more information on defence schemes against adversarial
+examples can be found in 
+v discussions challenges and future extensions
+our experimental results clearly demonstrate that applying
+mldl techniques in cson without taking into account
+adversarial perturbation threats can potentially lead to major
+security risks to date there does not exist any appropriate
+solution that provides deterrence against all kinds of adversar
+ial perturbations our experiments answer the questions posed
+earlier in section iv furthermore they provide the following
+insights
+ robustness of mldl for cson in section ivb we
+have shown that cson are very vulnerable to adversarial
+attacks sparsity high dimensionality unstructured na
+ture unique data packing scheme large salient feature
+decision space of network data and less fault tolerance
+makes adversarial attacks more lethal for cson as
+compared to other vision and language data given the
+adversarial threat networking community has to come
+up with new mldl mechanism to ensure appropriate
+deterrence against adversarial examples robustness can
+be introduced by incorporating approximation and fault
+tolerance on top of defense techniques against adversarial
+threats
+ deterrence against adversarial attacks in cson we
+have performed proactive defense against adversarial at
+tacks by training on adversarial examples this adver
+sarial training procedure provides deterrence against the
+adversarial examples it is trained on but an unknown
+adversarial perturbation can evade the classiﬁer table
+ii depicts that when the classiﬁer is trained via an
+adversarial training procedure it enables the malware
+classiﬁer to classify fgsm based adversarial examples
+correctly with  accuracy after  epochs but
+the same classiﬁer was unable to classify bim attacks
+with appropriate accuracy even after  epochs of ad
+versarial training this shows that before incorporating
+mldl techniques in support of cson applications like
+routing intrusion detection trafﬁc classiﬁcation malware
+detection the research community needs to ﬁgure out an
+appropriate defense against all adversarial perturbations
+the margin of error in adversarial examples classiﬁcation
+is very narrow in networking application when compared
+to computer vision problems
+building deterrence against adversarial examples requires
+a method to improve generalization this can be achieved
+via constraint objective function optimization distributed
+denoising and exploiting vicinal risk minimization in
+stead of empirical losses apple inc  proposed
+a distributed denoising scheme for building deterrence
+against adversarial attacks for securitycritical applica
+tions whereas zhang et al  proposed a method for im
+proving the generalization of the mldl schemes which
+uses vicinal risk minimization rather than conventional
+empirical loss minimization this procedure improves
+the robustness of mldl techniques against adversarial
+examples our experiments demonstrate that cson are
+currently lacking the capability to provide appropriate
+defense against adversarial attacks on mldl techniques
+ arms race between adversaries our experiments also
+highlight that using mldl techniques in cson can lead
+to an arms race situation between adversaries conse
+quently adversarial attacks and defense mechanisms will
+be in an arms race where attackers keep on dynamically
+changing the adversarial perturbations and defenders have
+to adapt accordingly
+mldl techniques will enable future cson but before their
+deployments the research community has to ﬁgure out an
+effective way to deal with adversarial attacks
+a open issues
+ standardized datasets progress in cson largely de
+pends upon learning from data obtained from the user op
+erating system and application unfortunately there does
+not exist a single standardized dataset for benchmark
+ing mldl techniques for realtime networking applica
+tions in order to ensure a proper utilization of mldl
+techniques with efﬁcient deterrence against adversarial
+examples networking community has to come up with
+standardized datasets for securitycritical applications
+ learning from untapped network data building de
+terrence in cson against adversarial examples can be
+achieved by improving the generalization of mldl tech
+niques generalization can be improved by harnessing the
+features from untapped networking data network data
+that is recorded but not utilized in decision making by
+introducing new network telemetry schemes for cson
+this can be a very promising way forward in realizing
+security critical cson
+ new mldl mechanisms conventional mldl tech
+niques are very vulnerable to adversarial examples as
+shown in section ivb and related defense schemes do not
+qualify for cson applications developing new mldl
+schemes for unstructured networking data which are
+robust to adversarial threats is still an open avenue ge
+ometric and graph mldl techniques have the potential
+to solve this issue but have not yet been explored in this
+context
+vi conclusion
+in this paper we evaluated the feasibility of employing
+mldl techniques to realize cson in security critical appli
+cations and their ability to defend against adversarial exam
+ples we demonstrated that network data is highly susceptible
+to adversarial attacks we also evaluated the proactive defense
+mechanisms to build a defense against adversarial perturba
+tions our experiments demonstrate that the application of
+mldl techniques in networking can push the limits on
+the stateoftheart in cson however without taking into
+account the threat of adversarial examples signiﬁcant security
+risks will be a major hindrance to the deployment of these
+networks

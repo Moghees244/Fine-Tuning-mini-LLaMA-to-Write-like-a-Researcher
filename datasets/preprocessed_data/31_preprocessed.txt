@@ -1,0 +1,989 @@
+original article
+fake visual content detection using twostream convolutional neural
+networks
+bilal yousaf  muhammad usama  waqas sultani  arif mahmood  junaid qadir
+received  february   accepted  january   published online  january 
+ the authors under exclusive licence to springerverlag london ltd part of springer nature 
+abstract
+rapid progress in adversarial learning has enabled the generation of realisticlooking fake visual content to distinguish
+between fake and real visual content several detection techniques have been proposed the performance of most of these
+techniques however drops off signiﬁcantly if the test and the training data are sampled from different distributions this
+motivates efforts towards improving the generalization of fake detectors since current fake content generation techniques
+do not accurately model the frequency spectrum of the natural images we observe that the frequency spectrum of the fake
+visual data contains discriminative characteristics that can be used to detect fake content we also observe that the
+information captured in the frequency spectrum is different from that of the spatial domain using these insights we
+propose to complement frequency and spatial domain features using a twostream convolutional neural network archi
+tecture called twostreamnet we demonstrate the improved generalization of the proposed twostream network to several
+unseen generation architectures datasets and techniques the proposed detector has demonstrated signiﬁcant performance
+improvement compared to the current stateoftheart fake content detectors with the fusing of frequency and spatial
+domain streams also improving the generalization of the detector
+keywords deepfakes  twostream network  frequency stream  combination of discrete fourier transform and discrete
+wavelet
+ introduction
+recent technological advancements in artiﬁcial intelli
+gence ai have led to various beneﬁcial applications in
+vision language and speech processing however at the
+same time the power of these technologies may be
+exploited by adversaries for illegal or harmful uses for
+example deepfakesa portmanteau of the terms deep
+learning and fakemay be used to produce or alter
+photorealistic audiovisual content with the help of deep
+learning for an illegal or harmful purpose deepfake
+technology enables one to effectively synthesize realistic
+looking fake audio or video of a real person speaking and
+performing in any arbitrary way  the term deepfake
+was ﬁrst coined by a reddit community for synthetically
+replacing the face of a person with the face of another
+person the term expanded with time to include similar
+techniques such as lipsync   facial expression
+reenactment  fullbody and background manipulation
+as well as audio synthesis 
+ junaid qadir
+jqadirqueduqa
+bilal yousaf
+msdsituedupk
+muhammad usama
+muhammadusamalumsedupk
+waqas sultani
+waqassultaniituedupk
+arif mahmood
+arifmahmoodituedupk
+department of computer science information technology
+university itu lahore pakistan
+lahore university of management sciences lums
+lahore pakistan
+department of computer science and engineering cse
+college of engineering qatar university doha qatar
+department of electrical engineering information
+technology university itu lahore pakistan
+neural computing and applications  
+httpsdoiorgs
+volv
+ volv
+the rise of technology such as deepfake has eroded the
+traditional conﬁdence in the authenticity of audio and video
+as any digital content audio video text can be easily
+subverted using advanced deep learning techniques for
+synthesizing images trained on readily accessible public
+videos and images  the gravity and urgency of the
+deepfake threat can be gauged by noting that in recent
+times a ceo was scammed using deepfake audio for
+  and a fake video of the president of gabon
+has resulted in a failed coup attempt other potential effects
+of the deepfake threat include danger to journalism and
+democratic norms because elections can be manipulated
+and democratic discourse may be disrupted by creating
+fake speeches of contending leaders   unfortunately
+most of the current research focuses on creating and
+improving deepfakes and there is a lack of focus on
+reliable deepfake detection for instance among those
+papers uploaded to arxiv in   papers focused on
+generative adversarial networks gans a common
+method for deepfake generation while only  papers
+related to antiforgery related topics 
+recent research shows that neural networks can be used
+for detecting fake content  these methods however
+require a large amount of fake and real training data to
+accurately learn the data distributions of both classes the
+performance of these methods drops signiﬁcantly on the
+unseen fake data if sampled from a different distribution or
+a different generation process it is because the underlying
+model may overﬁt the available training data and therefore
+lose its ability to generalize to unseen data to enable the
+model to classify previously unseen data will require a
+large amount of data from the new distribution which may
+not always be available in such problems attackers and
+defenders are continuously improving their approaches and
+rolling out new attacks and defenses therefore it may be
+very difﬁcult to collect a large amount of fake data for new
+manipulation techniques ideally for such scenarios a fake
+content detector is needed that should be able to detect fake
+data without explicit training on that particular type of fake
+content
+nataraj et al  proposed to improve the detectors for
+fake images by using handcrafted cooccurrence matrices
+as input features they can produce good results on only
+one unseen test set however their approach did not per
+form well on other types  zhang et al  discovered
+that classiﬁers do not generalize well between gan
+models and proposed to use the discrete fourier transform
+dft spectrum of full images as an input to the deep
+learning models to detect fake images in contrast we
+propose to calculate dft on x blocks of the images and
+to combine these with discrete wavelet transform dwt
+features furthermore instead of using only the informa
+tion from the frequency domain we also propose to
+combine the artifacts from the spatial domain and show
+through extensive experiments that this technique gener
+alizes well on many unseen test sets
+in the current work we propose a twostream network
+for fake visual content detection the ﬁrst stream called
+spatial stream detects the fake data employing rgb
+images while the second stream dubbed as frequency
+stream utilizes a combination of dft and dwt for dis
+criminating fake and real visual content the frequency
+stream exploits the fact that the distribution of the fre
+quency spectrum of the fake visual data remains distinct
+from the distribution of the real data frequency spectrum
+this is illustrated in fig  which shows the dftmagni
+tude spectrum for a sample of real and fake images it can
+be seen that the frequency spectrum has patterns that are
+different from that of real images these differences are
+used to classify the fake versus real content to elaborate
+the frequency spectrum differences further we have shown
+the average spectra of the fake and real images from 
+different gan generators following the method used by
+ we used all the images available in our test set to
+calculate the spectrum on the high passed ﬁltered images
+and then took the average fig  since the information
+captured by the frequency stream is different from the
+information captured by the spatial stream both these
+streams complement each other and fusing them can
+provide better performance and generalization to unseen
+fake data detection to the best of our knowledge this is
+the ﬁrst work that studies crossmodal information fusion
+to improve fake content detection generalization
+the main contributions of this paper are summarized
+next
+a novel twostream architecture for fake visual content
+detection consisting of a spatial stream ss and a
+frequency stream fs is proposed the ss learns the
+difference between the distributions of real and fake
+visual content in the spatial space using rgb images
+fake
+real
+fig  dftmagnitude spectrum for fake and real images has
+discriminative features which can be exploited for improved fake
+detection performance
+neural computing and applications  
+while the fs learns to discriminate between the
+distributions of real and fake content in the frequency
+domain the coefﬁcients of the stationary frequencies
+are captured using dft while the coefﬁcients of
+spatially varying multiscale frequencies are captured
+using haar wavelet transform the spatial and fre
+quency information complement each other and there
+fore
+their
+fusion
+improves
+fake
+visual
+content
+detection
+the proposed twostream network comprising a fre
+quency and a spatial domain stream has outperformed
+the stateoftheart fake detection methods with a
+signiﬁcant margin a detailed analysis of the proposed
+approach is performed and we empirically demonstrate
+that the proposed approach is robust across different
+quality jpeg compression and blurriness artifacts
+in sect  we discuss the related work and cover the tra
+ditional image forensics techniques and the latest deep
+learningbased image forensics algorithms with a prime
+focus on generalization in sect  we present our proposed
+methodology with preprocessing schemes training and
+testing procedures in sect  we introduce the datasets
+used for evaluating and providing the results of our
+experiments section  critically evaluates the performance
+and the generalization of the proposed methodology by
+performing an ablation study finally sect  concludes the
+paper and also points towards future directions
+ related work
+in this section we brieﬂy review recent works needed to
+understand the stateoftheart solutions in image forensics
+we have divided this section into four subsections we
+begin with a brief overview of the handcrafted image
+forensic techniques followed by a discussion on deep
+learningbased image forensic approaches after that we
+discuss methods that focus on improving generalization
+finally we conclude the section by covering the stateof
+theart frequencydomain techniques that are speciﬁcally
+designed for image forensic applications
+ handcrafted image forensics
+a variety of methods are available in the literature for
+detecting traditional image manipulation techniques most
+of these manipulations are designed with the help of image
+editing tools the traditional techniques make use of hand
+crafted features to detect speciﬁc clues that are created as a
+result of different manipulations for example several
+blind noise estimation algorithms have been proposed to
+detect region splicing forgeries   popescu et al 
+detected the image forgeries by estimating the resampling
+in the images haodong et al  integrated tampering
+possibility maps to improve forgery localization yuanfang
+et al  identiﬁed potential artifacts in hue saturation
+dark and bright channels of fake colorized images and
+developed detection methods based on histograms and
+feature encoding similarly peng et al  used contact
+information of the standing objects and their supporting
+planes extracted from their reconstructed d poses to
+detect splicing forgeries however these techniques are
+unable to provide comparable performance to that of pixel
+based methods in realistic situations in recent works
+learningbased techniques have become the preferred
+method compared to traditional image forensics for
+achieving stateoftheart detection performance 
+ deep learning based image forensics
+due to the success of deep learning in different ﬁelds
+several researchers have recently leveraged deep learning
+approaches for fake visual content detection yan et al 
+proposed an algorithm based on difference images dis
+and illuminant map im as feature extractors to detect re
+colorized images quan et al  designed a deep cnn
+network with two cascaded convolutional layers to detect
+biggan
+real
+fake
+cyclegan
+deepfake
+guagan
+imle
+progan
+san
+sitd
+stargan
+stylegan
+fig  we show that average spectrum calculated on highpass
+ﬁltered image similar to zhang et al  for fake and real images
+have discriminative features which can be exploited for improved
+fake detection performance using the method of zhang et al 
+we ﬁrst calculate the spectra of all the images in the test set and then
+take average of all
+neural computing and applications  
+computergenerated images mccloskey et al  detec
+ted fake images by exploiting artifacts in the color cues
+whereas li et al  used face warping artifacts for the
+forgery detection li et al  noticed that eye blinking in
+fake videos is different from the natural videos and used
+this fact to expose the fake videos similarly yang et al
+ have detected deepfakes by identifying the inconsis
+tent head poses recently afchar et al  proposed two
+compact
+forgery
+detection
+networks
+meso
+and
+mesoinception in which forgery detection is done by
+analyzing the mesoscopic properties of deepfake videos
+similarly nataraj et al  have shown that features
+extracted from the cooccurrence matrix can help improve
+fake data detection wang et al  proposed an anomaly
+detectorbased approach that uses pretrained face detec
+tors as a feature extractor yang et al  proposed the use
+of saliency maps to distinguish between real and fake
+images guo et al  proposed a procedure for identi
+fying fake face images by exploiting the gangenerated
+artifacts in the iris of the eye most of the aforementioned
+fake image detection techniques fail to distinguish between
+real and fake images if the visual data is sampled from a
+different distribution
+ methods focused on generalization
+in this subsection we brieﬂy describe the fake detection
+approaches focused on generalization cozzolino et al 
+proposed an autoencoderbased method to improve the
+performance of the model where learned weights are
+transferred for a different generation method zhang et al
+ proposed a generalizable architecture named auto
+gan and evaluated its generalization ability on two types
+of generative networks xuan et al  proposed that by
+using gaussian blur or gaussian noise one can destroy
+unstable lowlevel noise cues and force models to learn
+more intrinsic features to improve the generalization ability
+of the model similarly wang et al  suggested that
+careful preand postprocessing with data augmentation
+such as blur and jpeg compression improves the gen
+eralization ability they have also shown improved fake
+detection results on multiple test sets by training on just
+one image generation network
+ frequency domain methods
+gueguen et al  extracted features from the frequency
+domain to perform classiﬁcation tasks on images ehrlich
+et al  proposed an algorithm to convert the convolu
+tional neural network cnn models from the spatial
+domain to the frequency domain xu et al  proposed
+learning in the frequency domain and have shown that the
+performance of object detection and segmentation tasks
+gets improved in the frequency domain as compared to
+using the spatial rgb domain durall et al  have
+shown that fake images have a difference in highfre
+quency coefﬁcients compared to the natural images which
+he used for fake detection wang et al  have shown
+that the artifacts in the frequency spectrum of fake images
+can be detected zhang et al  proposed that if instead
+of raw pixels frequency spectrum ddct on all 
+channels is used as an input to the fake image detector the
+performance of the detector improves these frequency
+response base detectors target speciﬁc properties of the
+image generation process therefore their performance
+degrades when fake images from unseen distributions are
+tested in contrast to these existing methods the proposed
+algorithm fuses information from the spatial domain and
+the frequency domain to achieve improved generalization
+also we propose to fuse dft with wavelet transform to
+improve the discrimination in the frequency domain these
+innovations have resulted in signiﬁcant improvement in
+fake content detection compared to the existing methods
+ methodology
+improving the generalizability of a fake detection model is
+critical for its success in realworld applications where the
+fake content may be generated by unknown processes we
+propose a generalizable fake detection model based on a
+twostream convolutional network architecture shown in
+fig 
+the proposed architecture is motivated by the excellent
+performance of twostream networks in action recognition
+in videos to the best of our knowledge the proposed
+network performs quite well on both seen and unseen data
+and has outperformed existing stateoftheart sota
+methods in a wide range of experiments as we shall discuss
+in later sections our proposed twostream network is novel
+and such a combination of frequency stream and the spatial
+stream has not been proposed before in the following we
+discuss the rgb to ycbcr conversion dft dwt and
+the proposed architecture in more detail
+ the rgb to ycbcr transformation
+the three channels in rgb color space are correlated with
+each other we consider an orthogonal color space for
+improved representation in our experiments we have used
+ycbcr that has performed better than rgb space as
+recommended in previous research   the following
+ the eyes and mouth are determined as the mesoscopic features in
+the forgery detection in the deepfake videos
+neural computing and applications  
+formulas are used to convert from rgb to ycbcr color
+space
+y ¼ kryr þ kgyg þ kbyb cr
+¼ b  y cb  r  y kry þ kgy þ kby ¼ 
+ðþ
+where kry kgy and kby are the coefﬁcients for color
+conversion whose values are speciﬁed in table  according
+to the standards in our implementation we used itu
+ a review of frequency domain transforms
+to fully capture the frequency information from a ycbcr
+image we compute dft and dwt for each imagedis
+crete fourier transform dft using dft one can
+decompose a signal into sinusoidal components of various
+frequencies ranging from  to maximum value possible
+based on the spatial resolution for two dimensional data
+ie images of size w  h the dft can be computed using
+the following formula
+xwh ¼
+x
+w
+n¼
+x
+h
+m¼
+xwhe
+ip
+n wne
+ip
+m hm ðþ
+where w is the horizontal spatial frequency h is the vertical
+spatial frequency xwh is the pixel value at coordinates w
+h and xwh carries the magnitude and phase information of
+frequency at coordinates w h discrete wavelet trans
+form dwt wavelet transform decomposes an image into
+four different subband images high and low pass ﬁlters
+are applied at each row column and then they are down
+sampled by  to get the high and lowfrequency compo
+nents of each row column separately in this way the
+original image is converted into four subband images
+highhigh hh highlow hl lowhigh lh and
+lowlow ll each subband image preserves different
+features hh region preserves highfrequency components
+in both horizontal and vertical direction hl preserves
+highfrequency components in the horizontal direction and
+lowfrequency components in the vertical direction lh
+preserves lowfrequency components in the vertical direc
+tion and highfrequency components in the horizontal
+direction and ﬁnally ll preserves lowfrequency com
+ponents in the vertical direction and lowfrequency com
+ponents in the horizontal direction
+wav
+elet
+image
+dft
+stage
+stage
+stage
+stage
+stage
+class 
+score 
+fusion
+spatial stream
+frequency stream
+conv 
+x
+b
+b
+b
+r
+r
+r
+b
+b
+b
+b
+r
+r
+r
+conv 
+block
+identity 
+block
+r
+relu
+b
+batchnorm
+conv batch
+norm relu max
+pool
+conv
+block
+id
+block
+x
+avg
+pool flatten max
+pool
+conv
+block
+id
+block
+x
+conv
+block
+id
+block
+x
+conv
+block
+id
+block
+x
+zero
+pad
+stage
+stage
+stage
+stage
+stage
+conv batch
+norm relu max
+pool
+conv
+block
+id
+block
+x
+avg
+pool flatten max
+pool
+conv
+block
+id
+block
+x
+conv
+block
+id
+block
+x
+conv
+block
+id
+block
+x
+zero
+pad
+r
+g
+b
+conv 
+x
+conv 
+x
+add
+conv 
+x
+conv 
+x
+conv 
+x
+conv 
+x
+add
+fig  proposed twostream convolutional neural network twostreamnet the two network streams capture spatial and frequency domain
+artifacts separately and their outputs are fused at the end of the network to produce classiﬁcation scores
+neural computing and applications  
+ frequency stream
+in this stream two different types of the frequency spec
+trum are fused to get improved frequency domain repre
+sentation which can better discriminate between the real
+and the fake visual content an overview of the frequency
+spectrum fusion is shown in fig 
+the three ycbcr channels are then transformed to the
+frequency domain using two different types of transfor
+mations including dft and dwt each channel is divided
+into a nonoverlapping block of size    pixels and a
+transformation is applied on each block independently the
+resulting coefﬁcients are then concatenated back to obtain
+the arrays of the original image size the output of the dft
+converts one input channel into two output channels cor
+responding to real and imaginary coefﬁcients similarly
+the dwt converts one input channel into  output channels
+corresponding to low frequencies ll high and low fre
+quencies hl high frequencies hh and low and high
+frequencies lh for three input channels ycbcr we
+obtain  output channels  from dft and  from dwt
+all of these frequency output channels are concatenated to
+form d cubes of size h  w  c where h is the height
+and w is the width of the image and c are the number
+of channels we empirically observe that both dft and
+dwt are necessary to capture essential information in the
+frequency domain at varying scales for improving the
+generalization ability of the proposed network
+ spatial stream
+in this stream rgb channels of the image are passed as
+input to the resnet  as the classiﬁer rgb images
+are augmented in a special way using jpeg compression
+and gaussian blur as recommended by wang et al 
+this stream is trained individually and plugged in the
+twostreamnet at the test time
+ two stream network architecture
+the proposed twostream network architecture is shown in
+fig  resnet network is used as a backbone in both of
+the streams of the proposed architecture since the number
+of input channels in the frequency stream is larger as
+compared to the spatial stream therefore the ﬁrst layer of
+fs is accordingly modiﬁed both streams are indepen
+dently trained and the output of both streams is fused using
+the class probability averaging fusion method in this
+fusion scheme both streams contribute equally to the
+output to produce the ﬁnal classiﬁcation probability the
+table  coefﬁcients kry and kby of color conversion from rgb to
+ycbcr
+reference standard
+kry
+kby
+ itu  itut  
+ itu  itut  
+ smpte m 
+r
+g
+b
+y
+cb
+cr
+y
+cb
+cr
+y
+cb
+cr
+r
+i
+r
+i
+r
+i
+hh
+hl
+ll
+lh
+hh
+hl
+ll
+lh
+hh
+hl
+ll
+lh
+r
+i
+hh
+hl
+ll
+lh
+r
+i
+ x  x 
+ x  x 
+ x  x 
+ x  x 
+ x  x 
+discrete fourier transform
+discrete wavelet transform
+fig  proposed preprocessing pipeline the input image is ﬁrst
+converted to ycbcr color space and then transformed to the
+frequency domain by applying dft and wavelet transforms
+dwt after dft we get real r and imaginary i channels and
+after wt we get four channels hh hl lh and ll the resulting
+channels are concatenated to form d cubes which are then provided
+as input to the frequency stream for further processing
+neural computing and applications  
+performance of the combined scores is signiﬁcantly better
+than the performance of the individual streams
+ experiments and results
+training dataset following the protocol used by  the
+proposed twostream network is trained using the fake
+images generated by progan  and tested on the ima
+ges generated by many other gans progan has  dif
+ferent ofﬁcially released models trained on different object
+categories of the lsun dataset which is a largescale
+image dataset containing around one million labeled ima
+ges for each of the  scene categories and  object cat
+egories  we choose  airplane bird boat bottle
+bus car cat chair dog horse motorbike person sofa
+train and tv monitor out of  models to create our val
+idation and training set we generated k fake images for
+training and  fake images for validation using each of
+the  models for each of these  categories of fake
+images we collect k of real images for training and 
+for validation randomly from the lsun dataset  in
+total we have k training images and k validation
+images for real images we center crop the images equal to
+the size of the shorter edge and then resize the images to
+  
+testing dataset testing dataset images were generated
+using
+completely
+unseen
+generators
+as
+described
+in
+table  to remain consistent with the current state of the
+art the same generators are selected as that of  the
+real images for testing purposes are obtained from the
+repository for each generator
+ implementation details
+for training the fs we use the adam  optimizer with
+an initial learning rate of  weight decay of 
+and a batch size of  for all the training sets we train the
+proposed network for  epochs large training data has
+helped the model to converge quickly lastly we select the
+best model based on the validation set while training each
+stream data augmentation based on gaussian blur and
+jpeg compression with  probability is used
+ evaluation metrics
+we have used following metrics in our evaluation
+fscore fscore is the harmonic mean of precision
+and recall and is calculated below as
+f ¼   precision  recall
+precision  recall 
+where precision is the number of true positives divided by
+the summation of true positives and false positives and the
+recall is the number of true positive results divided by the
+number of all samples that should have been identiﬁed as
+positive
+accuracy accuracy is deﬁned as the ratio of the correct
+predictions over the total number of predictions made and
+is calculated as below
+accuracy ¼
+tp þ tn
+tp þ tn þ fp þ fn  ðþ
+where tp fp tn and fn represents is the number of true
+positives false positives true negatives and false negative
+respectively
+ comparison with the existing stateofthe
+art algorithms
+we thoroughly evaluated the performance of the proposed
+method on the test dataset and compared it with the
+existing stateoftheart  we also compared the
+robustness analysis of our approach against some common
+realworld perturbations in table  we have shown a
+comparison of our results with the best results of wang
+et al  blurjpeg their results from their
+ofﬁcial web link results show that our fs approach
+performs very well on the unseen manipulations and out
+performs the stateoftheart on several test sets while
+having competitive performance on the remaining results
+of the twostream architecture demonstrate that our com
+plete approach outperformed the stateoftheart in almost
+all of the cases analysis of the results shows that when
+both spatial and frequency streams are combined into a
+twostream architecture they complement each other in a
+way that their combined accuracy is greater than any of
+them individually this clearly shows that fs convnet has
+learned distinctive features that were not learned by ss
+convnet overall the combination of fs and ss plays a
+vital role in improving the generalization ability of the fake
+image detectors
+in table  we compare our method to four different
+models cycim cycspec autoim autospec of zhang
+et al  they released four models with two kinds of
+variations ﬁrst they used two datasets generated using two
+different gan architectures cyclegan and autogan
+referenced as cyc and auto in table  and as a second
+variation they passed images as input to one model and
+frequency spectrum in the other model referenced as im
+and spec in table  results of our approach show that our
+ httpswwwyfioplsun
+ httpspeterwanggithubiocnndetection
+neural computing and applications  
+table  comparison of the proposed frequency stream fs and twostream network with
+the stateoftheart method  using average accuracy best results of wang et al  with
+data augmentation using blur and jpeg  are reported where  mean jpeg compression
+is applied on  images the same augmentation is also used in the proposed approaches
+both our approach and that of wang et al are trained using progan only and tested on the
+data generated by  unseen generation processes mentioned in the top row
+metrics
+method
+stargan
+stylegan
+sitd
+biggan
+stylegan
+cyclegan
+whichfaceisreal
+san
+deepfake
+guagan
+crn
+imle
+accuracy
+wang et al  spatial stream
+frequency stream ours
+two stream ours
+fscore fake
+wang et al  spatial stream
+frequency stream ours
+two stream ours
+fscore real
+wang et al  spatial stream
+frequency stream ours
+two stream ours
+table  comparison of the proposed twostream network with zhang et al  using
+accuracy we compare the proposed network with  models released by  each one was
+trained using one of two image sources cyclegan cyc and autogan auto as well as
+one of two image representations images im and spectrum spec the blue text shows the
+same training and testing data
+method
+star gan
+style gan
+sitd
+big gan
+style gan
+cycle gan
+which face is real
+san
+deep fake
+gua gan
+crn
+imle
+zhang et al  cycim
+zhang et al  cycspec
+zhang et al  autoim
+zhang et al  autospec
+two stream ours
+neural computing and applications  
+twostream architecture outperformed all models of zhang
+et al  in almost all of the test sets fig 
+in fig a we have shown samples of the fake images
+which are misclassiﬁed by the stateoftheart and are
+correctly classiﬁed by our proposed twostream approach
+these results demonstrate the ability of the proposed
+approach to detect highquality fake images which are even
+very hard to discriminate by humans figure b shows the
+fake images which are misclassiﬁed by both wang et al
+ and us
+robustness analysis in realworld settings fake images
+may
+undergo
+several
+postprocessing
+operations
+like
+compression smoothness etc therefore we have evalu
+ated the performance of the proposed model on the images
+which are postprocessed using jpeg compression and
+gaussian blur speciﬁcally we apply gaussian blur with
+different standard deviations including      and
+jpeg compression with jpeg image quality factor of 
+    results in fig  show that our approach is
+robust to common perturbations for most of the models
+the proposed approach signiﬁcantly outperformed the state
+oftheart method at varying blur levels similarly the
+proposed approach also performed better than the stateof
+theart methods for a wide range of jpeg compression
+ ablation study
+in this section we thoroughly validate the different com
+ponents of the proposed approach by performing an abla
+tion study table 
+ combining dft and dwt
+as shown in fig  we propose to combine dwt and dft
+for better feature representation and robust fake content
+detection to verify the effectiveness of using both trans
+formations while keeping all the experimental settings the
+same we experimented with dft and dwt separately
+after training for  epochs the best epoch is chosen based
+jpeg
+blur
+accuracy
+accuracy
+accuracy
+accuracy
+accuracy
+accuracy
+accuracy
+accuracy
+jpeg quality
+jpeg quality
+sigma
+sigma
+a
+b
+fig  robustness comparison of the proposed algorithm with wang
+et al  for gaussian blur and jpeg compression artifacts in most
+experiments the proposed twostream net we apply gaussian blur
+and jpeg compression of different sizes on the test sets and measure
+the effect on the accuracy of our model our model performs near to
+the best for all the crossmodal datasets even when a large blurring
+effect is applied results show that our proposed solution is more
+robust as compared to the state of the art
+neural computing and applications  
+biggan
+guagan
+san
+crn
+sitd
+imle
+stargan
+deepfake
+stylegan
+whichfaceisreal
+cyclegan
+stylegan
+b
+a
+neural computing and applications  
+on validation data accuracy the results shown in table 
+demonstrate that a combination of dft and dwt is
+essential to produce robust feature representation for fake
+image detection
+ effect of block size
+we study the effect of using different block sizes instead of
+computing dft over the whole image in table  we have
+shown results of computing dft on the block size of
+         and    fullimage size
+note that the block size experiments are performed while
+keeping identical experimental settings results demon
+strate that  block size has consistently outperformed
+other block sizes therefore transforming the image to the
+frequency domain using  blocks for dft is more
+effective for fake image detection
+ effect of colorspace
+we evaluate the effectiveness of converting images into
+ycbcr color space before frequency transformations we
+performed two experiments using the same settings to
+compare the performance of rgb with ycbcr color space
+results in table  show that converting an image to ycbcr
+colorspace adds more discriminative features in the fre
+quency domain and helps in better fake image detection
+ limitations
+the computation of dft and dwt is computationally
+expensive therefore to implement it for fake content
+detection in realtime applications using video data may be
+a potential limitation however this limitation can be
+overcome by using parallel computation of dft and dwt
+figure b shows failure cases of the proposed algorithm
+which are the result of nondiscriminative frequency
+domain features please note that these fake images are
+high quality and very hard to discriminate even for
+humans
+bfig  a examples of fake images correctly detected by the proposed
+twostream network however misclassiﬁed by wang et al 
+b examples of fake image misclassiﬁed by both our proposed method
+and that of wang et al 
+table  details of the testing dataset
+dataset
+real images
+fake images
+stargan 
+stylegan 
+sitd 
+biggan 
+stylegan 
+cyclegan 
+whichfaceisreal 
+gaugan 
+deepfake 
+crn 
+imle 
+san 
+table  evaluation of dft and dwt combination for fake image
+detection percentage accuracy is reported for the full image using
+only dft only dwt and the combination dft  dwt
+dataset
+dft
+dwt
+dft  dwt
+stargan 
+stylegan 
+sitd 
+biggan 
+stylegan 
+cyclegan 
+whichfaceisreal 
+gaugan 
+deepfake 
+crn 
+imle 
+san 
+table  fake image detection accuracy variation by varying block
+sizes for dft transform the block size  has produced best
+results and is therefore used in our experiments
+dataset
+ x 
+ x 
+ x 
+fullimage
+stargan 
+stylegan 
+sitd 
+biggan 
+stylegan 
+cyclegan 
+whichfaceisreal 
+gaugan 
+deepfake 
+crn 
+imle 
+san 
+neural computing and applications  
+ conclusions
+this paper addresses the problem of fake image detection
+for this purpose a twostream network is proposed con
+sisting of a spatial stream and a frequency stream the
+proposed method generalizes to unseen fake image gener
+ator distributions much better than the current stateofthe
+art approaches the proposed method is also found to be
+more robust to the common image perturbations including
+blur and jpeg compression artifacts the improved per
+formance is leveraged by combining two types of fre
+quency domain transformations namely discrete fourier
+transform dft and discrete wavelet transform dwt
+both transformations are applied upon ycbcr colorspace
+and different frequency domain channels are concatenated
+to discriminate fake images from the real ones by
+exploiting the differences between the real and the fake
+image frequency responses improved fake detection per
+formance is achieved in the future we aim to extend this
+work for fake video and audio detection
+funding the authors did not receive support from any organization
+for the submitted work
+declarations
+conflict of interest we wish to confirm that there are no known
+conflicts of interest associated with this publication
+ethical approval we confirm that the manuscript has been read and
+approved by all named authors and that there are no other persons
+who satisfied the criteria for authorship but are not listed we further
+confirm that the order of authors listed in the manuscript has been
+approved by all of us we understand that the corresponding author
+is the sole contact for the editorial process including editorial
+manager and direct communications with the office

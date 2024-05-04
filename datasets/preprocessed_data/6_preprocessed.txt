@@ -1,0 +1,1005 @@
+intelligent resource allocation in dense lora
+networks using deep reinforcement learning
+inaam ilahi muhammad usama muhammad omer farooq muhammad umar janjua and
+junaid qadir
+ information technology university itu punjab lahore pakistan
+ lahore university of management sciences lums pakistan
+ department of systems and computer engineering carleton university canada
+ department of computer science and engineering college of engineering qatar university doha
+qatar
+abstract the anticipated increase in the count of iot
+devices in the coming years motivates the development
+of efﬁcient algorithms that can help in their effective
+management while keeping the power consumption low in
+this paper we propose an intelligent multichannel resource
+allocation algorithm for dense lora networks termed as
+loradrl and provide a detailed performance evaluation
+our results demonstrate that the proposed algorithm not
+only signiﬁcantly improves lorawans packet delivery
+ratio pdr but is also able to support mobile enddevices
+eds while ensuring lower power consumption hence
+increasing both the lifetime and capacity of the network
+most previous works focus on proposing different mac
+protocols for improving the network capacity ie lo
+rawan delay before transmit etc we show that through
+the use of loradrl we can achieve the same efﬁciency
+with aloha compared to lorasim and loramab
+while moving the complexity from eds to the gateway thus
+making the eds simpler and cheaper furthermore we test
+the performance of loradrl under largescale frequency
+jamming attacks and show its adaptiveness to the changes
+in the environment we show that loradrls output
+improves the performance of stateoftheart techniques
+resulting in some cases an improvement of more than 
+in terms of pdr compared to learningbased techniques
+index termsresource allocation frequency jamming
+attacks on networks internet of things iot deep
+reinforcement learning drl and cognitive networks
+i introduction
+the count of internetofthing iot devices is antic
+ipated to increase manifold in the coming years these
+nonuniformly distributed dense networks will include
+enddevices eds moving with different velocities this
+puts forward a need for effective algorithms able to
+manage all those devices while keeping the collisions
+and the energy consumption as low as possible long
+range lora is a leading low power wide area net
+work lpwan technology and lorawan is a leading
+lpwa networking protocol for lora lora uses the
+chirp spread spectrum css technique which i is
+resilient to interference ii uses low power iii is resis
+tant to multipath fading iv is resistant to the doppler
+effect and v has low communication link budget 
+lorawan networks need a small infrastructure to be
+deployed and their scalability can be increased by adding
+more gateways to the network this makes lorawan
+an attractive lowcost iot solution for transmitting data
+from the ed to the user and control commands from the
+user to the ed
+broadly speaking there are two critical factors that
+decide the usefulness of lpwan i better lifetime
+and ii network capacity ie the maximum number
+of eds supported by the network battery lifetime is
+affected by the number of transmissions and the phy
+layer parameters used for transmission while the network
+capacity is affected by i the number of available
+channels ii air time the time taken in air by the signal
+to reach the receiver iii intertransmission time and
+iv transmission power dynamic allocation of phy
+layer parameters in lorawan can help to increase
+the network scalability of lora networks by decreasing
+the number of collisions among signals coming from
+multiple eds hence increasing their ability to coexist
+the network capacity of the lorawan can also be
+increased by increasing the number of lora gateways
+and reducing the overhearing of transmissions to other
+gateways by their strategic placement
+in lorawan a communication channel is observed
+by the ed and in case of the channel being busy
+the phylayer parameters speciﬁcally the spreading
+factor sf and the channel frequency are adjusted
+reactively the sfs are partially orthogonal and eds
+using different sf values can transmit simultaneously
+ however such a reactive approach is not appropriate
+for lowpower eds because before any parameters se
+lectionadjustment algorithm is invoked several packets
+would have been retransmitted or lost moreover the
+time delay inherent in the reactive approach is also not
+acceptable in situations where decision making has to
+be done in a bounded time hence there is an absolute
+need for a proactive intelligent and adaptive phy
+layer transmission parameters adjustment algorithm for
+arxivv  csni   nov 
+lorawan
+the presence of a large number of iot devices in
+creases both the intranetwork and internetwork inter
+ference causing a performance drop  the integration
+of cognitive radio technology into the lorawan stan
+dard can signiﬁcantly reduce the energy consumption
+and increase the network capacity  a lorawan
+gateway can decode multiple simultaneous transmissions
+based on different phylayer transmission parameters
+moreover existing research focuses on a static associa
+tion between the resources of the iot and the surround
+ing real environment iot is extremely dynamic in nature
+and may experience unpredictable mobility resulting in
+sudden variations of communication capabilities
+also the inherent broadcast nature of wireless com
+munications makes them vulnerable to internetwork in
+terference and adversarial attacks jamming of a wireless
+signal involves the addition of noise to a signal to
+decrease the signal to noise ratio it differs from the
+normal interference in terms of its purpose lorawan
+uses encryption techniques that only secure the packet
+content leaving the transmissions vulnerable  
+and  discuss the susceptibility of lora networks to
+jamming attacks these attacks can lead the resource
+constrained iot devices to i drain their batteries due
+to repeated data transmissions  ii denialofservice
+dos
+as the networks are anticipated to become denser
+in the coming years both the frequency jamming and
+dynamicity problems will become more severe in case
+of being deployed in realnetworks the performance
+pdr and energy consumption of lora network is also
+affected by interference coming from other deployed
+networks in the area this internetwork interference can
+cause severe performance drop if not managed there is
+a need for algorithms that can sense this performance
+drop and hence adjust the frequencies to minimize the
+effect of internetwork interference
+adaptive selection of the phylayer parameters in
+dense lora networks can be performed using efﬁ
+cient algorithms hence enabling collisionfree concurrent
+transmissions  the intelligent selection of parameters
+not only reduces the impact of frequency jamming
+attacks but also causes a signiﬁcant drop in energy con
+sumption because of fewer retransmissions required due
+to lost or collided packets for this purpose we proposed
+a deep reinforcement learning drlbased phylayer
+parameters selection scheme for dense lora networks in
+our previous work  in that article we evaluated our
+proposed technique in uniformly distributed scenarios
+with different percentages of intelligent devices and
+with different power levels we showed our technique to
+be not only able to achieve a high pdr but also reduce
+energy usage
+in this paper we build upon our previous work 
+by increasing its ability to support multiple channel fre
+quencies and perform extensive additional experiments
+in dense networks containing mobile eds furthermore
+we test our algorithm in case of largescale jamming
+table i important acronyms used in the paper
+bw
+bandwidth
+cr
+code rate
+csmaca
+carriersense multiple access  collision avoidance
+ddqn
+double deep qlearning network
+dl
+deep learning
+dnn
+deep neural network
+dqn
+deep qnetwork
+drl
+deep reinforcement learning
+ed
+enddevice
+iot
+internet of things
+ism
+industrial scientiﬁc  medical
+lora
+longrange
+lorawan
+longrange wide area network
+mab
+multiarmed bandits
+mac
+medium access control
+pdr
+package delivery ratio
+phy
+physical
+ml
+machine learning
+rl
+reinforcement learning
+sf
+spreading factor
+wan
+wide area network
+attacks on dense networks and show our algorithm to
+adapt against such attacks
+the rest of this paper is organized as follows in
+section ii we have discussed the common terminologies
+used in lora networks and have provided the related
+work in section iii we have provided the complete
+system setup of the network and the drl algorithm
+in section iv we have provided a brief introduction
+of our previously proposed scheme loradrl along
+with discussing the computational complexity and the
+applicability to real environments in section v we have
+performed the performance evaluation of loradrl
+in multiple scenarios and provided the multichannel
+scheme finally the paper is concluded in section vi
+a list of important acronyms used are given in table i
+ii background and literature review
+a lora networks
+lorawan is laid out in a starofstars topology
+it works in the unlicensed industrial scientiﬁc and
+medical ism frequency band lorawan architecture
+consists of lora end devices eds lora gateways
+network servers and application user servers a basic
+lorawan architecture containing transmitting eds
+gateway and network server has been shown in fig 
+the applications of deployed lora eds in lorawan
+can be either eventdriven or scheduled the former one
+involves the transmission of data whenever a speciﬁc
+event occurs while the latter involves transmissions on
+scheduled intervals parking sensors in parking lots to
+sense the available parking spaces are an example of
+eventdriven eds while the temperature sensors mounted
+at the top of buildings to measure the temperature of the
+area exemplify scheduled transmitters
+in lora a transceiver can select a bandwidth bw in
+the range  to  khz and mostly a lora transceiver
+operates at  khz  khz or  khz spreading
+factor sf deﬁnes the ratio between the symbol rate and
+the bandwidth lora provides seven sf rates to choose
+fig  architecture of lorawan consisting of lora eds lora gateway network server and enduser the eds serve different purposes and transmit the data
+to the gateway based on the application requirements the received data packets are forwarded to the network server which in turn forwards them to the enduser
+from sf to sf by modifying the sf parameter
+we make a tradeoff between the communication range
+and the data rate as discussed before that the sf
+values are partially orthogonal they can be used to
+make multiple simultaneous communications possible
+with minimum collisions coding rate cr deﬁnes the
+level of protection against interference lora deﬁnes
+four coding rates 
+ 
+ 
+ 
+ a lora radio can transmit
+between  to  dbm in  db steps however due
+to hardware limitations the mentioned range is mostly
+limited between  to  dbm the useful bit rate rb
+is given as
+rb  sf  bw
+sf   cr
+this shows that the useful bit rate is directly propor
+tional to bw  cr and inversely to sf lorawan
+provides  transmission classes to satisfy the require
+ments of different applications namely class a class
+b and class c class a is the most energyefﬁcient
+class and is normally used in batterypowered devices
+in class a there are two downlink communication
+slots after each uplink transmission class b involves
+scheduled downlink communication slots and is less
+energyefﬁcient than class a in class c the downlink
+communication is always active and hence this class is
+the least energy efﬁcient normally class c devices are
+connected directly to the main power to get a broader
+view of lorawan technology we refer the reader to
+b deep reinforcement learning drl
+the rapid evolution of deep learning dl and compu
+tational technologies have enabled the conventional rl
+to solve the complex sequential decision problem which
+is previously deemed impossible due to dimensionality
+issues a combination of dl with legacy rl is known
+as drl mnih et al  proposed deep qnetworks
+dqn a combination of deep neural network dnn
+and qlearning  as a solution to the computational
+complexity problem faced by qlearning in complex en
+vironments mnih et al  also introduced the concept
+of experience replay and target network to improve the
+dqns performance the qvalues are updated as given
+in equation 
+equation  provides a detailed description of dqn
+qs a  rs a  γ max a qs
+ a
+where s is the next state a is the next action r is
+the reward of a stateaction pair q is the qvalue of the
+stateaction pair and γ is the discount factor the policy
+π in dqn is to take the action with the maximum q
+value at a speciﬁc state ie qs a  maxa qπs a
+and is represented by the dnn
+why drl in case of normal qlearning a qtable is
+built to store the qvalues corresponding to each state
+action pair this table can only be built when the state
+space and actionspace are both discrete in case any
+of them is continuous the size of the table increases
+exponentially with each possible value of actions and
+states dqn  can support continuous state and action
+spaces while keeping a ﬁxed size of the model they
+approximate the relationship of the stateaction pairs and
+qvalues by the use of deep neural networks dnns
+thereby removing the requirement of populating tables
+dqns were shown to be overestimating the qvalues by
+ as a remedy they propose the value estimation be
+done by the target network instead of the online network
+this not only reduces the overestimation of qvalues
+but also increases the stability of learning
+c related work
+a number of different phylayer parameters selection
+algorithms for lorawan have been proposed so far we
+discuss the stateoftheart algorithms only there are
+two major schemes for handling dense lora networks
+i by scheduling the transmissions and ii by an
+efﬁcient selection of phylayer parameters in 
+kim et al  argued that the adaptive data rate control
+used by the lorawan protocol is inefﬁcient as it
+doesnt see the congestion in the lora networks to
+improve this shortcoming kim et al  used a linear
+regression model and showed better performance by
+reﬂecting congestion in the adaptive data rate control
+bor et al  proposed a lorasim simulator for
+experimenting with dense lora networks using different
+phylayer parameter settings they use ﬁxed subsets of
+the phylayer parameter combinations to ensure colli
+sion avoidance the only problem with their technique
+is that it suffers from the problems associated with a
+rulebased mechanism ie their technique is based on
+a ﬁxed system model and is not able to adapt to the
+environment changes which are normal in real networks
+slabicki et al  proposed an endtoend network
+simulator called flora for lora networks and also
+proposed and validated an adaptive data rate scheme for
+dynamic selection of link parameters for scaleable and
+efﬁcient network operation they showed their technique
+to increase the network delivery ratio under stable chan
+nel conditions while keeping the energy consumption
+low they showed that the network delivery rate can
+be further improved using a networkaware approach
+wherein the link parameters are conﬁgured based on the
+global knowledge of the network they did not consider
+the collisions among packets which can signiﬁcantly
+reduce the packet delivery ratio
+bianchi et al  presented a sequential water
+ﬁlling strategy for assigning spreading factors sfs to
+all lora nodes their design focused on  equalizing
+the timeonair in the different sf groups  balanc
+ing the spreading factor across multiple gateways 
+keeping into account the channel capture in lora their
+work showed an improvement of  capacity over the
+adaptive data rate provided by lorawan
+abdelfadeel et al  propose free a ﬁnegrained
+scheduling scheme for reliable and energyefﬁcient data
+collection in lorawan they propose that instead of
+transmitting the data as soon as it is generated it is
+scheduled for ﬁxed time slots which are decided by
+their algorithm although this eliminates the problem
+of collisions in lorawan this scheduling solution is
+not scalable for dense networks as each ed will have
+to wait for its allocated time slot on the other hand
+our algorithm helps efﬁciently transmit the data as soon
+as it is generated at the ed with minimized collisions
+this also removes the delay caused by the scheduling
+scheme proposed by  which might be destructive in
+eds deployed for timecritical applications
+the lora network community has also utilized drl
+schemes for automating different tasks such as load bal
+ancing  and resource management  aihara et al
+ proposed a qlearning aided resource allocation and
+environment recognition scheme for lorawan with
+csmaca they train different deep neural networks
+dnns for each lora ed which is resourceintensive
+our technique is only based on training a single dnn
+for the whole network also the learning of each of
+the dnn proposed by  is selﬁsh and every dnn
+only focuses on its own reward while our technique
+focuses on a joint reward of the system also such
+schemes cannot be deployed in dense networks owing
+to the computational requirements techniques like 
+fail when they are tested against adversarial jamming
+attacks because of the inability to adapt to the changes
+in the environment
+farhad et al  propose a proactive mobilityaware
+resource assignment algorithm for lorawan they pro
+pose to update the values of sf and transmission power
+value on each uplink communication their algorithm is
+not based on learning and hence is bound to fail in real
+environments where the conditions are different from
+simulation
+aggarwal and nassipuri  propose to allocate dif
+ferent sf values to the eds present in a small range
+of the gateway this allocation leads to a better perfor
+mance of the network by increasing the overall pdr
+their algorithm requires to explicitly provide an sf
+allocation ratio for the eds as our algorithm discussed
+later is based on reinforcement learning it does this
+automatically and there is no need to explicitly provide
+an explicit sfallocation ratio an approach similar to
+ has also been proposed by 
+chinchilla et al  propose an algorithm for reduc
+ing the collisions in lora networks their algorithm
+works by dividing the wireless medium into resource
+blocks where each research block is based on one sf
+value and one channel frequency the objective of their
+algorithm was only to increase the capacity of the
+network and they did not consider the energy usage in
+their algorithm furthermore they do not consider the
+intersf collisions while our algorithm discussed later
+takes all of these things into consideration
+ta et al  proposed the use of rl for dynamic
+phylayer transmission parameters selection for lora
+based eds they pointed out multiple issues with lo
+rasim for example using perfectly orthogonal spread
+ing factors based on their identiﬁed weakness in lo
+rasim they proposed another discrete event simulator
+named loramab they used the multiarmed ban
+dits technique to solve the collision issue we identify
+multiple issues with loramab and hence propose our
+centralized drlbased algorithm as a solution to these
+issues the identiﬁed issues with loramab are listed
+below
+ loramab is exponentially complex in terms of
+its computational complexity and hence not fea
+sible for dense lora networks the convergence
+time of the algorithm is high and is bound to
+increase with an increase in the count of eds
+ it does not account for the mobility of eds this
+makes it inapplicable in a network consisting of
+mobile eds such as healthcare smart vehicles
+aging society and postemergency networks
+ the focus on optimizing power consumption is not
+done properly due to a missing specialized objec
+tive function eds have the option of choosing any
+of the available power levels without particularly
+focusing on saving power this random choice
+does not always lead to the optimal power level
+selection
+ the computations are being performed at the eds
+without considering the power limitations in the
+case of batterypowered eds
+ to reduce the complexity of the problem lora
+mab reduces the action space of individual eds
+based on their distance from the gateway in case
+the eds are mobile a change in their position
+makes the learning suboptimal
+we refer the reader to  and  for getting a
+comprehensive review of the several adaptive resource
+allocation schemes proposed for lorawan
+in our previous work  we showed that the perfor
+mance deteriorates in a loramab based system when
+eds are mobile in this paper we perform further ex
+periments with loradrl  and show the applicability
+of loradrl to real lora networks furthermore we
+test the performance of loradrl in case of largescale
+jamming attacks and show its adaptability to changes
+in the environment we also show the susceptibility of
+rulebased techniques against these attacks
+iii system setup
+we have previously described the working of our
+ddqnbased adaptive phylayer parameter selection
+algorithm for dynamically deployed networks in 
+in this paper we further discuss the complexity and
+applicability aspects in detail in the following section
+one of the major problems seen in the previously
+proposed resource allocation techniques for lorawan
+is the missing support for real dynamic environments
+which keep on changing with time furthermore in the
+experiments section we show that loradrl can sense
+the performance drop due to frequency jamming and
+hence can shift the system to the less interfered channels
+and hence maintain the performance of the network we
+also show the ineffectiveness of the rulebased system
+lorasim against such attacks
+a problem statement
+lora provides multiple sf values for transmission
+which lead to different data rates the signals generated
+using different sf values are partially orthogonal to each
+other by compromising the data rate the concurrent
+transmissions can be increased by the use of different sf
+values and transmission channels the efﬁcient selection
+of these parameters in dense networks can not only save
+energy but also increase the capacity of the network
+b system model
+in our proposed scheme we consider a singlegateway
+lora network containing k lora eds uniformly dis
+tributed over an area of a radius of m with the
+gateway present in the center the eds can choose to
+transmit the data using different phylayer parameter
+combinations over multiple available transmission chan
+nels we do not limit the sf values for the eds and
+all the eds are free to use any of the sf values the
+gateway acts as the agent whose goal is to decide the
+phylayer parameters for each of the eds it is assumed
+that a new ed arrives at each timestep and is located
+at an arbitrary location the normalized count of each
+of the actions taken until the current step and the
+approximate distance of the newcoming lora ed is
+taken as the state of the environment
+the basic mapping of our algorithm on the workﬂow
+of drl has been given in fig  the agent takes a
+speciﬁc action choosing a phylayer parameters combi
+nation for the new lora ed at a timestep and receives
+a reward based on the achieved packet delivery ratio
+pdr and powerusage based on that chosen action
+fig  mapping of our problem setup on drl the gateway is considered the
+agent and the lora network represents the environment
+we use pdr and energy consumption as our per
+formance metrics the pdr is deﬁned as the ratio of
+correctly delivered messages to transmitted messages
+over a period of time the achievable pdr depends on
+the position count and behavior of lora eds
+for experimental purposes we are assuming a lora
+network consisting of class c devices for training after
+training our model can be deployed with any class of
+the lora devices we use the gaussmarkov model
+for the mobility of the eds this model eliminates the
+sudden stops and sharp turns encountered in the random
+walk mobility model by allowing past velocities and
+directions to inﬂuence future velocities and directions
+our previous results  showed that when the mo
+bility was introduced in the loramab system 
+the performance started to degrade immediately due to
+nonadaptability and no support for mobile eds the
+learning in loradrl is performed on the gateway
+which is independent of the eds and hence can handle
+the mobility of eds as far as state calculation is
+concerned our states are based on the actions taken
+by the agent until the current step and the approximate
+distance of the ed from the gateway the former one
+can be easily calculated by populating a table while the
+latter can be approximated using the received power of
+the signals from the eds it is to be noted that the eds
+present near buildings will show less received power
+than in case of open space this will lead the algorithm
+to choose higher sf values for such devices which is a
+good choice
+the lora devices can support a power level as low as
+ db in case multiple power level choices are included
+in the actionspace the energy consumption can reduce
+considerably due to the high trainingconvergence time
+of loradrl we propose the training of loradrl to
+be performed in simulation and then the model be de
+ployed in real networks with the learning to be continued
+with a small learning rate this will help our proposed
+model adapt and ﬁt itself to the real environment
+it is to be noted that we assume that the number of
+eds and packet arrival rate is known at the gateway
+it takes around  packet transmissions for the gateway
+to get a reliable estimate of pdr for mobile eds we
+assume that the current pdr is being averaged with the
+previous  transmissions pdr as we are not assuming
+very high velocities hence the time required to get a
+good estimate of pdr is acceptable
+iv proposed scheme for adaptive phylayer
+parameter selection
+a reward function
+to assist in the learning process we have designed a
+specialized rewardcost function to optimize phylayer
+transmission parameters selection for lora eds by
+using this reward function the maximum reward is given
+to the optimal combination of phylayer parameters
+the reward function is given in the below equations
+equation  is the reward for optimizing the pdr of the
+network only equation  is the modiﬁed equivalent to
+include power optimization
+rt  α pdred β airtimeed
+rt  αpdred βairtimeed γpowered 
+where
+powered  powermax powerchosen
+powermax powermin
+ed is the newcoming ed that has arrived in the
+previous timestep pdr is the package delivery ratio
+and airtimeed is the airtime of the speciﬁc ed in
+seconds α β  γ are the relative constants used to
+assign appropriate weights to pdr airtimeed and
+powered these constants act as hyperparameters and
+can be chosen depending on the dynamics of the lora
+network power is the reward based on the power choice
+for the ed this part of the reward function is designed
+in such a way that if we have  available power levels
+ db  db and  db the reward is also deﬁned in a
+distributed fashion in this way more reward say x will
+be given to the agent if it chooses  db power lesser
+reward x will be given if it chooses the  db power
+and the least reward x will be given if it chooses the 
+db power
+b proposed algorithm
+the proposed ddqnbased algorithm for learning
+the phylayer transmission parameters for eds in a
+lora network has been given in algorithm  qnetwork
+structure is taken as input to the model and it returns
+a trained ddqn network at the output the algorithm
+trains for a given number of episodes where each episode
+is run for timesteps equal to the maximum number
+of eds present in the system we assume that a new
+ed arrives at each timestep the replay buffer is
+populated by the agent by taking different actions at
+different states samples from this replay buffer are then
+used to train the neural network this trained network
+provides the optimal policy for determining the best
+phylayer parameters for the eds based on the state
+of the environment
+algorithm  loradrl
+input qnetwork structure
+output trained qnetwork
+ initialize both the target  online qnetworks
+ initialize the memory replay buffer
+ for maxepisodes do
+while steps  maxedcount do
+initialize the lora network
+compute state of the network st
+feed the state to the dnn to get action at
+taken action at at state st
+simulate the environment
+compute reward rt and next state st
+collect m datapoints st at st rt using
+policy π and add it to the memory
+sample minibatch from memory
+compute the change in values using target
+qnetwork q
+φ
+yj  rj  γ maxa
+j qφs
+j a
+j
+update the online qnetwork
+φ φ α p
+j
+dqφsjaj
+dφ
+qφsj aj yj
+if steps  targetupdateinterval then
+update the target qnetwork φ
+end if
+st st
+end while
+ end for
+lora eds are sleeping except when they need to
+transfer the data the transmissions are carried out on
+the base of the different transmission classes ie class
+a b  c we propose that the lora ed send the
+packets to the gateway which in return either sends
+an acknowledgment to use the previous parameters or
+sends the new phylayer parameters combination to
+be used for carrying out further transmissions through
+the control packets using the ﬁxed bandwidth channel
+of  khz in case the lora ed does not receive
+the parameters or acknowledgment from the gateway
+it either chooses the maximum available power and sf
+to transmit the signal or uses the last allocated phy
+layer parameters for the transmission this mechanism
+has also been shown in fig  our algorithm also
+works well on the reduced action space by allowing the
+agent to choose from a speciﬁc subset of actions this
+reduced subset can be made according to the datarate
+requirements of different applications by ﬁxing a certain
+sf cr or transmission channel
+fig  proposed mechanism for implementing our proposed algorithm in real
+lora networks
+c drl speciﬁcations
+the neural network is kept small to make the solution
+more practical a discount factor of  has been used
+to ensure the dependence of the current action on future
+rewards furthermore we also use the ϵgreedy learning
+procedure to fully explore the statespace where action
+at timestep t is given as
+at 
+maxaqts a
+with probability  ϵ
+random action
+with probability ϵ
+we have chosen linear activation at the output layer
+so that we get a probability for each of the actions in
+this way if some of the eds can choose only a subset
+of actions then that ed can choose the action with the
+maximum probability from that subset of actions the
+target qnetwork is updated on regular intervals with the
+weights of the online network
+d computational complexity
+we have taken the same statespace as our previous
+submission  ie the normalized count of each action
+and the approximate distance of the newcoming ed
+from the gateway due to this specialized statespace
+the complexity of the problem does not increase with
+the increase of the enddevices also we have chosen
+a minimal size for the dnn which requires minimal
+resources for training in the later sections we have
+enhanced our previously proposed scheme to support
+dense networks although the introduction of multiple
+channels increases both the action and the state count
+the same dnn can learn as the goal of the agent in both
+these cases is the same the overall complexity of our
+algorithm is onno where onn is the complexity
+of the neural network which is a constant in our case
+e applicability to real environments
+we have kept the size of the neural networks the
+smallest possible this makes it applicable to gateways
+being backed by lowend computers the activation on
+the last layer has been set to linear due to this our
+neural network does not train itself to focus on just one
+action but gives probability to each action in the action
+space so in case a speciﬁc ed is only able to support
+a subspace of actions the ed can choose the possible
+action with the highest probability
+the ddqn can see the change in the performance
+of the network based on the reward achieved by taking
+certain actions in certain states this ability makes the
+algorithm adaptive as whenever the ddqn observes a
+suboptimal action being performed it adapts the policy
+in favor of the better available action this adaptive be
+havior is a core beneﬁt of rl our proposed centralized
+approach offers many signiﬁcant beneﬁts including the
+ability to adapt a feature missing in previous solutions
+and support for eds mobility
+f multichannel extension of loradrl
+in our previous work our focus was only on a single
+channel and singlegateway scheme in this work we
+have performed a performance evaluation of the scheme
+under new scenarios and extended the scheme to multi
+channel lora networks modiﬁcation of the action space
+is involved in order to include multiple channels to
+support dense lora deployments we have tested the
+multichannel scheme in dense lora deployments and
+shown its ability to manage we have also tested the
+performance of loradrl against frequency blocking
+and shown its ability to adapt to the environmental
+interference
+v experiments  results
+for analysis and comparison of our algorithm with
+the existing stateoftheart techniques   we
+perform experiments to evaluate performance under i
+different mobility velocities ii multichannel dense
+scenarios iii multiple mac protocols and iv large
+scale frequency jamming attacks these experiments
+have been discussed in the following subsections all
+of the provided results have just been simulated for
+experimental purposes we have made certain design
+choices just to make it easier for the reviewer to compare
+the performance of our proposed technique with the
+other counterparts
+in our experiments we use a data frame size of
+ bytes typical iot use cases generate small data
+packets hence byte frame size can represent a large
+number of iot use cases in our experiments the data
+generation model is based on poisson distribution as
+it can model multitude of iot usecases data trafﬁc
+generation pattern we use a mean interarrival time ie
+the average time between two consecutive transmissions
+of the same ed of  minutes the available bandwidth
+of the lora eds has been ﬁxed to  khz owing to
+table ii speciﬁcations of the lora network simulations
+average transmission interval
+   milliseconds
+mean rate
+ minutes
+bandwidth
+ khz
+radius
+ meters
+transmission class of eds
+c
+number of base stations
+capture effect
+true
+inter sf interference
+true
+simulation time of  epoch
+  mean rate
+velocity
+   kmh
+table iii speciﬁcations of the ddqn in loradrl
+no of layers
+no of neurons
+ 
+activations
+relu relu linear
+learning rate
+memory capacity
+batch size
+gamma for qvalues
+initial epsilon
+final epsilon
+change in epsilon
+update frequency for online network
+test the performance based on different limitations in
+different regions an eds mean velocity is set to 
+kmh with a variance of  we have chosen this velocity
+to cover the use case of devices mounted on bicycles
+uavs buildings etc for multiple purposes ranging from
+tracking and transferring sensory data to the central
+gateway the speciﬁcations of the lora simulation have
+been provided in table ii the speciﬁcations of the
+neural network have been provided in table iii
+a performance under increasing mobility
+as discussed in the introduction section the real
+networks are a combination of mobile and nonmobile
+eds the mobile eds move with varying velocities
+between low and high in this subsection we perform
+experiments to show the ability of loradrl to manage
+such uniformly distributed heterogeneous networks we
+consider a network of  eds and a single frequency
+channel available for transmission the eds have only a
+single power level to choose from ie  db different
+velocities of mobile eds were chosen ie    kmhr
+and    kmhr the former relates to the health
+monitoring devices like smartwatches etc communicat
+ing with the gateway while the latter relates to eds
+mounted on bicycles carts etc as we are currently
+considering a network consisting of a single gateway
+we have not considered velocities greater than  kmhr
+fig  shows the performance of loradrl the
+rulebased algorithm proposed by bor et al  and
+the decentralized algorithm loramab it is visible
+that the performance of loramab drops more with
+velocities while lorasim and loradrl can keep the
+performance at the same level the performance of
+loramab drops because of the slow learning process
+however our proposed phylayer parameters selection
+algorithm can support lora networks without any de
+pendence on mobility velocities
+fig  performance evaluation based on different mobility velocities
+comparison of pdr of lora networks under lorasim loramab and
+loradrl with a conﬁdence interval of  it can be seen that mobility
+does not affect the performance of loradrl  lorasim while the increase in
+velocity causes a deterioration in the performance of loramab
+b performance in multichannel scenarios
+as we know the spreading factors from sfsf
+are partially orthogonal and transmissions with different
+sfs can be received on the same channel concurrently
+similarly the frequency channels are also orthogonal
+and the same sf can be received on different channels
+without any interchannel collisions current lora gate
+ways can receive transmissions from lora devices on
+ different channels simultaneously for this purpose
+multichannel transceivers are used in the lora gateway
+different frequencies do not interfere with each other
+hence the devices can choose from the available sfs
+without compromising on the pdr
+in our previous work we had taken the combination of
+sf and power as the action of the agent for converting
+into a multichannel scheme we add the channel fre
+quency to the action space hence increasing the action
+count according to the available frequencies for testing
+the performance of loradrl in dense deployments we
+consider an environment consisting of  lora eds
+and a single gateway the available choices of frequency
+channels are set to  which is the maximum number
+of frequency channels a lora gateway can receive and
+decode simultaneous transmissions the eds have only
+a single power level to choose from ie  db
+the nodecount wise pdr of loradrl during learn
+ing in dense lora networks has been shown in ta
+ble iv the results show that our model can manage
+these networks effectively in the table a very small
+drop of pdr can be seen with the increase in the
+count of eds table va shows the percentage of sf
+values allocated to the devices in this dense network
+across all the frequencies table vb shows the persf
+pdr performance of the lora network these tables
+show that loradrl allocates the phylayer parameter
+values dynamically and adaptively on the other hand
+lorasim and loramab allocate the values based on
+the distance from the gateway
+table iv table showing the performance of an channel loradrl in a dense
+lora network consisting of a single basestation the values are presented with
+ conﬁdence interval
+no of nodes
+der
+  
+  
+  
+  
+table v a table showing the percentage of sf values of an channel
+loradrl in a dense lora network consisting of a single basestation b
+table showing the persf pdr performance of an channel loradrl in a
+dense lora network consisting of a single basestation
+sfvalue
+percentage of devices
+allocated
+sf
+sf
+sf
+sf
+sf
+sf
+a
+sfvalue
+persf pdr performance
+sf
+sf
+sf
+sf
+sf
+sf
+b
+c performance with different mac protocols
+much previous work has been focused on improving
+the lora performance using different mac protocols
+than pure aloha by using our proposed algorithm
+loradrl we can use the basic aloha to perform
+similar to complex mac protocols in this subsection
+we test the performance of our proposed algorithm
+loradrl with multiple mac protocols we consider
+a channel lora network containing  uniformly
+placed eds the delay in case of delay before transmit
+is calculated using the following equation
+td  edid  ud mod pktiat
+where edid is the id of the respective ed ud is
+the delay in microseconds and pktiat is the node mean
+packet arrival time for these experiments ud was set
+to  fig  shows the observed performance only
+a minor difference in performance can be seen as all the
+features of these mac protocols are already present in
+loradrl furthermore loradrl reduces the burden
+on ordinary nodes by pushing the complexity to a central
+entity the gateway the performance of lorasim with
+different mac protocols has been shown in 
+channel sensing multiple access csma involves the
+sensing of the channel before transmission and transmit
+ting if the channel is free else waiting for a certain time
+fig  figure showing the performance of loradrl with different mac
+protocols it can be seen that there is a minor performance difference while
+using different mac protocols with loradrl the bars are plotted with 
+conﬁdence interval
+interval and then sensing the transmission channel again
+in this way the eds have to wait for the channel to
+become free which is a rare case in dense networks
+loradrl enables concurrent data transmissions and
+removes the requirement of sensing the channel and
+waiting this reduces the power requirement for the eds
+and shifts the complexity from the resourceconstrained
+eds to the gateway furthermore most of the stateof
+theart mac layer protocols for lora are complex while
+loradrl is based on aloha
+d performance under adversarial frequency jamming
+attacks
+largescale
+frequency
+jamming
+attacks
+can
+be
+avoided by a continuous shifting of frequencies hence
+making the jamming difﬁcult  however in realistic
+settings the presence of an intermediary to continuously
+change the settings is not necessary this puts forward
+the need for intelligent algorithms that can adapt to the
+changing environment in the favor of optimal settings
+our technique can adapt to jamming attacks and can re
+tain the performance of the lora network by frequency
+hopping in the case of rl the learning and prediction
+go hand in hand which makes it proactive to adversarial
+attacks and adaptive to the changing conditions 
+for this experiment we assume that there is another
+network present in the area who is generating very high
+internetwork interference hence reducing the perfor
+mance of our lora network we consider a network
+consisting of  lora eds and two frequency channels
+available for transmission the eds have only a single
+power level to choose from ie  db the network is
+taken to be uniformly distributed with the eds moving
+with random velocities under  kmhr
+fig  shows the training of multichannel loradrl
+algorithm at epoch  one frequency out of the two
+fig  figure showing the performance of a multichannel loradrl and
+lorasim scheme under frequency jamming attack a small drop of performance
+is seen in the case of loradrl as it shifts to the other available frequency while
+in the case of lorasim a sudden drop of performance can be seen because of
+the absence of a feedback loop
+available ones is jammed this jamming results in a
+sudden drop in performance the system later learns on
+the base of the current performance and can adapt to
+the changing environment and achieve the performance
+of singlechannel loradrl while in the case of a
+frequency jamming attack on a rulebased lorasim
+the performance drops to half the reason for this
+is the random selection of a frequency channel for
+each transmission the performance of lorasim under
+frequency jamming attack has been shown in this ﬁgure
+which shows no retention of performance it is to be
+noted here that the collisions and jamming with respect
+to the downlink communication is left as future work
+all of the provided experiments were performed on
+a lowend th generation i laptop it took on average
+s for loradrl to make a decision while lorasim
+took on average s to make a decision an important
+aspect is the learning ability of the loradrl based on
+the changes in the environment whereas lorasim assigns
+parameters based on a deﬁned set of rules
+vi conclusions
+we have proposed an intelligent multichannel re
+source allocation algorithm for dense lora networks
+termed as loradrl we have provided a detailed
+performance evaluation of this proposed algorithm by
+testing it in lora networks consisting of lora end
+devices eds having different mobility velocities and
+in dense lora deployments our scheme has shown
+exceptional results when compared with similar previous
+techniques furthermore we have proposed a multi
+channel scheme for loradrl to support multiple chan
+nels we tested the performance of loradrl with
+different mac protocols and show its ability to manage
+the system while shifting the complexity from the eds to
+the gateway we have also tested our proposed technique
+under largescale jamming attacks where the rulebased
+techniques fail badly the results show the effectiveness
+of our proposed technique against such attacks and its
+adaptiveness to the changes in the environment

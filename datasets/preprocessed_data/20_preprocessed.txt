@@ -1,0 +1,681 @@
+theme article aipowered g services
+examining machine learning for g and
+beyond through an adversarial lens
+muhammad usama
+ inaam ilahi and junaid qadir
+ information technology university lahore 
+pakistan
+rupendra nath mitra and mahesh k marina the university of edinburgh edinburgh eh yl uk
+spurred by the recent advances in deep learning to harness rich information hidden
+in large volumes of data and to tackle problems that are hard to modelsolve eg
+resource allocation problems there is currently tremendous excitement in the
+mobile networks domain around the transformative potential of datadriven
+artiﬁcial intelligencemachine learning aiml based network automation control
+and analytics for g and beyond in this article we present a cautionary perspective
+on the use of aiml in the g context by highlighting the adversarial dimension
+spanning multiple types of ml supervisedunsupervisedreinforcement learning
+and support this through three case studies we also discuss approaches to
+mitigate this adversarial ml risk offer guidelines for evaluating the robustness of
+ml models and call attention to issues surrounding ml oriented research in g
+more generally
+a
+considerable amount of industry and aca
+demic rd endeavors are currently paving
+the way toward g and beyond g bg
+networks g networks unlike their g counter
+parts are foreseen to be the underpinning infra
+structure
+for
+a
+diverse
+set
+of
+future
+cellular
+services well beyond mobile broadband to span
+multiple vertical industries to ﬂexibly and cost
+effectively support diverse usecases and to enable
+complex network functions at scale g network
+design espouses several innovations and technolo
+gies such as artiﬁcial intelligence ai along with
+softwaredeﬁned networking network function vir
+tualization
+nfv
+multiaccess
+edge
+computing
+mec and cloudnative architecture that are new
+to the domain of mobile telecommunications
+technical developments toward g and bg of
+mobile networks are quickly embracing a variety of
+deep learning dl algorithms as a de facto approach
+to help tackle the growing complexities of the network
+problems however the wellknown vulnerability of the
+dl models to the adversarial machine learning ml
+attacks can signiﬁcantly contribute to broadening the
+overall attack surface for g and beyond networks
+this observation motivates us to deviate from the on
+going trend of developing a newer ml model to
+address a g network problem and instead examine
+the robustness of the existing ml models in relation
+to the g networks under adversarial ml attacks in
+particular we focus on representative use cases for
+deep neural network dnn driven supervised learning
+sl unsupervised learning ul and reinforcement
+learning rl techniques in the g setting and high
+light their brittleness when subject to adversarial ml
+attacks
+through this article we would like to draw the
+attention of the research community and all stake
+holders of g and beyond mobile networks to seri
+ously consider the security risks that emerge from the
+rapid unvetted adoption of dl algorithms across the
+wide spectrum of network operations control and
+automation and urge to make robustness of the ml
+models a criterion before they are integrated into
+deployed systems overall we make the following two
+contributions
+ we highlight that despite the wellknown vulner
+ability of dl models to adversarial ml attacks
+there is a dearth of critical scrutiny on the
+impact
+of
+the
+widescale
+adoption
+of
+ml
+   ieee
+digital object identiﬁer mic
+date of publication  january  date of current version
+ april 
+ieee internet computing
+published by the ieee computer society
+marchapril 
+ authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+techniques on security attack surface of g and
+bg networks
+ we bridge the aforementioned gap through a
+vulnerability study of the dl models in all its
+major incarnations sl ul and deep rl drl
+from an adversarial ml perspective in the con
+text of g and bg networks
+background
+primer on g architecture
+a schematic diagram of the g network architecture
+is depicted in figure  apart from the user equipment
+the g system features a cloudnative core network a
+ﬂexible
+and
+disaggregated
+radio
+access
+network
+ran and a provision for mec cloud for reduced
+latency the ran comprises gnodeb gnb access
+nodes split into du and cu to efﬁciently handle
+evolved network requirements the gnb connects to
+the mec to signiﬁcantly reduce the network latency
+for selected applications by availing edge server com
+puting at the mec cloud which is close to the radio
+service cells for instance to cater to the ultrareliable
+lowlatency
+communication
+urllc
+usecase
+of
+industry automation the ran radio unit along with
+the du cu and the mec can be installed onsite
+thus g network architecture enables applications to
+be deployed remotely app  and app  or near the
+edge app  and app  latter when low latency is a
+requirement the provision of mec also reduces the
+aggregated trafﬁc load on the transport networks
+responsible for connecting ran to the core network
+the g core network is a cloudnative network that
+stores subscriber databases and hosts essential vir
+tualized network functions for network operations
+and management although the network management
+and control functions are shown to be colocated with
+the core in the ﬁgure they can be ﬂexibly deployed at
+the edge as needed
+ml in g and bg networks
+a wide spectrum of dl algorithms is being developed
+for the broad context of wireless communications and
+g networking to deal with problems that are either
+hard to solve or hard to model for instance optimal
+physical network resource allocation for nfv is an np
+hard problem and so require exponential computa
+tional power with increasing system size drlbased
+solutions are proposed to efﬁciently address resource
+allocation problems network channel estimation for
+efﬁcient beamforming is a hard to model problem for
+which dnnbased sl solution offers an effective way
+to tackle it moreover in certain usecases conven
+tional expert systems become inappropriate due to
+realworld constraints such as limited availability of
+power where ai can perform effectively for instance
+deep autoencoder based systems can replace the
+powerhungry rf chain hardware with small embed
+ded sensor systems enabling them to sustain longer
+on onboard power supplies dl algorithms generally
+outperform the conventional approaches in solving
+mobile network prediction problems such as physical
+layer channel prediction by sl signal detection prob
+lems such as recovering transmitted signals from
+figure  schematic diagram of g network architecture illustrating the disaggregated ran architecture with distributed unit
+du and centralized unit cu components the mec for improved latency and the cloudnative core network and system
+orchestration components
+marchapril 
+ieee internet computing
+aipowered g services
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+noisy received signals by ul and optimization prob
+lems like resource allocation by rl
+widened attack surface in
+mldriven g and bg
+networks
+the security of the g networks is receiving great deal
+of attention eg but there is very limited focus on
+the security of g and bg networks in the face of
+adversarial ml threat in this section we brieﬂy intro
+duce the adversarial ml in general and subsequently
+outline the adversarial ml risks in g and bg
+networks
+overview of security attacks on ml
+the vulnerability of the ml algorithms especially the
+dl models to the adversarial attacks is now well
+established where adversarial inputs are small care
+fully crafted perturbations in the test data built for
+fooling the underlying ml model into making wrong
+decisions an adversary can often successfully target
+an ml model with no knowledge of the model black
+box attack or some knowledge graybox attack or
+full knowledge whitebox attack of the target model
+an adversary can attack the model during its training
+phase and in its testing phase as well the training
+phase attacks are known as poisoning attacks and
+the test time attacks are known as evasion attacks
+evasion attacks are commonly known as adversarial
+attacks in the literature
+more
+formally an
+adversarial
+example x
+is
+crafted by adding a small indistinguishable pertur
+bation d to the test example x of a trained ml clas
+siﬁer fðþ where d is approximated by the nonlinear
+optimization
+problem
+provided
+in
+equation
+where t is the class label
+x ¼ x þ arg min
+dx fkdk  fðx þ dþ ¼ tg
+in  szegedy et al observed the discontinuity
+in the dnns inputoutput mapping and reported that
+dnn is not resilient to the small changes in the input
+following on this discontinuity goodfellow et al pro
+pose a gradientbased optimization method for craft
+ing adversarial examples this technique is known as
+fast gradient sign method papernot et al craft adver
+sarial
+perturbation
+using
+a
+saliency
+mapbased
+approach on the forward derivatives of dnn this
+approach is known as jacobian saliency map based
+attack carlini and wagner crafted three different
+adversarial attacks using three different distance
+matrices l l and l more details about adversar
+ial ml attacks are described in
+it is important however to note that the adversary
+does not need to have access to training or test data
+sets instead adversarial examples can also be gener
+ated using query efﬁcient gradientbased techniques
+zerothorder optimization techniques and generative
+models in such methods the adversary uses query
+response pairs to craft such adversarial examples
+inputs and mislead the ml model such pairs are not
+figure  applicability of ml across the g network architecture and a depiction of how ml models contribute to signiﬁcantly
+enhance the attack vectors beyond the traditional security risks with new adversarial ml risks
+ieee internet computing
+marchapril 
+aipowered g services
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+necessarily part of either training or testing datasets
+therefore adversarial examples are not just the result
+of an input data security issue
+added threat from adversarial ml for
+g and beyond
+figure  illustrates network problems from different
+network segments of g namely user devices ran
+mec core networks and the network management
+and control layer that have recently attracted ml
+based solutions from all the three categories of ml
+however in light of the above discussion in the sec
+tion titled overview of security attacks on ml the
+dlpowered ml models gaining popularity for g and
+bg
+networks
+are
+vulnerable
+to
+the
+adversarial
+attacks thereby further aggravating the security risks
+of future generations of mobile networks
+to show the feasibility of adversarial ml attacks on
+g systems we take three wellknown ml modelsone
+from each of the three ml families of algorithms ul sl
+and drlfrom wireless physical layer operations rele
+vant to g and bg context and show the vulnerability
+that naive use of ml brings to future mobile networks
+we choose all the three ml models for our case studies
+from the physical layer network operations because of
+the maturity of mlresearch in the context of aidriven
+g networking and the availability of opensourced ml
+models backed up with accessible datasets https
+mlccommitteescomsocorgresearchlibrary
+three case studies
+highlighting adversarial ml
+risk for g and beyond
+attacking supervised mlbased g
+applications
+automatic modulation classiﬁcation is a critical task
+for intelligent radio receivers where the signal ampli
+tude carrier frequency phase offsets and distribution
+of noise power are unknown variables to the receivers
+subjected to realworld frequencyselective timevary
+ing channels perturbed by multipath fading and shad
+owing
+the conventional
+maximumlikelihood
+and
+featurebased solutions are often infeasible due to the
+high computational overhead and domain expertise
+that is required to make modulation classiﬁers more
+common in modern g and bg networked devices
+current approaches deploy dl to build an endtoend
+modulation classiﬁcation systems capable of auto
+matic extraction of signal features in the wild
+we pick a convolutional neural network cnn
+driven slbased modulation classiﬁcation model in
+this case study to illustrate the added dimension of
+vulnerability introduced in the networks by it we use
+the wellknown gnu radio ml rmla dataset
+that consists of  input examples of  digital
+and analog modulation schemes amdsb amssb
+wbfm pam bpsk qpsk psk qam qam
+cpfsk and gfsk on the signaltonoise ratio snr
+ranging from  to  db however we exclude the
+analog modulation schemes from our study and con
+sider only the eight digital modulations from the data
+set because from g onward all mobile wireless
+standards are strictly digital communications figure 
+depicts the classiﬁcation performance of the cnn
+model in the multiclass modulation classiﬁcation for
+the signals between  and  db of snr
+to show the feasibility of an adversarial ml attack
+on the cnnbased modulation classiﬁer we make the
+following assumptions
+ we consider the whitebox attack model where we
+assume that the adversary has a complete knowl
+edge about the deployed modulation classiﬁer
+ goal of the adversary is to compromise the
+integrity of the cnn classiﬁer leading to a signiﬁ
+cant decay in the classiﬁcation accuracy which
+is the measure of the success of the adversary
+to craft the adversarial examples to fool the cnn
+classiﬁer we use the carlini and wagner cw
+attack for each modulation class by minimizing the
+l norm on the perturbation d such that when the per
+turbation d is added to the input x and sent to the
+cnnbased modulation classiﬁer c it misclassiﬁes the
+input x more details on the cw attack are available
+figure  accuracy of the cnnbased automatic modulation
+classiﬁer before and after the adversarial ml attack a clear
+drop in the accuracy of the classiﬁer with the increasing snr
+indicates the success of the adversary in compromising the
+integrity of the modulation classiﬁer that is seen as viable in
+the g and bg networks
+marchapril 
+ieee internet computing
+aipowered g services
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+in the performance of the cnnbased modulation
+classiﬁer before and during the adversarial attack is
+depicted in figure  a distinct drop in the accuracy of
+the modulation classiﬁcation after the adversarial
+attacks indicates the brittleness of deep supervised
+ml in g and bg applications moreover our results
+show that the adoption of unsafe dl models in the
+physical layer operations of the g and bg networks
+can make the airinterface of the future networks vul
+nerable to adversarial ml attacks
+attacking unsupervised mlbased g
+applications
+in  oshea et al proposed the idea of channel
+autoencoders which is an abstraction of how an end
+toend radio communication module functions in real
+world wireless systems such a deep autoencoder
+based communication model is seen as a viable alter
+native to the dedicated radio hardware in the future g
+and beyond networks figure a depicts the concep
+tual design of the channel autoencoder that we choose
+as a deep ul model for this case study we assume the
+model is subjected to an additive white gaussian noise
+awgn channel and apply the parameter conﬁgura
+tions provided in to perform the adversarial ml
+attack on the channel autoencoder we consider the
+following threat model and compare the performance
+of the model with and without attack
+ we assume a whitebox setting where the adver
+sary has complete knowledge of the deployed
+ml model we further assume that the autoen
+coder learns a broadcast channel the proposed
+adversarial attack on channel autoencoder can
+be converted into a blackbox adversarial attack
+where the adversary has zero knowledge of the
+target ml model by following the surrogate
+model approach provided in
+ the goal of the adversary is to compromise the
+integrity of channel autoencoder and the suc
+cess of the adversary is measured by the ele
+vated bler with improving snr per bit ebn
+we take the following twostep dataindependent
+approach to craft adversarial examples for the chan
+nel autoencoder
+ sample
+the
+gaussian
+distribution
+randomly
+because the channel is awgn and use it as an
+initial adversarial perturbation d
+ maximize the mean activations of the decoder
+model when the input of the decoder is the per
+turbation d
+this produces maximal spurious activations at
+each decoder layer and results in the loss of the integ
+rity of the channel autoencoder figure b shows the
+performance of the model before and under the adver
+sarial attack moreover the ﬁgure suggests that
+adversarial ml attack often outperforms the tradi
+tional jamming attacks
+since the idea of channel autoencoder in a wire
+less device is to model the onboard communica
+tion
+system
+as
+an
+endtoend
+optimizable
+operation the adversarial ml attacks on channel
+autoencoder show that the application of unsuper
+vised ml in the g mobile networks increases its
+vulnerability to adversarial examples hence we
+figure  a architecture of channel autoencoder for g and future networks proposed in b performance of the channel
+autoencoder before and under the adversarial ml attack and traditional jamming attack the block error rate bler versus
+ebn curves indicates that adversarial ml attack does not only deteriorate the models performance but also leads to similar
+or worse performance than with a known jamming attack
+ieee internet computing
+marchapril 
+aipowered g services
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+argue that deep ulbased g networked systems
+and applications need to be revisited for their
+robustness before being integrated into the g iot
+and related systems
+attacking reinforcement mlbased g
+applications
+in the ﬁnal case study we performed the adversarial ml
+attacks on an endtoend drl autoencoder with a noisy
+channel feedback system goutay et al take the
+same architecture we consider in the previous case
+study see the section titled attacking unsupervised
+mlbased g applications and add a noisy feedback
+mechanism to it as shown in figure a the endto
+end training procedure involves the following
+ the rlbased transmitter training by a policy
+gradient theorem to ensure that the intelligent
+transmitter learns from the noisy feedback after
+a round of communication
+ sl modelbased receiver training to train the
+receiver as a classiﬁer
+more details on the design and training procedure
+are available in the considered threat model for this
+case study is given as follows
+ we choose a realistic blackbox setting where
+the adversary does not know the target model
+we also assume that the adversary can perform
+an adversarial ml attack for ntime steps
+ the goal of the adversary is to compromise the
+performance of the drl autoencoder with noisy
+feedback for a speciﬁc time interval the success
+of the adversary is measured by the degradation
+in the decoders performance during the attack
+interval
+we exploit the transferability property of the adver
+sarial examples which states that adversarial examples
+compromising an ml model will compromise other ml
+models with high probability if the underlying data dis
+tribution is same between two victim models so we
+transfer the adversarial examples crafted in case study
+see the section titled attacking unsupervised ml
+based g applications and measure the average accu
+racy of the receiver we run the drl autoencoder with
+a noisy feedback system for time steps one time
+step is equal to one communication round and per
+form the adversarial attack between  and time
+step window we transfer  successful perturbations
+from the previous case study see the section titled
+attacking unsupervised mlbased g applications
+figure b shows the performance of the receiver
+decoder of the drl autoencoder it is evident that the
+performance of the receiver degrades from  to
+nearly  during the adversarial attack window
+our results as presented in this section conﬁrm
+the feasibility of adversarial ml attacks on dlbased
+applications from all the three types of ml algorithms
+that are prevalent in the g network systems and
+highlight the additional threat landscape emerges due
+to the integration of vulnerable dl models to the g
+and bg networks
+discussion
+toward robust mldriven g and
+beyond networks
+robustness against adversarial ml attacks is a very
+challenging problem we ﬁrst note that there does not
+exist much work on the recommendations and guide
+lines for evaluating the robustness of ml in g appli
+cations moreover to date there does not exist a
+defense that ensures complete protection against
+figure  a architecture of the drlbased channel autoencoder with noisy feedback for g and bg networks proposed in
+b performance of the drl autoencoder with noisy feedback before during and after the adversarial ml attack a clear drop in
+the performance of the receiver during the attack indicates the success of the adversary in compromising the drl autoen
+coderbased endtoend communication system in future mobile networks
+marchapril 
+ieee internet computing
+aipowered g services
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+adversarial ml attacks in our previous works we
+have performed an extensive survey of the adversarial
+ml literature on robustness against adversarial exam
+ples and showed that nearly all defense mechanisms
+proposed in the literature take one of the following
+three approaches
+ modifying data eg adversarial training feature
+squeezing input masking
+ auxiliary model addition eg generative model
+addition ensemble defenses
+ modifying
+model
+eg
+defensive
+distillation
+model masking gradient regularization
+although our results in g related usecases pre
+sented in the section titled three case studies
+highlighting adversarial ml risk for g and
+beyond indicate that the representative mlbased
+g applications from physical layers are vulnerable to
+the adversarial ml attacks the threat models exploit
+the underlying vulnerability inherent to known dl mod
+els in general for instance we were able to attack the
+drl autoencoder by exploiting the fact of transferabil
+ity which is the rootcause that enables a same pertur
+bation to fool multiple models thus we draw attention
+to the security landscape of g and bg widening fur
+ther from adoption of a plethora of dldriven compo
+nents
+substantiated
+through
+results
+from
+three
+speciﬁc use cases related to g physical layer
+recommendations for designing and
+evaluating defenses against
+adversarial ml attacks
+designing a defense
+designing a defense against adversarial examples is a
+very challenging task many approaches for defending
+against these attacks are available in the literature
+but these techniques are shown ineffective against
+newer variations of the attacks the following are a
+few recommendations for designing a defensive inter
+vention against adversarial examples
+ a generic defense that can defend against any
+type of adversarial attack is not possible so the
+ﬁrst logical step is to understand the threat
+model of the system for which the defensive
+intervention is needed
+ in many cases the adversarial examples are gen
+eratedsampled from a distribution similar to the
+legitimate data a preemptive data generation
+process by using generative models and aggres
+sive labeling labeling the preemptively generated
+examples as false positives can improve the odds
+of detecting many adversarial attacks in our previ
+ous work we have shown that this procedure
+can help in making a better defense
+ deploy all known procedures from the literature
+that is in line with the threat model
+ always design defenses considering adaptive
+adversaries
+evaluating a defense
+in the following we have provided a few important
+evaluation guidelines for evaluating the mlbased g
+applications against adversarial ml attacks these
+insights are extracted from the carlini et al and our
+previous works
+ many defenses are available in the literature
+against adversarial attacks but these defenses are
+limited by the design of the application using them
+without considering the threat model of mlbased
+g applications can create a false sense of security
+so for mlbased g applications threat models
+must clearly state the assumptions taken type of
+the adversary and the metrics used for evaluating
+the defense
+ always test the defense against the strongest
+known attack and use it as a baseline evaluating
+for an adaptive adversary is also necessary
+ evaluate the defense procedure for gradient
+based gradientfree and random noisebased
+attacks httpswwwrobustmlorg
+ clearly state the evaluation parameters accu
+racy recall precision f score receiver operat
+ing characteristic curve roc etc used in
+evaluatingvalidating the defense and always
+look for a change in the false positive and false
+negative scores
+ evaluation of the defense mechanism against
+outofdistribution examples and transferability
+based adversarial attacks is very important
+although
+these
+recommendations
+and
+many
+others in can help in designing a suitable
+defense against adversarial examples but this is still
+an open research problem in adversarial ml and ripe
+for investigation for mlbased g applications
+beyond vulnerability to adversarial ml
+attacks
+apart from the vulnerability of the ml models to the
+adversarial ml attacks we underline the following
+drawbacks that call into question the possibility of
+ieee internet computing
+marchapril 
+aipowered g services
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+mldriven solutions getting integrated into the real
+world g networks any time soon
+lack of realworld datasets
+due to the dearth of openly available real network
+data from the telecom operators a large amount of
+ml research in the telecom domain still largely
+depends on simulatedexperimental data that often
+falls short of truly representing realworld randomness
+and variations thus current stateoftheart ml mod
+els in telecommunication applications are not yet
+ready to replace the domainknowledge based expert
+systems currently in operation
+lack of explainability
+in ml studies the accuracy of a model comes at the
+cost of explainability the dl models are highly accu
+rate in providing output but lack an explanation of
+why a particular output is achieved explanation of a
+decision taken often would be a critical requirement
+in the g and bg network settings especially
+because many critical services such as transport sig
+naling connected vehicles and urllc are expected
+to be realized over the g infrastructure
+lack of operational success of ml in real
+world mobile networks
+a plethora of ml models exist in the mobile network
+ing literature but use of ml models in operational
+mobile networks currently is still quite limited when
+we perform attacks on the ml models running under
+the ideal environment simulated or in favorable lab
+conditions and still the victim models cannot with
+stand
+the
+adversarial
+attacks
+as
+demonstrated
+through our case studies in realworld mobile net
+works the ml models need to be deployed and stay
+functional under unforeseen random environments
+leaving them more vulnerable to adversarial attacks
+that are beyond what they are designed to be robust
+against
+conclusion
+security and privacy are uncompromising necessities
+for modern and future global networks standards
+such as g and bg and accordingly fortifying it to
+thwart attacks and withstand the rapidly evolving
+landscape of future security threats is of vital impor
+tance this article speciﬁcally highlights that the
+unvetted adoption of dldriven solutions in g and
+bg networking gives rise to security concerns that
+remain unattended by the g standardization bodies
+such as the gpp we argue this is the right time for
+crossdisciplinary research endeavors considering ml
+and cybersecurity to gain momentum and enable
+secure and trusted future g and bg mobile net
+works for all future stakeholders we hope that our
+work will motivate further research toward telecom
+grade ml that is safe and trustworthy enough to be
+incorporated into g and bg networks thereby
+power intelligent and robust mobile networks sup
+porting diverse services including missioncritical
+systems

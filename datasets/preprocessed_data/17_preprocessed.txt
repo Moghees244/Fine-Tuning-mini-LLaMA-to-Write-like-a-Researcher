@@ -1,0 +1,108 @@
+
+ieee
+ieee technology and society magazine         s e p t e m b e r     
+digital object identifier mts 
+date of publication  august 
+siddique latif adnan qayyum muhammad usama junaid qadir  
+andrej zwitter and muhammad shahzad
+caveat emptor
+istocklagartofilm
+b
+ig data has the potential to facilitate sustainable development in many 
+sectors of life such as education health agriculture and in combating hu
+manitarian crises and violent conflicts however lurking beneath the im
+mense promises of big data are some significant risks such as  the po
+tential use of big data for unethical ends  its ability to mislead through 
+reliance on unrepresentative and biased data and  the various privacy 
+and security challenges associated with data including the danger of an 
+adversary tampering with the data to harm people these risks can have severe conse
+quences and a better understanding of these risks is the first step towards their mitigation 
+the risks of using big data for human development
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+s e p t e m b e r               ieee technology and society magazine
+of these risks in this article we highlight the poten
+tial dangers associated with using big data particu
+larly for human development
+data deluge
+over the last decades widespread adoption of digital 
+applications has moved all aspects of human lives 
+into the digital sphere the commoditization of the 
+data collection process due to increased digitization 
+has resulted in a data deluge that continues to inten
+sify with a number of internet companies dealing with 
+petabytes of data on a daily basis the term big 
+data has been coined to refer to our emerging ability 
+to collect process and analyze the massive amount 
+of data being generated from multiple sources in 
+order to obtain previously inaccessible insights big 
+data can equip policy and decision makers with evi
+dencebased actionable insights that can help in 
+enhancing social systems tracking development prog
+ress and in developing a nuanced understanding of 
+the effects of policies without being swayed by intu
+ition ideologies or emotions
+in particular the recent advances in machine learn
+ing ml and artificial intelligence ai techniques have 
+revolutionized intelligent data analytics resulting in 
+enhanced interest in using big data for sustainable 
+human and social development bdd many organiza
+tions and government institutions are exploring such 
+solutions in diverse fields such as healthcare educa
+tion intelligence fraud and crime prevention 
+although big data technology offers great promise 
+ it is worth remembering that big data is not a silver 
+bullet and we may ignore the hardearned statistical les
+sons on measurement bias data quality and inference 
+variation that have been earned through a hard toil and 
+sometimes bitter experience only at our own peril 
+while most writing on data is enthusiastic new work 
+has started emerging that has begun to show how big 
+data can mislead and be used detrimentally   
+ more than  years of research into artificial intelli
+gence and statistical learning has shown that there is no 
+free lunch  ie there are no universally applicable 
+solutions  and that there are always tradeoffs 
+involved 
+the use of bdd is transforming society in various 
+domains from education to prevention diagnosis and 
+treatment of illness  it has improved the efficiency 
+and effectiveness of disaster management systems by 
+utilizing realtime community information  in these 
+applications data is emerging as a new economic 
+resource and used by companies governments and 
+even individuals to optimize everything  the ulti
+mate goal of the development sector seems to be what 
+is referred to as forecastbased financing  a 
+predictionbased and automatized funding and logistical 
+system based on big data analytics and smart contracts 
+that automatizes everything from funding to action in 
+the field 
+despite the great excitement around the big data 
+trend big data is also pegged with criticism the dark 
+side of big data is that data invariably contains some 
+biases and there is a fear that big data could erode pri
+vacy and threaten freedom when deployed for human 
+and social development these issues become particu
+larly serious when big data is deployed for human sub
+jects in the case of bdd for example consider the 
+case where big data predictions about individuals are 
+used to punish people on their propensities rather than 
+on their actions this denies human free will and their 
+capability to improve over time and effectively reinforc
+es existing stereotypes 
+various studies have articulated common issues that 
+concern big data analytics interdisciplinary research 
+    but a critical analysis of bdd is 
+missing in the literature therefore in this paper we 
+discuss the caveats of big data analytics when it is 
+used for human development purposes the purpose of 
+this article is to present a critical synthesis of the 
+diverse literature and put together various underlying 
+issues that affect bdd significantly in addition to criti
+cally evaluating bdd risks this paper also explores 
+potential remedies that can help mitigate the problems 
+of bdd
+general issues in using data for decisions
+today big corporations are investing their resources in 
+utilizing big data technology to uncover important cor
+relations customer p

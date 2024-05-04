@@ -1,0 +1,210 @@
+future internet
+article
+approximate networking for universal
+internet access
+junaid qadir  arjuna sathiaseelan  umar bin farooq  muhammad usama 
+muhammad ali imran  and muhammad shaﬁque 
+department of electrical engineering information technology university itupunjab
+lahore  pakistan junaidqadirituedupk jq muhammadusamaituedupk mu
+computer laboratory university of cambridge cambridge cb fd uk arjunasathiaseelanclcamacuk
+school of engineering university of glasgow glasgow g qq uk muhammadimranglasgowacuk
+institute of computer engineering vienna university of technology tu wien wien  austria
+muhammadshaﬁquetuwienacat
+correspondence mscsituedupk
+received  october  accepted  december  published  december 
+abstract despite the best efforts of networking researchers and practitioners an ideal internet
+experience is inaccessible to an overwhelming majority of people the world over mainly due to the
+lack of costefﬁcient ways of provisioning highperformance global internet in this paper we argue
+that instead of an exclusive focus on a utopian goal of universally accessible ideal networking in which
+we have a high throughput and quality of service as well as low latency and congestion we should
+consider providing approximate networking through the adoption of contextappropriate tradeoffs
+in this regard we propose to leverage the advances in the emerging trend of approximate computing
+that rely on relaxing the bounds of preciseexact computing to provide new opportunities for
+improving the area power and performance efﬁciency of systems by orders of magnitude by
+embracing output errors in resilient applications furthermore we propose to extend the dimensions
+of approximate computing towards various knobs available at network layers
+approximate
+networking can be used to provision global access to the internet for all gaia in a pragmatically
+tiered fashion in which different users around the world are provided a different contextappropriate
+but still contextually functional internet experience
+keywords universal internet access approximate networking global access to the internet for
+all gaia
+ introduction
+the new global development agenda transforming our world the  agenda for sustainable
+development composed of  sustainable development goals sdgs has recently been adopted
+by the united nations un general assembly in  an important pillar of this movement is
+the need to ensure social inclusion wherewith the society strives to achieve shared prosperity which
+reaches everyone in the society including women people from minorities and the bottom strata of
+human society due to the importance of internet accesswhich has now become a key indicator
+of the potential of economic progress with impact imprinted on all spheres of human life personal
+societal political economical and educational in both developing and developed countriesthe
+provisioning of universal internet access becomes an important stepping stone towards sustainable
+development the world over
+the fact that internet access can play a large role in facilitating development motivates the
+vision of global access to the internet for all gaia currently being formally pursued in the internet
+research task force irtf while internet has the capability of fostering development and growth
+future internet    doiﬁ
+wwwmdpicomjournalfutureinternet
+future internet   
+ of 
+this potential is being thwarted by the inability of billions of people to access the internet according to
+recent statistics almost six billion people do not have highspeed internet which makes them unable
+to fully participate in the digital economy  bringing the internet to the remaining billions of people
+left without will democratize knowledge open up new opportunities and undoubtedly open up
+avenues for sustained development
+the overwhelming focus of the internet research community has been on improving the ideal
+networking experience by providing increasingly higher throughputs along with lower latencies
+however this focus has led to an internet design that is very costly which has precluded the
+global deployment of the internet we see this in wired technologies such as the modern ﬁberbased
+broadband highspeed network which come close to providing ideal network performance have
+largely been restricted to urban centers and advanced countries with economical reasons primarily the
+high cost of laying ﬁber precluding their universal deployment similarly cellular technologydespite
+its great successhas not been able to ensure gaia since it is mainly an urban phenomena that cannot
+be used to cost effectively serve rural and remote areas  since internet is overengineered for many
+practical applications and needs ie not all applications and users of the internet require highﬁdelity
+internet services we argue that a viable gaiaenabling approach is the use of approximate networking
+where contextappropriate tradeoffs are adopted to deal with different challenges and impairments
+characterizing a certain region we can loosely deﬁne approximate networks as networks that are
+close to ideal in terms of quality nature and quantity we proposed the concept of approximate
+networking previously in  where the presentation of the concept focused on the use of simple
+approximate goodenough services to tame the complexity of the networking infrastructure in a future
+world afﬂicted with hard limits due to the exhaustion of natural resources such as fossil fuels in this
+paper we argue that apart from its clear use in reducing network complexity with the complementary
+beneﬁts of more sustainable cheaper services approximate networking can also be used to satisfy the
+widelydiffering and diverse user requirements by taking contextappropriate tradeoffs and thereby help
+in realizing the vision of global access to the internet for all gaia
+our main idea is for universal internet provisioning of mobile and internet services that it is time
+to move away from pursuing overengineered perfect products and focus instead on developing
+appropriate good enough solutions our approximate networking idea can be thought of as the
+network analog of the emerging computer architectural trend called approximate computing 
+which we discuss next
+ what is approximate computing
+broadly speaking approximate computing leverages the capability of many computing systems
+and applications to tolerate some loss of quality and optimality by trading off precision for efﬁciency
+where efﬁciency can be in the terms of increased performance or reduced costs in terms of energy
+consumed or system costarea approximate computing systems are able to optimize the efﬁciency
+of systems by relaxing the commonly applied notion of exact numerical or boolean equivalence
+between the speciﬁcation and implementation at multiple layers of the hardware and software stacks
+see figure  for a depiction the use of approximate computing is motivated by the following
+factors  modern big data applications are based on noisy realworld data  many computing
+applications eg recommendation and web search do not have a single golden answer  the
+perceptual limitations of users mean that some approximations may not even be noticed and 
+many applications existeg images video and soundwhere minor errors and approximations
+can be tolerated by different users some recent case studies for applying approximate computing to
+video processing  signal processing  and communication systems  have shown early feasibility
+the research in the ﬁeld of approximate computing has been led by seminal contributions from the
+industry players such as intel  ibm  and microsoft  as well as several research groups
+from academia 
+future internet   
+ of 
+figure  whats new about approximate computing adapted from 
+ what is approximate networking
+with approximate networking we intend to seamlessly integrate the concepts from approximate
+computing along with traditional mechanisms for approximations in networking in terms of
+approximations adopted by networking protocols and algorithms the concept of approximate
+networking is necessary since experience has shown us that universal commissioning of ideal
+networks which have extremely high capacity bandwidth and reliability in addition to extremely
+low or negligible delays errors and congestion is nonpractical it is important to emphasize that
+approximate networking is not a single standalone technique nor is it the ﬁrst time that approximation
+has been proposed in networking indeed a number of existing networking techniques already
+utilize approximation and are best effort our idea of approximate networking generalizes these
+classical ideas and importantly supplements these ideas with recent developments in the ﬁeld of
+crosslayered approximate computing particularly at the hardware level to facilitate the design of future
+energyefﬁcient and optimized network infrastructure as well as algorithms and protocols we aim to
+enable end to end approximation principlesframeworks engaging hardwaresoftware approximation
+as well as network layer approximations for systematic approximate networking as this point in time
+there has only been rudimentary work done in efﬁciently combining lowlevel approximate computing
+modules to construct larger highlevel modules and architectural components approximate computing
+has been deployed for a large number of applications including image processing signal processing
+machine learning scientiﬁc computing ﬁnancial analysis database search and distributed computing
+however its extension to the ﬁeld of networking is practically nonexistent at this point in time with only some
+recent preliminary works as exceptions  we anticipate that these hardwarefocused approximate
+computing advances will percolate into the ﬁeld of networking and in the future there will be an
+increased interest in synergistic approximation management at different layers of the hardware and
+software stacks in networking
+ why adopt approximate networking
+ affordable universal internet gaia
+the right of affordable access to broadband internet is enshrined in the  sustainable
+development goals of the united nations
+the international telecommunication union itu
+broadband goal  initiative aims at an optimistic target of universal broadband internet speeds
+of  mbps for  a month accessible to everyone in the world by  source alliance for
+affordable internet aai report  such an approach which aims at providing an ideal
+networking experience universally has historically always failed due to various socioeconomical and
+technical issues an important reason is that most modern technologies such as g g longterm
+evolution lte and the planned g are urban focused as rural systems being sparsely populated
+by deﬁnition do not thus hold much business potential for mobile carriers  the internet is also
+future internet   
+ of 
+large unaffordable when we consider that on average the mobile broadband price and the ﬁxedline
+broadband prices are  and  of the average persons monthly income where women and rural
+populations are hit the hardest  approximate networking is a particularly appealing option to
+reach out to the ofﬂine human population by providing an affordable contextually good enough
+service
+ diversity of user  application proﬁles
+the internets digital divide is not a binary divide there is a spectrum of connectivity
+options and digital capabilities accessible to people around the world see figure  in some places
+ultra highspeed broadband connections are available while there are hosts of places where there is no
+connectivity at all however most places lie somewhere in between user and application proﬁles and
+requirement vary greatly at one extreme we have applications that require extremely high throughput
+eg video on demand and low latency eg tactile internet on the other extreme we have
+applications that have minimal throughput and latency requirements eg smart meters which report
+back lowvolume data relatively infrequently users can also have vastly different service requirements
+and ﬁnancial strength in the face of such great diversity the approximate networking framework
+can avoid the difﬁculties of singlesizeﬁtsall networking solutions furthermore these diversities
+can be exploited and applications and users provided services and resources commensurate to
+their requirements
+figure 
+ensuring global access to the internet for all gaia requires provisioning good
+enough quality of service qos that accommodates the diversity of applications requirements device
+capabilities user proﬁle and requirements
+ the pareto principle  law the power of good enough
+to help manage the approximate networking tradeoffs it is instructive to remember the
+pareto principle alternatively called the  rule  which states roughly that  of the factors
+result in  of the overall effect this principle has big implications for approximate networking
+since this allows us to provide adequate ﬁdelity to ideal networking by only focusing on the most
+important  of the effects the key challenge in approximate networking then becomes the task of
+separating the allimportant essential nontrivial factors from the trivial factors which may be omitted
+or approximated in this regard we can leverage previous humancomputerinteraction hci research
+that has shown that human quality of service qos perception can be ﬂawed eg relatively fast
+service may be judged to be unacceptable if the service is not predictable visually appealing and
+future internet   
+ of 
+reliable  in choosing the precise approximate networking tradeoff to adopt such that the users
+perceive the least inconvenience
+ need of energy efﬁciency
+it has been reported that information and communication technology ict is one of the biggest
+consumer of the worlds electrical energy using up to  of the overall energy  statistics 
+the urgency of delivering on the front of energy efﬁciency is reinforced by the impending decline of
+nonrenewable energy resources along with the concomitant increase in ict demand the approximate
+networking trend can augment the hardwarefocused approximate computing trend in managing
+the brewing energy crisis through the ingenuous use of approximation in particular approximate
+networking can help generalize the performance and efﬁciency improvements offered by approximate
+computing which have largely been limited to local speedups on a single device to broader network
+settings optimizing communicationnetworking cost is important since these costs can be signiﬁcant
+eg on mobile phones the wifi and cellular radios require on average an order of magnitude more
+power than the cpu or memory 
+ contributions of this paper
+the main contribution of this paper is to investigate the extension of the concept of
+approximate computing to the ﬁeld of networking
+we propose approximate networking as
+an overarching crosslayered framework that encompasses classical approximation techniques
+as well as recentlydeveloped techniques in the ﬁeld of approximate computing to implement
+contextappropriate networking tradeoffs that are necessary for the aims of global access to the
+internet for all gaia in order to facilitate these tradeoffs apart from the classical approximation
+techniques adopted in networking in the areas of softwarehardware algorithms protocols and
+architecture approximate networking will also leverage the advances in the fastemerging ﬁeld of
+approximate computing as an extra degreeoffreedom for ﬁnergrained tradeoff optimization we also
+propose approximate networking as an overarching framework for systematically thinking about
+networking tradeoffs that must be adopted for ensuring gaia furthermore we also present an
+application of approximate networking in g with a case for low income and rural regions
+this paper is organized as follows section  describes approximate networking technologies
+in section  we present contextappropriate approximate tradeoffs for networking we describe a case
+study for approximate g networks in rural and low income areas in section  we present discussion
+issues for approximate networking in section  and conclude in section 
+ approximate networking technologies
+there exist some errortolerant networking applications that are constrained by the needs for
+energy efﬁciency and realtime packet delivery by using approximate computing these applications
+can be deconstrained by the relaxation of the integrity requirements for the approximate data
+thereby allowing these applications to communicate more efﬁciently ie these applications can
+transmit faster over a longer range and using less power see  and 

@@ -1,0 +1,606 @@
+breaking barriers can multilingual foundation
+models bridge the gap in crosslanguage speech
+emotion recognition
+moazzam shoukat
+emulationai
+pakistan
+moazzamshoukatemulationaicom
+muhammad usama
+national university of computer  emerging
+sciences faisalabad pakistan
+musamanuedupk
+hafiz shehbaz ali
+emulationai
+pakistan
+shehbazaliemulationaicom
+siddique latif
+university of southern queensland unisq
+queensland university of technology qut
+australia
+abstractspeech emotion recognition ser faces challenges
+in crosslanguage scenarios due to differences in linguistic and
+cultural expression of emotions across languages recently large
+multilingual foundation models pretrained on massive corpora
+have achieved performance on natural language understanding
+tasks by learning crosslingual representations their ability
+to understand relationships between languages without direct
+translation opens up possibilities for more applicable multilingual
+models in this paper we evaluate the capabilities of foundation
+models wavvec xlsr whisper and mms to bridge the
+gap in crosslanguage ser specifically we analyse their per
+formance on benchmark crosslanguage ser datasets involving
+four languages for emotion classification our experiments show
+that the foundation model outperforms cnnlstm baselines
+establishing their superiority in crosslingual transfer learning
+for emotion recognition however selfsupervised pretraining
+plays a key role and inductive biases alone are insufficient
+for high crosslingual generalisability foundation models also
+demonstrate gains over baselines with limited target data and
+better performance on noisy data our findings indicate that
+while foundation models hold promise pretraining remains vital
+for handling linguistic variations across languages for ser
+index termscrosslanguage speech emotion recognition
+foundation models transformers multilingual data and self
+supervised learning
+i introduction
+speech emotion recognition ser is a technique for un
+derstanding human communication both interpersonal and
+between people and machines  with the potential to be a
+technology in forthcoming artificial general intelligence new
+applications of ser are emerging at a pace ranging from
+healthcare to transportation forensics to education entertain
+ment to social media ser classifies emotional categories by
+analysing audio signals such as pitch intensity and spectro
+grams  however dealing with crosslingual inputs makes
+the job difficult since slight cultural and linguistic variances
+cast suspicion on the performance of the ser systems 
+though emotional expressions are universal across languages
+the peculiarities of each language present an impediment to
+emotional interpretation therefore advancing the capabilities
+of ser necessitates an understanding of the interactions be
+tween language culture and affective expression  machine
+learning mlenabled ser systems have outperformed legacy
+emotion recognition systems and are now gaining traction in
+industry and academia  as ser systems are now capable
+of solving the riddle of understanding and modelling human
+emotion with the aid of various context variables such as
+gender age dialect and culture it is now imperative to
+incorporate foundation modellike abilities into ser systems
+   it would allow ser systems to understand cross
+lingual emotion and act as a bridge towards the revolution in
+humanmachine interaction hci by enabling effective service
+delivery in a wider range of realworld applications
+the performance of mlbased ser in crosslanguage sce
+narios faces limitations due to several factors a key factor is
+the language and cultural barrier  while human emotions
+are universal their expression differs based on ones language
+speech patterns and culture as a result the same emotion
+manifests with diverse cues and syntax across languages
+posing a challenge   another complication arises from
+culturalspecific linguistic nuances affecting emotional cues
+datasets used to train mlbased ser capture the nuances of a
+single languageculture while performance may be adequate
+in that language understanding other speech patterns faces
+issues  additionally overlapping phonemes can cause
+misclassification exacerbated by phonetic relatedness between
+languages ser requires extensive annotated data to learn
+emotion patterns but datasets are limited for many languages
+without sufficient data classification accuracy is restricted
+ current ser is also influenced by a single language
+addressing biases through multilanguage training with fair
+ness could help however variability in emotion expression
+and data scarcity present hurdles 
+ tenth international conference on social networks analysis management and security snams    ieee  doi snams
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+recently large foundation models pretrained on massive
+corpora using selfsupervised techniques have achieved re
+sults across natural language understanding tasks by learning
+robust crosslingual representations   their ability
+to understand relationships between languages without direct
+translation opens up possibilities for more universally appli
+cable multilingual models  their scale of training allows
+them to discover deeper mappings between languages than was
+previously possible where traditional models focus narrowly
+on attributes of a single language foundation models can learn
+shared semantic structures underlying emotional expressions
+across diverse cultures and tongues  this expanded scope
+of understanding makes them suited to bridge gaps faced
+by traditional crosslanguage ser systems by leveraging
+relationships between languages at both semantic and phonetic
+levels foundation models hold the promise of speech emotion
+classifiers that generalise more effectively across linguistic
+barriers  foundation models enabling cheaper annotation
+may help generate annotated datasets to tackle the lack of data
+and aid effective crosslanguage ser design 
+in this paper we evaluate multiple multilingual foundation
+models  wavvec  xlsr  whisper  and
+mms   on benchmark crosslanguage ser datasets
+specifically we analyse their ability to bridge the language
+and cultural gap when classifying emotions from speech data
+in multiple source and target languages to the best of our
+knowledge this represents the first study that assesses the
+capabilities of these foundation models for advancing the field
+of crosslanguage ser the results from our experiments aim
+to provide insights into whether and how these models are able
+to learn crosslingual speech representations that generalise
+better for emotion classification across languages compared to
+traditional approaches
+the major contributions of this work include
+ we experimentally investigated the possibility of using
+foundation models wavvec  xlsr  whisper
+ and mms  to bridge the gap in crosslanguage
+ser
+ we used four different language corpora for speech
+emotion detection and evaluated the performance of pre
+trained foundation models here we also note that the
+proposed method is scalable to many languages
+ we also provided the generalisation and robustness per
+formance of crosslanguage ser under noisy data con
+ditions we also evaluated the fewshots adaptation per
+formance of the crosslanguage ser we further reported
+the performance of crosslanguage ser with the language
+information available at the pretraining of the foundation
+models
+the next section covers the related work ii section iii
+describes the models and datasets utilised in the research
+section iv focuses on the experiments and their results
+section v closes the paper and provides a way forward
+ii related work
+this section provides a concise review of related work
+including crosslingual emotion recognition multimodal emo
+tion recognition transformerbased emotion recognition ap
+proaches and foundation models for ser
+a crosslanguage ser
+crosslanguage emotion recognition aims to identify emo
+tions in speech data across different languages and domains
+   a key challenge is the limited availability of
+labelled data for lowresource languages like urdu  persian
+ or marathi  additionally using emotion recognition
+models trained on a single language or corpus limits gen
+eralizability due to domain mismatch between datasets 
+prior work has proposed various techniques to address these
+issues feature selection methods identify relevant features
+to represent emotions across modalities   domain
+adaptation reduces distribution discrepancies between source
+and target domains via adversarial learning  data aug
+mentation expands training data through transformations like
+speech synthesis and pitch shifting  multimodal
+fusion combines speech and text using attention tensors or
+graph networks  evaluation on benchmark datasets
+demonstrates the effectiveness of these approaches  
+    this prior work lays the ground
+work for developing more generalised crosslanguage emotion
+recognition
+b transformers in emotion recognition
+transformers have advantages over rnns and cnns for
+emotion recognition tasks due to their ability to model long
+range dependencies and perform parallel computation 
+ they can effectively harness semantic and acoustic
+information from speech data to capture interactions between
+modalities such as audio and text  several studies have
+applied transformers for emotion recognition chen et al 
+developed a keysparse transformer for multimodal emotion
+classification focusing on emotionrelated information wag
+ner et al  analysed the impact of model size and pretraining
+data on transformer performance finding larger models pre
+trained on more diverse data improved emotion prediction
+zenkov et al  integrated cnns with a transformer encoder
+to classify emotions from the ravdess dataset li et al
+ proposed a multihead selfattentionbased transformer
+achieving results on iemocap  msppodcast  and
+mosi  datasets triantafyllopoulos et al  demon
+strated transformers are sensitive to sentiment and negation
+through probing emotion recognition models
+c pretrained models for ser
+multimodal emotion recognition involves identifying human
+affective states from multiple sources of information includ
+ing audio text visual etc this approach has demonstrated
+superior accuracy compared to singlemodality methods 
+nevertheless there are several challenges associated with
+multimodal emotion recognition such as feature extraction
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+difficulties  feature alignment complexities  fusion
+techniques  dealing with missing or noisy data 
+therefore more advanced methods are needed to effectively
+exploit information from multimodal data and provide a richer
+understanding of human emotions
+several methods have been proposed for multimodal emo
+tion recognition to improve performance using pretrained
+models for feature extraction makiuchi et al  proposed a
+crossrepresentation speech model combining selfsupervised
+features from audio and text features extracted with trans
+former models achieving stateoftheart results on iemocap
+using score fusion tang et al  propose a feature fusion
+method for facial expression and speech using attention mech
+anisms showing improved accuracy on ravdess yoon et
+al  proposed a deep dual recurrent encoder model using
+text and audio simultaneously to better understand speech
+data outperforming previous methods on iemocap emotion
+classification few recent works have proposed novel fusion
+techniques using hybrid transformer models   the
+hybrid transformer models combine transformer architectures
+such as encoderdecoder or encoderonly for better multi
+modal performance  for example chen et al  propose
+a keysparse attention model fusing data efficiently using an
+encoderdecoder transformer wagner et al  proposed a
+progressive fusion model using an encoderonly transformer
+to fuse data through refined iterations preserving modality
+information while enhancing crossmodality interactions
+d foundation models for ser
+foundation models have shown potential for speech emotion
+recognition by learning representations from large unlabeled
+speech datasets for example von neumann et al  pre
+trained a foundation model called speechbert on 
+hours of unlabeled speech data from podcasts achieving
+strong zeroshot transfer capabilities for ser tasks bender
+et al  analyzed foundation models trained on speech
+to understand what linguistic patterns they learn and how
+robust their representations are in our previous work 
+recent advances in audio foundation models were covered
+by leveraging large amounts of audio data these models
+have demonstrated abilities in various audio tasks including
+automatic speech recognition asr texttospeech and music
+generation notably foundation models like wavvec 
+xlsr  whisper  mms  seamlessmt 
+have started showing capabilities as universal translators for
+multiple speech tasks across up to  languages without
+taskspecific systems latif et al  also presented an
+analysis of stateoftheart methodologies regarding foundation
+large audio models their performance benchmarks and their
+applicability to realworld scenarios current limitations are
+also highlighted and insights are provided into potential future
+research directions for large audio models with the intent
+to spark discussion and foster innovation in nextgeneration
+audio processing systems careful analysis of biases is also
+needed as foundation models are deployed for realworld
+ser systems  while audio foundation models show
+abilities this research area remains in the early development
+stages further exploration and advancements are needed to
+fully realise the capabilities of these large language models
+for audio and speechrelated applications including potential
+pathways such as improving ser systems
+iii model architectures and datasets
+in this section we describe the foundation models and
+datasets used for finetuning we have selected various foun
+dation models for comparison to gauge their performance
+against the baseline cnnlstm model below we provide
+an overview of these models and datasets
+a baseline model
+our baseline model incorporates a convolutional encoder
+structure coupled with a bidirectional lstm blstm for
+classification tasks the convolutional layers within the en
+coder are designed to capture highlevel emotional features in
+line with past research  we use a larger kernel size
+for the initial convolutional layer and subsequently a smaller
+kernel for the subsequent layers the encoders features are
+then passed to the blstm layer housing  lstm units
+to capture emotional contexts these outputs from blstm
+are fed into a dense layer consisting of  units generat
+ing discriminative features for the subsequent softmax layer
+overall the model is trained using the crossentropy loss for
+categorical ser
+b pretrained foundation models
+we employ a simple head architecture and build it on top of
+established foundational models among the chosen founda
+tion models for pretraining we opt for esteemed models such
+as wavvec  xlsr  whisper  and mms 
+these models gain recognition for their training on vast multi
+lingual datasets a comprehensive overview of these models
+focusing on their scale the datasets they train on and the range
+of languages encompassed in their training data is provided in
+table i we employ multilingual foundational models and fine
+tune them for crosslanguage ser by doing so we contrast
+their capabilities against a conventional cnnlstm baseline
+aiming to discern the effectiveness of these models in bridging
+the gap in crosslanguage emotion detection in speech
+wavvec  a selfsupervised model that learns by
+masking speech input in the latent space and tackling a
+contrastive task based on quantized latent representations
+it was pretrained using the librispeech ls dataset
+which lacks transcriptions and consists of  hours of audio
+additionally they incorporated speech data from librivox
+lvk notably on the clear hour segment of the
+librispeech dataset wavvec outperformed previous bench
+marks by only using  of the typically required labelled
+data
+xlsr as introduced by conneau et al  stands as a
+pivotal model in the domain of crosslingual speech repre
+sentation learning the foundation of xlsr is its pretraining
+on raw speech waveforms from a diverse array of languages
+this approach is an extension of wavvec but with a specific
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+table i details on pretrained foundation models dataset and a number of languages
+model
+alias
+dataset
+hours
+languages
+wavvecbase
+wavvec
+librispeech
+english
+xlsr
+xlsr
+common voice
+babel
+multilingual librispeech mls
+k
+massively multilingual speech
+mms
+mmslabk hours
+mmsunlabk
+mmslabuk hours
+k
+whisper
+whisper
+multitask training data k hours
+k
+fig  architecture build on top of wvxlsrwhipermms
+focus on crosslingual settings the pretraining phase involves
+solving a contrastive task that matches masked feature encoder
+outputs the datasets that provided the bedrock for this expan
+sive pretraining are common voice babel and multilingual
+librispeech mls this comprehensive pretraining strategy
+not only boosts the models ability to recognize and understand
+different languages but also sets the stage for effective fine
+tuning when subsequently tuned for specific tasks xlsr
+demonstrates the ability to rival models that are individually
+optimized for each language
+whisper  is trained through weakly supervised learning
+objectives these objectives include tasks like voice activity
+detection vad language detection and automatic speech
+recognition asr among others the innovative facet of
+whisper lies in its training methodology by employing a
+colossal supervised dataset that spans over  hours
+of labelled audio data it pushes the boundaries of weakly
+supervised speech recognition furthermore the model un
+derscores the potency of zeroshot transfer as a mechanism
+to significantly bolster the robustness of speech detection
+systems
+massively multilingual speech mms was introduced by
+pratap et al  this initiative aimed to significantly expand
+the range of supported languages in speech technology by a
+notable x depending on specific speech tasks central
+to their approach was the effective use of selfsupervised
+learning they curated a labelled dataset mmslab encom
+passing speech audio from  languages totalling k
+hours in parallel they assembled an unlabelled dataset mms
+unlab with audio recordings without associated text from
+ languages amounting to k hours additionally an
+unlabelled variant of mmslab designed for pretraining and
+language identification named mmslabu spanned 
+languages and contributed k hours with these resources
+they developed a speech system capable of supporting a
+language count ranging from  to a vast 
+for finetuning these models we follow   and the
+parameterefficient finetuning peft technique regardless
+of the finetuning method employed we also make sure of
+the consistency in our downstream crosslanguage ser archi
+tecture to encapsulate our efforts spanned from maintaining
+the original state of foundation models adapter tuning and
+modifying the embedding prompt to using lowrank approx
+imation lora  we implement average pooling on the
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+table ii results uar  of crosslanguage experiments evaluating the performance of various pretrained foundation
+models
+source
+target
+models performance uar 
+cnnlstm
+wavvec
+xlsr
+whisper
+mms
+iemocap
+emodb
+emovo
+urdu
+emodb
+iempcap
+emovo
+urdu
+urdu
+iempcap
+emodb
+emovo
+emovo
+iempcap
+emodb
+urdu
+hidden states from the final transformer layer followed by
+processing through a hidden and then an output layer for
+the downstream task finetuning the adam optimiser is used
+alongside the crossentropy loss a commonly utilised loss
+function for classification our chosen learning rate is set at
+e the training lasts for  epochs with a batch size of 
+and we retain the model checkpoint that showcases the best
+results on the development set
+c datasets
+to broaden the scope of our findings we chose pub
+licly accessible datasets representing four different languages
+these corpora were selected due to their availability and to
+incorporate linguistic variety into our evaluations an overview
+of each data collection is provided below
+ iemocap english
+the iemocap corpus cited in  is a widelyused
+public collection of multimodal emotional data in english
+different annotators labelled the utterances in categorical and
+dimensional labelling schemes based on previous research
+  we focused on four emotions angry sad happy
+and neutral these emotions represented  samples in the
+iemocap dataset
+ emodb german
+the emodb corpus  is a wellknown german emo
+tional speech dataset it features ten professional speakers con
+veying seven varied emotions through ten german sentences
+in our research we utilise  utterances  angry  sad
+ neutral and  happy expressions this selection supported
+our detailed evaluation of crosslanguage emotion recognition
+ emovo italian
+the emovo corpus  is an italian emotional speech
+dataset it includes  sentences each delivered by six ac
+torsthree males and three femalesexpressing seven dis
+tinct emotions anger disgust fear joy sadness surprise and
+neutral in our research we focused on  utterances that
+fit into four emotions angry happy neutral and sad with
+each emotion having  utterances this dataset is used in
+conducting a thorough crosslanguage ser evaluation
+ urdu urdu
+the urdu dataset  is an emotional speech collection in
+the urdu language it encompasses a total of  utterances
+each reflecting one of the four fundamental emotions angry
+happy neutral and sad this dataset features recordings from
+ distinct speakers with  males and  females all of
+whom were sourced from various urdu talk shows available on
+youtube for our study weve incorporated all  utterances
+ensuring an equal representation of each emotion with 
+utterances each
+iv experiments and results
+in this section we evaluate and display the outcomes
+using various models we employ these models to categorize
+emotions and gauge their effectiveness using the unweighted
+average recall uar uar is a popular metric in emotion
+recognition as it provides a balanced score especially when
+the data for certain emotions might be imbalanced compared to
+others we conducted each experiment five times and presented
+the average uar for all results throughout our tests we
+adhere to a speakerindependent ser approach
+a benchmarking results
+in this study we conduct crosslanguage ser training our
+model on source data and then evaluating its performance on
+unseen target data in a different language we utilise datasets
+from four different languages including english german
+italian and urdu our focus narrows to four primary emotional
+states happy sad neutral and angry for experiments we
+set out to see how these multilingual foundation models
+stack up against models like wavvec which is solely pre
+trained on english data as well as the baseline cnnlstm
+model starting our experiment we finetuned models using
+the iemocap dataset and evaluated them on other lan
+guage datasets those models that have been pretrained with
+considerable data volume stand out surpassing conventional
+architectures baseline cnnlstm to make our observations
+generalisable we perform multiple evaluation strategies across
+the selected four datasets and the results are presented in table
+ii results show the dominant position of foundation models
+over the conventional cnnlstm methods in the field of
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+a iemocap to emodb
+b iemocap to emovo
+c iemocap to urdu
+fig  crosslanguage ser performance comparison of cnn
+lstm and various pretrained foundation models across three
+datasets emodb emovo urdu for varying sample sizes
+as measured by uar the models are finetuned on
+iemocap and evaluated on the target datasets
+crosslanguage ser this shows that the models with a diverse
+linguistic background tend to perform better in crosslanguage
+a iemocap to emodb
+b iemocap to emovo
+c iemocap to urdu
+fig  crosslanguage ser performance uar comparison
+of cnnlstm and pretrained foundation models on clean
+speech vs noisy data db snr from the target datasets
+the models are finetuned on iemocap and evaluated on
+clean and noisy versions of emodb emovo and urdu
+datasets
+ser tasks compared to ones like wavvec which is pre
+trained on english data our findings in crosslanguage ser
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+underscore the advantages of foundation models pretrained on
+rich and varied linguistic datasets such extensive pretraining
+evidently positions these models favourably for crosslanguage
+ser tasks as illustrated in table ii
+b fewshots adaptation
+in this experiment we delve into the impact of fewshot
+adaptation for crosslanguage settings essentially we combine
+a subset of samples from a target language with our main
+training data to observe the outcomes the iemocap dataset
+serves as our primary training resource in this experiment and
+we use other datasets as test data we finetuned foundation
+models and the results of our findings are illustrated in figure
+ to cover a wide spectrum we alter the sample size
+beginning with zero and ramping up to  we initiate our
+tests with  samples for each individual emotion from there
+we methodically increase the sample count examining results
+at   and  sample thresholds as depicted in figure
+ a clear pattern emerges employing fewshot adaptation
+while finetuning the pretrained foundation model notably
+boosts crosslanguage ser surpassing the conventional mod
+els like the cnnlstm model importantly this experiment
+also highlights the elevated efficiency of foundation models
+pretrained on datasets comprising multiple language data
+such as xlsr whiper and mms these models outperform
+wavvec which is only trained on english language data
+this result highlights how using varied language data for
+training can make a difference especially in recognising emo
+tions across languages incorporating a few samples from the
+target data into the training set can notably boost performance
+paving the way for realworld applications of ser
+c robustness of pretrained models
+in this experiment we delve into the robustness of various
+architectures especially contrasting traditional models like
+cnnlstm with transformerbased models pretrained on
+vast and diverse datasets the test conditions involve the intro
+duction of ambient noisespecifically kitchen park station
+traffic and cafeteria sounds from the demand dataset 
+this noise is interspersed randomly within the test dataset
+performance assessments are then made on the data with a
+signaltonoise snr ratio of  db against clean speech
+and the findings are captured in figure  several observations
+emerge from this analysis pretrained foundation model given
+their extensive training on a large corpus of data seemingly
+display an innate ability to handle noisy disruptions better
+it is plausible that their expansive training data encompassed
+various noisy environments furnishing them with the capabil
+ity to better adapt to and process distorted auditory signals
+their ser performance in the context of noise tolerance
+distinctively eclipses that of the conventional cnnlstm
+model
+furthermore it becomes evident that sheer volume and
+diversity in training data play pivotal roles in noise resilience
+models like xlsr whiper and mms pretrained on sub
+stantial multilingual datasets illustrate superior performance
+metrics compared to the wavvec base this differential is
+not just attributable to the advanced transformer architecture
+but also the breadth of their training data specifically the
+wavvec base model constrained by its training solely on
+english data struggles to match the versatility and adaptability
+of its more extensively trained counterparts this reaffirms the
+notion that diversity in trainingboth in terms of language
+and acoustic conditionsequips models with a more holistic
+noiseresistant capability
+v conclusions and outlook
+in this paper we evaluated the performance of different
+foundation models for crosslanguage speech emotion recog
+nition based on our experiments and analysis we conclude
+the following
+ foundation models like xlsr whisper and mms sig
+nificantly outperform traditional cnnlstm approaches
+for crosslanguage ser achieving higher uar scores
+across different language pairs this establishes the su
+periority of foundation models in handling crosslingual
+learning for emotion recognition
+ as found previously  wavvec when initialised
+randomly showed performance comparable to cnn
+lstm however models like xlsr whisper and mms
+which are pretrained on massive multilanguage datasets
+demonstrate improved performance in crosslanguage
+ser compared to wavvec trained on singlelanguage
+data the distinct advantage underscores the significance
+of diverse pretraining datasets in elevating the capabili
+ties of speech models for finetuning tasks
+ adapting the foundation models with a few target lan
+guage samples resulted in substantial gains over the base
+line demonstrating their ability to effectively leverage
+limited target data
+ the foundation models also exhibited better robustness
+over cnnlstm when evaluated on noisy target data
+maintaining higher uar scores
+in conclusion while foundation models hold promise for
+crosslanguage tasks selfsupervised pretraining currently
+plays a vital complementary role in equipping them with the
+necessary skills for handling linguistic and cultural variations
+across languages further research can explore inductive bi
+ases that facilitate improved crosslingual transfer ability of
+foundation models

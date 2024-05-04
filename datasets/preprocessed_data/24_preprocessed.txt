@@ -1,0 +1,645 @@
+generative adversarial networks for launching
+and thwarting adversarial attacks on network
+intrusion detection systems
+muhammad usama muhammad asim siddique latif junaid qadir alaalfuqaha
+information technology university punjab pakistan
+university of southern queensland australia
+hamad bin khalifa university qatar
+email muhammadusama muhammadasim junaidqadirituedupk siddiquelatifusqeduau aalfuqahahbkueduqa
+abstractintrusion detection systems idss are an essential
+cog of the network security suite that can defend the network
+from malicious intrusions and anomalous trafﬁc many machine
+learning mlbased idss have been proposed in the literature
+for the detection of malicious network trafﬁc however recent
+works have shown that ml models are vulnerable to adversarial
+perturbations through which an adversary can cause idss to
+malfunction by introducing a small impracticable perturbation
+in the network trafﬁc in this paper we propose an adversarial
+ml attack using generative adversarial networks gans that
+can successfully evade an mlbased ids we also show that
+gans can be used to inoculate the ids and make it more robust
+to adversarial perturbations
+index termsadversarial machine learning gan ids
+i introduction
+in cybersecurity network anomaly detection is an important
+task rapid growth in network trafﬁc and cyber attacks on
+networked applications have made intrusion detection systems
+idss a crucial component of the network security suite
+given network trafﬁc samples idss are expected to precisely
+classify which sample is unusual and malicious without suf
+fering from a high false positive rate
+recent advances in machine learning ml and deep learn
+ing dl techniques have revolutionized vision language and
+speech processing the classiﬁcation performance in these
+areas has nearly surpassed the human level performance
+motivated by the success of the mldl in these areas idss
+have also adopted mldl for performing classiﬁcation tasks
+to determine anomalous behavior in network trafﬁc however
+recently linear and nonlinear mldl classiﬁers are exposed
+to be vulnerable to adversarial examples created for fooling
+the classiﬁers in reporting malfunctioned classiﬁcation reports
+since idss have adopted mldl techniques for classiﬁcation
+there integrity has also become questionable
+adversarial ml examples are the worstcase domain shifts
+of the input samples arising from a fundamentally ﬂawed
+assumption in mldl models that the distribution followed
+by the training data will also be encountered at inference time
+which is not the case in the real world adversaries exploit this
+shortcoming and use local search combinatorial optimization
+or convex programming to ﬁnd the adversarial perturbation
+which compromises the integrity of mldl performance
+in this work we utilize generative adversarial networks
+gans  for creating an adversarial ml attack on mldl
+based idss where the details of mldl technique used in
+the ids are unavailable to the adversary gans belong to a
+family of generative models based on differentiable generator
+networks the core idea of gans is to pit a generator network
+against a discriminator network in an interactive game theory
+like setting the goal of the generator network is to learn the
+best approximation of the training data whereas the goal of
+the discriminator network is to distinguish between samples
+from original data and generated data
+we employ gans to introduce a strategic adversarial per
+turbation in network data to compromise the ids performance
+and then to counter this adversarial perturbation we introduce
+a gan model in the ids ml model to ensure robustness our
+results indicate that we can successfully evade mldlbased
+idss using the adversarial perturbation generated through
+gans interestingly gan technology cannot only be used
+for attacking idss but also for empowering them our results
+show that by using a ganbased defense idss can be made
+robust against previously seen as well as unseen adversarial
+perturbations
+the major contributions of this paper are
+ we propose and validate a ganbased adversarial ml
+attack on a blackbox ids our proposed ganbased
+attack is the ﬁrst adversarial attack that can successfully
+evade idss while ensuring that the functional behavior
+of the network trafﬁc is preserved
+ we propose a ganbased training mechanism for defense
+purposes which improves the robustness of the ids
+against adversarial perturbations during the attack and
+the defense procedures the functional behavior of the
+network trafﬁc is ensured by only altering the non
+functional characteristics of the network trafﬁc
+the rest of the paper is organized as follows in the next
+section we will provide a brief review of the related research
+that focuses on producing adversarial examples for idss using
+gans we discuss some preliminaries in section iii in which
+we provide the problem formulation assumed threat model
+considered dataset and the constraint of preserving func
+  ieee
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+tional behavior while launching adversarial attacks section
+iv introduces our ganbased adversarial attack methodology
+and presents the results of our attack technique section v
+describes the details of the proposed defense mechanism
+against adversarial examples and highlights that the proposed
+defense increases the robustness of ids against adversarial
+perturbations finally the paper is concluded
+ii related work
+intrusion detection is a process of detecting malicious
+activities in the network trafﬁc many mldlbased intrusion
+detection schemes have been proposed over the years  
+  but most of these schemes have suffered from high
+false positive rates and class imbalance issues another major
+issue associated with mldlbased idss is their vulnerability
+to the adversarial examples where an adversary adds an
+imperceptible perturbation to a legitimate trafﬁc sample to
+create a false sense of security this aspect of mldlbased
+idss has been relatively unexplored and requires immediate
+attention
+most of the recent works in developing adversarial per
+turbation for network security applications are focused on
+malware classiﬁcation and portable executable pe classiﬁ
+cation grosse et al  proposed an adversarial perturbation
+for deep neural networks dnns based malware classiﬁer
+where they have used fast gradient sign method fgsm
+and jacobian based saliency map attack jsma for creating
+adversarial malware examples in our previous work  we
+have explored the adversarial attacks and defenses in cognitive
+selforganizing networks where we have performed fgsm
+jsma and basic iterative method bim attack on malware
+classiﬁers to highlight that future mldlbased networks
+will be very vulnerable to adversarial perturbations anderson
+et al  proposed an adversarial perturbation for pe by
+using reinforcement learning technique to evade dnn based
+classiﬁers similarly kolosnjaji et al  proposed a gradient
+based adversarial perturbation that evades the malware pe
+classiﬁer by only perturbing  of the total bytes xu et
+al  proposed an adversarial perturbation using genetic
+programming to produce an adversarial portable document ﬁle
+pdf to evade the dnn classiﬁer while ensuring the semantic
+properties of the pdf
+the fundamental idea of the gan is to generate adversarial
+examples which have its basis like all generative models in
+learning the true underlying distribution of the data there are
+few examples where gans have also been used for creating
+adversarial examples in malware pe and idss hu et al 
+used gans for making adversarial examples for dlbased
+blackbox malware classiﬁer but their model does not ensure
+the functional behavior of the malware executable similarly
+lin et al  proposed wasserstein gan  based adversar
+ial example generating mechanism for a mldlbased black
+box ids although they claim that the functional behavior of
+the network trafﬁc was preserved but they have altered two
+functional features of the network trafﬁc which invalidate their
+claim on the preservation of functional behavior of adversarial
+network trafﬁc
+in this paper we have proposed a ganbased adversarial
+example crafting technique which successfully evades the
+mldlbased blackbox ids and also ensures the preservation
+of functional behavior of adversarial network trafﬁc we have
+also proposed a very effective defense against adversarial
+ml examples using gans to improve the robustness of the
+mldlbased idss
+iii preliminaries
+a problem deﬁnition
+suppose x is the feature set with n number of features
+and let xi yi is a sample where xi x is a legitimate
+network trafﬁc sample and yi y is true class label where
+y represent the number of classes the ids aims to learn
+a classiﬁer f  x 
+y which is a true representation of
+the incoming network trafﬁc the goal of the adversary is
+to generate an imperceptible adversarial perturbation δ which
+when added to a legitimate sample xi constitute an adversarial
+example xand gets classiﬁed as fxi  δ  yi we present
+a framework by using gans to construct xthat successfully
+evade a blackbox ids we have also proposed a ganbased
+defense to improve the robustness of mldl techniques used
+in idss against adversarial examples
+b threat model
+ adversarial capabilities
+in this paper we assume
+blackbox settings where the adversary can only query the
+ids for related labels we further assume that adversary has
+prepared an oracle by simultaneously querying the ids rest
+of the information about the ids is not accessible to the
+adversary
+ adversarial goal the goal of the adversary is to gen
+erate such adversarial examples which evade and compromise
+the integrity of the deployed ids
+c dataset
+we have evaluated proposed ganbased adversarial exam
+ples on kdd dataset widely used for benchmarking ids
+performance  the dataset consists of ﬁve classes namely
+normal probe dos ur and rl representing the different
+types of intrusion trafﬁc for idss to evaluate each record in
+the dataset consists of  features  of them are continuous
+and  are categorical features onehot representation is used
+to encode the categorical features details of the datasets
+features and its relation with the attack types are provided
+in table i
+d constraint of preserving functional behavior
+a very important constraint on adversarial ml examples is
+to preserve the functional behavior of the perturbed examples
+for computer vision the adversary has to maintain the visual
+appearance of the adversarial examples for language process
+ing examples adversary has to preserve the semantic meaning
+while creating adversarial text examples for malware and pe
+adversary has to ensure that an dversarial perturbation does
+not alter the executability of the malware or pe for network
+trafﬁc features the adversary has to ensure that an adversarial
+perturbation does not invalidate the network trafﬁc features
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+table i
+division of the features on the basis of their meaning in the
+network traffic
+feature type
+features
+intrinsic
+duration protocol type service
+ﬂag src bytes dst bytes land
+wrong fragment urgent
+content
+hot num failed logins logged in
+num compromised root shell su attempted
+num root num ﬁle creations num shells
+num access ﬁles num outbound cmds
+s host login s guest login
+timebased
+trafﬁc features
+count srv count serror rate srv serror rate
+rerror rate srv rerror rate same srv rate
+diff srv rate srv diff host rate
+hostbased
+trafﬁc features
+dst host count dst host srv count
+dst host same srv rate dst host diff srv rate
+dst host same src port rate
+dst host srv diff host rate dst host serror rate
+dst host srv serror rate dst host rerror rate
+dst host srv rerror rate
+to completely understand the preservation of functional
+behavior of network trafﬁc features especially network attack
+trafﬁc we need to take a step back and understand the feature
+extraction method from tcpdump records feature extraction
+for idss from tcpdump records are extensively explained in
+ where they have devised a fourlayer feature extraction
+scheme this scheme is based on the nature of the attack in
+network trafﬁc ﬂows
+these four steps of feature extraction are as follows
+ firstly intrinsic features from the network trafﬁc ﬂow
+are extracted these features are necessary for any
+network trafﬁc validity any alteration in these features
+will invalidate the network trafﬁc
+ secondly timebased features were extracted these
+features provides timebased characteristics of normal
+and malicious trafﬁc these features along with intrinsic
+features are necessary for identifying probe and dos
+attacks ur and rl attacks do not require timebased
+network trafﬁc statistics as these attacks are embedded
+in contents of the packets so any change in the time
+based features of the network trafﬁc ﬂow features will
+invalidate the network trafﬁc characteristics
+ thirdly once the intrinsic and timebased features are
+extracted from network trafﬁc then content features
+from ﬂow trafﬁc were extracted to detect ur and rl
+attacks content features are not required for probe and
+dos attack detection any alteration in these features
+will not invalidate the probe and dos attack in this
+paper we have used content features to generate adver
+sarial examples
+ lastly hostbased trafﬁc features were extracted these
+features along with intrinsic and timebased features
+are necessary for slowprobe attack detection any
+alteration in these features will not only change the
+hostbased information but also invalidates the trafﬁc
+ﬂow
+we have provided the taxonomy of the feature sets and their
+table ii
+relation of each feature set with different network attacks
+in the dataset
+attack types
+feature sets
+probe
+dos
+ur
+rl
+intrinsic
+d
+d
+d
+d
+timebased
+d
+d
+content
+d
+d
+hostbased
+d
+fig 
+an illustration of how our proposed ganbased adversarial attack
+can lead to an instance of the probe attack class being classiﬁed by the dnn
+based blackbox ids as normal while keeping the functional attributes of the
+probe class unchanged
+relation with the functional behavior of the attack trafﬁc in
+table ii our ganbased adversarial attack only adds pertur
+bation to content features to ensure at the functional behavior
+is preserved this also highlights that to perform an adversarial
+attack the attacker must have complete domain knowledge
+this is also the reason why many adversarial attacks eg
+fgsm bim jsma are not applicable to network trafﬁc as
+these attacks do not ensure the preservation of the functional
+behavior of network trafﬁc features
+an illustrative example of how the functional behavior of
+the network trafﬁc features is preserved is presented in figure
+ as the proposed attack is creating adversarial examples
+of probe class the adversary has to ensure that functional
+behavior of the intrinsic timebased and hostbased network
+trafﬁc features are preserved figure  shows that adversarial
+examples produced by our proposed ganbased framework
+have only altered the content features which fool mldl
+based classiﬁer in classifying the probe attack trafﬁc as
+normal trafﬁc
+iv ganbased attack methodology
+in this section we will provide the framework designed for
+creating adversarial examples to evade mldlbased idss
+a adversarial attack using gans
+gans consist of two neural networks namely a genera
+tor g and a discriminator d provided the input examples
+x  x x  xn g tries to generate counterfeit exam
+ples ideally from the underlying data distribution px that
+deceives the d in accepting them as original samples from set
+x meanwhile d learns to discriminate between legitimate
+examples from x and counterfeited examples from g this
+learning process is formulated as a minimax game between
+g and d the optimization function describing this adversarial
+game is given by 
+min
+g max
+d
+epx log dx  epz log dgz
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  gans for evading mldlbasedidss highlighting the procedure of generator and discriminator network training
+where pz is the distribution of latent random variables z
+and is usually deﬁned to be a known and simple distribution
+such as n i or ua b training g and d is performed
+by taking alternative gradient steps to ensure that g can learn
+to deceive the d and d can learn to detect the counterfeit
+examples
+figure  depicts the overall architecture opted for gener
+ating adversarial examples the proposed gan framework
+consists of three components namely a generator network
+g a discriminator network d and a blackbox mldl
+based classiﬁer f the input xi x is divided into two
+portions namely functional and nonfunctional attributes this
+division is performed on the basis of attribute contributions to
+the functional behavior of the network trafﬁc g takes non
+functional attributes of the data as an input and generates
+a perturbation δ of the size of nonfunctional attributes of
+the input then we concatenate the functional portion of the
+original trafﬁc x and generated δ this concatenation is given
+as xgx the concatenated samples are fed to d which is
+responsible for classifying between original and counterfeited
+examples
+d is trained to mimic the behavior of ids this is ac
+complished by feeding both malicious and normal trafﬁc to
+both ids and discriminator and predictions from ids are used
+as labels for the training of d contrary to d g is trained
+speciﬁcally on malicious data m such that d  a proxy for
+ids is fooled the designed adversarial loss for g and d are
+provided in equations  and 
+lg  min
+g
+epz log dgzx
+ld  min
+d
+epxfx logdx
+the goal of the g is to generate such counterfeited exam
+ples known to be malicious that are indistinguishable from
+the legitimate trafﬁc x and the goal of the d is to distinguish
+between legitimate and counterfeited examples while training
+g the d is considered ﬁxed and reversible the complete loss
+function used in the proposed gan framework is given as
+min
+g max
+d
+epz log dgzx  epxfx logdx
+the training procedure for the gan is provided in algo
+rithm  whereas the details of the gan architecture used and
+its hyperparameters are shown in table iii
+algorithm  gan training algorithm
+input gdxm
+output gd
+for t     do
+for tg    gsteps do
+xbatch m
+θg θg ηθglgxbatch
+adam update
+end for
+for td    dsteps do
+xbatch x
+ybatch fxbatch
+θd θd ηθdldxbatch ybatch
+adam update
+end for
+end for
+table iii
+gan architecture and hyperparameters
+operation
+units
+nonlinearity
+dropout
+generator g
+dense
+dense
+dense
+relu
+relu
+relu
+discriminator d
+dense
+dense
+dense
+relu
+relu
+sigmoid
+hyperparameters
+optimizer
+learning rate
+batch size
+latent dimensions
+iterations
+weight initialization
+adam
+xavier initializer
+b results of ganbased adversarial attack
+the proposed ganbased adversarial attack is used to
+construct the adversarial examples for the probe class these
+generated examples are subjected to mldlbased blackbox
+idss which gets fooled in believing probe attack trafﬁc as
+normal class trafﬁc the functional behavior of the attack
+trafﬁc is ensured by following the procedure provided in
+section iii we have only considered classiﬁcation between
+normal and probe class network trafﬁc but the provided
+framework is applicable to other network trafﬁc classes as
+well
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  performance evaluation of our ganbased adversarial attack frame
+work previous attack approaches are not shown as a baseline of comparison
+as they are not applicable in our settings as they unlike our approach do
+not ensure the preservation of networking functional behavior
+to highlight the effectiveness of proposed ganbased ad
+versarial attack we have chosen to perform a series of ex
+periments where we employed dnn logistic regression lr
+support vector machine svm knearest neighbor knn
+na
+ıve bayes nb random forest rf decision trees dt
+and gradient boosting gb techniques as blackbox ids
+since the proposed gan framework only generates adversarial
+examples for one class at a time we have used the gan
+framework for producing adversarial examples for probe class
+we have used accuracy precision recall and f score as
+evaluation parameters for the evasion attack
+figure  provides a comparison between the accuracy of
+blackbox mldlbased ids before the adversarial attack and
+after it highlighting that the proposed ganbased adversarial
+attack compromises the integrity of the mldlbased ids
+while ensuring the functional behavior of the network trafﬁc
+decay in the performance of blackbox mldlbased classi
+ﬁer demonstrates that adversarial examples are increasing the
+number of false positives and forcing the mldl classiﬁer to
+learn wrong decision boundaries
+v ganbased defense methodology
+in this section we discuss how an ids can defend against
+proposed adversarial ml attack by opting adversarial training
+using generative ml models
+a adversarial training by using generative model in ids
+adversarial training  is a method for injecting adver
+sarial examples in training data to ensure that mldl model
+learns the possible adversarial perturbations this new way
+of training mldl model will improve the robustness and
+generalization of mldl models by training on clean and
+adversarial examples  to the best of our knowledge
+adversarial training has not yet been explored in mldl
+based idss for defending against adversarial examples a
+shortcoming attached to the method of adversarial training
+is that it only provides robustness against the adversarial
+examples it was trained on and the mldlbased ids will
+still be evaded by unknown adversarial perturbations
+to overcome this shortcoming we have proposed a gan
+based method depicted in figure  for adversarial training
+of mldl models in blackbox idss for defending against
+adversarial ml attacks
+fig  outline of ganbased adversarial training for mldlbased idss
+our proposed ganbased adversarial defense works by in
+cluding a generative model in the mldlbased ids pipeline
+and the ids model is not only trained on the input data but
+also on the adversarial samples generated by the generative
+model although this procedure resembles adversarial training
+our approach is different since using a generative model such
+as gan in an ids will introduce the robustness against both
+known and unknown adversarial perturbations
+b results of ganbased adversarial training
+results in table iv highlight that the proposed procedure
+of defending against adversarial network trafﬁc has improved
+the robustness of the mldlbased ids a clear improvement
+in precision recall and f score in table iv indicates that
+the false positive problem associated with mldlbased ids
+has also been taken care off by utilizing the proposed gan
+based adversarial defense against adversarial perturbations in
+network trafﬁc features
+figure  provides a comparison between the accuracy of
+different mldl techniques before an adversarial ml attack
+after the attack after adversarial training and after gan
+based adversarial training it is very evident from ﬁgure  that
+the proposed ganbased adversarial training performed better
+fig 
+performance of ganbased adversarial mldl attack and defense
+for blackbox ids
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+table iv
+performance evaluation of proposed ganbased adversarial attack and defense framework on dnn rf lr nb dt knn svm
+and gb schemes evaluation parameters are all in 
+mldl
+scheme
+dnn
+rf
+lr
+nb
+performance
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+accuracy
+precision
+recall
+fscore
+mldl
+scheme
+dt
+knn
+svm
+gb
+performance
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+before
+attack
+after
+attack
+after
+adv
+training
+after
+ganbased
+adv training
+accuracy
+precision
+recall
+fscore
+than the simple adversarial training procedure the improve
+ment in robustness using ganbased adversarial training can
+be further improved by carefully selecting the hyperparameters
+of gan in the ids we have also noticed a unique result where
+nb has shown a drastic improvement against adversarial
+perturbations once we have performed ganbased adversarial
+training nb decouples class conditional feature densities
+a clear improvement in the accuracy of the blackbox ids
+performance after including gan in its training pipeline also
+strengthen our decision of using gan as a defense against
+adversarial perturbations
+vi conclusions
+in this paper we have proposed a ganbased adversarial
+attack on blackbox mldlbased idss the proposed adver
+sarial attack has successfully evaded the ids while ensuring
+the preservation of functional behavior of the network trafﬁc
+features we have reported the results for only one class but the
+proposed attack is applicable to other network trafﬁc classes
+we have also proposed and validated a ganbased defense
+against adversarial perturbations to ensure robustness against
+adversarial ml attacks our results highlight that a gan
+based defense has improved the robustness of idss against
+adversarial perturbations in the future we will concentrate
+on improving our ganbased attack and defense framework
+so that it can also be applied to other networking related tasks
+another important future work is to design a discrete domain
+gan purely for networking applications

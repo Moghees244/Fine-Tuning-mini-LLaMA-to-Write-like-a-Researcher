@@ -1,0 +1,2486 @@
+
+urban air quality measurements a survey
+muhammad usama abdur rahman zubair khalid muhammad tahir momin uppal
+lahore university of management sciences lums pakistan
+email muhammadusama abdurrahman zubairkhalid tahir mominuppallumsedupk
+abstracturban air quality is increasingly becoming a cause for concern for the health of the human population the poor air quality is
+already wreaking havoc in major cities of the world where serious health issues and reduction of average human life by a factor of years
+are reported the air quality in developing countries can become worse as they undergo development the urban air quality varies
+nonlinearly depending upon the various factors such as land use industrialization waste disposal trafﬁc volume etc to address this
+problem it is necessary to look at the plethora of available literature from multiple perspectives such as types and sources of pollutants
+meteorology urban mobility urban planning and development health care economics etc in this paper we provide a comprehensive
+survey of the stateoftheart in urban air quality we ﬁrst review the fundamental background on air quality and present the emerging
+landscape of urban air quality we then explore the available literature from multiple urban air quality measurement projects and provides
+the insights uncovered in them we then take a look at the sources that are signiﬁcantly contributing to polluting the air quality finally we
+highlight open issues and research challenges in dealing with urban air pollution
+introduction
+air pollution is deﬁned as the release of pollutants in the
+air that has detrimental consequences on human health
+and the planet as a whole these pollutants can be from
+manmade sources or natural sources  natural sources
+of air pollution include ﬁres sand storms volcanic activity
+fumaroles and others the manmade air pollutants are
+gases droplets particulate matter and radiation are emitted
+into the atmosphere due to human activity such as burning
+wood coal gas oil alcoholbased fuels diesel kerosene
+biomass waste etc it also includes power plants and
+chemical factories that emitted toxic gases particulate matter
+and radiation in the environment these air pollutants
+are causing issues such as acid rains urban smog ozone
+depletionholes indoor air pollution and global warming
+ air pollution is a complex amalgamation of natural and
+human activities the impact of this relationship is evident
+in metropolitan areas beijing dehli etc where criteria
+pollutants meteorology infrastructure and various emission
+entities collectively deteriorate the air quality it is iteratively
+reported in the literature that  to  of the pollution
+in the developing world is due to automobile emissions
+where vehicles using lowgrade oil on poorly planned road
+infrastructure are major contributors to the poor air quality
+ major cities in the world are suffering from rapid
+degradation of the air quality that has pernicious outcomes
+on the health of the citizens economy plantation crops and
+livestock 
+a decline in human life expectancy in metropolitan areas
+is accredited to their poor air quality the problem will get
+even worse with the urban development taking place in
+underdeveloped countries  in  world health organi
+zation who categorized air pollution as a carcinogen for
+human beings  who also estimated two million deaths
+per year and numerous respiratory illnesses because of poor
+urban air quality  the global rise in air pollution has
+resulted in a sharp growth in various allergies and respiratory
+diseases the impact of air pollution is not limited to the
+metropolitan areas it also affects the environment on a global
+scale causing health concerns far away from its origin in
+ air pollution alone caused  million death worldwide
+and if the current trend continues by  the deaths caused
+by ambient air pollution will be nearly  million people
+per year  in  out of all cardiovascular deaths
+ were caused by air pollution similarly  deaths
+due to lung cancer were because of air pollution and air
+pollution was the reason for  of the total deaths caused
+by strokes   four million new asthma cases and 
+million premature childbirths per year are attributed to fossil
+fuelbased air pollutants that cause a dent in the gdp 
+furthermore air pollution appears to be a risk factor not
+yet quantiﬁed in neurodevelopmental disorders in kids and
+neurodegenerative illnesses in adults   
+air pollution not only affects human health on a global
+scale but it also has an enormous economic cost the cost
+for air pollution emitted by burning fossil fuels in  is
+approximately  trillion usd that is  of the global
+global gross domestic product gdp  it is way less than
+the money needed to reduce the effect of the air pollution
+caused by burning fossil fuels the toll of air pollution on
+the economy is estimated by looking at the six aspects 
+cost of human life  peoples ability to work  effects
+on the food  reduction in the ability of the ecosystem to
+work  damages to the historical monuments and  cost
+of remediation and restoration the economic burden of air
+pollution on the gdp of china is  for india it is 
+for russia it is  for germany and us it ranges from
+ to  for japan united kingdom and france it ranges
+from  to    it indicates that a monumental
+effort is needed to address the air pollution is the need of the
+hour
+ httpsuneceorgairpollutionandeconomicdevelopment
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+   by the authors distributed under a creative commons cc by license
+figure  organization of the paper
+another victim of air pollution is agriculture where bad
+air quality is considered a signiﬁcant contributor to yield
+reduction for many decades air pollution is rapidly becom
+ing a threat to food production and safety  effects of air
+pollution on human health have been covered rigorously in
+the literature compared to agriculture the adverse effects
+of air pollution on the crops vary with the concentration
+of the pollutants geographical locations and meteorology
+burning wood and fossil fuel produce sulfur dioxide that
+reduces the life and yield of the crops rising levels of
+acid deposition ammonia o and co are also affecting the
+crops in the developing world in  india reports a 
+reduction in the wheat and rice crop yield due to ambient
+air pollution   it also highlights the need for serious
+reconsideration in environmental policies around the world
+to ensure food security
+the global temperature has risen by c over pre
+industrial levels the climatic catastrophe is upon us the
+whole world has started feeling the repercussions like
+wildﬁres heat waves droughts etc air pollution has played
+a vital part in this climatic catastrophe united nations
+sustainable development goals unsdg  and 
+directly aim at reducing the mortality rate due to ambient
+air pollution and the adverse aspects of particulate air
+pollution in urban areas by  achieving these unsdg
+ httpswwwbritannicacomtechnologyagricultural
+technologytheeffectsofpollution
+ httpssustainablefoodtrustorgarticlestheimpactofair
+pollutiononcrops
+goals for reducing the adverse effects of air pollution in
+underdeveloped and developing countries is perhaps a
+challenging task
+identifying the pollution sources contributions and
+root causes spatiotemporal manner are the vital challenges
+associated with urban air quality measurements lastly
+based on the spatiotemporal analysis of the urban air quality
+making policy recommendations for reducing air pollution
+is the motivation for this study in this paper we have tried
+to answer the following question through a extensive review
+of the existing literature
+what are the major air quality modelling and mea
+surement techniques
+what are the major sources of air pollution and how
+to best classify them
+what is the situation of the air quality around the
+globe and what are the best practices followed for
+mitigating the poor air quality
+how the major air quality measurement and im
+provement projects are measuring and dealing with
+the urban air pollution and what challenges are
+needed to be addressed in order to improve the
+effectiveness of these projects
+what are the open research challenges in measuring
+the urban air quality
+contributions of the paper
+in this paper we build upon the existing literature available
+on the air quality measurement and provide a comprehensive
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+paper
+surveyreview
+this paper provides a comprehensive comparison of literature available on static mobile and community sensorsbased air quality monitoring networks
+in the urban environment it also identiﬁes shortcomings in the existing air quality monitoring networks
+this study examines several environmental sensors and discusses the effects of air pollution on human health it also gives future guidance in the
+development of individualcentric pollution monitoring tools
+reviewed the lowcost sensorbased system for measuring the air quality and the calibrations of the sensors using machine learning techniques
+the paper also discusses the research challenges and open challenges in using lowcost sensorbased air quality monitoring systems
+reviewed and summarized the lowcost sensing literature for air quality monitoring the review also discusses the shortcomings in the data obtained
+from the lowcost sensors and open issues in designing lowcost sensorbased air quality networks
+paper provides a brief survey of the techniques of using chemical sensing crowdsourcing iot and machine learning in air quality assessment
+paper provides the results of a twoyear air quality monitoring and data collection
+the paper examines the literature on the existing iotbased lowcost air quality monitoring systems and brieﬂy discusses a few challenges
+this paper reviews the literature on air quality sensor calibration and identiﬁes the origins of biases and errors in a lowcost air quality sensing network
+it also studies and compares multiple recalibration techniques of lowcost air quality sensor networks lastly it also provides the limitations and future
+avenues in the calibration and recalibration of the air quality sensors
+the paper conducts a literature review on the lowcost high spatial and temporal resolution air quality monitoring network it also suggests future
+research themes
+this paper reviews the iotbased air quality monitoring networks and brieﬂy discusses the challenges in designing air quality measurement networks
+the paper provides a comparative analysis of machine learningbased urban air quality prediction techniques
+this paper reviews indoor and outdoor air pollution monitoring using wireless sensor networks
+the paper reviews multiple papers reports white papers and various websites on the role of urban computing in air quality management
+it also covers the techniques of incorporating datadriven mitigation strategies opted by different countries
+this paper reviews the literature on multiple effects of the air pollution monitoring strategies used in south africa it also discusses the
+challenges involved in designing the air pollution networks in the air pollution monitoring network
+the research compares stationary dynamic and pollution data analysis methodologies in depth the methodology hardware components
+communication mechanism assessment and performance of the air quality system are all compared
+a comprehensive survey on the unmanned air vehiclebased air quality measurement techniques for criteria pollutants along with challenges
+and open research directions are covered in this paper
+this research reviews the literature on air quality sensor technologies and air quality management systems
+this paper reviews the air quality standards set by various environmental protection organizations in the world it also gives an
+overview of several aspects of lowcost sensing equipment and methodologies
+this paper reviews the literature on iotbased machine learningenabled continuous air quality monitoring and prediction literature
+this paper provides a brief survey of air pollution monitoring systems along with some speciﬁc measurement strategies
+this paper gives a summary of the problems involved in monitoring urban air quality
+this paper examines the literature on crowdsourcingbased air quality monitoring and identiﬁes possible ﬂaws as well as future research directions
+based on the existing literature on the development of an air quality monitoring network this paper provides the nuts and bolts for
+designing the next generation of air quality monitoring networks
+table  various surveysreviews on various aspects of air quality measurement
+review of the related work the major contributions of this
+paper are as follows
+we provide the fundamentals of air quality measure
+ments along with a nonexhaustive summary of the
+air pollutants and their potential sources
+we present a comprehensive survey of the techniques
+for measuring the urban air quality along with several
+sensors famously used for measuring the pollutants
+we also discuss the previousongoing air quality
+measurement projects from various entities and also
+summarize a few root cause analyses from the liter
+ature for determining the contributors in urban air
+pollution
+we also highlight the challenges in designing an air
+quality measurement network and how the urban con
+text information can help bring more useful insights
+in determining and translating the airquality
+finally we highlight the open research issues and
+future directions in measuring and learning from
+urban air quality
+organization of the paper
+the rest of the paper is organized as follows section 
+provides a primer on the air quality it also provides a brief
+overview of the air quality landscape of the world while
+also covering the details of the major air pollutants and their
+sources section  discusses the various approaches available
+in the literature for designing an air quality measurement
+network this section also provides details of the various
+sensors available for measuring particular pollutants in the
+air lastly this section also discusses the diversity in the
+air quality data its relationship with the different context
+variables and how to ensure proper pre and postprocessing
+section  provides a comprehensive literature review of the
+stateoftheart in urban air quality standards in the world
+this section also covers projects from various organizations
+for measuring and analyzing air quality in different parts of
+the world section  discusses the challenges in designing
+and measuring the urban air quality and also takes a critical
+look at the available literature for providing an exhaustive
+list of challenges tradeoffs tussles and opportunities in
+measuring and analyzing the urban air quality section 
+discusses the open research issues and future directions the
+paper has been concluded in section 
+primer on air quality
+in this section we discuss the preliminaries of the air
+quality then we provide an air quality landscape and major
+pollutants lastly this section provides a discussion on the po
+tential sources of air pollution before describing the details
+of the air pollutants it is vital to understand the composition
+of pollutantfree dry air dry air is essentially a combination
+of nitrogen  and oxygen  the remaining 
+is a combination of argon  and extremely minute
+quantities of carbon dioxide methane hydrogen helium
+and others water vapor is also a typical albeit very variable
+component of the atmosphere ranging from  to  by
+volume in humid conditions the moisture content of air can
+reach 
+ httpswwwadborgprojectsmain
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+table  aqi scale used for indexing the realtime pollution and there impact on human health unit followed in this table is
+µgm unless mentioned otherwise
+aqi
+pollution
+level
+pm
+ hour
+pm
+ hour
+co
+ hour
+mgm
+no
+ hour
+so
+ hour
+nh
+ hour
+pb
+ hour
+o
+ hour
+cautionary statement
+implications on
+human health
+good
+none
+no health risk
+satisfactory
+the extended outdoor activity
+must be avoided by children
+adults and people with respiratory
+issues
+the air quality is adequate
+nevertheless some pollutants
+may pose a considerable health
+risk to a limited number of
+people who are very sensitive
+to air pollution
+moderate
+the extended outdoor activity
+must be avoided by children
+adults and people with respiratory
+issues
+members of sensitive groups
+may experience health effects
+the general population is not
+likely to be affected
+poor
+people with respiratory diseases
+take precautions and avoid
+extended outdoor activities
+everyone else should also
+limit outdoor activities
+the general population may
+begin to experience health
+effects members of sensitive
+groups may experience serious
+health effects
+very poor
+people with respiratory diseases
+take precautions and avoid
+all outdoor activities everyone
+else should also limit outdoor
+activities
+health warnings of emergency
+conditions the entire population
+is more likely to be
+affected
+severe
+everyone should avoid all
+outdoor activities
+health alert everyone may
+experience more serious
+health effects
+air pollution
+air pollutants are particles gases or droplets emitted in
+the environment that exceeds the environments capacity of
+absorption dilution and dissipation these pollutants are
+gases solid particles liquid droplets etc the effect of these
+pollutants at a scale is termed as air pollution air pollution
+is increasingly becoming a signiﬁcant contributor in causing
+public health heart and lung disease respiratory diseases
+etc and environmental issues global warming acid rains
+reduction in crop yields depletion of the ozone layer etc
+at a global scale
+criteria pollutants
+us environmental protection agency epa divided air
+pollutants into the following six categories that provide
+sufﬁcient enough information for determining the overall air
+quality are known as criteria pollutants
+carbon monoxide co carbon monoxide is a gas
+emitted into the atmosphere due to the fossil fuel
+burning in automotive vehicles it has no smell or
+color it reduces the oxygen supply to the body parts
+thus hindering proper functioning it also causes
+headaches dizziness heart and respiratory issues
+nitrogen oxides nitrogen oxide is a gas emitted
+in the atmosphere due to the fossil fuel burning in
+vehicles and power plants it has a smell and reddish
+brown color it causes coughs shortness of breath and
+respiratory infections it is also a major contributor
+to acid rain that is very harmful to crops plants and
+animals
+sulfur dioxide so sulfur dioxide is a colorless
+gas emitted into the air due to oil and coalburning
+power plants and chemical factories it has a rotten
+egglike smell it is a contributor to acid rain that is
+harmful to crops plants and animals it is also very
+harmful to people with respiratory diseases
+ozone o ozone is not directly emitted in the
+atmosphere it is a byproduct of the reaction between
+ httpswwwbritannicacomscienceairpollution
+nitrogen oxide and organic compounds under the
+sunlight nitrogen dioxide and organic compounds
+emissions are due to a wide range of processes such
+as coaloilburning power plants factories trees etc
+ozone here must not be confused with the ozone
+layer present in the stratosphere it is the main
+contributor to smog that can lead to respiratory issues
+such as asthama it also causes ear nose and throat
+ent issues ozone is also harmful to crops and
+plants
+particulate matter solidliquid droplets suspended
+in the air called particulate matter these particles are
+inhalable with a width less than  mm and a size as
+small as  mm pm and pm are prime
+examples of these particles pm and pm are
+inhalable particles with a size less than or equal to 
+micrometers and less than or equal to  micrometers
+respectively these particulate pollutants cause lungs
+and heart issues and are harmful to crops and plants
+lead pb lead is a toxic metal with many variants
+it is emitted into the environment by automotive
+vehicles burning substandard gasoline the chemical
+factories and power plants are also contributors to
+emitting this toxic metal into the atmosphere lead
+causes kidney issues strokes and heart failure 
+sources of air pollution
+sources of air pollution are generally divided into four
+categories
+natural sources
+natural events are the initial sources of air pollution in
+the world these events are also fundamental parts of the
+ecosystem and also had an associated planetary cost forest
+ﬁres volcanic eruptions dust storms decomposing organic
+matter biological processes in the soil lightning and sea
+spray are a few examples of the natural events degrading
+the air quality the natural events result in creating different
+ httpswwwnpsgovsubjectsairsourceshtm
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+table  list of acronyms
+who
+world health organization
+gdp
+gross domestic product
+unsdg
+united nations sustainable development group
+epa
+environmental protection agency
+co
+carbon monoxide
+so
+sulfur dioxide
+o
+ozone
+ent
+ear nose and throat
+pm
+particulate matter
+pb
+lead
+ent
+ear nose and throat
+aqi
+air quality index
+aqli
+air quality life index
+ncap
+national clean air program
+naaqs
+national ambient air quality standard
+us
+united states
+ncap
+national clean air program
+naaqs
+national ambient air quality standard
+case
+clean air and sustainable environment project
+aqg
+air quality guidelines
+eea
+european environmental agency
+modis
+moderate resolution imaging spectroradiometer
+gam
+generalized additive model
+ctm
+chemical transport model
+poi
+point of interest poi
+ams
+american meteorological society
+iscst
+industrial source complex framework
+ctdmplus
+complex terrain dispersion model
+ocd
+offshore and coastal dispersion
+cmaq
+community multiscale air quality
+cmaqddm
+cmaq decoupled direct method
+cmaqisam
+cmaq integrated source apportionment method
+camx
+comprehensive air quality model with extensions
+remsad
+regional modeling system for aerosols and deposition
+uamv
+urban airshed model variable grid
+cmb
+chemical mass balance
+pmf
+positive matrix factorization
+epa
+environmental protection agency
+frm
+federal reference methods
+fem
+federal equivalence methods
+crf
+conditional random field
+arma
+autoregressionmovingaverage
+lr
+linear regression
+nn
+neural network
+rt
+regression tree
+fep
+frequently evolving patterns
+gc
+grangercausality
+epic
+energy policy institute at the university of chicago
+ghair
+ghana urban air quality project
+escrap
+educating school children to tackle air pollution
+ai
+artiﬁcial intelligence
+iot
+internet of things
+types of criteria pollutants volatile organic compounds and
+biological pollutants
+mobile sources
+mobile sources of air pollution are considered very deadly for
+human health here trafﬁc encompasses cars buses trucks
+trains planes etc mobile sources are also considered one of
+the major sources of air pollution air pollution is a result
+of the vehicles used for commuting people and resources
+ the vehicle exhaust suspended and resuspended road
+dust brake dust and tire wear are sources of trafﬁcrelated
+emissions  mobile emissions sources result in different
+criteria pollutants and volatile organic compounds with
+harmful effects on the ecosystem
+stationary sources
+stationary air pollution sources include power plants in
+dustrial facilities oil reﬁneries industries sewage treatment
+and so forth stationary sources of air pollution are often
+known as point sources the burning of fossil fuels metal
+processing processes boilers in industries and power plants
+oil reﬁning procedures solvents glues and paint thinners are
+all producers of criterion pollutants such as volatile organic
+compounds and hazardous pollutants mercury dioxin etc
+area sources
+air pollution sources such as agricultural areas ﬁreplaces
+construction processes in cities heating and cooling units
+in the buildings are categorized as area sources of urban
+air pollution the pollutants from area sources result in
+particulate matter and other criteria pollutants household
+emissions also contribute to the degradation of air quality
+processes like biomass combustion fossil fuel burning such
+as coal diesel kerosene oil etc tobacco smoking and cen
+tral air conditioning are a few important sources of household
+emissions household emissions create different criteria and
+biological pollutants since this paper only considers ambient
+air pollution indoor air pollution sources are out of the scope
+of this work we also want to note here that multiple sources
+from diverse surroundings contribute to urban air pollution
+which varies depending on the geographical location of
+the pollution sources in the city wind direction and speed
+humidity and other meteorological conditions and so on
+therefore attributing urban air pollution to a single pollution
+source is an inaccurate approach to look at this issue the
+relationship between criteria pollutants and their sources
+is provided in table  the table is made based on the
+information provided by the us epa and nps
+air quality index
+the air quality index aqi is a metric used for quantifying
+and communicating the air quality in a particular location
+aqi suggest the amount of air pollutant in the air over a
+speciﬁc average interval these air pollution concentration
+values are measured by a sensor or extrapolated from
+a simulationemulation model the concentration of the
+pollutant and time window is used to determine the dose of
+the air pollution and insights from epidemiological research
+provide its health impacts based on these health impacts
+a color code and a health advisory are issued for a speciﬁc
+range of the aqi values the air quality information varies
+for different countries based on their air quality standards
+and thus their air quality indices aqi value for a given
+pollutant is determined by the following piecewise linear
+function 
+i  ihigh ilow
+chigh clow
+c clow  ilow
+where i is the air quality index c is the concentration of the
+pollutant clow is the concentration breakpoint that is less
+than or equal to c chigh is the concentration breakpoint that
+is greater than or equal to c ilow is the index breakpoint
+corresponding to clow and ihigh is the index breakpoint
+corresponding to chigh
+measurement data for aqi is averaged over one hour
+there are few pollutants such as ozone o pm and pm
+ httpswwwbritannicacomscienceairpollution
+ httpswwwnpsgovsubjectsairsourceshtm
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+table  relation between criteria pollutants and pollution sources categories along with their environmental risks
+criteria pollutant
+pollution sources
+environmental risks
+carbon monoxide co
+mobile stationary and natural
+pollution sources
+smog and asphyxiation in vertebrates
+nitrogen oxides nox
+mobile and stationary pollution
+sources
+smog acid rain respiratory issues
+in vertebrates
+sulfur dioxide so
+mobile and stationary pollution
+sources
+acid rain and respiratory issues
+in vertebrates
+ozone o
+mobile stationary and area
+pollution sources
+the main contributor of the smog in urban
+areas
+particular matter pmx
+mobile stationary natural and
+area pollution sources
+haze acid rain serious damages to health
+and buildings
+lead pb
+mobile and stationary pollution
+sources
+reduction in biodiversity and neurological
+issues
+where average over multiple hours is needed to compute a
+correct aqi value table  provides a detailed description
+of different pollution levels of various pollutants for india
+along with their health advisory and impacts on human
+health associated with it different countries have their air
+quality policies and thus have different cutoff values
+air quality landscape
+before proceeding with the discussions of air quality mod
+eling and measurement it is imperative to examine the
+current global air quality landscape by gleaning insights from
+various studies on the impact of air pollution and mitigation
+initiatives undertaken in various parts of the world the air
+quality life index aqli  report released in july 
+suggests that air pollution was the most prominent risk to
+human health before the pandemic covid and after it
+as well  many countries are now putting a lot of effort
+into designing policies for reducing emissions albeit the
+progress is slow and many countries are still struggling to
+cope with the air quality issue in this section we examine the
+air quality landscapes particulate air pollution of various
+countries as well as air pollution and the policies used by
+these countries to address air pollution challenges
+asia
+china
+china is the most populated country in the world it is home
+to  of the total population of the world  of its
+population lives in cities in  the concentration of the
+pm in beijing city was so high that it seemed that the
+city will become uninhabitable  at the time an average
+person in the beijing city was exposed to approximately 
+µgm of pm air pollution it is nine times higher than the
+who recommended value for pm in january  the
+situation got even worse when the pm concentration went
+ to  times higher than the who recommended value
+and the city ofﬁcials warned people to stay indoors  the
+guardian describes it as beijings airpocalypse similarly
+in shanghai the air pollution went beyond the critical level
+there the recorded pm concentration was six times more
+than the who recommended value
+given the situation in  the chines government
+released a national air quality action plan worth  billion
+ httpsappcpcbccrcomccr docsfinalreport aqi pdf
+ httpsaqicnorgscale
+usd with the sole purpose of bringing the air pollution
+down the plan has three goals
+reduce the pm by  relative to its value in 
+reduce the pm by  in beijingtianjinhebei
+by  in the pearl river delta and by  in the
+yangtze river delta
+reduce annual pm of beijing to  µgm
+the national air quality action plan worked for china
+by  the pm concentration in beijingtianjinhebei
+went down by  in pearl and yangtze delta the air
+pollution went down by  and  respectively this
+success was achieved due to a collaborative effort from
+different government entities in reducing the dependency
+on coal controlling car emissions increasing renewable
+energy enforcing emission policies reducing steel and plastic
+manufacturing and replacing coal boilers with natural gas
+or electric heaters  though these steps have improved
+the air quality in china the war against air pollution is not
+over as longterm solutions for bringing air pollution down
+to the whos recommended values are needed
+india
+india is the nd most populated country in the world with
+ of the population of the world  of the total indian
+population lives in cities india is also the nd most polluted
+country in the world in  the average pm value
+was  µgm that is seven times higher than the who
+recommended value  microgramscubic meter delhi
+uttar pradesh and northern india are the most polluted
+areas where air pollution is reducing almost a decade of
+life expectancy of the residents   aqli india fact
+sheet  also suggests that  of the indian population
+are exposed to air pollution levels not observed anywhere in
+ the concentration of the pm reached an emergency
+level  µgm
+in  india declared war against pollution and an
+nounced a ﬁveyear national clean air program ncap with
+ million usd for the ﬁrst two years  the goal of ncap
+is to bring the air pollution down by  to  in  cities
+which are over the national ambient air quality standard
+naaqs by building institutional capacity in monitoring
+and mitigating the air pollution  the potential impact of
+ncap in the coming years is a  improvement in the air
+quality and an improvement of  to  years in the total life
+expectancy of the general public 
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+indonesia
+indonesia is the th most populated country in the world
+with a  urban population more than  of its popula
+tion is exposed to air pollution that is poorer than the whos
+air quality standards indonesia is also facing wildﬁre issues
+in  nearly  wildﬁres were recorded the average
+pm concentration in indonesia is µgm  jakarta
+is the most congested and one the most polluted city in the
+world  of the pm and  of pm particles in
+jakarta air pollution are emitted by the automotive vehicles
+ten coal power plants around the city are also adding to the
+particulate pollution by emitting black carbon  in 
+the air quality in sumatra and kalimantan was below the
+who recommended threshold in the last  years the air
+quality in these cities has gone three times poorer than the
+recommended value this shift is because of illegal peatland
+agriculture deforestation and wildﬁres 
+the indonesian government has taken initial steps in
+overcoming the air quality issue by adopting the euro 
+fuel enforcing automotive health monitoring policies and
+developing a peatland restoration agency indonesias coal
+based energy production has doubled in the last ten years
+and this is due to the tradeoff between the economy and
+pollution a lot of collaborative effort is needed to ensure the
+better air quality in indonesia
+pakistan
+pakistan is the ﬁfth most populated country with one of
+the highest population growth rates  on the aqli
+pollution ranking it is ranked th in the most polluted
+countries pakistan has seen a  increase in the pm
+concentration in the last two decades  lahore has the
+poorest air quality in pakistan where pm concentration is
+six times higher µgm than the whos recommended
+value  if this level of pollution concentration is sustained
+an average person in lahore will lose approximately 
+years of life expectancy almost  of the total population
+is exposed to pollution levels higher than the recommended
+who air pollution values 
+citing this looming threat the pakistani government
+started enforcing the air pollution regulations for improving
+urban air quality in  following three initiatives are taken
+to ensure improvement of the air quality
+stubble burning is a major contributor to air pollu
+tion in pakistan the government of punjab banned
+stubble burning and promoted alternative methods
+for getting rid of stubble
+emission regulations were enforced on the vehicles
+factories and brick kilns
+for improving the air quality pakistan has also
+shut down many coalbased power plants for two
+months this measure has improved the air quality
+but resulted in many power outages
+pakistan can improve air quality sustainably by exploiting re
+newable power sources and continuously enforcing emission
+regulations
+bangladesh
+bangladesh is the th most populated country in the world
+with a  urban population bangladesh is also the most
+polluted country in the world   the air pollution
+there is so intense that an average person loses approximately
+ years of life expectancy nearly  of the bangladesh
+population is exposed to air pollution nearly seven times
+more than the who recommended air pollution concentra
+tion µgm for pm major sources of air pollution in
+bangladesh are brick kilns vehicle emissions cement facto
+ries unplanned constructions and steel rerolling  in
+metropolitans like dhaka the concentration of the particulate
+pollutants pm and pm stayed manifold higher than
+the recommended air pollution concentration values the
+concentration of other air pollutants like inorganic gases is
+noted to stay below the recommended values
+given the dangerous situation of the ambient air quality
+in major cities the bangladesh government has started imple
+menting various countermeasures to control and mitigates
+air pollution bangladesh developed  ﬁxed continuous air
+quality measurement stations in  major cities the stations
+are capable of measuring the concentration of various types
+of air pollutants the recorded data from these monitoring
+stations helps develop a spatiotemporal map of different air
+pollutants that translates into the identiﬁcation of the air
+pollution trends in the country data gathered through these
+monitoring stations is also used for developing air models
+and aqi for public information
+on the policy front many initiatives are taken to enforce
+the emission policies on brick cement and related industries
+by banning the import of coal with high sulfur content
+bangladeshs government is also incentivizing the industry
+to move towards renewable and energyefﬁcient production
+procedures initiatives like clean air and sustainable en
+vironment project case and grater dhaka sustainable
+transport are also working with the brick cement and
+transport industries to reduce emissions strict enforcement
+and monitoring are necessary to ensure the improvement in
+the ambient air quality and the department of environment
+in bangladesh has started doing that
+nepal
+nepal is suffering from a grim air pollution problem almost
+all of its population is living in an air pollution concentration
+higher than the who recommended values according to
+the aqli nepal fact sheet  nepal is ranked as the third
+most polluted country in the world with an average pm
+concentration of µgm that is ﬁve times higher than the
+acceptable concentration value the average person in nepal
+is expected to lose at least ﬁve years worth of life expectancy
+if the current levels of air pollution persist the brick kiln
+fuel burning vehicle emissions and road dust are primary
+contributors to nepals air pollution nepal is far behind in
+combating the air quality issues that are affecting the health
+of its citizens more details on the air quality about asian
+countries such as south korea  thailand  etc are
+available on 
+europe
+compared to asia europe already has better air quality the
+majority of europes concentration of particulate pollutants
+is below the european unions air pollution limits µgm
+but over threequarters of europes population lives in
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+regions that do not satisfy the world health organizations
+who stricter recommendation of µgm  the entire
+population of poland belarus slovakia the czech republic
+slovenia hungary lithuania armenia belgium germany
+moldova cyprus and ukraine and the netherlands and
+san marino are exposed to pollution levels that do not satisfy
+who guidelines  warsaw po valley and milan are
+three severely polluted areas in europe if particle pollution
+levels matched who guidelines people would gain one
+year and two months  bursa turkeys industrial center
+suffers from severe particle pollution as well the population
+of bursa will gain one year and one month if the level of
+pollutants are reduced to meet who guidelines largescale
+biomass burning and unfavorable weather conditions are
+causing air quality issues in the northern fennoscandia
+region norway sweden finland and russia  in the
+last two decades northern europe has seen a rise in air
+pollution due to several largescale biomass burning episodes
+in eastern europe causing serious consequences for human
+health and local ecosystems
+according to the european environmental agency eea
+air quality report   of the european population
+data gathered from  countries is exposed to the pm
+concentration levels more than the eea limits and 
+more than the who air quality guidelines aqg value for
+pm pollutants almost  of the deployed air pollution
+station have reported these statistics according to eea
+standards for pm only  of the population is exposed
+to pm concentrations higher than the eea standards
+as per the who aqg guidelines  of the european
+population was exposed to pm concentrations higher
+than the recommended values  aq monitoring station
+reported these statistics according to the same air quality
+report  of the population in europe is exposed to ozone
+concentrations higher than the eea recommended values
+at aqg levels approximately  of the population is
+exposed to ozone levels higher than the aqg recommended
+values  of the air quality monitoring stations have
+reported ozone values higher than the aqg recommended
+values only  of the population is exposed to no levels
+higher than the eea and who aqg values so is also on
+the decline in europe only less than  of the european
+population is exposed to concentrations higher than the eea
+recommended values and  if measured at the who aqg
+values due to covid statistics reported in the eea air
+quality  report are based on numbers from 
+europe is leading the way in the developed world in
+introducing legislation and standards for improving air
+quality over the years the eu has developed a procedure
+for member countries to access their air quality and share
+their data with the eea eea has also provided the member
+states with ambient air quality values for twelve major air
+pollutants table  provides the standard values of air
+pollution concentration for the eu eu has prescribed the
+following principles for member states to measure and report
+their air quality
+ httpseceuropaeuenvironmentairqualityindexhtm
+ httpseurlexeuropaeusummarychapterenvironment
+htmlroot defaultsum  codeddcsum  coded
+dlocaleen
+each member state will divide its territory into zones
+measure the air quality in each zone using sensors
+modeling or an empirical method
+report the air quality data to the european commis
+sion accordingly
+zones where the air quality is poorer than the air
+quality standards table  the member state will
+provide a plan to address the sources of emission in
+the zone and ensure compliance with the limit value
+before the date when the limit value formally enter
+into force
+the member state will disseminate the aqi value to
+the public
+united states
+the united states us is the rd most populated country in
+the world with  of the world population living there
+over  of the total population lives in the cities the us is
+a success story when it comes to air pollution mitigation in
+ the us introduced the clean air act and after that the
+air pollution gone down by   this decay in pollution
+has added  years to the life expectancy of us citizens
+los angeles once known as the smog capital of the world
+now reduced air pollution by  only  of the total us
+population is exposed to air quality poorer than the who
+recommended air quality guidelines 
+africa
+west and central africa have  countries with a  million
+total population the average air pollution concentration
+pm is around µgm that is twice the who recom
+mended values for the pm with current levels of air
+pollution an average person tends to lose approximately 
+years of life expectancy benin congo republic of the congo
+and the democratic republic of the congo ghana nigeria
+and togo are among the top air polluted countries in the
+region these countries are also ranked among the countries
+having the worst air quality in the world according to the
+aqli air pollution ranking nigeria is ranked th in the most
+polluted country in few nigerian cities onitsha lagos etc
+an average person is expected to lose four to six years of
+life expectancy brazzaville in the republic of congo has
+the worst concentration of pm µgm and resulting
+in  years of reduction in the total life expectancy of an
+average person the volta region in ghana is also suffering
+from a poor air quality situation where the air pollution
+concentration is four times the who aqg values the air
+quality meeting the who aqg values will add three years
+to the life expectancy of an average person in ghana burning
+fossil fuels is the primary reason for air pollution in central
+and west africa coal consumption is expected to increase
+exponentially in the coming years
+the african countries have to strike a balance between
+economic growth and air pollution air quality data gath
+ering and environment preservation policies are still not
+designed only cameron has introduced the national air
+quality standard for particulate pollution the african coun
+tries need a coordinated effort to control the emissions and
+implementation of air quality standards and environmental
+preservation policies
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+figure  nuts and bolts of a comprehensive air quality model the ﬁgure is opted and improved from 
+air
+quality
+monitoring
+modelling
+and
+measurement techniques
+in this section we discuss air quality monitoring modeling
+and measurement techniques we divide this section into
+four major components along with a necessary discussion
+and lesson learned subsection the four major components
+are air quality monitoring networks air quality modeling
+techniques air quality measurement techniques and air
+quality data
+air quality monitoring network
+an air quality monitoring network is used to acquire con
+sistent objective and standardized information regarding a
+regions air quality this information may include concentra
+tions of target pollutants it also allows for necessary steps to
+be taken in any environmental protection and public health
+safety effort these steps include determination and control
+of emission sources and keeping the public informed about
+the state of the air quality  madruga et al  discuss
+the air quality monitoring network with the perspective
+of public exposure to pollutants in literature air quality
+network design usually proceeds in two steps generation
+of the ﬁne spatial distribution of pollutants and based on
+that optimization of the location of the new sensor to add to
+the system usero et al  describe the establishment of an
+air quality monitoring network in seville spain to monitor
+nitrogen dioxide and ozone levels following the european
+unions ambient air quality assessment legislation mofarrah
+et al  have used the multiplecriteria method with spatial
+correlation to determine the optimal number of air quality
+monitoring stations in an air quality monitoring network in
+riyadh saudi arabia
+by far efforts in establishing air quality monitoring
+networks are broadly categorized in the following groups
+fixed station air quality monitoring
+fixed air quality monitoring stations are the most reliable
+standardized accurate and highly expensive method fixed
+air quality stations require highly trained staff and resources
+to manage the measurement and maintenance operation
+sometimes these costs even exceed the purchase cost of the
+station thus most of the ﬁxed air quality monitoring stations
+around the globe are installed and operated by government
+agencies in us  air quality stations are installed by state
+environmental agencies the eea receives data from 
+ and  stations for measuring no pm and pm
+respectively
+various efforts have been made to create an ideal air
+quality monitoring network that can offer comprehensive air
+quality measurements elkamel et al  use a multiplecell
+approach to create a monthly spatial distribution for pollu
+tants and use it in a heuristic optimization algorithm to iden
+tify the optimal conﬁguration of a monitoring network hsieh
+et al  use a semisupervised inference model to predict
+air quality of unknown areas and an entropyminimization
+model to predict the best locations for establishing new
+stations zhu et al  use bayesian maximum entropy with
+a multiobjective optimization model to optimize the design
+of an air quality monitoring network kang et al  derive
+an air quality inference model using a higherorder graph
+convolution network they employed a greedy method to
+minimize information entropy which offers a prioritized list
+of places for additional air quality measurement stations to
+be installed the air quality measurement node placement
+method  enhances overall network performance as well
+as air quality prediction for a speciﬁc urban area of the city
+as cities continue to expand and city dynamics are always
+changing an optimal method to analyze and redistribute
+the installed network is required hao et al  employs
+an atmospheric dispersion model and genetic algorithm to
+maximize coverage with minimum overlap yu et al 
+use satellite observations to assess the representativeness
+of installed air quality stations using a stratiﬁed sampling
+method efforts have also been put into developing and
+assessment of lowcost air quality monitoring alternatives
+mobile air quality monitoring
+given the price and the nature of the ﬁxed air quality
+monitoring stations there has been a lot of attention to
+the development of mobile air quality monitoring stations
+mobile air quality monitoring stations offer a costeffective
+solution with several promising features such as high
+resolution spatial pollutant mapping and crossvalidation
+of air quality measurements some of the most prominent
+ httpswwwepagovoutdoorairqualitydata
+airdatabasicinformation
+ httpswwwconcaweeuwpcontentuploadseaq
+trends digitalpdf
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+papers
+input data
+spatial distribution generation method
+location recommendation technique
+ year of data from  stations
+met data pois road networks
+graph convolutional neuralnetwork
+greedy entropy minimization
+fixed station data integrated with data
+generated through copert iii
+generative adversarial networks
+kl divergence and
+kmeans clustering
+ year of ﬁxed station and met data
+bayesian maximum entropy
+multiobjective optimization
+ months of data from  ﬁxed
+stations met data pois road networks
+afﬁnitygraph based inference model
+greedy entropy minimization
+met data with simulated data from
+epa cmaq and camx models
+simulated through cmaq and
+camx models
+objective function and
+cost minimization
+generated based on trafﬁc composition
+industrial source complex isc model
+multiobjective optimization
+integration of satellite data with
+ground station data
+mathematical model
+multiobjective optimization
+ years of sampling campaign
+spatial inverse distance weighted interpolation
+multiobjective optimization
+ years of met and pollution data
+multiobjective optimization
+table  review of research on air quality network design
+research efforts in developing and utilizing mobile air quality
+stations are summarized in table 
+satellite based air quality monitoring
+the use of satellitebased sensors for the determination of
+air quality has been gaining momentum for a long time now
+li et al  use modis moderate resolution imaging
+spectroradiometer data along with meteorological factors to
+analyze their relationship with groundbased pm stations
+they use a nonlinear regression model to predict pm
+forecast fowlie et al  analyze the relationship of ground
+based pm stations with satellitebased estimates and their
+effect on the environmental protection agencys policies
+kim et al  discuss the launch of the gems satellite
+for monitoring air quality they discuss the techniques of
+sensing different air quality parameters through satellites
+stebel et al  explore the use of existing satellite data to
+derive particulate matter estimates and their correlation with
+groundbased stations they have also extended the sensing
+algorithm to report more on the air quality parameters
+integrating satellite data with ground stations
+sullivan et al  evaluate the need for satellites to
+cover the gaps in the existing installed ﬁxed station air
+quality monitoring network and the impacts it can produce
+alvarado et al  have done a comprehensive analysis on
+the integration of satellite data into a prediction of ground
+air quality for lowincome countries they have used two
+models to predict groundlevel pm namely generalized
+additive model gam and chemical transport model
+ctm after analyzing the results they provide further
+recommendations on the ability of satellite estimates to
+bolster air quality monitoring networks li et al  discuss
+the integration of a lowcost air quality sensor network
+with ﬁxed ground stations and satellite data to enhance
+pollution mapping their studies have shown that integrating
+the three datasets can vastly improve spatial distribution
+and resolution their system can also perform quite well
+under different weather conditions where the satellite remote
+sensing data alone tends to be biased
+air quality modelling techniques
+the environment is a complex reactive system where multi
+ple physical and chemical processes are happening contin
+uously the air quality measurement at a speciﬁc location
+and time provides a conditional spatiotemporal snapshot of
+the environment the interpretation of spatiotemporal air
+quality information requires a conceptual understanding
+of atmospheric dynamics that is not possible without a
+sophisticated air quality model measurement alone is also
+not enough for policymakers to devise an effective plan
+to address the looming challenge of air quality the air
+quality models provide necessary mathematical information
+for understanding the complex interactions between different
+variables affecting air quality therefore a combination of air
+quality measurement and air quality models can yield real
+progress in understanding and solving the air quality issues
+in urban centers
+a comprehensive air quality model is supposed to
+take into consideration the meteorology chemical trans
+formations emission patterns known source information
+point of interest poi and removal processes and provide
+spatiotemporal emission ﬂuxes and pollutant concentrations
+it also highlights the relation between the rate of change
+in pollution concentrations and the potential sources 
+figure  illustrates the bare minimum inputs and output
+of an air quality model the three most commonly used
+air quality modeling approaches are dispersion photochem
+ical and receptor modeling we brieﬂy describe all three
+modeling techniques along with their different variants
+air quality is not a local phenomenon understanding the
+contribution of different variables in the air quality landscape
+is a challenging task modeling these contributions is not
+possible through classical air quality modeling techniques
+for completeness we have included the famous classical
+air quality modeling techniques though these techniques
+are not suitable to model the complex relationships between
+different contributing variables in the air quality at a scale
+many advanced modeling techniques are designed based on
+the insights from these classical techniques
+box models the box model is the simplest model
+for estimating the concentrations of air pollutants
+the box model compares a domains airshed to a
+rectangular box within which the pollutants mass
+is entirely contained  it is used for labscale air
+quality experiments it is also suitable for modeling
+indoor air quality more information on the box model
+is available on  
+gaussian models gaussian models are the most
+popular air quality models used in the literature to
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+no
+paper
+mobile
+platform
+sensing
+platform
+sensing
+parameters
+study
+area
+time of
+the study
+mixed
+customized
+hardware
+co no
+o
+california us
+ weeks
+ 
+cycle bike
+bus train walk
+customized
+hardware
+co no
+o
+california us
+ weeks
+ 
+driving cycling
+jogging
+node
+sensors
+co
+sydney australia
+ week
+driving cycling
+jogging
+node
+sensors
+co
+sydney australia
+ week
+  
+walking driving
+cycling
+teco
+envboard
+pmx
+germany
+ hours
+walking
+customized
+hardware
+co
+o
+switzerland
+ month
+walking cycling
+bike car bus train
+customized
+hardware
+co no
+o
+california us
+ month
+cycle bike car
+hazewatch
+node
+co no
+o
+new south wales
+australia
+ week
+cycle
+magee microaeth ae
+lowcost sensors
+pmx tsp
+black carbon co
+antwerp belgium
+ days
+car
+custom hardware
+node sensors
+co pmx
+new york
+new jersey us
+bus
+customized
+hardware
+pm
+hangzhou china
+google street
+view vehicle
+laboratory grade
+analyzers
+black carbon nox
+oakland us
+ year
+mixed
+customized
+hardware
+co co ch
+india
+trash trucks
+customized
+hardware
+pmx
+cambridge us
+ months
+car
+customized
+hardware
+co co no
+chennai india
+table  review of research on mobile air quality sensing
+figure  a nonexhaustive taxonomy of air quality modelling techniques from us epa
+model the repercussions of air pollution in various use
+cases these models are frequently used in regulatory
+applications the gaussian model assumes that the
+plume spread is a result of molecular diffusion pollu
+tant concentrations in the plume spread horizontally
+and vertically  the solution to the diffusion
+equation with varying initial value and boundary
+conditions results in a gaussian distribution of the
+pollutant concentrations  for further details on
+the gaussian air quality models we refer the reader
+to  
+eulerian models the eulerian air quality modeling
+approach is considered one of the most signiﬁcant
+modeling techniques it is often known as the grid
+model technique in this technique the area under
+consideration is divided into equal size small grid
+cells and conservation of the mass equation is solved
+for a speciﬁc type of pollutants concentrations 
+a set of mathematical equations in a given coordinate
+system explain the transport diffusion transforma
+tion and deposition of pollutant emissions in each cell
+ this modeling approach is used for studying
+and simulating longrange transport air quality over
+the entire airshed further details on the eulerian air
+quality modeling we refer the reader to  
+lagrangian models the lagrangian models calculate
+the wind trajectories and the transportation of the
+plume along these trajectories for sourceoriented
+models these trajectories are calculated forward in
+time and for receptorbased models these trajectories
+are calculated back in time  lagrangian model
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+ing is frequently used to span a longer time duration
+up to years these models are also used to model the
+concentrations of the particulate matter in the air for
+more information on the lagrangian models we refer
+the reader to  
+dispersion modelling
+air dispersion models formulate and simulate the dispersion
+of the pollutants emitted by different sources the simulation
+provides an estimation of the downward air pollutant
+concentration dispersion models are used to predict the
+concentration for speciﬁc scenarios such as the change of the
+pollution source these models are more suited for pollutants
+that react in the environment and spread over large distances
+the models are also widely used by regulatory bodies during
+the preparation and evaluation of air permit applications
+public safety and emergency response personals utilize these
+models to determine toxicity in the air due to possible gas
+release events environmental protection agencies around the
+globe measure the effect of emissions from different sources
+and pollution control strategies by using the dispersion
+models
+aermod modeling system the american meteo
+rological society amsus epa regulatory model
+improvement committee aermic a joint working
+group of scientists from the ams and the epa
+created the aermod dispersion modeling system it
+is a steadystate gaussian plume model that includes
+air dispersion based on planetary boundary layer
+turbulence structure and scaling ideas as well as
+handling of complex terrain simple and intricate
+topography it generates pollutant concentrations
+in the ambient air on a daily monthly and yearly
+basis it is an updated version of the industrial
+source complex iscst framework proposed by
+the usepa for analysing the inﬂuence of industrial
+sources on air quality in the coming years 
+ aermod consists of a dispersion model
+for shortrange dispersion of air pollutants from
+various sources a meteorological data preprocessor
+aermet and a terrain preprocessor aermap
+  the aermod dispersion model takes
+preprocessed meteorological parameters and pre
+processed relation between complex terrain features
+and air pollution plumes to produce an air quality
+model   further details on various ver
+sions of its source codes implementation details
+and variable details are available at 
+ctdmplus perry et al  proposed the techni
+cal formulation of the complex terrain dispersion
+model ctdmplus later paumier et al 
+provided a performance characterization study of
+ctdmplus the objective for this project by us epa
+was to design a dispersion model that can model
+and predict the air pollution concentration in the
+mountainous terrain ctdmplus is a point source
+gaussian air quality model for complex terrain that
+uses a ﬂow algorithm to provide the deformation in
+the plume trajectory caused by the mountainous
+terrain it is capable of simulating the ﬂow and
+distortions in the plume near predeﬁned three
+dimensional d terrain features while remaining
+simple by applying ﬂowdistortion adjustments to
+ﬂatterrain gaussian and bigaussian pollution
+distributions   the ctdmplus requires a
+signiﬁcant amount of information on the topography
+and weather to produce an efﬁcient dispersion
+model which often represents a bottleneck in many
+circumstances more information on various versions
+of the ctdmplus source code implementation
+details and variable details are available at 
+ocd hanna et al  introduced the offshore
+and coastal dispersion ocd model which can
+simulate the impacts of offshore emission sources
+on coastal air quality it is based on a steadystate
+gaussian model that can cater to the varying disper
+sion characteristics between over and underwater
+sealand interface and aerodynamic effects hourly
+meteorological data from water and land sites is
+necessary for the ocd model to predict air quality
+turbulence intensities are also frequently used along
+with the hourly meteorological data but they are not
+mandatory more information on various versions of
+the ctdmplus source code implementation details
+and variable details are available at  
+though us eea recommends aermod ctdmplus and
+ocd for air quality modeling they also provide an alter
+native list of models that can be used by the regulatory
+applications on a casebycase justiﬁcation
+photochemical modelling
+photochemical air quality models are often used to evaluate
+the effectiveness of the control strategies for regulatory anal
+ysis and attainment demonstrations photochemical models
+can model the air quality at different spatial scales local
+regional national global etc photochemical air quality
+models are also known as photochemical grid models these
+models are used to evaluate the changes in the concentrations
+of the criteria pollutants due to the changes in the associated
+variables meteorological conditions emission sources etc
+similarly these models are also used for accessing the
+sensitivity of the pollutant predictions in different use cases
+photochemical grid models are also used to evaluate the
+performance of pollution control policies they simulate the
+concentration of the air pollutants at a large scale by using
+a complex set of mathematical equations to characterize
+different atmospheric processes physical and chemical two
+types of commonly used photochemical air quality models
+are the lagrangian trajectory model and the eulerian grid
+model the lagrangian trajectory model uses the moving
+frame of reference for modeling the air quality whereas the
+eulerian grid model applies ﬁxed d geometric models to the
+ground to model the air quality of a particular geographical
+area
+community
+multiscale
+air
+quality
+cmaq
+cmaq modeling system is a stateoftheart pho
+tochemical air quality modeling system it uses
+d eulerian modeling system to simulate the ef
+fect of the criteria pollutants in urbantoregional
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+tohemispheric scale cmaq is developed and
+distributed by us epa as an opensource suite of
+air quality modeling programs that can simulate
+multiple air pollution use cases and predicts the con
+centrations based on the historical data of the criteria
+pollutants cmaq is used to simulate and estimate
+the performance of epa missions for understanding
+and forecasting air pollution human exposure to air
+pollution watershed acidiﬁcation  deposition
+of nitrogen and sulfur  and many other air
+pollutionrelated use cases three common types of
+cmaq are
+wrfcmaq wong et al  proposed a
+combination of weather research and fore
+casting with the inputs of the cmaq eg
+aerosol concentration to introduce the effect
+of the chemistry into the weather this coupled
+design meteorology from cmaq and the
+chemistry from weather research and fore
+casting component is known as wrfcmaq
+information from cmaq such as aerosol
+concentration is transmitted into wrf so that
+the chemistry can inﬂuence the weather more
+details on the wrfcmaq are available in
+cmaqddm
+cmaq
+decoupled
+direct
+method cmaqddm offers concentrations
+and deposition sensitivity statistics for user
+speciﬁed parameters  the motivation for
+cmaqddm comes from the desire to mea
+sure the concentrations of the pollutants by
+changing one or a few parameters out of many
+predeﬁned air quality model parameters 
+air quality models usually take emissions as
+input and predict their concentrations cmaq
+ddm provides the ability to the policymakers
+to look at the pollution landscape by tweaking
+the parameters of interest or emission sources
+eg wildﬁres vehicles etc more details on
+the cmaqddm are available in  
+cmaqisam cmaq integrated source ap
+portionment method cmaqisam is a vari
+ant of cmaq that measures the attribution of
+the source in the overall value of the pollutant
+concentrations predictedoutputted by the air
+quality models for example identifying the
+proportion of the smog created by the stubble
+burning in a neighboring city this can be
+achieved by running the cmaq twice ﬁrst
+with all emission use cases and second by
+removing the source of interest but this will
+be complex and computationally expensive
+cmaqisam this issue by calculating source
+attribution of many sources directly by the
+model in one simulation simon et al 
+used cmaqisam for characterizing co and
+nitrogen oxides sources in the baltimore area
+kwok et al  used cmaqisam to un
+derstand the pm sources and their effects
+ httpsgithubcomusepacmaq
+on the air quality more details on the cmaq
+isam are available in  
+comprehensive air quality model with extensions
+camx camx is another famous air quality
+model in photochemical modeling camx modeling
+system models the air quality with all criteria pollu
+tants for a large scale city state country continent
+level it takes emissions meteorology data land use
+surface topography initial and boundary conditions
+and chemistryrelated values as input and performs
+source attribution sensitivity and process analyses
+estes et al  used camx to model the exceptional
+air quality events in near realtime in taxes to
+estimate the ozone impact in three use cases biomass
+burning in mexico stratospheric ozone intrusion
+anthropogenic emissions in mexico few critical
+resources where camx based modeling is used for
+air quality policymaking are available in  
+regional modeling system for aerosols and depo
+sition remsad remsad is another air quality
+modeling system that models the particulate haze
+and other criteria pollutants it is a regional scale
+modeling system that can simulate the physical and
+the reactive processes in the environment to show
+the effects of the spatiotemporal changes in the air
+pollutant concentration on the overall ambient air
+quality
+urban airshed model variable grid uamv in
+the early s the most commonly used air mod
+eling system was uamv photochemical modeling
+system uamv was widely used for air quality
+studies focused on ozone it is a d photochemical
+grid model that can model the effects of the chemical
+and physical processes in the environment on the
+concentrations of air pollutants uamv also pro
+vided a spatiotemporal distribution of the emissions
+of various air pollutants uamv is outdated and no
+longer used for air quality modeling
+receptor modelling
+the third category of the air quality models is called receptor
+models these models are mathematical techniques for
+recognizing and quantifying the origins of air pollution at
+a particular receptor location  receptor models are
+different from dispersion and photochemical air quality
+models they do not require meteorological chemical and
+emission data to estimate the participation of the pollution
+sources in the air pollution concentrations at the receptor
+the receptor model uses the chemical and inert properties
+of gases so co etc and the particulate matter particles
+to determine to contributions of the emission sources in the
+pollution concentrations at the receptor  
+chemical mass balance cmb the cmb  is a
+model for estimating the contribution of the emission
+sources to air pollution at the receptor locations
+cmb uses spatial ambient data and information
+ httpswwwcamxcom
+ httpremsadicfconsultingcom
+ httpuamvicfconsultingcom
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+about the pollution sources to determine the source
+contributions cmb quantiﬁes the contributions at
+the receptor based on the distinct source types rather
+than individual emission sources a drawback of
+cmb is its inability to distinguish between emis
+sion sources with the same chemical and physical
+properties more details on the cmb are available in
+unmix unmix model uses a formulabased on a
+form of factor analysis to determine the chemical
+species in the air and their sources it does not take
+the chemical proﬁle of the pollution sources as input
+instead it generates the chemical proﬁle to estimate
+the number of pollution sources their syntheses and
+their participation in the air pollution at the receptor
+location
+positive matrix factorization pmf pmf  is
+another air quality model which takes different
+features from sediments wet deposition surface
+water ambient air indoor air etc to identify the
+species of air pollutants pmf also determines the
+contributions of the pollution sources at the receptor
+the us epa no longer updates pmf and it no longer
+supports newer operating systems
+air quality measuring sensors
+the air quality sensors are the most crucial component of any
+air quality monitoring network these sensors are used to
+determine the concentration of pollutants in the air typically
+these sensors are built with a lego connection for the data
+acquisition card and data telemetry is accomplished using
+wifi or cellular communication in practice data processing
+is done on the cloud rather than on the sensor however there
+have been a few situations where data is preprocessed on
+the air quality sensors speciﬁcations of air quality sensors
+are broadly given by the following parameters
+accuracy this is a measure of how close the read
+ings of sensors would be as compared to the actual
+pollutant value
+precision this is a measure of how well the sensor
+reproduces the same reading a sensor with low
+precision can give different readings at different
+times with the same pollutant level
+range and detection limitations this is the mea
+sure of range of pollutant concentration that the
+sensor is able to detect correctly sensor performance
+may vary with different concentration of pollutant
+copollutant interference cross interference from
+other pollutants also affect sensor readings it is
+intended to minimize the copollutant interference
+when measuring a certain pollutant
+environmental interference sensor performance
+may vary under different environmental conditions
+such as low and high temperature humidity sun
+light etc
+noise noise is the source of inaccuracy in sensor
+readings the effect of noise should be minimized to
+produce more precise and accurate sensor readings
+ httpswwwepagovairresearch
+unmixmodelenvironmentaldataanalyses
+signal drift this is the drift in readings which
+occurs due to inherent sensor measurement methods
+and degradation of sensors components many
+air quality sensors suffer from signal drift when
+selecting a sensor it should be ensured that the
+drift can either be handled or it does not affect the
+readings to a signiﬁcant level
+response time different sensors can produce read
+ings with different minimum time intervals it should
+be ensured that the selected sensor is able to produce
+readings with acceptable time intervals
+multisite measurement performance this is an in
+dicator that generalizes the copollutant interference
+and the environmental interference of sensor
+measurement techniques
+a summary of the types of sensors and measurement
+techniques has been show in ﬁgure 
+particulate matter measurement of particulate mat
+ter concentration is broadly categorized in three
+methods gravimetric microbalance and optical mea
+surements whalley et al  gravimetric method
+is widely used by regulatory and certiﬁcation au
+thorities it is based on weight difference of a ﬁlter
+medium before and after the gas is passed through
+the ﬁlter microbalance method uses the change
+in resonant frequency to measure the particulate
+matter concentration by far the most popular choice
+for measurement commercial realtime particulate
+matter sensors is the optical method scattering or
+absorption of a light beam is measured to determine
+the concentration of particulate matter
+gases the two major sensor types used for sensing
+gaseous pollutants are electrochemical sensor 
+and metal oxide sensors metal oxide sensors typi
+cally require more power to heat up to very high
+temperatures to enable signiﬁcant sensitivity to target
+detection gas that also increases the start up time of
+sensor electrochemical sensors require less power to
+operate and thus allow for fast startup time and cost
+savings generated over life time of sensor
+sensing solutions
+oem sensors oem sensors comprise of just the
+sensing element further interfacing and signal con
+ditioning is required to convert the sensor output
+to meaningful numbers these sensors are popular
+choice for original equipment manufacturers
+sensing systems sensing systems are built upon the
+oem sensors and the output is provided in digital
+format sensing systems are available for both indoor
+and outdoor air quality monitoring apart from
+digital output many sensors are also available with
+extra features such as wifi or cellular connectivity
+and mobile application to view the sensor outputs
+as well as the resulting air quality index for many
+commercial and indoor air quality measurement
+ httpswwwemersoncomdocumentsautomation
+whitepaperelectrochemicalvssemiconductorgasdetectionen
+pdf
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+figure  the ﬁgure shows a taxonomy of air quality sensors along with their working principle and detected pollutants
+systems high accuracy is not required and thus are
+free from regulatory requirements these systems
+are widely available in market and their price is
+usually below  the data available through such
+sensors is not accurate and it can sometimes produce
+unknown errors weather conditions can also affect
+such sensing systems
+to mitigate all of the above problems and to provide
+a standard measurement system the government
+deﬁnes a certain set of regulations to conform to
+for the measurement of air quality and pollutants
+detailed speciﬁcations of measurement and reporting
+of the concentration of pollutants is often provided
+by the countrys environmental protection agency in
+us environmental protection agency epa provides
+federal reference methods frm and federal equiv
+alence methods fem for measurement of pollutants
+frms specify the most scientiﬁcally sound technique
+to report the concentration of pollutant and it becomes
+the basis of criteria for evaluation of other measure
+ment methods fem provides techniques that are cost
+effective and easier to implement and yet can provide
+comparable level of accuracy with the fems such
+systems are very expensive and their price can range
+up to  they also highly trained technical staff
+for its operation and maintenance annual operating
+expenses may also exceed the system cost on the
+other hand the data provided through these systems
+is highly consistent and accurate in a variety of
+weather and environmental conditions 
+air quality measurement projects
+urbanair
+urban air is a microsoftfunded initiative that began in
+ it is a subproject of microsofts urban computing
+table  air quality standards for the european union
+pollutants
+concentration
+averaging
+period
+permitted
+exceedences
+each year
+pm
+µgm
+ year
+na
+so
+µgm
+ hour
+µgm
+ hour
+no
+µgm
+ hour
+µgm
+ hour
+na
+pm
+µgm
+ hour
+µgm
+ year
+na
+lead pb
+µgm
+ year
+na
+co
+mgm
+ hours mean
+na
+benzene
+µgm
+ year
+na
+o
+µgm
+ hour mean
+ days average
+over  years
+arsenic as
+ngm
+ year
+na
+cadmium cd
+ngm
+ year
+na
+nickel ni
+ngm
+ year
+na
+polycyclic
+aromatic
+hydrocarbons
+ngm
+ year
+na
+ which intends to use big data eg trafﬁc ﬂow human
+mobility and geographical data to solve key urban issues
+such as pollution transportation congestion and energy
+consumption the primary goal of urban air was to measure
+analyze forecast and assist in the improvement of urban air
+quality in cities such as beijing china in addition urban air
+sought to discover relationships between various air quality
+trends to determine the sources of pollution in different
+urban locations
+the urban air project consists of four steps
+inferring ﬁnegrained air quality
+forecasting air quality at each station
+optimal deployment of air quality monitoring sta
+tions
+root cause analysis of urban air pollution
+following is a brief description of each step
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+table  air quality standards for the united states
+pollutant
+primary
+secondary
+averaging time
+level
+form
+carbon
+monoxide
+primary
+ hours
+ ppm
+not to be exceeded more
+than once per year
+ hour
+ ppm
+lead
+primary and
+secondary
+rolling 
+month average
+ µgm
+not to be exceeded
+nitrogen
+dioxide
+primary
+ hour
+ ppb
+th percentile of  hour
+daily maximum concentrations
+averaged over  years
+primary and
+secondary
+ year
+ ppb
+annual mean
+ozone
+primary and
+secondary
+ hours
+ ppm
+annual th highest daily maximum
+hour concentration averaged
+over  years
+pm
+primary
+ year
+ µgm
+annual mean averaged over  years
+secondary
+ year
+ µgm
+annual mean averaged over  years
+primary and
+secondary
+ hours
+ µgm
+th percentile averaged
+over  years
+pm
+primary and
+secondary
+ hours
+ µgm
+not to be exceed more than once
+per year on an average of
+ years
+sulphur
+dioxide
+primary
+ hour
+ ppb
+th percentile of  hour daily
+maximum concentrations
+averaged over  years
+secondary
+ hours
+ ppm
+not to be exceeded more than once
+per year
+inferring ﬁnegrained air quality
+as a ﬁrst step the urban air project sought to infer air
+quality in areas where air quality stations were not available
+ it is a difﬁcult undertaking since accessible air quality
+data is sparse and limited to tackle this challenge zheng
+et al  gathered context data from a range of additional
+sources meteorology road networks trafﬁc ﬂow poi and
+human mobility that have an indirect impact on air quality
+after acquiring the context data it is fused with sparse
+aqi data from known locations then spatial and temporal
+classiﬁers are used for inferring the aqi values at unknown
+places the spatial classiﬁer is an artiﬁcial neural network
+ann that takes a subset of data and tries predicting
+aqi for unknown nodes by using pearson correlation of
+known features between nodes the temporal classiﬁer
+takes the timedependent factors and tries predicting aqi for
+unknown nodes using a linearchain conditional random
+field crf the training is performed by iteratively adding
+unknown nodes to the set of known nodes that are classiﬁed
+conﬁdently by the models for inferring aqi value at
+some unknown locationgrid features are applied to each
+classiﬁer independently only those aqi values are reported
+where both classiﬁers have higher conﬁdence results of
+the experiment are compared with different interpolation
+techniques like linear gaussian classical dispersion model
+decision tree crf and ann the initial step of urban
+air only inferred pm and no values for beijing and
+shanghai in subsequent work zheng et al  combined
+the spatiotemporal model with a realtime feature extraction
+database to make userfriendly web and mobile applications
+forecasting air quality at each station
+following the successful inference of aqi values at arbitrary
+sites the next phase in the urban air project was to forecast
+aqi values at speciﬁc station locations  forecasting aqi
+values is critical because it allows policymakers to better un
+derstand air pollution trends and develop preventative and
+mitigation policies the method of estimating the next aqi
+value at a certain time granularity based on prior aqi values
+is known as aqi forecasting various connected aspects
+such as meteorology wind speeds temperature and so on
+might have an impact on the forecasting process therefore
+a realtime database is utilized to give meteorological data
+humidity temperature and wind speed as well as weather
+forecasts and aqi values for each station site
+the forecasting component of the urban air project
+gathers data from  stations in  chinese cities with
+each instance having concentrations of six air pollutants
+no so o co pm and pm zheng et al 
+employed the four predictors listed below to forecast the
+aqi value at a station
+a temporal predictor is used to anticipate the aqi
+value using a linear regression model on the data
+a spatial predictor is used to provide the surrounding
+context to a neural network which forecasts an aqi
+value based on the context data
+a prediction aggregator trains a regression tree to
+give various weights to the ﬁrst two predictions under
+different scenarios
+finally an inﬂection predictor is employed to simulate
+any rapid changes in aqi values and is only utilized
+in exceptional cases rain etc
+for the ﬁrst  hours the aqi value after each hour is
+predicted while for the next h h and h
+a minmax range of aqi is forecasted zheng et al 
+performed forecasting for  air quality stations in beijing
+and compared their results with techniques like auto
+regressionmovingaverage amra linear regression lr
+all neural network annall and regression tree rt
+all
+deployment of air quality monitoring stations
+the placement of air quality sensors in suitable places is
+critical for obtaining relevant air quality data hsieh et al
+ solve the sensor placement problem with a restricted
+budget in the urban air project hsieh et al  used a two
+stage technique to handle this problem the ﬁrst phase is to
+infer the air quality at an unknown place and the second
+is to pick candidate locations depending on the conﬁdence
+of the inference the city of beijing has split into km x
+km patches for inference with each patch referred to as a
+node by linking these nodes with known and unknown aqi
+values a network is formed some of the linkages are made
+with the help of historical geographical and environmental
+factors local meteorology road network data and pois are
+used to provide weight to edges once the graph is complete
+an unknown aqi value is calculated using a weighted sum of
+aqi values from known modes instead of only obtaining a
+single value for aqi a distribution is learnt at each unknown
+node the weights of the graph are modiﬁed over numerous
+rounds to get a better distribution minimize entropy loss
+for recommending the locations of the station ﬁrst ﬁnd
+the node with the best distribution or lower entropy loss
+and rank it the last in the list after assigning a rank to this
+node label it as a known node and again run the inferring
+algorithm to ﬁnd new inference after this ﬁnd the node
+with the best distribution and assign it second last this step
+is repeated until all nodes are ranked
+identiﬁcation of root cause of air pollution
+the placement of air quality stations is motivated by the
+need to identify the root causes of air pollution urban air
+also seeks to identify the underlying causes of urban air
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+pollution understanding the root cause of air pollution is
+extremely beneﬁcial to policymakers in government and
+environmental protection agencies because data collection
+involves noise collecting insights for establishing the root
+cause of air pollution becomes a difﬁcult job zhang et al
+ and nguyen et al  integrated historical data with
+bayesian learning approaches   to uncover air
+pollution causal pathways data used in   includes
+measurements of six air pollutants pm pm no co
+o so and ﬁve meteorological measurements tempera
+ture pressure humidity wind speed and wind direction
+which are updated hourly for three areas north china
+yangtze river delta and pearl river delta understanding
+the root cause of air pollution is based on pattern mining and
+bayesian learning the initial stage in pattern mining is to
+locate frequently evolving patterns fep it is accomplished
+by ﬁrst identifying patterns that happen often at the station
+and then applying a projection to them as done by preﬁxscan
+ then feps of neighboring stations are compared
+and possible causative agents for each sensorstation are
+retrieved the pattern mining module decreases the number
+of variables which aids in decreasing computation cost for
+the next stage in learning the bn structure on in the
+worstcase scenario
+the bayesian learning module of the root cause identiﬁ
+cation pipeline combines the concentration measurements of
+each pollutant at the target node with the spatial data from
+candidate causers at the multiple time stamps following
+data integration initial routes for the n most signiﬁcant
+sensor for the target locationstation are created each of
+these paths is then assigned a grangercausality gc score
+  once the score is assigned to the pathways
+the context data is integrated with pathways zhang et al
+ determine the number of subclasses using a hidden
+confounding variable and then repeatedly optimize the
+initial paths by reducing em loss
+the urban air project was a great success as it helped in
+reducing air pollution in china based on the insights from
+this project the environmental protection agencies and the
+chines government have taken policylevel steps and the
+air pollution in china is under control
+aqli project
+the air quality life index aqli is another famous air
+quality measurement project by the energy policy institute
+at the university of chicago epic aqli project introduced
+a new metric for measuring the impact of air quality called
+air quality life expectancy instead of the conventional aqi
+metric this new metric translates the impact of air pollution
+on the life expectancy of a human being
+the aqli work is based on the pm data collected via
+satellite monitoring combined with the global population
+data obtained from the  global landscan global popu
+lation database  the aqli index is an extension of the
+previous work done by greenstone et al in understanding
+and quantifying the impact of particulate air pollution on
+the expectancy of human life  once both datasets are
+collected a gridcellbased procedure is used for combining
+global population data with the satellitedriven pm data
+loss in life expectancy is calculated for each grid where
+each grid corresponds to a km x km area on the ground
+the loss in life expectancy due to pm is computed based
+on the previous work by ebenstein et al  which shows
+that with every µgm of sustained exposure to pm
+life expectancy decreases by  years assuming that life
+expectancy varies linearly with pm exposure the loss in
+life expectancy is multiplied by  for each incremental
+exposure to µgm of pm beyond the who threshold
+level µgm of pm
+the aqli project has resulted in aqli index which
+provides a countrylevel loss in life expectancy based on
+the pm concentrations this project provides a thorough
+analysis of the air pollution situation in many countries and
+also covers the policy level steps taken by different countries
+eg china india for mitigating the impact of air pollution
+on the life expectancy of their citizens though this project
+only covers the impact of pm the insights and policy level
+suggestions provided in the aqli reports can help improve
+the air quality of any part of the world this project is also
+an excellent example of how to set up an air quality indexing
+study for other criteria pollutants
+afriqair
+air pollution is a major problem in africa with research
+indicating that air pollution causes around  premature
+deaths every year  unfortunately there arent many
+referencegrade air quality monitoring stations in africa
+therefore it is difﬁcult to interpolate the actual situation of
+the air pollution the afriqair project tries to tackle this
+issue by developing a continentscale air quality monitoring
+network afriqair is an african air quality monitoring
+initiative  the initiative employs a network of both high
+quality and lowcost air quality sensors by mid there
+are approximately  nodes spread throughout  african
+nations ghana rwanda uganda kenya south africa
+democratic republic of congo cote divoire niger congo
+etc afriqair has the following three goals for improving
+the air quality situation in africa
+creating the physical infrastructure required to mea
+sure and monitor air quality across the continent it
+entails a mix of highquality and lowcost air quality
+assessment equipment as well as the necessary
+power sources and data telemetry systems
+local capacity building to use manage and analyze
+the developed physical infrastructure
+finally ensure that the physical infrastructures data
+and insights are accessible and actionable
+the data gathered through these  measurement platforms
+across africa is opensourced in daily hourly and minute
+granularity and can be readily used for air quality research
+ghana urban air quality project ghair
+urban air and aqli projects are being carried out on a
+global scale using cuttingedge technology and techniques
+for planning modeling monitoring and extracting insights
+many underdeveloped countries with limited resources do
+ httpsaqliepicuchicagoedutheindex
+ httpwwwafriqairorg
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+not have this opportunity with the ghana urban air quality
+initiative ghair we hope to show the reader how a
+relatively impoverished nation may set up an air quality
+monitoring project
+ghana is west africas secondmost populated country
+behind nigeria ghana is dealing with severe pollution
+problems and it is reported that air pollution killed over
+ people in   in  ghana started the ghair
+project to solve the problem through cuttingedge research
+the environmental protection agency of ghana has limited
+resources and proper technical human resources to solve
+these issues ghair uses lowcost air quality sensors to
+bridge the data gap various studies have highlighted that
+lowcost sensors might be a great chance to overcome the
+air pollution data gap in underdeveloped countries 
+ghair has the following four objectives that are also in
+line with the unsdgs 
+creating a dense lowcost air quality sensor network
+in metropolitan areas to collect realtime spatiotem
+poral air quality data that may be used to impact air
+pollution management policy
+launching public awareness campaigns about the
+effects of urban air pollution and how residents may
+safeguard their health in areas with poor air quality
+improving the air quality by introducing behavioral
+changes in the communities
+performing epidemiological research to highlight the
+health issues of air pollution exposure in vulnerable
+populations for the public health department
+the ghair presently employs a mix of lowcost pur
+pleair sensors clarity nodes ramps and modulairpm
+sensors these sensors have been installed in six of ghanas
+major cities accra tema cape coast takoradi and kumasi
+ghair has also just placed ten sets of teom ab pm
+monitoring sensors provided by the uk environmental
+agency automatic urban and rural network  the
+ghair presently employs a mix of lowcost purpleair
+sensors clarity nodes ramps and modulairpm sensors
+these sensors have been installed in six of ghanas major
+cities accra tema cape coast takoradi and kumasi
+ghair has also just placed ten sets of teom ab pm
+monitoring sensors provided by the uk environmental
+agency automatic urban and rural network  ghair
+project is also going to launch a program called escrap
+educating school children to tackle air pollution project
+with the help of the royal society the projects goal is to
+create awareness among schoolchildren about air quality and
+how they may help to improve it the motto of the project is
+school children as agents for improved air quality
+they are now experiencing several difﬁculties in getting
+data from sensors these concerns include the availability of
+wifi at deployment sites for data telemetry and sensor power
+supply to address these issues ghair is experimenting with
+solar energy to power the sensors  furthermore they
+are attempting to leverage gprs for data telemetry despite
+these challenges the ghair project has enormous potential
+for bridging ghanas data gap on air quality
+hazewatch
+pm concentrations above who standards have been
+found in new south wales australia particularly in sydney
+the department of environment climate change and water
+deccw has already placed  stations in various sites
+across sydney and data is published hourly aqi levels
+and corresponding health advisories are provided based
+on this pollution data unfortunately these stations are
+separated by tens of kilometers resulting in inadequate
+spatial resolution because of the low spatial resolution
+complicated interpolation procedures are needed to report
+aqi values as a result the deccw aqi monitoring
+network does not represent actual levels of air pollution and
+exposure to overcome these shortcomings sivaraman et al
+ designed a lowcost urban air quality monitoring system
+known as hazewatch hazewatch utilizes many lowcost
+mobile sensor units installed in cars to measure air pollution
+concentrations as well as users mobile phones to tag and
+upload data in realtime the outcome of the projects is its
+costeffectiveness better spatial resolution and personalized
+exposure tools the project measured no co and o
+though hazewatch ﬁlled the gap in spatial resolution it has
+faced multiple challenges in calibration sensor design mass
+deployment health outcome interpretation etc the project
+has resulted in multiple research publications on designing
+pollution monitoring sensors  data transmission
+  database connectivity  android interface
+design  pollution modeling  data visualization 
+and exposure modeling 
+citisense
+developing a countrywide air quality network based on
+referencegrade nearreference and lowcost air quality mon
+itoring sensing solutions for each pollutant is a complicated
+endeavor it requires a lot of money infrastructure and
+technical expertise thus environmental governance through
+citizen empowerment is gaining traction the purpose of
+these programs is to encourage individuals in deploying low
+cost sometimes nearreferencegrade monitoring equipment
+and share air quality data the integration of data from
+residents and referencegrade sensing equipment can assist in
+obtaining a more granular picture of air quality resulting in
+more effective air quality improvement measures the euro
+pean commission has ﬁnanced citisense 
+a project that uses cuttingedge earth observation technology
+to build and test environmental monitoring systems the
+projects goal was to create citizen observatories that would
+allow residents to gather and monitor environmental data
+in order to formulate community policies the citisense
+project produced a number of air quality sensor devices as
+well as mobile and other communication technologies the
+key contributions of the citisense project were
+studying and mitigating hurdles in the citizens in
+volvement in environmental decision making
+designing the tools and technologies to enable the
+citizens in collecting urban environmental data
+providing lowcost measuring solutions and data
+fusion methods for scientiﬁc analysis
+ httpscordiseuropaeuprojectid
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+integrating newer sensing technologies iot and other
+ict technologies cloud platforms data analysis and
+learning techniques to enhance community participa
+tion in the form of personal environmental monitoring
+devices
+the citi sense initiative distributed  air quality mon
+itoring units around europe and  volunteers helped
+test the personal air quality monitoring devices a total of
+ citizen observatories were also developed in nine major
+cities of europe barcelona belgrade edinburgh haifa
+ljubljana oslo ostrava vienna and vitoriagasteiz an
+air perception application was also a critical part of the
+project and  people used it to report and get air quality
+information in  nearly  million environmental
+observations were collected using the citisense sensor
+network and other additional observation tools further
+involvement of the citizens was ensured by feedback surveys
+questionnaires focus group discussions and interviews the
+citisense initiative resulted in environmental monitoring
+systems across europe as well as citizen engagement in
+environmental governance the insights from the citi
+sense project has resulted in many research publications
+dealing with lowcost air quality sensing and performance
+assessments   pollution hotspot detection
+ data assimilation   missing data
+imputation methods  epidemiology studies  air
+quality sensor calibrations   localized real
+time pollution effects     zero emission
+studies  wireless and distribution network design
+suggestions for air quality networks  pollution exposure
+assessment   enduser feedback   
+toolkits for monitoring urban air quality  and new
+citizen observatory design 
+opensense ii
+generating a comprehensive spatiotemporal map of air
+pollution requires a lot of data from multiple sources only
+referencegrade air quality data is not enough as they are
+very expensive and there can be a few referencegrade air
+quality monitors in a city opensense ii aims to integrate
+data from heterogeneous devices and crowdsourcing with
+reference grade measurements to generate a spatiotemporal
+map of urban air pollution and estimate the health impacts
+due to air pollution exposure opensense ii project generates
+granular air pollution maps of zurich and lausanne and also
+studies the impact of air pollution exposure on human health
+opensense ii uses data air pollution data communication
+platforms sensors personalized health recommendations
+etc from another project known as nanotera project
+opensense the data from the nanotera project is com
+bined with crowdsourcing and humancentric computation
+techniques for highresolution air pollution maps the air
+quality data is also gathered by deploying sensing systems
+on buses and electric cars opensense ii also pushed the
+stateoftheart in generating highresolution spatiotemporal
+air quality maps    mobile sensor networks
+for air quality monitoring   and estimating the
+impact of pmx on human health and personalized health
+recommendations 
+root cause analysis of the urban air pollution
+the efforts put into designing modeling measuring and
+developing cuttingedge air quality measurement facilities
+are only to understand the root cause of urban air pollution
+and how it affects human health and the global tempera
+ture many studies have been conducted using air quality
+data acquired from air quality networks to identify the
+causescontributors of air pollution karagulian et al 
+performed a systematic analysis on the air quality data of 
+countries from the who website and highlighted the major
+sources of air pollution according to their study of available
+data trafﬁc emissions contribute  of air pollution pm
+industrial activities contribute  domestic fuel burning
+contributes  natural dust and salt contribute  and
+unidentiﬁed causes linked to humans contribute  
+jiang et al  investigated the spatiotemporal features of
+air pollution in six chinese cities and applied the granger
+causality test  to evaluate the impact of a citys air
+quality on surrounding cities and vice versa according to
+their study air pollution is very high in the winters and
+early springs and stays low in summer and autumn they
+also discovered a unidirectional association between the air
+quality of baoding and beijing where the air pollution from
+baoding has a signiﬁcant impact on beijings air quality
+since baoding is more polluted than beijing 
+wang et al  found that particulate matter from
+transportation industry agricultural activities fuel burning
+construction and demolition accounts for  to  of overall
+air pollution in china wang et al  also discovered
+that the  extended haze event in centraleastern china
+was caused by a shift in meteorological conditions 
+employed synthetic atmospheric circulation to determine
+the sources of air pollution trafﬁc emissions and high
+levels of energy consumption are identiﬁed as contributors
+to the haze and poor air quality in centraleastern china
+ recently there has been a surge in datadriven root
+cause analysis techniques  these techniques are
+motivated by the success of big data and artiﬁcial intelligence
+ai in many other domains for detecting and comprehend
+ing the root cause of urban air pollution we advocate a
+combination of traditional modelingcausal methodologies
+with cuttingedge ai techniques
+urban air quality challenges
+despite a plethora of work in measuring and understanding
+air quality there are various challenging aspects in tracking
+and measuring air quality in this section we take a look at
+the challenges needed to be addressed for rapid improve
+ment in ambient and indoor air pollution
+data collection and public datasets
+collecting the air quality data is a challenging task as it
+involves different concentrations of air pollutants given the
+environmental cost and health risks of poor urban air quality
+it is imperative to develop a central realtime air quality
+data measurement and processing system two paradigms
+for gathering urban data ie air quality data poi mete
+orological data etc are sensorcentric data collection and
+crowdcentric data collection the sensorcentric paradigm
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+has two categories these categories are based on whether
+the data collecting sensors are mobile deployed on a moving
+object or static deployed on a ﬁxed location the crowd
+centric data collection is also divided into two categories
+activedata generated via participatory surveys and check
+ins or passive data generated by users passively while using
+the urban infrastructure
+gathering air quality and related data via these two
+paradigms is difﬁcult because of the following challenges
+in static sensorcentric air quality data collection
+sensors are deployed at a ﬁxed location and they
+communicate at a predeﬁned frequency to the cen
+tral database ie cloud server this static sensor
+deployment makes the air quality measurement a
+resource constraint system limited budget land use
+workforce for maintaining the system etc as a
+result data gathered from very few sensors ﬁxed at
+different locations in an urban environment is sparse
+and not sufﬁcient representative of the air quality
+situation of the city
+in static sensorcentric air quality data collection
+where the number of sensors is limited the optimal
+placement of the air quality sensors for gathering
+representative enough data becomes a challenge
+though mobile sensorcentric data collection help
+resolve the issues faced in air quality data gathering
+due to the ﬁxed nature of the static sensorcentric
+approach it has its challenges the air quality data
+gathered from the sensors mounted on moving objects
+such as buses bikes taxis uavs etc is skewed by
+the movement of these moving objects for example
+buses are usually used as a means of the commute
+from a busy ﬁxed route the gathered data will
+provide a good representation of the air quality along
+the buss route but it will not provide a true depiction
+of urban air quality
+another challenge in mobile sensorcentric air quality
+data is the redundancy in the collected data since the
+sensorsmounted vehicle will be following a route es
+pecially buses the data collected will be redundant
+and the data from less traversed routes will be sparse
+it will result in an imbalanced data distribution any
+deduction made from the distribution will be biased
+towards the most frequent route
+human as a sensor is another way of getting the
+data for inferring the air quality data generated
+by the citizens passively while accessing the urban
+infrastructure call data record public wiﬁ passenger
+bus card swipes taxi pick and drop locations etc is
+useful in determining the context of urban pollution
+here the key challenges are the privacy of the users
+the security of the service providers and meeting the
+legal requirements of data protection
+participatory crowdsensing is a procedure opted for
+gathering the context data used for inferring the urban
+air quality where the measurement campaigns and
+surveys are used to collect the data imbalance data
+coverage unavailability of ground truth to measure
+the quality of the collected air quality data and
+noisy and fake data reporting are a few challenges
+associated with the participatory crowdsensing for air
+qualityrelated data
+to overcome these challenges in air quality data collection
+along with its proper context requires a great deal of planning
+and understanding of the urban environment selecting the
+right kind of sensors an acceptable level of measurement
+granularity designing a proper measurement campaign
+choosing the appropriate clouddatabase and ensuring the
+quality of the collected air pollution data and the motivation
+to make it public can help develop a comprehensive air
+quality dataset for determining the correct air quality values
+nevertheless a hybrid approach combining sensorcentric
+expertintheloop data collection techniques can yield better
+air quality data collection
+air quality monitoring networks in underdeveloped
+countries
+the air quality situation in underdeveloped nations is dire
+yet they are unable to address it due to a lack of air quality
+monitoring networks deploying these networks across the
+country necessitates large sums of money and planning that
+in many underdeveloped countries is not available without
+an adequate and extensive air quality monitoring network
+in place economically developing nations are unable to
+gather air quality data and as a result lack policies for
+monitoring and combating air pollution trends lowcost air
+quality monitoring stations are used instead of actual weather
+stations and deployed in a few countries developing a
+countrywide lowcost air quality sensorsbased network
+remains a very challenging task
+tradeoff between economic growth and air pollu
+tion
+the tradeoff between economic growth and air pollution im
+plies that economic expansion is connected to industrializa
+tion and transportation which necessitates the combustion of
+gasoline and other energy sources resulting in air pollution
+finding the right balance between economic growth and
+air pollution is a daunting task for many countries other
+variables such as population urban density and urban
+planning exacerbate the difﬁculty of this task
+regularization and air quality measurements
+even though there are several environmental regulatory
+bodies and a plethora of regulatory rules but we continue to
+see that air quality in urban areas is becoming a predicament
+the implementation of these standards is an issue that
+many governments are unable to address for a variety of
+reasons including a lack of education ﬁnancial resources
+political and religious divisions lack of global and regional
+cooperation and so on 
+urban planning and air quality
+urban planning plays a vital role in improving the air
+quality of the city unfortunately many metropolitans around
+the world are suffering from the worst air quality due to
+exponential growth in population trafﬁc congestions high
+built densities and lack of urban planning canyon street the
+preprints wwwpreprintsorg    not peerreviewed    posted  april                    doipreprintsv
+street design in which both sides of the roadway are bordered
+by buildings has a poor dispersion rate thus vehicle exhaust
+remains in greater quantities than usual producing severe
+health issues and air pollution avoiding canyon street design
+in urban planning might help to reduce urban air pollution
+reducing urban air pollution from trafﬁc is strongly linked to
+initiatives for encouraging active commuting travel by low
+energyconsuming vehicles and lowering carbon emissions
+urban planning and its relationship with different urban
+environmental concerns is an area in which much ingenuity
+is required
+personalized contextaware air quality measure
+ment applications
+designing contextaware air quality monitoring systems are
+gaining traction air quality is heavily reliant on several
+context factors pois meteorology etc and interpreting
+air quality measurements without taking the context into
+account might create bias in the measurements people
+with respiratory or ocular diseases are especially sensitive
+to air pollution and should be warned about it the aqi
+measurements are insufﬁcient for these patients it is very
+challenging to develop contextaware custommade air qual
+ity monitoring applications a few emerging applications use
+the internet of things iot and tailored context to deliver
+customized warnings on the severity of air pollution in a
+speciﬁc city location  
+impact of climate change on the air quality
+climate change has started causing many problems in
+different parts of the world climate change can inﬂuence the
+local air quality and vice versa an increase in the ground
+level o is observed as the atmosphere gets warmer due
+to climate change and this groundlevel o is expected to
+cause dense smogs in urban areas the jury is out on the
+effectiveness of climate change on particulate matterbased
+air pollution 
+indoor air pollution
+air quality within the buildings houses schools shopping
+malls airports etc concerning the health of the people
+health is termed as indoor air quality iaq it is described
+in the literature that the iaq in homes is  to  times
+more polluted than the ambient air pollution  co
+microbiological contamination owing to moisture insufﬁ
+cient ventilation fuel burning incorrect building design
+and commonly used construction materials are a few of
+the causes of increased indoor air pollution levels long
+term respiratory disorders cancer heart disease and short
+term ent irritations headaches tiredness nausea health
+problems can be caused by poor iaq people have been
+staying indoors for the last two years as a result of the covid
+ restriction and indoor air pollution in homes  
+and hospitals has skyrocketed  with this exceptional
+circumstance iaq improvement is both vital and challenging
+ httpswwwepagovairresearch
+airqualityandclimatechangeresearch
+conclusions
+the urban air quality is turning out to be daunting health and
+economic challenge for the metropolitan centers around the
+globe the lack of measuring infrastructure is making this
+situation even harder this paper provides a nonexhaustive
+yet comprehensive survey of the urban air quality measuring
+methodologies standards and initiatives operating through
+out the globe we have also emphasized the challenges
+restricting the urban air quality measurement we also
+invite the readers to ponder upon these challenges and offer
+suggestions for better air quality in our cities

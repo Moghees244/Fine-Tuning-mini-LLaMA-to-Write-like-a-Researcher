@@ -1,0 +1,1997 @@
+
+ieee communications surveys  tutorials vol  no  second quarter 
+securing connected  autonomous vehicles
+challenges posed by adversarial machine
+learning and the way forward
+adnan qayyum
+ muhammad usama
+ junaid qadir
+ senior member ieee
+and ala alfuqaha
+ senior member ieee
+abstractconnected and autonomous vehicles cavs will
+form the backbone of future nextgeneration intelligent trans
+portation systems its providing travel comfort road safety
+along
+with
+a
+number
+of
+valueadded
+services
+such
+a
+transformationwhich will be fuelled by concomitant advances
+in
+technologies
+for
+machine
+learning
+ml
+and
+wireless
+communicationswill enable a future vehicular ecosystem that
+is better featured and more efﬁcient however there are lurking
+security problems related to the use of ml in such a critical set
+ting where an incorrect ml decision may not only be a nuisance
+but can lead to loss of precious lives in this paper we present
+an indepth overview of the various challenges associated with
+the application of ml in vehicular networks in addition we for
+mulate the ml pipeline of cavs and present various potential
+security issues associated with the adoption of ml methods in
+particular we focus on the perspective of adversarial ml attacks
+on cavs and outline a solution to defend against adversarial
+attacks in multiple settings
+index
+termsconnected
+and
+autonomous
+vehicles
+machinedeep learning adversarial machine learning adversar
+ial perturbation perturbation detection and robust machine
+learning
+i introduction
+i
+n recent years connected and autonomous vehicles
+cavs have emerged as a promising area of research the
+connected vehicles are an important component of intelligent
+transportation systems its in which vehicles communicate
+with each other and with communications infrastructure to
+exchange safety messages and other critical information eg
+trafﬁc and road conditions one of the main driving force
+for cavs is the advancement of machine learning ml
+methods particularly deep learning dl that are used for
+decision making at different levels unlike conventional con
+nected vehicles the autonomous selfdriving vehicles have
+manuscript received may   revised october   accepted
+february   date of publication february   date of current
+version may   corresponding author adnan qayyum
+adnan
+qayyum
+is
+with
+the
+computer
+science
+department
+information
+technology
+university
+lahore
+pakistan
+email
+adnanqayyumituedupk
+muhammad usama and junaid qadir are with the electrical engineering
+information technology university lahore  pakistan
+ala alfuqaha is with the information and computing technology
+division college of science and engineering hamad bin khalifa university
+doha qatar and also with the computer science department college of
+engineering and applied sciences western michigan university kalamazoo
+mi  usa
+digital object identiﬁer comst
+two important characteristics namely automation capability
+and cooperation connectivity  in future smart cities cavs
+are expected to have a profound impact on the vehicular
+ecosystem and society
+the phenomenon of connected vehicles is realized through
+technology known as vehicular networks or vehicular adhoc
+networks vanets  over the years various conﬁgurations
+of connected vehicles have been developed including the use of
+dedicated shortrange communications dsrc in the united
+states and itsg in europe based on the ieee p
+standard however a recent study  has shown many limita
+tions of such systems such as  shortlived infrastructure
+tovehicle iv connection  nonguaranteed quality of
+service qos and  unbounded channel access delay etc
+to address such limitations the rd generation partnership
+project gpp has been initiated with a focus on leveraging
+the high penetration rate of long term evolution lte and
+g cellular networks to support vehicletoeverything vx
+services  the purpose of developing vx technology is
+to enable the communication between all entities encountered
+in the road environment including vehicles communications
+infrastructure pedestrians cycles etc
+the impressive ability of mldl to leverage increasingly
+accessible data along with the advancement in other concomi
+tant technologies such as wireless communications seems
+to be set to enable autonomous and selforganizing con
+nected vehicles in the future in addition future vehicular
+networks will evolve from normal to autonomous vehicles and
+will enable ubiquitous internet access on vehicles ml will
+have a predominant role in building the perception system of
+autonomous and semiautonomous connected vehicles
+despite the development of different conﬁgurations of con
+nected vehicles they are still vulnerable to various security
+issues and there are various automotive attack surfaces that
+can be exploited  the threat is getting worse with the
+development of fully autonomous vehicles as the autonomous
+vehicles are being equipped with many sensors such as cam
+eras radar lidar and mechanical control units etc
+these sensors share critical sensory information with onboard
+devices through can bus and with other nearby vehicles as
+well the backbone of selfdriving vehicles is the onboard
+intelligent processing capabilities using the data collected
+through the sensory system this data can be used for many
+other purposes eg getting information about vehicle kinetics
+x c
+ ieee personal use is permitted but republicationredistribution requires ieee permission
+see httpswwwieeeorgpublicationsrightsindexhtml for more information
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+table i
+comparison of this paper with existing survey and review papers on the security of machine learning ml and connected and
+autonomous vehicles cavs legend means covered  means not covered means partially covered
+trafﬁc ﬂow road and network conditions etc such data can be
+potentially used for improving the performance of the vehicu
+lar ecosystem using adaptive datadriven decision making and
+can also be used to accomplish various destructive objectives
+therefore ensuring data integrity and security are necessarily
+important to avoid various risks and attacks on cavs
+it is common for the perception and control systems of
+cavs to be built using mldl methods however mldl
+techniques have been recently found vulnerable to carefully
+crafted adversarial perturbations  and different physical
+world attacks have been successfully performed on the vision
+system of autonomous cars   this has raised many pri
+vacy and security concerns about the use of such methods
+particularly for securitycritical applications like cavs in this
+paper we aim to highlight various security issues associated
+with the use of ml and we present a review of adversar
+ial ml literature mainly focusing on cavs in addition we
+also present a taxonomy of possible solutions to restrict adver
+sarial ml attacks and open research issues on autonomous
+connected vehicles and ml
+ml in general and dl schemes speciﬁcally perform excep
+tionally well in learning hidden patterns from data dl
+schemes such as deep neural networks dnn have out
+performed humanlevel intelligence in many perception and
+detection tasks by accurately learning from a large corpus
+of training data and classifyingpredicting with high accu
+racy on unseen realworld test examples as dl schemes
+produce outstanding results they have been used in many real
+world securitysensitive tasks such as perception system in
+selfdriving cars anomaly and intrusion detection in vehicular
+networks etc mldl schemes are designed for benign and
+stationary environments where it is assumed that the training
+and test data belongs to the same statistical distribution the
+application of this assumption in a realworld application is
+ﬂawed as training and test data can have different statistical
+distributions which gives rise to an opening for adversaries
+to compromise the mldlbased systems furthermore the
+lack of interpretability of the learning process imperfections
+in training process and discontinuity in the inputoutput
+relationship of dl schemes also resulted in an incentive for
+adversaries to fool the deployed mldl system 
+contributions of this paper in this paper we build upon
+the existing literature available on cavs and present a com
+prehensive review of that literature a comparison of this
+paper with existing surveys on security of cavs is presented
+in table i the following are the major contributions of
+this study
+ we formulate the ml pipeline of cavs and describe
+in detail various security challenges that arise with the
+increasing adoption of ml techniques in cavs specif
+ically emphasizing the challenges posed by adversarial
+ml
+ we present a taxonomy of various threat models and
+highlight the generalization of attack surfaces for general
+ml autonomous and connected vehicle applications
+ we review existing adversarial ml attacks with a special
+emphasis on their relevance for cavs
+ we review robust ml approaches and provide a tax
+onomy of these approaches with a special emphasis on
+their relevance for cavs and
+ finally we highlight various open research problems
+that require further investigation
+organization of the paper the organization of this paper
+is depicted in figure  the history introduction and various
+challenges associated with connected and automated vehicles
+cavs are presented in section ii section iii presents an
+overview of the ml pipeline in cavs the detailed overview
+of adversarial ml and its threats for cavs are described
+in section iv an outline of various solutions to robus
+tify applications of ml along with common methods and
+recommendations for evaluating robustness are presented in
+section v section vi presents open research problems on
+the use of ml in the context of cavs finally we con
+clude the paper in section vii a summary of the salient
+acronyms used in this paper is presented in table ii for
+convenience
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+fig 
+outline of the paper
+ii connected and autonomous vehicles cavs
+history introduction and challenges
+in this section we provide the history introduction back
+ground of cavs along with different conventional and security
+challenges associated with them
+a autonomous vehicles and levels of automation
+the society of automotive engineers sae has deﬁned a
+taxonomy of driving automation that is organized in six lev
+els the sae deﬁned the potential of driving automation at
+each level that is depicted in figure  moreover according
+to a recent scientometric and bibliometric review article on
+autonomous vehicles  different naming conventions have
+been used over the years to refer to autonomous vehicles
+these names are illustrated in figure  note that the year
+denotes the publication year of the ﬁrst paper mentioning the
+corresponding name
+the sae deﬁnes the operational design domain odd for
+the safe operation of autonomous vehicles as the speciﬁc
+conditions under which a given driving automation system or
+feature thereof is designed to function including but not lim
+ited to driving modes  odd refers to the domain of
+operation which an autonomous vehicle has to deal with an
+odd representing an ability to drive in good weather condi
+tions is quite different from an odd that embraces all kinds
+of weather and lighting conditions the sae recommends
+that odd should be monitored at runtime to gauge if the
+autonomous vehicle is in a situation that it was designed to
+safely handle
+b development of autonomous vehicles historical
+overview
+selfdriving vehicles especially ones considering lower lev
+els of automation referring to the taxonomy of automation as
+presented in figure  have existed for a long time in 
+francis udina presented a remote controlled car famously
+known as american wonder in the  new york
+worlds fair general motors futurama exhibited aspects of
+what we call selfdriving car today general motors and rca
+initiated the ﬁrst work around the design and development of
+selfdriving vehicles in the early s  that was followed
+by prof robert fenton at the ohio state university from
+in  ernst dickens at university of munich designed a
+robotic van that can drive autonomously without trafﬁc and by
+ the robotic van drove up to  kmhr later he started the
+development of driving scenes recognition tools using video
+imagery  that was followed by a demonstration performed
+under the eureka prometheus project the supersmart vehi
+cle systems ssvs program in europe  and japan 
+were also based on the earlier work of ernst dickens in
+ four vehicles drove in a convoy using magnetic mark
+ers on the road for relative positioning a similar test was
+repeated in  with eight vehicles using radar systems and
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+fig 
+the taxonomy of the levels of automation in driving
+table ii
+list of acronyms
+vv communications this work has paved the way for mod
+ern adaptive cruise control and automated emergency braking
+systems this rd work then witnessed initiatives of pro
+grams like the path program by caltrans and the university
+of california in  in particular the work on selfdriving
+got huge popularity with the demonstration of research work
+done by the national automated highway systems consortium
+nahsc during   and this climax remained until
+fig 
+the illustration of different naming conventions used for referring
+autonomous vehicles in past years the year denotes the publication year of
+ﬁrst paper mentioning corresponding name we see that selfdriving car is
+not entirely a new concept and it is referred to through a number of terms
+source 
+in  the defense advanced research project agency
+darpa announced the grand autonomous vehicles challenge
+and held the ﬁrst episode in  the ﬁrst grand challenge
+was won by carnegie mellon university cmu and their car
+only drove nearly seven miles where the ﬁnish line was at
+ miles in  the second episode of the darpa grand
+challenge was held in which ﬁve out of twentythree teams
+were able to reach the ﬁnish line
+this time stanford universitys vehicle stanley has won
+the challenge in the third episode of darpa grand challenge
+in  universities were invited to present the autonomous
+vehicles on busy roads to shift the perception of the public
+tech and automobile industries about the design and feasibility
+of autonomous vehicles
+in  google hired the team leads of stanford and cmu
+autonomous vehicle projects and started pushing towards their
+selfdriving car design on the public roads by the year 
+googles selfdriving car has navigated approximately 
+thousand miles on the roads of california in quest of achiev
+ing the target of  million miles by  in  vislab
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+fig 
+the timeline for the development of autonomous vehicles
+a spinoff company of the university of parma successfully
+completed the international autonomous driving challenge by
+driving two orange vans  km with minimal driver inter
+ventions from university of parma in italy to shanghai in
+china a year later in  volvo demonstrated the road
+train concept where one vehicle controls several other vehicles
+behind it in order to avoid road congestion in  tesla cars
+have started the commercial sales of highway speed intelligent
+cruise control based cars with minimal human intervention
+in october  google selfdriving car has successfully
+achieved the  million miles target it is expected that by
+ the state departments of motor vehicles dmv may
+permit selfdriving cars on the highways with their special
+lanes and control settings by  it is expected that public
+transportation will also become driverless and by  it is
+foresighted that we will have level autonomous vehicles a
+timeline for the development of autonomous vehicles over the
+past decades is depicted in figure 
+c introduction to connected and autonomous
+vehicles cavs
+the term connected vehicles refers to the technologies
+services and applications that together enable intervehicles
+connectivity in connected vehicles settings the vehicles are
+httpswwwforbescomsitesjoannmullertheroadtoself
+drivingcarsatimelinecf
+fig  the basic system architecture of connected vehicles having three types
+of communications vehicletovehicle vv infrastructuretoinfrastructure
+ii and infrastructuretovehicle iv
+equipped with a wide variety of onboard sensors that commu
+nicate with each other via can bus and nearby communica
+tion infrastructures and vehicles as illustrated in figure 
+the applications of connected vehicles include everything
+from trafﬁc safety roadside assistance infotainment efﬁ
+ciency telematics and remote diagnostics to autonomous
+vehicles and gps in general the connected vehicles can be
+regarded as a cooperative intelligent transport system  and
+fundamental component of the internet of vehicles iov 
+a review of truck platooning automation projects formulating
+the settings of connected vehicles described earlier together
+with various sensors ie radar lidar localization laser
+scanners etc and computer vision techniques is presented
+in  the key purpose of initiating and investigating such
+projects is to reduce energy consumption and personnel costs
+by automated operation of following vehicles furthermore it
+has been suggested in the literature that throughput on urban
+roads can be doubled using vehicle platooning 
+cavs is an emerging area of research that is drawing sub
+stantial attention from both academia and industry the idea
+of connected vehicles has been conceptualized to enable inter
+vehicle communications to provide better trafﬁc ﬂow road
+safety and greener vehicular environment while reducing fuel
+consumption and travel cost there are two types of nodes in
+a network of connected vehicles  vehicles having onboard
+units obus and  roadside wireless communication infras
+tructure or roadside units rsus the basic conﬁguration of
+a vehicular network is shown in figure  there are three
+modes of communications in such networks vehicletovehicle
+vv infrastructuretoinfrastructure ii and vehicleto
+infrastructure vi besides these there are two more types
+of communicationvehicle to pedestrian vp and vehicle
+to anything vxthat are expected to become part of the
+future connected vehicular ecosystem
+in modern vehicles selfcontained embedded systems called
+electronic control units ecus are used to digitally control a
+heterogeneous combination of components such as brakes
+lighting entertainment and drivetrainpowertrain etc 
+there are more than  such embedded ecus in a car that
+are executing about  million expressions of code and are
+interconnected to control and provide different functionalities
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+fig 
+autonomous vehicles major sensor types their range and position ﬁgure adapted from 
+fig 
+the systematic software workﬂow of autonomous vehicles nuts and bolts of all important operational blocks of software workﬂows are depicted to
+provide reader with a better understanding of the system design involved in developing a stateofart autonomous vehicle
+such as acceleration steering and braking  the secu
+rity of ecus can be compromised and remote attacks can be
+realized to gain control of the vehicle as illustrated in 
+modern cavs utilize a number of onboard sensors includ
+ing proximity short middle and long range sensors while
+each of these sensors works in its dedicated range they can
+act together to detect objects and obstacles over a wide range
+the major types of sensors deployed in autonomous vehicles
+and their sensing range are shown in figure  and are brieﬂy
+discussed next
+ proximity sensors m ultrasonic sensors are proximity
+sensors that are designed to detect nearby obstacles when
+the car is moving at a low speed especially they provide
+parking assistance
+ short range sensors m there are two types of short
+range sensors  forward and backward cameras and 
+short range radars srr forward cameras assist in traf
+ﬁc signs recognition and lane departure while backward
+cameras provide parking assistance and srr help in blind
+spot detection and cross trafﬁc alert
+ medium range sensors m the lidar and
+mediumrange radars mrr are designed with a medium
+range and are used for pedestrian detection and collision
+avoidance
+ long range sensors m long range radars lrr
+enable adaptive cruise control acc at high speeds in
+conjunction with the information collected from internal
+sensors and from other vehicles and nearby rsu 
+the software design of autonomous vehicles utilizing
+mldl schemes is divided into ﬁve interconnected modules
+namely environmental perception mapping module planning
+module controller module and system supervisor figure 
+highlights the software design of autonomous vehicles and
+it also provides the sensory input required for each software
+module to perform the designated task
+d securityrelated challenges in developing robust cavs
+modern vehicles are controlled by complex distributed com
+puter systems comprising millions of lines of code executing
+on tens of heterogeneous processors with rich connectivity
+provided by internal networks eg can  while this
+structure has offered signiﬁcant efﬁciency safety and cost
+beneﬁts it has also created the opportunity for new attacks
+ensuring the integrity and security of vehicular systems is
+crucial as they are intended to provide road safety and are
+essentially life critical
+different types of attacks on vehicular networks are
+described below
+ application layer attacks the application layer attacks
+affect the functionality of a speciﬁc vehicular application such
+as beaconing and message spooﬁng application layer attacks
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+can be broadly classiﬁed as integrity or authenticity attacks
+and are brieﬂy described below
+a integrity attacks in the message fabrication attack the
+adversary continuously listens to the wireless medium
+and upon receiving each message fabricates its con
+tent accordingly and rebroadcasts it to the network
+modiﬁcation of each message may have a different effect
+on the system state and depends solely on the design of
+the longitudinal control system a comprehensive sur
+vey on attacks on the fundamental security goals ie
+conﬁdentiality integrity and availability can be found
+in  in the spooﬁng attack the adversary imitates
+another vehicle in the network to inject falsiﬁed messages
+into the target vehicle or a speciﬁc vehicle preceding the
+target therefore the physical presence of the attacker
+close to the target vehicle is necessarily not required
+in a recent study  the use of onboard adas sen
+sors is proposed for the detection of location spooﬁng
+attack in vehicular networks a similar type of attack
+in a vehicular network can be gps spooﬁngjamming
+attack  in which an attacker transmits false loca
+tion information by generating strong gps signals from a
+satellite simulator in addition a thief can use integrated
+gpsgsm jammer to restrain a vehicles antitheft system
+from reporting the vehicles actual location  in the
+replay attack the adversary stores the message received
+by one of the networks nodes and tries to replay it later
+to attain evil goals  the replayed message contains
+old information that can cause different hazards to both
+the vehicular network and its nodes for example con
+sider the message replaying attack by a malicious vehicle
+that is attempting to jam trafﬁc 
+b authenticity attacks authenticity is another major chal
+lenge in vehicular networks which refers to protecting
+the vehicular network from inside and outside mali
+cious vehicles possessing falsiﬁed identity by denying
+their access to the system  there are two types of
+authenticity attacks namely sybil attack and imperson
+ation attacks  in a sybil attack a malicious vehicle
+pretends many fake identities  and in an imperson
+ation attack the adversary exploits a legitimate vehicle
+to obtain network access and performs malicious activi
+ties for example a malicious vehicle can impersonate a
+few nonmalicious vehicles to broadcast falsiﬁed mes
+sages  this type of attack is also known as the
+masquerading attack
+to avoid application layer attacks various cryptographic
+approaches can be effectively leveraged especially when an
+attacker is a malicious outsider  for instance digital
+signatures can be used to ensure messages integrity and to
+protect them against unauthorized use  in addition dig
+ital signatures can potentially provide both data and entity
+level authentication moreover to prevent replay attacks a
+timestampbased random number nonce can be embed
+ded within messages while the aforementioned methods are
+general there are other unprecedented challenges related to
+vehicular networks implementation deployment and stan
+dardization for example protection against security threats
+becomes more challenging with the presence of a trusted
+compromised vehicle with a valid certiﬁcate in such cases
+datadriven anomaly detection methods can be used  
+a survey on anomaly detection for enhancing the security of
+connected vehicles is presented in 
+ network layer attacks network layer attacks are dif
+ferent from the application layer attacks in a way that they can
+be launched in a distributed manner one prominent example
+of such attacks on vehicular systems is the use of vehicular
+botnets to attempt a denial of service dos or distributed
+denial of service ddos attack the potential of vehicu
+lar networkbased botnet attack for autonomous vehicles is
+presented in  the study demonstrates that such an attack
+can cause severe physical congestion on hot spot road seg
+ments resulting in an increased trip duration of vehicles in the
+target area another way to realize the dos attack is to use
+network jamming that causes disruption in the communications
+network over a small or large geographic area as discussed
+earlier current conﬁgurations of vehicular networks are based
+on the ieee p standard that uses single control chan
+nel cch with multiple service channels sch and can be
+attacked by attempting single channel or multichannel jam
+ming by swiping between all channels various conventional
+techniques can be adopted to mitigate network layer attacks
+such as frequency hopping channel and technology switching
+etc coalition or platooning attack is a similar type of attack
+in which a group of compromised vehicles can cooperate to
+perform malicious activities such as blocking or interrupting
+communications between legitimate vehicles
+ system level attacks the attacks on the vehicles hard
+ware and software are known as system level attacks and can
+be performed by either malicious insiders at the time of devel
+opment or outsiders using unattended vehicular access such
+attacks are more serious in nature as they can cause damage
+even in the presence of the deployed state of the art secu
+rity measures and secure endtoend communications  for
+instance if the onboard hardware or software system of a
+vehicle is maliciously modiﬁed then the information exchange
+between the vehicle and communication systems will be inac
+curate and with such a phenomenon the overall performance
+and security of the vehicular network will be compromised
+in  authors investigated a noninvasive sensor spooﬁng
+attack on cars antilock braking system such that the braking
+system mistakenly reports a speciﬁc velocity
+ privacy breaches
+in vehicular networks vehicles
+broadcast safety messages periodically that contain critical
+information such as vehicle identity current location veloc
+ity acceleration etc the adversary can exploit such kind of
+information by attempting an eavesdropping attack which is
+a type of passive attack and is more difﬁcult to be detected
+therefore preserving the privacy of vehicles and drivers is
+of utmost importance this allows the vehicles to commu
+nicate with each other without disclosing their identities
+which is accomplished by masking their identities eg using
+pseudonyms in vehicular networks knowing the origin of
+the message is crucial for authentication purposes therefore
+vehicles should be equipped with privacypreserving authen
+tication mechanism ensuring that the communication among
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+vehicles vv and with infrastructure vi is conﬁdential
+however intervehicular communication can be eavesdropped
+by anyone within the radio range eg a malicious vehicle
+can collect and misuse conﬁdential information similarly an
+attacker can construct location proﬁles of vehicles by establish
+ing a connection with the rsu therefore the effectiveness of
+pseudonymous or even complete anonymous schemes in vehic
+ular networks remains vulnerable to privacy breaches 
+ sensors attacks although sensors of autonomous vehi
+cles are by design resilient to environmental noises such as
+acoustical interference from nearby objects and vehicles etc
+however current sensors cannot resist intentional noise and
+it can be injected to realize various attacks such as jamming
+and spooﬁng
+ attacks on perception system the perception system
+of selfdriving vehicles is developed using various computer
+vision techniques including modern mldlbased methods
+for identifying objects eg pedestrians trafﬁcs signs and
+symbols etc the perception system of selfdriving vehicle
+is highly vulnerable to the physical world and adversarial
+attacks for example suppose were learning a controller f x
+to predict the steering angle in an autonomous car as a func
+tion of the visionbased input captured into a feature vector
+x the adversary may introduce small manipulations ie x is
+modiﬁed into x  such that the predicted steering angle f x 
+is maximally distant from the optimal angle y
+ intrusion detection the detection of malicious activ
+ities is one of the major challenges of vanets intrusion
+detection systems enable the identiﬁcation of various types of
+attacks being performed on the system eg sink and black
+hole attacks etc without such a system communication in
+vehicular networks is highly vulnerable to numerous attacks
+such as selective forwarding rushing and sybil attacks etc
+to detect the selective forwarding attack a trust system based
+method utilizing local and global detection of attacks among
+internodes mutual monitoring and detection of abnormal driv
+ing patterns is presented in  alheeti et al proposed a
+system for intelligent intrusion detection of gray holes and
+rushing attack 
+ certiﬁcate revocation
+the security mechanism of
+vehicular networks is based on trusted certiﬁcation authority
+ca that manages the identities and credentials of the vehicles
+by issuing valid certiﬁcates to them the vehicles are essen
+tially unable to operate in the system without a valid certiﬁcate
+and validity of certiﬁcate must be revoked after a certain
+amount of time the revocation process is a challenging task
+administratively due to challenges such as the identiﬁcation of
+nodes with illegitimate behavior and the need to change the
+registered domain moreover it is necessary to restrain mali
+cious nodes by revoking their certiﬁcates to prevent them from
+attacking the system to tackle this problem three different
+certiﬁcate revocation protocols have been proposed in 
+e nonsecurityrelated challenges in deploying cavs
+the phenomenon of connected vehicles is realized using
+a technology named vehicular networks which have various
+challenges that need to be addressed for their efﬁcient deploy
+ment in the longer term that are described below
+ high mobility of nodes the large scale mobility of
+vehicles in vehicular networks result in a highly dynamic
+topology thus raising several challenges for the communica
+tion networks  in addition the dynamic nature of trafﬁc
+can lead to a partitioned network having isolated clusters
+of nodes  as the connections between the vehicles and
+nearby rsus are shortlived the wireless channel coherence
+time is short this makes accurate realtime channel estima
+tion more challenging at the receiver end this necessitates the
+design of dynamic and robust resource management protocols
+that can efﬁciently utilize available resources while adapting
+to the vehicular density variations 
+ heterogeneous and stringent qos requirements
+in
+vehicular networks there are different modes of communi
+cations that can be broadly categorized into vv and vi
+communications in vv communications vehicles exchange
+safetycritical information eg information beacons road and
+trafﬁc conditions among each other known as basic safety
+messages bsm this communication which can be per
+formed periodically or when triggered by some event requires
+high reliability and is sensitive to delay 
+in vi communications on the other hand vehicles can
+communicate with nearby communications infrastructure to
+get support for route planning trafﬁc information opera
+tional data and to access entertainment services that requires
+more bandwidth and frequent access to the internet eg for
+downloading highquality maps and accessing infotainment
+services etc therefore the heterogeneous and stringent qos
+requirements of vanets cannot be simultaneously met with
+traditional wireless design approaches
+ learning dynamics of vehicular networks as dis
+cussed above vehicular networks exhibit high dynamicity
+thus to meet the realtime and stringent requirements of vehic
+ular networks historical datadriven predictive strategies can
+be adopted eg traditional methods like hidden markov mod
+els hmm and bayesian methods  in addition to using
+traditional ml methods more sophisticated dl models can
+be used for example recurrent neural networks rnn and
+long short term memory lstm have been shown beneﬁcial
+for time series data and can be potentially used for modeling
+temporal dynamics of vehicular networks
+ network congestion control vehicular networks are
+geographically unbounded and can be developed for a city
+several cities and countries as well the unbounded nature
+of vehicular networks leads to the challenge of network con
+gestion  as the trafﬁc density is high in urban areas as
+compared to rural areas particularly during rush hours that
+can possibly lead to network congestion issues
+ time constraints the efﬁcient application of vehic
+ular networks requires hard realtime guarantees because
+it lays out the foundation for many other applications
+and services that require strict deadlines  for exam
+ple trafﬁc ﬂow prediction  trafﬁc congestion con
+trol  and path planning  therefore safety messages
+should be broadcasted in acceptable time either by vehicles
+or rsus
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+fig 
+the machine learning ml pipeline of cavs comprising of four major modules  perception  prediction  planning and  control
+table iii
+overview of machine learning mlbased research on different vehicular networks applications
+iii the ml pipeline in cavs
+the driving task elements of selfdriving vehicles that can
+beneﬁt from ml can be broadly categorized into the following
+four major components as shown in figure 
+ perception assists in perceiving the nearby environment
+and recognizing objects
+ prediction predicting the actions of perceived objects
+ie how environmental actors such as vehicles and
+pedestrians will move
+ planning route planning of vehicle ie how to reach
+from point a to b
+ decision making  control making decisions relating
+to vehicle movement ie how to make the longitudinal
+and lateral decisions to control and steer the vehicle
+these components are combined to develop a feedback
+system for enabling the phenomenon of selfdriving without
+any human intervention this ml pipeline can then facili
+tate autonomous realtime decisions by leveraging insights
+from the diverse types of data eg vehicles behav
+ioral patterns network topology vehicles locations and
+kinetics information etc that can be in easily gathered
+by cavs
+in the remainder of this section we will discuss some of
+the most prominent applications of mlbased methods for
+performing these tasks a summary is presented in table iii
+a applications of ml for the perception task in cavs
+different ml techniques particularly dl models have
+widely been used for developing the perception system of
+autonomous vehicles  in addition to using video cam
+eras as major visionary sensors these vehicles also use other
+sensors for detection of different events in the cars surround
+ings eg radar and lidar the surrounding environment
+of the autonomous vehicles is perceived in two stages 
+in the ﬁrst stage the whole road is scanned for the detec
+tion of changes in the driving conditions such as trafﬁc
+signs and lights pedestrian crossing and other obstacles etc
+in the second stage knowledge about the other vehicles is
+acquired in  a cnn model is trained for developing direct
+perception representation of autonomous vehicles
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+b applications of ml for the prediction task in cavs
+in cavs accurate and timely prediction of different events
+encountered in driving scenes is another important task which
+is mainly accomplished using different ml and dl algo
+rithms for instance autonomous vehicles uses dl models
+for the detection and localization of obstacles  different
+objects eg vehicles pedestrians and bikes etc  and
+their behavior eg tracking pedestrians along the way 
+and trafﬁc signs  and trafﬁc lights recognition 
+another prediction tasks in cavs that involve the applica
+tion of mldl methods are vehicle trajectory and location
+prediction  efﬁcient and intelligent wireless communi
+cation  and trafﬁc ﬂow prediction and modeling 
+moreover ml schemes have also been used for the prediction
+of uncertainties in autonomous driving conditions 
+c applications of ml for the planning task in cavs
+cavs are equipped with onboard data processing com
+patibilities and they intelligently process the data collected
+from heterogeneous sensors for efﬁcient route planning and
+for other optimized operations using different ml and dl
+techniques the key goal of route planning is to reach the
+destination in a small amount of time while avoiding trafﬁc
+congestion potholes and other vehicles by navigating through
+gps and consuming less fuel as possible in the literature
+motion planning of autonomous vehicles is studied in three
+dimensions  ﬁnding a path for reaching destination point
+ searching for the fastest manoeuvre and  determining
+the most feasible trajectory  moreover to avoid collisions
+between vehicles in cavs predicting the trajectories of other
+vehicles is a crucial task for the planning trajectory of an
+autonomous vehicle  for instance li presented a hybrid
+approach to model uncertainty in vehicle trajectory prediction
+for cavs application using deep learning and kernel density
+estimation 
+d applications of ml for the decision making and control
+in recent years dl based algorithms have been exten
+sively used for control of autonomous vehicles that are reﬁned
+through millions of kilometers of test drives for instance
+bojarski et al presented a cnn based endtoend learning
+framework for selfdriving cars  the model was able to
+drive the car on local roads with or without markings and on
+highways with small training data in a similar study cnn is
+trained for endtoend learning of lane keeping for autonomous
+cars  recently researchers have now started working
+on utilizing deep reinforcement learning rl for perform
+ing actions and decision making in driving conditions 
+bouton et al proposed a generic approach to enforce prob
+abilistic guarantees on rl learning for which they derived
+an exploration strategy that restricts the rl agent to choose
+among only those actions that satisfy a desired probabilistic
+speciﬁcation criteria prior to training  moreover human
+like speed control of autonomous vehicles using deep rl with
+double qlearning is presented in  that uses scenes gener
+ated by naturalistic driving data for learning in  authors
+presented an integrated framework that uses a deep rl based
+approach for dynamic orchestration of networking caching
+and computing resources for connected vehicles
+in addition mlbased methods have been used for many
+other applications in cavs for example adaptive trafﬁc ﬂow
+in which smart infrastructure integrates vv signals from the
+moving cars to optimize speed limits trafﬁclight timing and
+the number of lanes in each direction on the basis of the actual
+trafﬁc load the trafﬁc ﬂow can be further improved in cavs
+by using cooperative adaptive cruise control technology 
+also vehicles can take advantage of cruise control and save
+fuel by following one another in the form of vehicles pla
+toons moreover dl based methods have been proposed for
+intrusion detection for invehicle security of can bus 
+the overview of intelligent and connected vehicles current
+and future perspectives are presented in 
+autonomous vehicles are evolving through four stages of
+development the ﬁrst stage includes passive warning and
+convenience systems such as front and backward facing cam
+eras crosstrafﬁc warning mechanism radar for blind spot
+detection etc these warning systems use different computer
+vision and machine learning techniques to perceive the sur
+rounding views of the vehicle on the road and to recognize
+trafﬁc signs static and moving objects in the second stage
+these systems are used to assist the active control system of
+the vehicle while parking braking and to prevent backing
+over unseen objects in the third stage the vehicle is equipped
+with some semiautonomous operationsas the vehicle may
+behave unexpectedly and the on seat driver should be able to
+resume control in the ﬁnal stage the vehicle is designed to
+perform fully autonomous operations
+cavs together formulate the settings of the selfdriving
+vehicular network and there is a strong synergy between
+them  in addition autonomous vehicles are an important
+component of future vehicular networks that are equipped
+with complex sensory equipment the autonomous vehicu
+lar networks are predictive and adaptive to their environments
+and are designed with two fundamental goals ie autonomy
+and interactivity the ﬁrst goal enables the network to mon
+itor plan and control itself and the later ensures that the
+infrastructure is transparent and friendly to interact with
+the deployment of ml in cavs entails the following
+stages
+a data collection input data is collected using sen
+sors or from other digital repositories in autonomous
+vehicles input data is collected using a complex sen
+sory network eg cameras radar gps etc see
+figure  in a connected vehicular ecosystem there is
+also intervehicle information communication
+b preprocessing
+the
+heterogeneous
+data
+video
+imagery network and trafﬁc information etc col
+lected by the sensors is then digitally processed and
+appropriate features eg trafﬁc signs information and
+trafﬁc ﬂow information etc are extracted
+c model training using the extracted features from the
+input data a ml model is trained to recognize and dis
+tinguish between different objects events encountered
+in the driving environment eg recognizing moving
+objects like pedestrian vehicles and cyclists etc and
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+fig 
+the illustration of the generalization of attack surfaces in ml systems generic model top autonomous vehicles model middle and connected
+vehicles model bottom
+fig 
+the taxonomy of adversarial examples perturbation methods and benchmarks datasets and models
+distinguishing between trafﬁc signs ie stop or speed
+limit sign etc
+d decision or action a decision or an action eg stop
+ping the car at the stop sign and predicting trafﬁc
+ﬂow based on the knowledge acquired by the vehic
+ular network is performed according to the learned
+knowledge and underlying system
+we present an illustration of the generalization of attack
+surfaces in ml systems from generic models to the more spe
+ciﬁc cases of autonomous and connected vehicles in figure 
+as we shall discuss later in the paper each of these stages
+is vulnerable to adversarial intrusion since an adversary can
+try to manipulate the data collection and processing system
+tamper the model or its outputs
+iv adversarial ml attacks and the adversarial
+ml threat for cavs
+a comprehensive overview of adversarial ml in the context
+of cavs is presented in this section
+a adversarial examples
+formally adversarial examples are deﬁned as inputs to a
+deployed mldl model created by an attacker by adding an
+imperceptible perturbation in the actual input to compromise
+the integrity of the mldl model an adversarial sample x 
+is created by adding a small carefully crafted perturbation δ
+to the correctly classiﬁed sample x the perturbation δ is cal
+culated by approximating the optimization problem given in
+eq  iteratively until the crafted adversarial example gets
+classiﬁed by ml classiﬁer f  in targeted class t a tax
+onomy of adversarial examples perturbation methods and
+benchmarks is presented in figure 
+x  x  arg min
+δ δ f x  δ  t
+ adversarial attacks an adversarial attack affecting the
+training phase of the learning process is termed as poisoning
+attack where an attacker compromises the learning process of
+the mldl scheme by manipulating the training data 
+whereas the adversarial attack on the inference phase of the
+learning process is termed as evasion attack where an attacker
+manipulates the test data or realtime inputs to the deployed
+model for producing a false result  usually examples used
+for fooling the mldl schemes at inference time are called
+adversarial examples
+ adversarial perturbations the adversarial perturbation
+crafting is divided in three major categories namely local
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+search combinatorial optimization and convex relaxation
+this division is based on solving the objective function given
+in eq  local search is the most common method of gener
+ating adversarial perturbations where the adversarial examples
+are generated by solving the objective function provided in
+eq  to obtain a lower bound on the adversarial perturbation
+by using gradientbased methods a prime example of local
+search adversarial example crafting is the fast gradient sign
+method fgsm where an adversarial example is created by
+taking a step in the direction of the gradient  in another
+study the authors demonstrated that adversarial images are
+very easy to be constructed using evolutionary algorithms
+or gradient ascent  combinatorial optimization is also
+a method for creating adversarial examples where we ﬁnd
+the exact solution of the optimization problem provided in
+eq  a major shortcoming of this method is the increase in
+the computational complexity with the increase of the num
+ber of examples in the dataset recently khalil et al 
+launched a successful adversarial attack based on combina
+torial and integer programming on binarized neural networks
+but the performance of the proposed attack reduces as the size
+and dimensions of data increase recently convex relaxation is
+also used to generate  and defend  against adversar
+ial examples where the upper bound on the objective function
+provided in eq  is calculated
+ different aspects of perturbations
+the adversarial
+examples are designed to look like the original ones and
+imperceptible to humans in this regard the addition of small
+perturbations is of utmost importance whereas the literature
+suggests that even onepixel perturbation is often sufﬁcient to
+fool the deep model trained for classiﬁcation task  here
+we analyze different aspects of adversarial perturbations
+a perturbation scope adversarial perturbations are gen
+erated from two aspects  perturbations for each
+legitimate input and  universal perturbations for the
+complete datasets ie for each original cleaned sample
+to date most of the studies considered the ﬁrst scope of
+adversarial perturbations
+b perturbation limitation similarly there are two types of
+limitations optimizing the system at a low perturbations
+scale and optimizing the system at a low perturbations
+scale with constrained optimization
+c the magnitude of the perturbations is mainly measured
+using three norms l l and l norm in lnorm
+based attacks the attacker aims to minimize the squared
+error between the original and adversarial example l
+norm measures the euclidean distance between the adver
+sarial example and the original sample and results in a
+very small amount of noise added to the adversarial sam
+ple lattacks are perhaps the simplest type of attacks
+which aim to limit or minimize the extent to which the
+maximum change for all pixels in adversarial examples is
+achieved also this constraint forces to only make very
+small changes to each pixel lnormbased attacks work
+by minimizing the number of perturbed pixels in an image
+and force the modiﬁcations only to very few pixels
+to ensure tightly constrained action space available to an
+adversary imperceptibility of perturbations is important to
+develop an attack considering the important constraints 
+what constraints are placed on the attackers starting point
+and  where did this initial example come from gilmer et al
+identiﬁed four salient features described below of adversarial
+perturbations 
+a indistinguishable perturbation the attacker does not
+have to select a starting point but it is given a draw from
+the data distribution and introduces such perturbation in
+the input sample that is indistinguishable by a human
+b contentpreserving perturbation the attacker does not
+have to select a starting point but it is given a draw from
+the data distribution and creates such perturbation as long
+as the original content of the sample is preserved
+c nonsuspicious input the attacker can generate any type
+of desired perturbed input sample as long as it remains
+undetectable to a human
+d contentconstrained input the attacker can generate any
+type of desired perturbed input sample as long as it
+maintains some content payload ie it must be a pic
+ture of dog but not necessarily a particular dog this
+includes payloadconstrained input where human percep
+tion might not be important rather the intended function
+of the input example remains intact
+e unconstrained input there is no constraint on the input
+and an attacker can produce any type of input example
+to get the desired output or behavior from the system
+ adversarial
+ml
+benchmarks
+in
+this
+section
+we
+describe the benchmarks datasets and victim ml models used
+for evaluating adversarial examples researchers mostly adopt
+an inconsistent approach and report the performance of the
+attacks on diverse datasets and victim models the widely used
+benchmark datasets and victim models are described below
+ datasets
+mnist
+cifar
+and
+imagenet
+are
+the
+widely
+used
+datasets
+in
+adversarial ml research and are also regarded as the
+standard deep learning datasets
+ victim models the widely used victim mldl models
+for evaluating adversarial examples are lenet 
+alexnet
+vgg
+googlenet
+caffenet  and resnet 
+b threat models for adversarial ml attacks on cavs
+threat modeling is the procedure of answering a few com
+mon and straight forward questions related to the system being
+developed or deployed from a hypothetical attackers point of
+view threat modeling is a fundamental component of security
+analysis it requires that some fundamental questions related
+to the threat are addressed  in particular a threat model
+should identify
+ the system principals what is the system and who are the
+stakeholders
+ the system goals what does the system intend to do
+ the system adversities what potential bad things can hap
+pen due to adverse situations or motivated adversaries
+ the system invariants what must be always true about
+the system even if bad things happen
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+fig 
+the taxonomy of various types of threat models used in literature to design adversarial ml attacks this ﬁgure also provides the information needed
+by a defender to ensure the robustness of mlbased autonomous system
+the key goal of threat modeling is to optimize the secu
+rity of the system by determining security goals identifying
+potential threats and vulnerabilities and to develop counter
+measures for preventing or mitigating their associated effects
+on the system answering these questions requires careful
+logical thoughts and signiﬁcant expertise and time
+as the focus of this paper is on highlighting the potential
+vulnerabilities of using ml techniques in cavs the scope of
+our study is restricted to the adversarial ml threat in cavs in
+the remainder of this section we discuss the various facets of
+the adversarial ml threats in cavs a taxonomy aggregating
+these issues is illustrated in figure 
+ adversarial attack type in the literature the attacks
+on learning systems are generally categorized into three
+dimensions 
+a inﬂuence it includes causative trying to get control
+over training data and exploratory exploiting mis
+classiﬁcations of the model without affecting the training
+process attacks
+b speciﬁcity it involves targeted and indiscriminate attacks
+on a speciﬁc instance
+c security violation it is concerned with the integrity of
+assets and availability of the service attack
+the ﬁrst dimension describes the capabilities of the adver
+sary and whether the attacker has the ability to affect the
+learning by poisoning training data instead the attacker
+exploits the model by sending new samples and observing
+their responses to get the intended behavior the second axis
+indicates the speciﬁc intentions of the attacker ie whether
+the attacker is interested in realizing a targeted attack on one
+particular sample or he aims to cause learned model t fail in an
+indiscriminate fashion the third dimension detail the types of
+security violation an attacker can cause eg the attacker may
+aim to bypass harmful messages to bypass through the ﬁlter as
+false negatives or realizing denial of service by causing benign
+samples misclassiﬁed as false positives
+ adversarial
+knowledge
+based
+on
+the
+adversarial
+knowledge available to the adversaries the adversarial ml
+attacks are divided into three types namely whitebox gray
+box and blackbox attacks whitebox attacks assume com
+plete knowledge about the underlying ml model including
+information about the optimization technique the trained
+ml model model architecture activation function hyper
+parameters layer weights and training data graybox attacks
+assume a partial knowledge about the targeted model whereas
+the blackbox adversarial attack assumes the adversary has
+zero knowledge and no access to the underlying ml model
+and the training data black box attack refers to the real
+world knowledge where there is not much information about
+the targeted mldl scheme is available in such cases the
+adversary acts as a normal user and tries to infer from
+the output of the ml system blackbox adversarial attacks
+make use of transferability property of adversarial exam
+ples where it is assumed that adversarial examples created
+for one mldl model will affect other models trained on
+datasets with a similar distribution to that of the original
+model 
+ adversarial capabilities adversarial capabilities are
+important to be identiﬁed in security practice as they deﬁne
+the strength of the adversaries to compromise the security
+of the system in general an adversary can be stronger or
+weaker based on the knowledge and access to the system
+adversarial capabilities advocate how and what type of attacks
+an adversary can realize using what type of attack vector on
+which attack surface the attacks can be launched at two
+main phases namely inference and training inference time
+attacks are exploratory attacks that do not modify the under
+lying model instead they inﬂuence it to produce incorrect
+outputs inference attacks vary with the availability of system
+knowledge the training time attacks aim at tampering with
+the model itself or inﬂuence its learning process and involve
+two types of attack methods  in the ﬁrst type adversarial
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+examples are injected in the training data and in the second
+type training data is directly modiﬁed
+ adversarial speciﬁcity another classiﬁcation of the
+adversarial attacks is based on the speciﬁcity of the adver
+sarial examples where adversarial attacks are classiﬁed as
+targeted and nontargeted attacks the attacks where adversar
+ial perturbations are added to compromise the performance of
+a speciﬁc class in the data are known as the targeted adversarial
+attacks targeted adversarial attacks are launched by adver
+saries to create targeted misclassiﬁcation ie a speciﬁc road
+sign will be misclassiﬁed by the selfdriving vehicle while the
+rest of the road sign classiﬁcation system will function cor
+rectly or sourcetarget misclassiﬁcation ie a certain road
+trafﬁc sign will be always classiﬁed in a predetermined wrong
+class by the road sign classiﬁer in a selfdriving vehicle
+whereas adversarial perturbations created for deteriorating the
+performance of the model irrespective of any class of data
+are known as nontargeted adversarial attacks nontargeted
+attacks are launched by adversaries to reduce the classiﬁca
+tion conﬁdence ie a trafﬁc sign will be detected with less
+accuracy which was previously detected with high accuracy
+and misclassiﬁcation ie a road trafﬁc sign will be classiﬁed
+in any other class than its original one
+ adversarial falsiﬁcation the adversary can attempt
+two types of falsiﬁcation attacks namely false positive
+attacks and false negative attacks  in the ﬁrst attack an
+adversary generates a negative sample which can be misclas
+siﬁed as a positive one lets assume such attack has been
+launched on the image classiﬁcation system of an autonomous
+vehicle a false positive will be an adversarial image pre
+dicted to be of a class with high conﬁdence to whom it did
+not belong and is unrecognizable to humans on the contrary
+while attempting false negative attacks the adversary gener
+ates a positive sample which can be misclassiﬁed as a negative
+one in adversarial ml this type of attack is referred to as an
+evasion attack
+ attack frequency the adversarial attacks can be single
+step or consist of an iterative optimization process compared
+to single step attacks iterative adversarial attacks are stronger
+however they require frequent interactions for querying the
+ml system and subsequently require a large amount of time
+and computational resources for their efﬁcient generation
+ adversarial goals the last component of the threat
+modeling is the articulation of the adversarys goals the clas
+sical approach to model adversarial goals includes modeling of
+the adversarys desires to impact the conﬁdentiality integrity
+and availability known as the cia model and a fourth yet
+important dimension is the privacy 
+c review of existing adversarial ml attacks
+ adversarial ml attacks on conventional ml schemes
+a pioneering work on adversarial ml was performed by
+dalvi et al  in  where they proposed a mini
+mum distance evasion of the linear classiﬁer and tested there
+proposed attack on spam classiﬁcation system highlighting the
+threat of adversarial ml examples a similar contribution was
+made by lowd and meek  in  where they proposed
+adversarial classiﬁer reverse engineering technique for con
+structing an adversarial attack on classiﬁcation problems in
+ barreno et al  discussed the security of ml in
+adversarial environments and provided a taxonomy of attacks
+on ml schemes along with the potential defenses against
+them in  huang et al  provided the ﬁrst con
+solidated review of adversarial ml where they discussed the
+limitations on the classiﬁers and adversaries in realworld set
+tings biggio et al  proposed poisoning attack on support
+vector machines svm to increase the test error in svm
+their attack successfully altered the test error of svm with
+linear and nonlinear kernels the same authors also proposed
+an evasion attack where they used a gradientbased approach
+for evading pdf malware detectors  and tested their attack
+on svm and simple neural networks
+ adversarial ml attacks on dnns adversarial ml
+attacks on dnns were ﬁrst observed by szegedy et al 
+where they demonstrated that dnns can be fooled by mini
+mally perturbing their input images at test time the proposed
+attack was a gradientbased attack where minimum distance
+based adversarial examples were crafted to fool the image
+classiﬁers another gradientbased attack was proposed by
+goodfellow et al  in this attack they formulated adversar
+ial ml as a minmax problem and adversarial examples were
+produced by calculating the lower bound on the adversarial
+perturbations this method was termed as fgsm and is still
+considered a very effective algorithm for creating adversarial
+examples adversarial training was also introduced in the same
+paper as a defensive mechanism against adversarial exam
+ples kurakin et al  highlighted the fragility of mldl
+schemes in realworld settings using images taken from a cell
+phone camera for adversarial example generation the adver
+sarial samples were created by using the basic iterative method
+bim an extended version of fgsm the resultant adversar
+ial examples were able to fool the stateofart image classiﬁer
+in  authors demonstrated that only rotation and trans
+lation are sufﬁcient for fooling stateoftheart deep learning
+based image classiﬁcation models ie convolutional neural
+networkscnns in a similar study  ten stateoftheart
+dnns were shown to be fragile to the basic geometric trans
+formation eg translation rotation and blurring liu et al
+presented a trojaning attack on neural networks that works by
+modifying the neurons of the trained model instead of affecting
+the training process  authors used trojan as a backdoor
+to control the trojaned ml model as desired and tested it on
+an autonomous vehicle the car misbehaves when a speciﬁc
+billboard trojan trigger is encountered by it on the roadside
+papernot et al  exploited the mapping between the
+input and output of dnns to construct a whitebox jacobian
+saliencybased adversarial attack jsma scheme to fool the
+dnn classiﬁers the same authors also proposed another
+defense against adversarial perturbations by using defensive
+distillation defensive distillation is a training method in which
+a model is trained to predict the classiﬁcation probabilities
+of another model which was trained on the baseline standard
+to give more importance to accuracy papernot et al 
+also proposed a blackbox adversarial ml attack where they
+exploited the transferability property of adversarial examples
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+table iv
+summary of the stateoftheart attacks
+to fool the mldl classiﬁers this blackbox adversarial
+attack was based on the substitute model training which
+not only fools the mldl classiﬁers but also breaks the
+distillation defensive mechanism carlini and wagner 
+proposed a suite of three adversarial attacks termed as cw
+attacks on dnns by exploiting three distinct distance mea
+sures l l and l these attacks have not only evaded
+the dnn classiﬁers but also evaded the defensive distillation
+successfully this demonstrated that defensive distillation is
+not an appropriate method for building robustness in another
+paper carlini and wagner  presented that the proposed
+adversarial attacks in  have successfully evaded the ten
+well known defensive schemes against adversarial examples
+right now these attacks are also considered as stateofart
+adversarial ml attacks furthermore carlini and wagner
+successfully demonstrated an adversarial attack on speech
+recognition system by adding small noise in the audio sig
+nal that forces the underlying ml model to generate intended
+commandstext  in  an adversarial patch afﬁxed to
+an original image forces the deep model to misclassify that
+image such universal targeted patches fool classiﬁers with
+out requiring knowledge of the other items in the scene such
+patches can be created ofﬂine and then broadly shared more
+details on adversarial ml attacks can be found in  
+    a summary of different stateofthe
+art adversarial perturbation generation methods is provided in
+table iv
+d adversarial ml attacks on cavs
+ml and dl act as core ingredients for performing many
+key tasks in selfdriving vehicles beyond providing deeply
+embedded information for the decision making process within
+the vehicles components they also play an important role in
+vi and vv and vx communications as described in ear
+lier sections mldl schemes are very vulnerable to small
+carefully crafted adversarial perturbations selfdriving vehi
+cles are also threatened by this security risk along with other
+traditional security risks adversarial ml has affected many
+application domains including imaging text networking and
+audio as highlighted in table v
+ autonomous vehicles accidents due to unintended
+adversarial conditions the autonomous vehicles developed
+so far are not robust to unintended adversarial conditions and
+there have been few reported fatalities caused by the malfunc
+tioning of dnnbased autonomous vehicles where adversarial
+table v
+domains affected by adversarial machine
+learning ml and their applications
+examples were unintentionally created by the dnn operating
+the autonomous vehicle in  during hyundai competition
+an autonomous vehicle crashed because of a sensor failure due
+to shifting in the angle of the car and direction of the sun
+another incident was reported in  where a tesla autopilot
+was not able to handle the image contrast which resulted in
+the death of the driver it was also reported that the tesla
+autopilot unable to differentiate between the bright sky and a
+white truck which resulted in a horrible accident a similar
+accident happened to google selfdriving car where the car
+was unable to estimate the relative speed which resulted in a
+collision with a bus in  uber selfdriving car also faced
+an accident due to malfunctioning in the dnnbased system
+which resulted in a pedestrian fatality table vi provides a
+detailed description of accidents caused by malfunctions in
+different components of selfdriving vehicles
+ physical
+world
+attacks
+on
+autonomous
+vehicles
+aung et al  used fgsm and jsma schemes to
+generate adversarial trafﬁc signs to successfully evade the
+dnnbased trafﬁc sign detection schemes to highlight the
+problem of adversarial examples in autonomous driving
+sitawarin et al  proposed a realworld adversarial ml
+attack by altering the trafﬁc signs and logos with adversar
+ial perturbations while keeping the visual perception of the
+trafﬁc and logo signs in another work sitawarin et al 
+httpsbitlyswlxuy
+httpscnnmonievob
+httpsbitlyuoyx
+httpsbitlyswmbn
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+table vi
+accidents caused by selfdriving vehicles due to
+unintended adversarial conditions
+proposed a technique for generating outofdistribution adver
+sarial examples to perform an evasion attack on mlbased
+sign recognition system of autonomous vehicles they also
+proposed a lenticular printing attack where they exploited the
+camera height in autonomous vehicles to create an illusion of
+false trafﬁc signs in the physical environment to fool the sign
+recognition system of autonomous vehicles
+object detection is another integral part of the perception
+module of autonomous vehicles where stateoftheart dnn
+based schemes such as mask rcnn  and yolo 
+are used for object detection zhang et al  proposed
+a camouﬂage physical world adversarial attack by approxi
+mately imitating how a simulator applies camouﬂage to the
+vehicle and then minimized the approximated detection score
+by using local search for optimal camouﬂage the proposed
+adversarial attack successfully fooled imagebased object
+detection systems another physical world adversarial exam
+ple generation scheme on object detection is performed by
+song et al  where the perturbed stop sign remained
+hidden from the stateofart object detectors like mask rcnn
+and yolo they produced adversarial perturbations by the
+robust physical perturbations rp  algorithm recently
+zhou et al  proposed deepbillboard a systematic way
+for generating adversarial advertisement billboards to inject a
+malfunction in the steering angle of the autonomous vehicle
+the proposed adversarial billboard misled the average steer
+ing angle by  degrees table vii provides a summary of
+stateoftheart adversarial attacks on selfdriving vehicles in
+a recent study  imitation learning has been shown robust
+enough for autonomous vehicles to drive in a realistic envi
+ronment authors proposed a model named chauffeurnet that
+learns to drive the vehicle by imitating best and synthesizing
+worst
+v towards developing adversarially
+robust ml solutions
+as discussed above despite the outstanding performance
+of ml techniques in many settings including human level
+accuracy at recognizing images these techniques exhibit strict
+vulnerability to carefully crafted adversarial examples in this
+section we present an outline of approaches for developing
+adversarially robust ml solutions we deﬁne the robustness as
+the ability of the ml model to restrain adversarial examples
+in the literature defenses against adversarial attacks have
+been divided into two broad categories  reactive detect
+adversarial observations input after deep models are trained
+and  proactive make the deep model robust against adver
+sarial examples before the attack
+alternatively these techniques can also be broadly divided
+into three categories  modifying data  adding auxil
+iary models and  modifying models the reader is referred
+to figure  for a visual depiction of a taxonomy of robust
+ml solutions in which various techniques that fall in these
+categories are also listed these categories are detailed next
+a modifying data
+the methods falling under this category mainly deal with
+modiﬁcation of either the training data eg adversarial
+retraining and its features or test data eg data pre
+processing widely used approaches that utilize such methods
+are described below
+ adversarial retraining the training with adversarial
+examples has been ﬁrstly proposed by goodfellow et al 
+and huang et al  as a defense strategy to make deep
+neural networks dnns robust against adversarial attacks
+they trained the model by augmenting adversarial examples
+in the training set furthermore goodfellow et al showed
+that adversarial training could provide better regularization for
+dnns in   the adversarial robustness of ml models
+was evaluated on the mnist dataset having  classes while
+in  a comprehensive evaluation of adversarial training
+was performed on a considerably large dataset ie imagenet
+having  classes the authors used  of the dataset for
+adversarial training and this strategy increased the robustness
+of dnns for single step adversarial attack eg fgsm 
+however the strategy failed for iterative adversarial exam
+ples generation methods such as the basic iterative method
+bim 
+ input reconstruction the idea of input reconstruc
+tion is to clean the adversarial examples to transform them
+back to legitimate ones once the adversarial examples have
+been transformed they will not affect the prediction of dnn
+models for robustifying dnn a technique named deep con
+tractive autoencoder has been proposed in  they trained
+a denoising autoencoder for cleaning adversarial perturbations
+ feature squeezing xu et al  leveraged the obser
+vation that input feature spaces are typically unnecessarily
+large and provide a vast room for an adversary to construct
+adversarial perturbations and thereby proposed feature squeez
+ing as a defense strategy to adversarial examples the available
+feature space to an adversary can be reduced using feature
+squeezing that combines samples having heterogeneous fea
+ture vectors in the original space into a single space they
+perform feature squeezing at two levels  reducing color
+bit depth  spatial domain smoothing using both local and
+nonlocal method also they evaluated eleven stateoftheart
+adversarial perturbations generation methods on three differ
+ent datasets ie mnist cifar and imagenet however
+this defense strategy was found to be less effective in a later
+study 
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+table vii
+adversarial attacks on selfdriving vehicles summary of stateoftheart
+ features masking in  authors proposed to add a
+masking layer before the softmax layer of the classiﬁer that is
+mainly responsible for the classiﬁcation task the purpose of
+adding the masking layer was to mask the most sensitive fea
+tures of input that are more prone to adversarial perturbations
+by forcing the corresponding weights of this layer to zero
+ developing adversarially robust features this method
+has been recently proposed as an effective approach to make
+dnns resilient against adversarial attacks  authors
+leveraged the connections between the natural spectral geo
+metrical property of the dataset and the metric of interest
+for developing adversarially robust features they empirically
+demonstrated that the spectral approach can be effectively used
+to generate adversarially robust features that can be ultimately
+used to develop robust models
+ manifold projection in this method input examples are
+projected on the manifold of learned data from another ml
+model generally the manifold is provided by a generative
+model for instance song et al  leveraged generative
+models to clean the adversarial perturbations from malicious
+images and then the cleaned images are given to the non
+modiﬁed ml model furthermore this paper ascertains that
+regardless of the attack type and targeted model the adversar
+ial examples lie in the low probability regions of the training
+data distribution in a similar study  authors used gen
+erative adversarial networks gans for cleaning adversarial
+perturbations similarly meng and chen proposed a frame
+work named magnet that includes one or more detectors and
+a reformer network  the detector network is used to clas
+sify normal and adversarial examples by learning the manifold
+of normal examples whereas the reformer network moves
+adversarial examples towards the learned manifold
+b modifying model
+the methods that fall in this category mainly modify the
+parametersfeatures learned by the trained model eg defen
+sive distillation a few prominent such methods are described
+next
+ network distillation
+papernot et al  adopted
+network distillation as a procedure to defend against adversar
+ial attacks and presented a defense method known as defensive
+distillation the notion of distillation was originally proposed
+by hinton et al  as a mechanism for effectively transfer
+ring knowledge from a larger network to a smaller one the
+defense method developed by papernot et al uses the prob
+ability distribution vector generated by the ﬁrst model as an
+input to the original dnn model this increases the resilience
+of the dnn model towards very small perturbations however
+carlini and wagner showed that the defensive distillation
+method does not work against their proposed attack 
+ network veriﬁcation network veriﬁcation aims to ver
+ify the properties of dnn ie whether an input satisﬁes or
+violates certain property because it may restrain new unseen
+adversarial perturbations for instance a network veriﬁcation
+method for robustifying dnn models using relu activation
+is presented in  to verify the properties of the deep
+model the authors used the satisﬁability modulo theory smt
+solver and showed that the network veriﬁcation problem is
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+fig 
+taxonomy of robust machine learning ml methods categorized into three classes  modifying data  adding auxiliary models and
+ modifying models
+npcomplete the assumption of using relu with certain
+modiﬁcations is addressed in 
+ gradient regularization ross and doshivelez 
+proposed using input gradient regularization as a defense strat
+egy against adversarial attacks in the proposed approach they
+used differentiable dnn models and penalized the variation
+that results in the output with a change in the input as a result
+adversarial examples with small perturbations were unlikely to
+modify the output of deep models but this increases the train
+ing complexity with a factor of two the notion of penalizing
+the gradient of loss function of models with respect to the
+inputs for robustiﬁcation has been already been investigated
+in 
+ classiﬁer robustifying in this method classiﬁcation
+models that are robust to adversarial attacks are designed
+from the ground up instead of detecting or transform
+ing them bradshaw et al  utilized the uncertainty
+around the adversarial examples and developed a hybrid
+model using gaussian processes gps with rbf kernels
+on top of dnns and showed that their approach is robust
+against adversarial attacks the latent variable in gps is
+expressed using a gaussian distribution and is parameter
+ized by mean and covariance and encoded with rbf kernels
+schott et al  proposed the ﬁrst adversarially robust
+classiﬁer for mnist dataset where robustness is achieved by
+using analysis by synthesis through learned classconditional
+data distribution this work highlights the lack of research
+that
+provides
+guaranteed
+robustness
+against
+adversarial
+attacks
+ explainable
+and
+interpretable
+ml
+in
+a
+recent
+study  an adversarial example detection approach is
+presented for a face recognition task that leverages the inter
+pretability of dnn models the key in this approach is
+the identiﬁcation of critical neurons for an individual task
+that is performed by establishing a bidirectional correspon
+dence inference between the neurons of a dnn model and
+its attributes then the activation values of these neurons are
+ampliﬁed to augment the reasoning part and the values of
+other neurons are decreased to conceal the uninterpretable part
+recently nicholas carlini showed that this approach does not
+defend against untargeted adversarial perturbations generated
+using lnorm with a bound of  
+ masking ml model in a recent study  authors
+formulated the problem of adversarial ml as learning and
+masking problem and presented a classiﬁer masking method
+for secure learning to mask the deep model they introduced
+noise in the dnns logit output that was able to defend against
+low distortion attacks
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+c adding auxiliary models
+these methods aim to utilize additional ml models to
+enhance the robustness of the main model eg using gen
+erative models for adversarial detection such widely used
+methods are described as follows
+ adversarial detection in adversarial detection strategy
+a binary classiﬁer detector is trained eg dnn to identify
+the input as a legitimate or an adversarial one  
+in  authors used a simple dnnbased binary adversar
+ial detector as an auxiliary network to the main model in a
+similar study  authors introduced an outlier class while
+training the dnn model the model then detects the adversar
+ial examples by classifying them as an outlier this defense
+approach has been used in a number of studies in the literature
+ ensembling defenses as adversarial examples can be
+developed in a multifacet fashion therefore multiple defense
+methods can be combined together parallelly or sequentially
+to defend against them  pixeldefend  is a prime
+example of ensemble defense in which an adversarial detector
+and an input reconstructor are integrated to restrain adver
+sarial examples however he et al showed that an ensemble
+of weak defense strategies does not provide a strong defense
+to adversarial attacks  further they demonstrated that
+adaptive adversarial examples transfer across several defense
+or detection proposals
+ using generative ml models goodfellow et al 
+ﬁrstly coined the idea of using generative training to defend
+adversarial attacks however in the same study they argued
+that being generative is not sufﬁcient and presented an alterna
+tive hypothesis of ensemble training that works by ensembling
+multiple instances of original dnn models in  an
+approach named cowboy is presented to detect and defend
+against adversarial examples they transformed adversarial
+samples back to data manifold by cleaning them using a gan
+trained on the same dataset furthermore authors empirically
+showed that adversarial examples lie outside the data manifold
+learned by the gan ie the discriminator of gan consis
+tently scores the adversarial perturbations lower than the real
+samples across multiple attacks and datasets in another similar
+study  a ganbased framework named defensegan
+is trained for modeling the distribution of legitimate images
+during inference time defensegan ﬁnds a similar output
+without adversarial perturbations that is then fed to the origi
+nal classiﬁer also the authors of both of these studies claimed
+that their method is independent of the dnn model and attack
+type and that it can be used in existing settings the sum
+mary of various stateoftheart adversarial defense studies is
+presented in table viii
+d potential of adversarial defenses for cavs
+the adversarial defense methods described in the above
+sections are general ie they are developed to make dnn
+resilient against adversarial attacks however these methods
+have a great potential to be used for the robust application
+of dl models in cavs settings and can be used for robus
+tifying various applications as described in section iii of
+mldl in cavs ecosystem for instance defense methods
+fig 
+the taxonomy of different adversarial defense evaluation methods
+and recommendations
+aiming at robustifying the dnn classiﬁer can be used for
+developing adversarially robust objection detection systems
+also in cavs the presence of adversaries who may want to
+harm the cavs environment is more common eg consider
+an adversary trying to get the control of the autonomous car
+in an attempt to force the vehicle to cause an accident etc
+and the above mentioned general adversarial defense methods
+can provide robustness to mldl applications in cavs
+however more research is needed to design implement and
+experiment with new adversarial defenses that are customized
+from the groundup for cavs such defenses should bene
+ﬁt from existing general adversarial defense techniques while
+taking cavs safety delay and computational constraints into
+considerations we believe that such defenses can hasten the
+deployment of ml models in practical cavs settings
+e adversarial defense evaluation methods and
+recommendations
+this section presents different potential methods for per
+forming the evaluation of adversarial defenses along with an
+outline of common evaluation recommendations as depicted
+in figure 
+ principles for performing defense evaluations in a
+recent study  carlini et al provided recommendations
+for evaluating adversarial defenses and thereby provided three
+common reasons to evaluate the performance of adversarial
+defenses these recommendations are brieﬂy described below
+a defending against the adversary defending against
+adversaries attempting adversarial attacks on the system is
+crucial as it is a matter of security concern in realworld
+applications if the mlbased systems are deployed without
+considering the security threats then the adversaries willing to
+harm the system will continue to practice attacking the system
+as long as there are incentives the nature and sovereignty
+of attacks vary with adversarial capabilities and knowledge
+etc in this regard proper and wellthought threat modeling
+described in detail in an earlier section is of paramount
+importance
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+table viii
+summary of stateoftheart adversarial defense approaches
+b testing worstcase robustness in realworld settings
+testing the worstcase robustness of ml models from the
+perspective of an adversary is crucial as realworld systems
+exhibit randomness that is hard to be predicted compared
+to the random testing approach worstcase analysis can be a
+powerful tool to distinguish a system that fails one time in
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+a billion trials from a system that never fails for instance
+if a powerful adversary who is attempting to harm a system
+to get intentional misbehavior fails to do so then it provides
+strong evidence that the system will not misbehave in case of
+previously unforeseen randomness
+c measuring progress of ml towards human level
+abilities to advance ml techniques it is important to under
+stand why ml algorithms fail in a particular setting in the
+literature we see that the performance gap between ml meth
+ods and humans is considerably small on many complex tasks
+eg natural image classiﬁcation  mastering the game
+of go using reinforcement learning  and human level
+accuracy in the medical domain   however in
+case of evaluating adversarial robustness the performance gap
+between humans and ml systems is very large this is so true
+for the cases where ml models exhibit superhuman accuracy
+ie an adversarial attack can completely evade the prediction
+performance of the system this leads to the belief that there
+exists a fundamental difference between the decision making
+process of humans and ml models so keeping this aspect in
+mind adversarial robustness is the measure of ml progress
+that is orthogonal to performance
+ common evaluation recommendations in this section
+we provide a brief discussion on the common evaluation rec
+ommendations and we refer interested readers to the recent
+article of carlini et al  for a detailed and comprehen
+sive description on evaluation recommendations and pitfalls
+for adversarial robustness as authors promised to update this
+paper timely therefore we also refer interested readers to fol
+lowing url for an updated version of this paper to avoid
+unintended consequences and pitfalls of evaluation methods
+the following evaluation recommendations can be adopted
+a use
+both
+targeted
+and
+untargeted
+attacks
+adversarial robustness should be evaluated on both targeted
+and untargeted attacks in any case it is important to explic
+itly state which attack were considered while evaluating
+theoretically an untargeted attack is considered to be strictly
+easier than a targeted attack but practically performing an
+untargeted attack can give better results than targeting any
+of n  classes many untargeted attacks mainly work by
+minimizing the prediction conﬁdence of the correct label
+contrarily targeted attacks work by maximizing the prediction
+conﬁdence of some other class
+b perform
+ablation
+perform
+ablation
+analysis
+by
+removing a combination of defense components and verifying
+that the attack succeeds on a similar but undefended model
+this is useful to develop a straight forward understanding
+of the goals of the evaluation and assess the effectiveness
+of combining multiple defense strategies for robustifying the
+model
+c diverse test settings perform the evaluation in diverse
+settings ie test the robustness to random noise validate
+broader threat models and carefully evaluate the attack hyper
+parameters and select those that provide the best performance
+it is also important to verify that the attack converges under
+selected hyperparameters also investigate whether attack
+httpsgithubcomevaluatingadversarialrobustnessadvevalpaper
+results are sensitive to a speciﬁc set of hyperparameters in
+addition experiment witg at least one hard label attack and
+one gradient free attack
+d evaluate defense on broader domains for a defense
+to be truly effective consider evaluating the proposed defense
+method on broader domains other than images for instance
+the majority of works on adversarial machine learning mainly
+investigate the imaging domain state explicitly if the defense
+is only capable of defending adversarial perturbations in a
+speciﬁc domain eg images
+e ensemble over randomness it is important to cre
+ate adversarial examples by ensembling over the randomness
+of those defenses that randomize aspects of dnn inference
+the introduced randomness enforces stochasticity and stan
+dard attacks become hard to be realized verify that the
+attack remains successful when randomness is assigned a ﬁxed
+value also deﬁne the threat model and the availability of
+randomness knowledge to the adversary
+f transferability attack
+select a similar substitute
+model to the defended model and perform transferability of
+the attack because the adversarial examples are often trans
+ferable across different models ie an adversarial sample
+constructed for one model often appears adversarial to another
+model with identical architecture  this is true regard
+less of the fact that the other model is trained on completely
+different data distribution
+g upper bound of robustness to provide upper bound
+on robustness apply adaptive attacks ie give access to a
+full defense apply the strongest attack for a given threat
+model and defense being evaluated also verify that adap
+tive attacks perform better than others and evaluate their
+performance in multiple settings eg the combination of
+transfer randomnoise and blackbox attacks for instance
+ruan et al evaluated the robustness of dnn and presented an
+approximate approach to provide lower and upper bounds on
+robustness for l norm with provable guarantees 
+f testing of ml models and autonomous vehicles
+ behavior testing of models in a recent study sun et al
+proposed four novel testing criteria for verifying structural fea
+tures of dnn using mcdc coverage criteria  they
+validated proposed methods by generating test cases guided
+by their proposed coverage criteria using both symbolic and
+gradientbased approach and showed that their method was
+able to capture undesired behaviors of dnn similarly a
+set of multigranularity testing criteria named deepgauge is
+presented in  that works by rendering a multifaceted
+testbed the security analysis of neural networks based system
+using symbolic intervals is presented in  which uses
+interval arithmetics and symbolic intervals together with other
+optimization methods to minimize conﬁdence bound of over
+estimation of outputs a coverage guided fuzzing method
+for testing neural networks for goals eg ﬁnding numerical
+mcdc modiﬁed conditiondecision coverage is a method of mea
+suring the extent to which safetycritical software has been adequately
+tested
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward
+errors generating disagreements and determining the undesir
+able behavior of models is presented in  in  the
+ﬁrst approach utilizing differential fuzzing testing is presented
+for exploiting incorrect behavior of dl systems
+ automated testing of ml empowered autonomous
+vehicles an overview to ensure a completely secure func
+tionality of autonomous vehicles in a realworld environment
+the development of automated testing tools is required as the
+backbone of autonomous vehicles leverage different ml tech
+niques for building decision systems at different levels eg
+perception decision making and control etc in this section
+we provide an overview of various studies performing test of
+autonomous vehicles
+tian et al  proposed and investigated a tool named
+deeptest to perform testing of dnn empowered autonomous
+vehicles to automatically detect erroneous behaviors of the
+vehicle that can potentially cause fatal accidents their
+proposed tool automatically generates test cases using changes
+in realworld road conditions such as weather and lighting con
+ditions and then systematically explores different components
+of dnn logic that maximize the number of activated neurons
+furthermore they tested three dnns that won top positions
+in udacity selfdriving car challenge and found various erro
+neous behaviors in different realworld road conditions eg
+rain fog blurring etc that led to fatal accidents in 
+used a ganbased approach to generate synthetic scenes of
+different driving conditions for testing autonomous cars a
+metamorphic testing approach for evaluating the software part
+of selfdriving vehicles is presented in 
+a generic framework for testing security and robustness
+of ml models for computer vision systems depicting real
+istic properties is presented in  authors evaluated the
+security of ﬁfteen state of the art computer vision systems
+in black box setting including nvidias dave selfdriving
+system moreover it has been provably demonstrated that there
+exists a tradeoff between adversarial robustness to pertur
+bations and the standard accuracy of the model in a fairly
+simple and natural setting  a simulationbased frame
+work for generating adversarial test cases to evaluate the
+closedloop properties of ml enabled autonomous vehicles
+is presented in  in  authors generated adversar
+ial driving scenes using bayesian optimization to improve
+selfdriving behavior utilizing visionbased imitation learning
+an autoencoderbased approach for automatic identiﬁcation
+of unusual events using small dashcam video and the inertial
+sensor is presented in  that can potentially be used to
+develop a robust autonomous driving system various factors
+and challenges impacting driveability of autonomous vehicles
+along with an overview of available datasets for training self
+driving is presented in  and challenges in designing such
+datasets are described in  furthermore dreossi et al
+suggested that while robustifying the ml systems the effect
+of adversarial ml should be studied by considering the seman
+tics and context of the whole system  for example in dl
+empowered autonomous vehicle not every adversarial obser
+vation might lead to harmful actions moreover one might be
+interested in those adversarial examples that can signiﬁcantly
+modify the desired semantics of the whole system
+vi open research issues
+the advancement of ml research and its state of the art
+performance in various complex domains in particular the
+advent of more sophisticated dl methods might be an inherent
+panacea to the conventional challenges of vehicular networks
+however mldl methods cannot be naively applied to vehic
+ular networks that possess unique characteristics and adaption
+of these methods for learning such distinguishing features of
+vehicular networks is a challenging task  in this section
+we highlight a few promising areas of research that require
+further investigation
+a efﬁcient distributed data storage
+in the connected vehicular ecosystem the data is generated
+and stored in a distributed fashion that raises a question about
+the applicability of mldl models at a global level as ml
+models are developed with the assumption that data is easily
+accessible and managed by a central entity there is a need to
+utilize distributed learning methods for connected vehicles so
+that data may be scalably acquired from multiple units in the
+ecosystem
+b interpretable ml
+another major security vulnerability in cavs is the lack
+of interpretability of ml schemes ml techniques in general
+and dl techniques speciﬁcally are based on the idea of func
+tion approximation where the approximation of the empirical
+function is performed using dnn architectures current works
+in mldl lack interpretability which is resulting in a major
+hurdle in the progress of mldl empowered cavs the lack
+of interpretability is exploited by the adversaries to construct
+adversarial examples for fooling the deployed mldl schemes
+in autonomous vehicles ie physical attacks on selfdriving
+vehicles as discussed above development of secure explain
+able and interpretable ml techniques for securitycritical
+applications of cavs is another open research issue
+c defensive and secure ml
+despite many defense proposals presented in the literature
+for adversarial attacks developing adversarially robust ml
+models remains yet another open research problem almost
+every defense has been shown to be only effective for a
+speciﬁc attack type and fails for stronger or unseen attacks
+moreover most defenses address the problem of adversar
+ial attacks for computer vision tasks but adversarial ml is
+being developed for many other vertical application domains
+therefore development of efﬁcient and effective novel defense
+strategies is essentially required particularly for safetycritical
+applications eg communication between connected vehicles
+d privacy preserving ml
+preserving privacy in any usercentric application is of high
+concern privacy means that models should not reveal any
+additional information about the subjects involved in col
+lected training data aka differential privacy  as cavs
+involve human subjects ml model learning should be capable
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee communications surveys  tutorials vol  no  second quarter 
+of preserving the privacy of drivers passengers and pedestri
+ans where privacy breaches can results in extremely harmful
+consequences
+e security centric proxy metrics
+development of securitycentric proxy metrics to evaluate
+security threats against systems is fundamentally important
+currently there is no way to formalize different types of
+perturbation properties eg indistinguishable and content
+preserving etc in addition there is no function to determine
+that a speciﬁc transformation is contentpreserving similarly
+the process of measuring perceptual similarity between two
+images is very complex and widely used perceptual metrics
+are shallow functions that fail to account for many subtle
+distinctions of human perception 
+f fair and accountable ml
+the literature on ml reveals that mlbased results and
+predictions lack fairness and accountability the fairness prop
+erty ensures that the ml model did not nurture discrimination
+against speciﬁc cases eg favoring cyclists over pedestrians
+this bias in ml predictions is introduced by the biased train
+ing data and results in social bias and higher error rate for a
+particular demographic group for example researchers iden
+tiﬁed a risk of bias in the perception system of autonomous
+vehicles to recognize pedestrians with dark skin  this
+is an experimental work in which authors evaluated dif
+ferent models developed by other academic researchers for
+autonomous vehicles despite the fact that this work does not
+use an actual object detection model that is being used by
+autonomous vehicles in the market nor did it use the train
+ing data being used by autonomous vehicle manufactures this
+study highlights a major vulnerability of ml models used in
+autonomous vehicles and raises serious concerns about their
+applicability in realworld settings where a selfdriving vehi
+cle may encounter people from a variety of demographic
+backgrounds
+the accountability of ml models is associated with their
+interpretability property as we are interested in developing
+such models that can explain their predictions using the
+models internal parameters the notion of accountability is
+fundamentally important to understand ml model failures for
+adversarial examples
+g robustifying ml models against distribution drifts
+to restrict the integrity attacks ml models should be made
+robust against distribution drifts which refer to the situation
+where train and test data distributions are different this dif
+ference between the training and test distributions gives rise
+to adversarial examples these examples can also be consid
+ered as the worst case distribution drifts  it is fairly
+clear that the data collection process in the vehicular ecosys
+tem is temporal and dynamic in nature so such distribution
+drifts are highly possible and will affect the robustness of
+the underlying ml systems moreover such drifts can be
+exploited by the adversaries to create adversarial samples dur
+ing inference for example in  authors investigated this
+distribution drift by introducing positively connotated words
+in spam emails to evade detection moreover modiﬁcation of
+the training distribution is also possible in a similar way and
+distribution drift violates the widely known presumption that
+we can achieve low learning error when a large training data is
+available ford et al  have presented empirical and the
+oretical evidence that adversarial examples are a consequence
+of test error in noise caused by a distributional shift in the
+data to ensure that the adversarial defense is trustworthy it
+must provide defense against data distribution shifts as the
+perception system of cavs is mainly based on datadriven
+modeling using historical training data it is highly susceptible
+to the problem of distribution drifts therefore robustifying
+ml models against the aforementioned distribution drifts is
+very important one way to counter this problem is to leverage
+deep reinforcement learning rl algorithms for developing
+the perception system of autonomous vehicles but this is not
+yet practically possible as the state and action spaces in real
+istic settings road and vehicular environment are continuous
+and very complex therefore ﬁne control is required for the
+efﬁcacy of the system  however the work on lever
+aging deep rlbased methods for autonomous vehicles is
+building up for instance sallab et al proposed a deep rl
+based framework for autonomous vehicles that enables the
+vehicle to handle partially observable scenarios  they
+investigated the effectiveness of their system using an open
+source d car racing simulator torcs and demonstrated
+that their model was able to learn complex road curvatures
+and simple intervehicle interactions on the counter side
+deep rlbased systems have been shown vulnerable to policy
+induction attacks 
+vii conclusion
+the recent discoveries that machine learning ml tech
+niques are vulnerable to adversarial perturbations have raised
+questions on the security of connected and autonomous vehi
+cles cavs which utilize ml techniques for various tasks
+ranging from environmental perception to objection recogni
+tion and movement prediction the safetycritical nature of
+cavs clearly demands that the technology it uses should be
+robust to all kinds of potential security threatsbe they acci
+dental intentional or adversarial in this work we present
+for the ﬁrst time a comprehensive analysis of the challenges
+posed by adversarial ml attacks for cavs aggregating insights
+from both the ml and cav literature our major contribu
+tions include a broad description of the ml pipeline used
+in cavs description of the various adversarial attacks that
+can be launched on the various components of the cav ml
+pipeline a detailed taxonomy of the adversarial ml threat for
+cavs a comprehensive survey of adversarial ml attacks and
+defenses proposed in literature finally open research chal
+lenges and future directions are discussed to provide readers
+with the opportunity to develop robust and efﬁcient solutions
+for the application of ml models in cavs
+httptorcssourceforgenet
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+qayyum et al securing cavs challenges posed by adversarial ml and way forward

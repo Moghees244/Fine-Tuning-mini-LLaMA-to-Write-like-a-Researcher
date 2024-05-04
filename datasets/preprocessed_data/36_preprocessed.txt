@@ -1,0 +1,1661 @@
+received april   accepted april   date of publication may   date of current version june  
+digital object identifier 
+access
+unsupervised machine learning for networking
+techniques applications and
+research challenges
+muhammad usama
+ junaid qadir
+ aunn raza hunain arif
+koklim alvin yau
+ yehia elkhatib
+ amir hussain and ala alfuqaha
+information technology university itupunjab lahore  pakistan
+national university of science and technology nust islamabad  pakistan
+sunway university subang jaya  malaysia
+the school of computing and communications lancaster university lancaster la wa uk
+school of computing edinburgh napier university edinburgh eh bn uk
+taibah valley taibah university medina  saudi arabia
+information and computing technology ict division college of science and engineering cse hamad bin khalifa university doha qatar
+department of computer science western michigan university kalamazoo mi  usa
+corresponding author ala alfuqaha aalfuqahahbkueduqa
+the publication of this article was funded by the qatar national library qnl the statements made herein are solely the responsibility of
+the authors
+abstract
+while machine learning and artiﬁcial intelligence have long been applied in networking
+research the bulk of such works has focused on supervised learning recently there has been a rising
+trend of employing unsupervised machine learning using unstructured raw network data to improve network
+performance and provide services such as trafﬁc engineering anomaly detection internet trafﬁc classiﬁca
+tion and quality of service optimization the growing interest in applying unsupervised learning techniques
+in networking stems from their great success in other ﬁelds such as computer vision natural language
+processing speech recognition and optimal control eg for developing autonomous selfdriving cars
+in addition unsupervised learning can unconstrain us from the need for labeled data and manual handcrafted
+feature engineering thereby facilitating ﬂexible general and automated methods of machine learning the
+focus of this survey paper is to provide an overview of applications of unsupervised learning in the domain of
+networking we provide a comprehensive survey highlighting recent advancements in unsupervised learning
+techniques and describe their applications in various learning tasks in the context of networking we also
+provide a discussion on future directions and open research issues while identifying potential pitfalls while
+a few survey papers focusing on applications of machine learning in networking have previously been
+published a survey of similar scope and breadth is missing in the literature through this timely review
+we aim to advance the current state of knowledge by carefully synthesizing insights from previous survey
+papers while providing contemporary coverage of the recent advances and innovations
+index terms machine learning deep learning unsupervised learning computer networks
+i introduction
+networkssuch
+as
+the
+internet
+and
+mobile
+telecom
+networksserve the function of the central hub of modern
+human societies which the various threads of modern
+life weave around with networks becoming increasingly
+dynamic heterogeneous and complex the management of
+such networks has become less amenable to manual admin
+istration and it can beneﬁt from leveraging support from
+the associate editor coordinating the review of this manuscript and
+approving it for publication was nuno garcia
+methods for optimization and automated decisionmaking
+from the ﬁelds of artiﬁcial intelligence ai and machine
+learning ml such ai and ml techniques have already
+transformed multiple ﬁeldseg computer vision natural
+language processing nlp speech recognition and opti
+mal control eg for developing autonomous selfdriving
+vehicleswith the success of these techniques mainly
+attributed to ﬁrstly signiﬁcant advances in unsupervised
+ml techniques such as deep learning secondly the ready
+availability of large amounts of unstructured raw data
+amenable to processing by unsupervised learning algorithms
+volume  
+ 
+  ieee translations and content mining are permitted for academic research only
+personal use is also permitted but republicationredistribution requires ieee permission
+see httpwwwieeeorgpublications_standardspublicationsrightsindexhtml for more information
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+and ﬁnally advances in computing technologies through
+advances such as cloud computing graphics processing unit
+gpu technology and other hardware enhancements it is
+anticipated that ai and ml will also make a similar impact
+on the networking ecosystem and will help realize a future
+vision of cognitive networks   in which networks will
+selforganize and will autonomously implement intelligent
+networkwide behavior to solve problems such as routing
+scheduling resource allocation and anomaly detection the
+initial attempts towards creating cognitive or intelligent
+networks have relied mostly on supervised ml methods
+which are efﬁcient and powerful but are limited in scope
+by their need for labeled data with network data becom
+ing increasingly voluminous with a disproportionate rise
+in unstructured unlabeled data there is a groundswell of
+interest in leveraging unsupervised ml methods to utilize
+unlabeled data in addition to labeled data where available
+to optimize network performance  the rising interest in
+applying unsupervised ml in networking applications also
+stems from the need to liberate ml applications from restric
+tive demands of supervised ml another reason of employing
+unsupervised ml in networking is the expensiveness of
+curating labeled network data at scale since labeled data
+may be unavailable and manual annotation is prohibitively
+inconvenient in addition to be outdated quickly due to the
+highly dynamic nature of computer networks 
+we are already witnessing the failure of human network
+administrators to manage and monitor all bits and pieces
+of network  and the problem will only exacerbate with
+further growth in the size of networks with paradigms such as
+becoming the internet of things iot an mlbased network
+management system nms is desirable in such large net
+works so that faultsbottlenecksanomalies may be predicted
+in advance with reasonable accuracy in this regard networks
+already have ample amount of untapped data which can pro
+vide us with decisionmaking insights making networks more
+efﬁcient and selfadapting with unsupervised ml the pipe
+dream is that every algorithm for adjusting network parame
+ters be it tcp congestion window or rerouting network traf
+ﬁc during peak time will optimize itself in a selforganizing
+fashion according to the environment and application user
+and network quality of service qos requirements and
+constraints  unsupervised ml methods in concert with
+existing supervised ml methods can provide a more efﬁcient
+method that lets a network manage monitor and optimize
+itself while keeping the human administrators in the loop with
+the provisioning of timely actionable information
+next generation networks are expected to be selfdriven
+which means they have the ability to selfconﬁgure optimize
+and heal  all these selfdriven properties can be achieved
+by building artiﬁcial intelligence in the system using ml
+techniques selfdriven networks are supposed to utilize the
+network data to perform networking chores and most of
+the network data is imbalanced and unlabeled in order to
+develop a reliable datadriven network data quality must be
+taken care before subjecting it to an appropriate unsupervised
+ml  unsupervised ml techniques facilitate the analy
+sis of raw datasets thereby helping in generating analytic
+insights from unlabeled data recent advances in hierarchical
+learning clustering algorithms factor analysis latent models
+and outlier detection have helped signiﬁcantly advance the
+state of the art in unsupervised ml techniques in particular
+recent unsupervised ml advancessuch as the development
+of deep learning techniques have however signif
+icantly advanced the ml state of the art by facilitating the
+processing of raw data without requiring careful engineering
+and domain expertise for feature crafting deep learning is
+a class of machine learning where hierarchical architectures
+are used for unsupervised feature learning and these learned
+features are then used for classiﬁcation and other related tasks
+ the versatility of deep learning and distributed ml
+can be seen in the diversity of their applications that range
+from selfdriving cars to the reconstruction of brain circuits
+ unsupervised learning is also often used in conjunction
+with supervised learning in semisupervised learning setting
+to preprocess the data before analysis and thereby help in
+crafting a good feature representation and in ﬁnding patterns
+and structures in unlabeled data
+the rapid advances in deep neural networks the democ
+ratization of enormous computing capabilities through cloud
+computing and distributed computing and the ability to store
+and process large swathes of data have motivated a surging
+interest in applying unsupervised ml techniques in the net
+working ﬁeld the ﬁeld of networking also appears to be well
+suited to and amenable to applications of unsupervised ml
+techniques due to the largely distributed decisionmaking
+nature of its protocols the availability of large amounts of
+network data and the urgent need for intelligentcognitive
+networking consider the case of routing in networks net
+works these days have evolved to be very complex and
+they incorporate multiple physical paths for redundancy and
+utilize complex routing methodologies to direct the trafﬁc
+the application trafﬁc does not always take the optimal
+path we would expect leading to unexpected and inefﬁcient
+routing performance to tame such complexity unsupervised
+ml techniques can autonomously selforganize the network
+taking into account a number of factors such as realtime
+network congestion statistics as well as application qos
+requirements 
+the purpose of this paper is to highlight the important
+advances in unsupervised learning and after providing a
+tutorial introduction to these techniques to review how such
+techniques have been or could be used for various tasks in
+modern nextgeneration networks comprising both computer
+networks as well as mobile telecom networks
+a contribution of the paper
+to the best of our knowledge there does not exist a survey that
+speciﬁcally focuses on the important applications of unsu
+pervised ml techniques in networks even though a number
+of surveys exist that focus on speciﬁc ml applications per
+taining to networkingfor instance surveys on using ml
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  comparison of our paper with existing survey and review papers legend means covered  means not covered means partially covered
+for cognitive radios  trafﬁc identiﬁcation and classiﬁca
+tion  and anomaly detection   previous survey
+papers have either focused on speciﬁc unsupervised learning
+techniques eg  have provided a survey of the applica
+tions of neural networks in wireless networks or on some
+speciﬁc applications of computer networking  have pro
+vided a survey of the applications of ml in cyber intru
+sion detection our survey paper is timely since there is
+great interest in deploying automated and selftaught unsu
+pervised learning models in the industry and academia due
+to relatively limited applications of unsupervised learning
+in networkingin particular the deep learning trend has
+not yet impacted networking in a major wayunsupervised
+learning techniques hold a lot of promises for advancing
+the state of the art in networking in terms of adaptability
+ﬂexibility and efﬁciency the novelty of this survey is that it
+covers many different important applications of unsupervised
+ml techniques in computer networks and provides readers
+with a comprehensive discussion of the unsupervised ml
+trends as well as the suitability of various unsupervised ml
+techniques a tabulated comparison of our paper with other
+existing survey and review articles is presented in table 
+b organization of the paper
+the organization of this paper is depicted in figure 
+section ii provides a discussion on various unsupervised ml
+techniques namely hierarchical learning data clustering
+latent variable models and outlier detection section iii
+presents a survey of the applications of unsupervised ml
+speciﬁcally in the domain of computer networks section iv
+describes future work and opportunities with respect to the
+use of unsupervised ml in future networking section v dis
+cusses a few major pitfalls of the unsupervised ml approach
+and its models finally section vi concludes this paper for
+the readers facilitation table  shows all the acronyms used
+in this survey for convenient referencing
+ii techniques for unsupervised learning
+in this section we will introduce some widely used
+unsupervised learning techniques and their applications in
+computer networks we have divided unsupervised learning
+techniques into six major categories hierarchical learning
+data clustering latent variable models dimensionality reduc
+tion and outlier detection figure  depicts a taxonomy of
+unsupervised learning techniques and also the relevant sec
+tions in which these techniques are discussed to provide a
+better understanding of the application of unsupervised ml
+techniques in networking we have added few subsections
+highlighting signiﬁcant applications of unsupervised ml
+techniques in networking domain
+a hierarchical learning
+hierarchical learning is deﬁned as learning simple and
+complex features from a hierarchy of multiple linear and
+nonlinear activations in learning models a feature is a mea
+surable property of the input data desired features are ideally
+informative discriminative and independent in statistics
+features are also known as explanatory or independent vari
+ables  feature learning also known as data representa
+tion learning is a set of techniques that can learn one or more
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+figure  outline of the paper
+figure  taxonomy of unsupervised learning techniques
+features from input data  it involves the transformation
+of raw data into a quantiﬁable and comparable representation
+which is speciﬁc to the property of the input but general
+enough for comparison to similar inputs conventionally
+features are handcrafted speciﬁc to the application on hand
+it relies on domain knowledge but even then they do not
+generalize well to the variation of realworld data which
+gives rise to automated learning of generalized features from
+the underlying structure of the input data like other learning
+algorithms feature learning is also divided among domains
+of supervised and unsupervised learning depending on the
+type of available data almost all unsupervised learning
+algorithms undergo a stage of feature extraction in order to
+learn data representation from unlabeled data and generate
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  list of common acronyms used
+a feature vector on the basis of which further tasks are
+performed
+hierarchical learning is intimately related to how deep
+learning is performed in modern multilayer neural networks
+in particular deep learning techniques beneﬁts from the
+fundamental concept of artiﬁcial neural networks anns
+a deep structure consists of multiple hidden layers with mul
+tiple neurons in each layer a nonlinear activation function
+a cost function and a backpropagation algorithm deep
+learning  is a hierarchical technique that models high
+level abstraction in data using many layers of linear and
+nonlinear transformations with deep enough stack of these
+transformation layers a machine can selflearn a very com
+plex model or representation of data learning takes place
+in hidden layers and the optimal weights and biases of the
+neurons are updated in two passes namely the forward pass
+and backward pass a typical ann and typical cyclic and
+acyclic topologies of interconnection between neurons are
+shown in figure  a brief taxonomy of unsupervised nns
+is presented in figure 
+an ann has three types of layers namely input
+hidden
+and
+output
+each
+having
+different
+activation
+parameters learning is the process of assigning optimal
+activation parameters enabling ann to perform input to
+output mapping for a given problem an ann may require
+multiple hidden layers involving a long chain of computa
+tions ie its depth  deep learning has revolutionized
+ml and is now increasingly being used in diverse settings
+eg object identiﬁcation in images speech transcription into
+text matching users interests with items such as news items
+movies products and making recommendations etc but
+until  relatively few people were interested in deep
+learning due to the high computational cost of deep learning
+procedures it was widely believed that training deep learning
+architectures in an unsupervised manner was intractable and
+supervised the training of deep nns dnn also showed poor
+performance with large generalization errors  however
+recent advances  have shown that deep learning
+can be performed efﬁciently by separate unsupervised pre
+training of each layer with the results revolutionizing the ﬁeld
+of ml starting from the input observation layer which acts
+as an input to the subsequent layers pretraining tends to learn
+data distributions while the usual supervised stage performs
+a local search for ﬁnetuning
+ unsupervised multilayer feed forward nn
+unsupervised multilayer feedforward nn with reference
+to graph theory has a directed graph topology as shown
+in figure  it consists of no cycles ie does not have a feed
+back path in input propagation through nn such kind of nn
+is often used to approximate a nonlinear mapping between
+inputs and required outputs autoencoders are the prime
+examples of unsupervised multilayer feedforward nns
+a autoencoders
+an autoencoder is an unsupervised learning algorithm for
+ann used to learn compressed and encoded representation
+of data mostly for dimensionality reduction and for unsu
+pervised pretraining of feedforward nns autoencoders are
+generally designed using approximation function and trained
+using backpropagation and stochastic gradient descent sgd
+techniques autoencoders are the ﬁrst of their kind to use
+the backpropagation algorithm to train with unlabeled data
+autoencoders aim to learn a compact representation of the
+function of input using the same number of input and output
+units with usually less hidden units to encode a feature vector
+they learn the input data function by recreating the input
+at the output which is called encodingdecoding to learn
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+figure  illustration of an ann left different types of ann topologies right
+figure  taxonomy of unsupervised neural networks
+at the time of training nn in short a simple autoencoder
+learns a lowdimensional representation of the input data by
+exploiting similar recurring patterns
+autoencoders have different variants  such as vari
+ational autoencoders sparse autoencoders and denoising
+autoencoders variational autoencoder is an unsupervised
+learning technique used clustering dimensionality reduction
+and visualization and for learning complex distributions 
+in a sparse autoencoder a sparse penalty on the latent layer
+is applied for extracting a unique statistical feature from
+unlabeled data finally denoising autoencoders are used to
+learn the mapping of a corrupted data point to its original
+location in the data space in an unsupervised manner for
+manifold learning and reconstruction distribution learning
+ unsupervised competitive learning nn
+unsupervised competitive learning nns is a winnertakeall
+neuron scheme where each neuron competes for the right of
+the response to a subset of the input data this scheme is used
+to remove the redundancies from the unstructured data two
+major techniques of unsupervised competitive learning nns
+are selforganizing maps and adaptive resonance theory nns
+a selforganizing kohonen maps
+selforganizing maps som also known as kohonens
+maps   are a special class of nns that uses the
+concept of competitive learning in which output neurons
+compete amongst themselves to be activated in a realvalued
+output results having only single neuron or group of neu
+rons called winning neuron this is achieved by creat
+ing lateral inhibition connections negative feedback paths
+between neurons  in this orientation the network deter
+mines the winning neuron within several iterations subse
+quently it is forced to reorganize itself based on the input data
+distribution hence they are called selforganizing maps
+they were initially inspired by the human brain which has
+specialized regions in which different sensory inputs are rep
+resentedprocessed by topologically ordered computational
+maps in som neurons are arranged on vertices of a lattice
+commonly one or two dimensions the network is forced
+to represent higherdimensional data in lowerdimensional
+representation by preserving the topological properties of
+input data by using neighborhood function while transform
+ing the input into a topological space in which neuron posi
+tions in the space are representatives of intrinsic statistical
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+features that tell us about the inherently nonlinear nature
+of soms
+training a network comprising som is essentially a
+threestage process after random initialization of weighted
+connections the three stages are as follow 
+ competition each neuron in the network computes its
+value using a discriminant function which provides the
+basis of competition among the neurons neuron with
+the largest discriminant value in the competition group
+is declared the winner
+ cooperation the winner neuron then locates the center
+of the topological neighborhood of excited neurons in
+the previous stage providing a basis for cooperation
+among excited neighboring neurons
+ adaption the excited neurons in the neighborhood
+increasedecrease their individual values of the discrimi
+nant function in regard to input data distribution through
+subtle adjustments such that the response of the winning
+neuron is enhanced for similar subsequent input adap
+tion stage is distinguishable into two substages  the
+ordering or selforganizing phase in which weight vec
+tors are reordered according to topological space and
+ the convergence phase in which the map is ﬁne
+tuned and declared accurate to provide statistical quan
+tiﬁcation of the input space this is the phase in which
+the map is declared to be converged and hence trained
+one essential requirement in training a som is the
+redundancy of the input data to learn about the underlying
+structure of neuron activation patterns moreover sufﬁcient
+quantity of data is required for creating distinguishable clus
+ters withstanding enough data for classiﬁcation problem
+there exist a problem of gray area between clusters and cre
+ation of inﬁnitely small clusters where input data has minimal
+patterns
+b adaptive resonance theory
+adaptive resonance theory art is another different cat
+egory of nn models that is based on the theory of human
+cognitive information processing it can be explained as an
+algorithm of incremental clustering which aims at forming
+multidimensional clusters automatically discriminating and
+creating new categories based on input data primarily art
+models are classiﬁed as an unsupervised learning model
+however there exist art variants that employ supervised
+and semisupervised learning approaches as well the main
+setback of most nn models is that they lose old information
+updatingdiminishing weights as new information arrives
+therefore an ideal model should be ﬂexible enough to accom
+modate new information without losing the old one and this
+is called the plasticitystability problem art models provide
+a solution to this problem by selforganizing in real time and
+creating a competitive environment for neurons automati
+cally discriminatingcreating new clusters among neurons to
+accommodate any new information
+art
+model
+resonates
+around
+topdown
+observer
+expectations and bottomup sensory information while
+keeping their difference within the threshold limits of vigi
+lance parameter which in result is considered as the member
+of the expected class of neurons  learning of an art
+model primarily consists of a comparison ﬁeld recognition
+ﬁeld vigilance threshold parameter and a reset module
+the comparison ﬁeld takes an input vector which in result is
+passed to best match in the recognition ﬁeld the best match
+is the current winning neuron each neuron in the recognition
+ﬁeld passes a negative output in proportion to the quality of
+the match which inhibits other outputs therefore exhibiting
+lateral inhibitions competitions once the winning neuron
+is selected after a competition with the best match to the input
+vector the reset module compares the quality of the match to
+the vigilance threshold if the winning neuron is within the
+threshold it is selected as the output else the winning neuron
+is reset and the process is started again to ﬁnd the next best
+match to the input vector in case where no neuron is capable
+to pass the threshold test a search procedure begins in which
+the reset module disables recognition neurons one at a time to
+ﬁnd a correct match whose weight can be adjusted to accom
+modate the new match therefore art models are called self
+organizing and can deal with the plasticitystability dilemma
+ unsupervised deep nn
+in recent years unsupervised deep nn has become the most
+successful unsupervised structure due to its application in
+many benchmarking problems and applications  three
+major types of unsupervised deep nns are deep belief nns
+deep autoencoders and convolutional nns
+a deep belief nn
+deep belief neural network or simply deep belief networks
+dbn is a probabilitybased generative graph model that is
+composed of hierarchical layers of stochastic latent variables
+having binary valued activations which are referred as hidden
+units or feature detectors the top layers in dbns have
+undirected symmetric connections between them forming
+an associative memory dbns provide a breakthrough in
+unsupervised learning paradigm in the learning stage dbn
+learns to reconstruct its input each layer acting as feature
+detectors dbn can be trained by greedy layerwise training
+starting from the top layer with raw input subsequent layers
+are trained with the input data from the previously visible
+layer  once the network is trained in an unsupervised
+manner and learned the distribution of the data it can be
+ﬁnetuned using supervised learning methods or supervised
+layers can be concatenated in order to achieve the desired task
+for instance classiﬁcation
+b deep autoencoder
+another famous type of dbn is the deep autoencoder which
+is composed of two symmetric dbnsthe ﬁrst of which is
+used to encode the input vector while the second decodes
+by the end of the training of the deep autoencoder it tends
+to reconstruct the input vector at the output neurons and
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+therefore the central layer between both dbns is the actual
+compressed feature vector
+c convolutional nn
+convolutional nn cnn are feed forward nn in which
+neurons are adapted to respond to overlapping regions in
+twodimensional input ﬁelds such as visual or audio input
+it is commonly achieved by local sparse connections among
+successive layers and tied shared weights followed by rec
+tifying and pooling layers which results in transformation
+invariant feature extraction another advantage of cnn over
+simple multilayer nn is that it is comparatively easier to train
+due to sparsely connected layers with the same number of
+hidden units cnn represents the most signiﬁcant type of
+architecture for computer vision as they solve two challenges
+with the conventional nns  scalable and computationally
+tractable
+algorithms
+are
+needed
+for
+processing
+high
+dimensional images and  algorithms should be transfor
+mation invariant since objects in an image can occur at an
+arbitrary position however most cnns are composed of
+supervised feature detectors in the lower and middle hidden
+layers in order to extract features in an unsupervised manner
+a hybrid of cnn and dbn called convolutional deep belief
+network cdbn is proposed in  making probabilistic
+maxpooling to cover larger input area and convolution as
+an inference algorithm makes this model scalable with higher
+dimensional input learning is processed in an unsupervised
+manner as proposed in  ie greedy layerwise lower to
+higher training with unlabeled data
+cdbn is a promising scalable generative model for learn
+ing translation invariant hierarchical representation from any
+highdimensional unlabeled data in an unsupervised man
+ner taking advantage of both worlds ie dbn and cnn
+cnn being widely employed for computer vision applica
+tions can be employed in computer networks for optimiza
+tion of quality of experience qoe and quality of service
+qos of multimedia content delivery over networks which
+is an open research problem for nextgeneration computer
+networks 
+ unsupervised recurrent nn
+recurrent nn rnn is the most complex type of nn
+and hence the nearest match to an actual human brain that
+processes sequential inputs it can learn temporal behaviors
+of a given training data rnn employs an internal memory
+per neuron to process such sequential inputs in order to
+exhibit the effect of the previous event on the next compared
+to feed forward nns rnn is a stateful network it may
+contain computational cycles among states and uses time
+as the parameter in the transition function from one unit to
+another being complex and recently developed it is an open
+research problem to create domainspeciﬁc rnn models and
+train them with sequential data speciﬁcally there are two
+maxpooling is an algorithm of selecting the most responsive receptive
+ﬁeld of a given interest region
+perspectives of rnn to be discussed in the scope of this
+survey namely the depth of the architecture and the training
+of the network the depth in the case of a simple artiﬁcial
+nn is the presence of hierarchical nonlinear intermediate
+layers between the input and output signals in the case of an
+rnn there are different hypotheses explaining the concept
+of depth one hypothesis suggests that rnns are inherently
+deep in nature when expanded with respect to sequential
+input there are a series of nonlinear computations between
+the input at time ti and the output at time ti  k
+however at an individual discrete time step certain tran
+sitions are neither deep nor nonlinear there exist inputto
+hidden hiddentohidden and hiddentooutput transitions
+which are shallow in the sense that there are no intermediate
+nonlinear layers at discrete time step in this regard different
+deep architectures are proposed in  that introduce inter
+mediate nonlinear transitional layers in between the input
+hidden and output layers another novel approach is also
+proposed by stacking hidden units to create a hierarchical
+representation of hidden units which mimic the deep nature
+of standard deep nns
+due to the inherently complex nature of rnn to the best
+of our knowledge there is no widely adopted approach for
+training rnns and many novel methods both supervised
+and unsupervised are introduced to train rnns considering
+unsupervised learning of rnn in the scope of this paper 
+employ long shortterm memory lstm rnn to be trained
+in an unsupervised manner using unsupervised learning algo
+rithms namely binary information gain optimization and
+non parametric entropy optimization in order to make a
+network to discriminate between a set of temporal sequences
+and cluster them into groups results have shown remarkable
+ability of rnns for learning temporal sequences and cluster
+ing them based on a variety of features two major types of
+unsupervised recurrent nn are hopﬁeld nn and boltzmann
+machine
+a hopfield nn
+hopﬁeld nn is a cyclic recurrent nn where each node is
+connected to others hopﬁeld nn provides an abstraction
+of circular shift register memory with nonlinear activation
+functions to form a global energy function with guaranteed
+convergence to local minima hopﬁeld nns are used for
+ﬁnding clusters in the data without a supervisor
+b boltzmann machine
+the boltzmann machine is a stochastic symmetric recur
+rent nn that is used for search and learning problems
+due to binary vector based simple learning algorithm of
+boltzmann machine very interesting features representing
+the complex unstructured data can be learned  since
+the boltzmann machine uses multiple hidden layers as fea
+ture detectors the learning algorithm becomes very slow
+to avoid slow learning and to achieve faster feature detection
+instead of boltzmann machine a faster version namely the
+restricted boltzmann machine rbm is used for practical
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+figure  clustering process
+problems  restricted boltzmann machine learns a prob
+ability distribution over its input data but since it is restricted
+in its layer to layer connectivity rbm loses its property of
+recurrence it is faster than a boltzmann machine because it
+only uses one hidden layer as a feature detector layer rbm
+is used for dimensionality reduction clustering and feature
+learning in computer networks
+ significant applications of hierarchical
+learning in networks
+annsdnns are the most researched topic when creat
+ing intelligent systems in computer vision and natural lan
+guage processing whereas their application in computer
+networks are very limited they are employed in differ
+ent networking applications such as classiﬁcation of trafﬁc
+anomalyintrusion detection detecting distributed denial of
+service ddos attacks and resource management in cogni
+tive radios  the motivation of using dnn for learning
+and predicting in networks is the unsupervised training that
+detects hidden patterns in ample amount of data that is near
+to impossible for a human to handcraft features catering for
+all scenarios moreover many new research shows that a
+single model is not enough for the need of some applications
+so developing a hybrid nn architecture having pros and
+cons of different models creates a new efﬁcient nn which
+provides even better results such an approach is used in 
+in which a hybrid model of art and rnn is employed to
+learn and predict trafﬁc volume in a computer network in
+real time realtime prediction is essential to adaptive ﬂow
+control which is achieved by using hybrid techniques so that
+art can learn new input patterns without retraining the
+entire network and can predict accurately in the time series
+of rnn furthermore dnns are also being used in resource
+allocation and qoeqos optimizations using nn for opti
+mization efﬁcient resource allocation without affecting the
+user experience can be crucial in the time when resources are
+scarce authors of   propose a simple dbn for opti
+mizing multimedia content delivery over wireless networks
+by keeping qoe optimal for end users table  also provides
+a tabulated description of hierarchical learning in networking
+applications however these are just a few notable examples
+of deep learning and neural networks in networks refer to
+section iii for more applications and detailed discussion on
+deep learning and neural networks in computer networks
+b data clustering
+clustering is an unsupervised learning task that aims to ﬁnd
+hidden patterns in unlabeled input data in the form of clus
+ters  simply put it encompasses the arrangement of data
+in meaningful natural groupings on the basis of the similarity
+between different features as illustrated in figure  to learn
+about its structure clustering involves the organization of
+data in such a way that there are high intracluster and low
+intercluster similarity the resulting structured data is termed
+as dataconcept  clustering is used in numerous applica
+tions from the ﬁelds of ml data mining network analysis
+pattern recognition and computer vision the various tech
+niques used for data clustering are described in more detail
+later in section iib in networking clustering techniques
+are widely deployed for applications such as trafﬁc analysis
+and anomaly detection in all kinds of networks eg wireless
+sensor networks and mobile adhoc networks with anomaly
+detection 
+clustering improves performance in various applications
+mcgregor et al  propose an efﬁcient packet tracing
+approach using the expectationmaximization em proba
+bilistic clustering algorithm which groups ﬂows packets
+into a small number of clusters where the goal is to analyze
+network trafﬁc using a set of representative clusters
+a brief overview of different types of clustering methods
+and their relationships can be seen in figure  clustering can
+be divided into three main types  namely hierarchical
+clustering bayesian clustering and partitional clustering
+hierarchical clustering creates a hierarchical decomposition
+of data whereas bayesian clustering forms a probabilistic
+model of the data that decides the fate of a new test point
+probabilistically in contrast partitional clustering constructs
+multiple partitions and evaluates them on the basis of certain
+criterion or characteristic such as the euclidean distance
+before delving into the general subtypes of clustering
+there are two unique clustering techniques which need to be
+discussed namely densitybased clustering and gridbased
+clustering in some cases densitybased clustering is classi
+ﬁed as a partitional clustering technique however we have
+kept it separate considering its applications in networking
+densitybased models target the most densely populated area
+of data space and separate it from areas having low densities
+thus forming clusters   use densitybased clustering
+to cluster data stream in real time which is important in many
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  applications of hierarchical learning deep learning in networking applications
+figure  clustering taxonomy
+applications eg intrusion detection in networks another
+technique is gridbased clustering which divides the data
+space into cells to form a gridlike structure subsequently
+all clustering actions are performed on this grid  
+also present a novel approach that uses a customized grid
+based clustering algorithm to detect anomalies in networks
+ proposed a novel method for clustering the time series
+data this scheme was based on a distance measure between
+temporal features of the time series
+we move on next to describe three major types of data clus
+tering approaches as per the taxonomy is shown in figure 
+ hierarchical clustering
+hierarchical clustering is a wellknown strategy in data min
+ing and statistical analysis in which data is clustered into a
+hierarchy of clusters using an agglomerative bottomup or a
+divisive topdown approach almost all hierarchical clus
+tering algorithms are unsupervised and deterministic the
+primary advantage of hierarchical clustering over unsuper
+vised kmeans and em algorithms is that it does not require
+the number of clusters to be speciﬁed beforehand however
+this advantage comes at the cost of computational efﬁciency
+common hierarchical clustering algorithms have at least
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+quadratic computational complexity compared to the linear
+complexity of kmeans and em algorithms hierarchical
+clustering methods have a pitfall these methods fail to accu
+rately classify messy highdimensional data as its heuristic
+may fail due to the structural imperfections of empirical
+data furthermore the computational complexity of the com
+mon agglomerative hierarchical algorithms is nphard som
+as discussed in section iia is a modern approach that can
+overcome the shortcomings of hierarchical models 
+ bayesian clustering
+bayesian clustering is a probabilistic clustering strategy
+where the posterior distribution of the data is learned on the
+basis of a prior probability distribution bayesian clustering
+is divided into two major categories namely parametric and
+nonparametric  the major difference between para
+metric and nonparametric techniques is the dimensionality
+of parameter space if there are ﬁnite dimensions in the
+parameter space the underlying technique is called bayesian
+parametric otherwise the underlying technique is called
+bayesian nonparametric a major pitfall with the bayesian
+clustering approach is that the choice of the wrong prior prob
+ability distributions can distort the projection of the data 
+performed bayesian nonparametric clustering of network
+trafﬁc data to determine the network application type
+ partitional clustering
+partitional clustering corresponds to a special class of cluster
+ing algorithms that decomposes data into a set of disjoint clus
+ters given n observations the clustering algorithm partitions
+a data into k  n clusters  partitional clustering is further
+classiﬁed into kmeans clustering and mixture models
+a kmeans clustering
+kmeans clustering is a simple yet widely used approach
+for classiﬁcation it takes a statistical vector as an input to
+deduce classiﬁcation models or classiﬁers kmeans cluster
+ing tends to distribute m observations into n clusters where
+each observation belongs to the nearest cluster the member
+ship of observation to a cluster is determined using the cluster
+mean kmeans clustering is used in numerous applications
+in the domains of network analysis and trafﬁc classiﬁca
+tion  used kmeans clustering in conjunction with super
+vised id decision tree learning models to detect anomalies
+in a network an id decision tree is an iterative supervised
+decision tree algorithm based on the concept learning system
+kmeans clustering provided excellent results when used
+in trafﬁc classiﬁcation  showed that kmeans cluster
+ing performs well in trafﬁc classiﬁcation with an accuracy
+of 
+kmeans clustering is also used in the domain of network
+security and intrusion detection reference  proposed
+a kmeans algorithm for intrusion detection experimental
+results on a subset of kdd dataset shows that the detec
+tion rate stays above  while the false alarm rate stays
+below  results and analysis of experiments on kmeans
+algorithm have demonstrated a better ability to search clusters
+globally
+another variation of kmeans is known as kmedoids
+in which rather than taking the mean of the clusters the most
+centrally located data point of a cluster is considered as the
+reference point of the corresponding cluster  few of
+the applications of kmedoids in the spectrum of anomaly
+detection can be seen here  
+b mixture models
+mixture models are powerful probabilistic models for uni
+variate and multivariate data mixture models are used to
+make statistical inferences and deductions about the prop
+erties of the subpopulations given only observations on the
+pooled population they have also used to statistically model
+data in the domains of pattern recognition computer vision
+ml etc finite mixtures which are a basic type of mixture
+model naturally model observations that are produced by
+a set of alternative random sources inferring and deduc
+ing different parameters from these sources based on their
+respective observations lead to clustering of the set of obser
+vations this approach to clustering tackles drawbacks of
+heuristicbased clustering methods and hence it is proven to
+be an efﬁcient method for node classiﬁcation in any large
+scale network and has shown to yield effective results com
+pared to techniques commonly used for instance kmeans
+and hierarchical agglomerative methods rely on supervised
+design decisions such as the number of clusters or validity
+of models  moreover combining the em algorithm with
+mixture models produces remarkable results in deciphering
+the structure and topology of the vertices connected through a
+multidimensional network  reference  used gaus
+sian mixture model gmm to outperform signature based
+anomaly detection in network trafﬁc data
+ significant applications of
+clustering in networks
+clustering can be found in mostly all unsupervised learning
+problems and there are diverse applications of clustering
+in the domain of computer networks two major network
+ing applications where signiﬁcant use of clustering can be
+seen are intrusion detection and internet trafﬁc classiﬁca
+tion one novel way to detect anomaly is proposed in 
+this approach preprocesses the data using genetic algo
+rithm ga combined with hierarchical clustering approach
+called balanced iterative reducing using clustering hier
+archies birch to provide an efﬁcient classiﬁer based on
+support vector machine svm this hierarchical cluster
+ing approach stores abstracted data points instead of the
+whole dataset thus giving more accurate and quick clas
+siﬁcation compared to all past methods producing bet
+ter results in detecting anomalies another approach 
+discusses the use of gridbased and densitybased cluster
+ing for anomaly and intrusion detection using unsupervised
+learning reference  used kshape clustering scheme
+for analyzing spatiotemporal heterogeneity in mobile usage
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  applications of data clustering in networking applications
+basically a scalable parallel framework for clustering large
+datasets with high dimensions is proposed and then improved
+by inculcating frequency pattern trees table  also provides
+a tabulated description of data clustering applications in net
+works these are just a few notable examples of clustering
+approaches in networks refer to section iii for the detailed
+discussion on some salient clustering applications in the con
+text of networks
+c latent variable models
+a latent variable model is a statistical model that relates
+the manifest variables with a set of latent or hidden vari
+ables latent variable model allows us to express relatively
+complex distributions in terms of tractable joint distributions
+over an expanded variable space  underlying variables
+of a process are represented in higher dimensional space
+using a ﬁxed transformation and stochastic variations are
+known as latent variable models where the distribution in
+higher dimension is due to small number of hidden variables
+acting in a combination  these models are used for
+data visualization dimensionality reduction optimization
+distribution learning blind signal separation and factor anal
+ysis next we will begin our discussion on various latent
+variable models namely mixture distribution factor analysis
+blind signal separation nonnegative matrix factorization
+bayesian networks  probabilistic graph models pgm
+hidden markov model hmm and nonlinear dimensional
+ity reduction techniques which further includes generative
+topographic mapping multidimensional scaling principal
+curves isomap localliy linear embedding and tdistributed
+stochastic neighbor embedding
+ mixture distribution
+mixture distribution is an important latent variable model
+that is used for estimating the underlying density function
+mixture distribution provides a general framework for den
+sity estimation by using the simpler parametric distributions
+expectation maximization em algorithm is used for esti
+mating the mixture distribution model  through max
+imization of the loglikelihood of the mixture distribution
+model
+ factor analysis
+another important type of latent variable model is factor
+analysis which is a density estimation model it has been
+used quite often in collaborative ﬁltering and dimensionality
+reduction it is different from other latent variable models
+in terms of the allowed variance for different dimensions
+as most latent variable models for dimensionality reduction
+in conventional settings use a ﬁxed variance gaussian noise
+model in the factor analysis model latent variables have
+diagonal covariance rather than isotropic covariance
+ blind signal separation
+blind signal separation bss also referred to as blind
+source separation is the identiﬁcation and separation of
+independent source signals from mixed input signals with
+out or very little information about the mixing process
+figure  depicts the basic bss process in which source
+signals are extracted from a mixture of signals it is a funda
+mental and challenging problem in the domain of signal pro
+cessing although the concept is extensively used in all types of
+multidimensional data processing most common techniques
+employed for bss are principal component analysis pca
+and independent component analysis ica
+a principal component analysis pca is a statisti
+cal procedure that utilizes orthogonal transformation on
+the data to convert n number of possibly correlated vari
+ables into lesser k number of uncorrelated variables named
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+figure  blind signal separation bss a mixed signal composed of various input signals mixed by some
+mixing process is blindly processed ie with no or minimal information about the mixing process to
+show the original signals
+principal components principal components are arranged in
+the descending order of their variability ﬁrst one catering
+for the most variable and the last one for the least being a
+primary technique for exploratory data analysis pca takes a
+cloud of data in n dimensions and rotates it such that maxi
+mum variability in the data is visible using this technique
+it brings out the strong patterns in the dataset so that these
+patterns are more recognizable thereby making the data easier
+to explore and visualize
+pca has primarily been used for dimensionality reduction
+in which input data of n dimensions is reduced to k dimen
+sions without losing critical information in the data the
+choice of the number of principal components is a question
+of the design decision much research has been conducted on
+selecting the number of components such as crossvalidation
+approximations  optimally k is chosen such that the
+ratio of the average squared projection error to the total
+variation in the data is less than or equal to  by which
+ of the variance is retained in the k principal components
+but depending on the application domain different designs
+can increasedecrease the ratio while maximizing the required
+output commonly many features of a dataset are often
+highly correlated hence pca results in retaining  of the
+variance while signiﬁcantly reducing the data dimensions
+b independent component analysis ica is another tech
+nique for bss that focuses on separating multivariate input
+data into additive components with the underlying assump
+tion that the components are nongaussian and statistically
+independent the most common example to understand ica
+is the cocktail party problem in which there are n people
+talking simultaneously in a room and one tries to listen to
+a single voice ica actually separates source signals from
+input mixed signal by either minimizing the statistical depen
+dence or maximizing the nongaussian property among the
+components in the input signals by keeping the underly
+ing assumptions valid statistically ica can be seen as the
+extension of pca while pca tries to maximize the second
+moment variance of data hence relying heavily on gaussian
+features on the other hand ica exploits inherently non
+gaussian features of the data and tries to maximize the fourth
+moment of linear combination of inputs to extract nonnormal
+source components in the data 
+ nonnegative matrix factorization
+nonnegative matrix factorization nmf is a technique to
+factorize a large matrix into two or more smaller matrices
+with no negative values that is when multiplied it recon
+structs the approximate original matrix nmf is a novel
+method in decomposing multivariate data making it easy
+and straightforward for exploratory analysis by nmf hid
+den patterns and intrinsic features within the data can be
+identiﬁed by decomposing them into smaller chunks enhanc
+ing the interpretability of data for analysis with posi
+tivity constraints however there exist many classes of
+algorithms  for nmf having different generalization
+properties for example two of them are analyzed in 
+one of which minimizes the least square error and while the
+other focuses on the kullbackleibler divergence keeping
+algorithm convergence intact
+ hidden markov model
+hidden markov models hmm are stochastic models of
+great utility especially in domains where we wish to analyze
+temporal or dynamic processes such as speech recognition
+primary users pu arrival pattern in cognitive radio net
+works crns etc hmms are highly relevant to crns since
+many environmental parameters in crns are not directly
+observable an hmmbased approach can analytically model
+a markovian stochastic process in which we do not have
+access to the actual states which are assumed to be unob
+served or hidden instead we can observe a state that is
+stochastically dependent on the hidden state it is for this
+reason that an hmm is deﬁned to be a doubly stochastic
+process
+ bayesian networks  probabilistic
+graph models pgm
+in bayesian learning we try to ﬁnd the posterior proba
+bility distributions for all parameter settings in this setup
+we ensure that we have a posterior probability for every
+possible parameter setting it is computationally expensive
+but we can use complicated models with a small dataset and
+still avoid overﬁtting posterior probabilities are calculated by
+dividing the product of sampling distribution and prior dis
+tribution by marginal likelihood in simple words posterior
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+probabilities are calculated using bayes theorem the basis
+of reinforcement learning was also derived by using bayes
+theorem  since bayesian learning is computationally
+expensive a new research trend is approximate bayesian
+learning  authors in  have given a comprehensive
+survey of different approximate bayesian inference algo
+rithms with the emergence of bayesian deep learning frame
+work the deployment of bayes learning based solution is
+increasing rapidly
+probabilistic graph modeling is a concept associated with
+bayesian learning a model representing the probabilistic
+relationship between random variables through a graph is
+known as a probabilistic graph model pgm nodes and
+edges in the graph represent a random variable and their prob
+abilistic dependence respectively pgm are of two types
+directed pgm and undirected pgm bayes networks also
+fall in the regime of directed pgm pgm is used in many
+important areas such as computer vision speech processing
+and communication systems bayesian learning combined
+with pgm and latent variable models forms a probabilistic
+framework where deep learning is used as a substrate for mak
+ing improved learning architecture for recommender systems
+topic modeling and control systems 
+ significant applications of latent variable
+models in networks
+in  authors have applied latent structure on email corpus
+to ﬁnd interpretable latent structure as well as evaluating
+its predictive accuracy on missing data task a dynamic
+latent model for a social network is represented in 
+characterization of the endtoend delay using a weibull
+mixture model is discussed in  mixture models for end
+host trafﬁc analysis have been explored in  bss is a
+set of statistical algorithms that are widely used in differ
+ent application domains to perform different tasks such as
+dimensionality reduction correlating and mapping features
+etc  employed pca for internet trafﬁc classiﬁcation in
+order to separate different types of ﬂows in a network packet
+stream similarly authors of  used a semisupervised
+approach where pca is used for feature learning and an
+svm classiﬁer for intrusion detection in an autonomous
+network system another approach for detecting anomalies
+and intrusions proposed in  uses nmf to factorize differ
+ent ﬂow features and cluster them accordingly furthermore
+ica has been widely used in telecommunication networks to
+separate mixed and noisy source signals for efﬁcient service
+for example  extends a variant of ica called efﬁcient
+fast ica efica for detecting and estimating the symbol
+signals from the mixed cdma signals received from the
+source endpoint
+in other literature pca uses a probabilistic approach to
+ﬁnd the degree of conﬁdence in detecting an anomaly in
+wireless networks  furthermore pca is also chosen
+as a method of clustering and designing wireless sensor
+networks wsns with multiple sink nodes  however
+these are just a few notable examples of bss in networks
+refer to section iii for more applications and detailed discus
+sion on bss techniques in the networking domain
+bayesian learning has been applied for classifying inter
+net trafﬁc where internet trafﬁc is classiﬁed based on the
+posterior probability distributions for early trafﬁc identiﬁ
+cation in campus network real discretized conditional proba
+bility has been used to construct a bayesian classiﬁer 
+hostlevel intrusion detection using bayesian networks is
+proposed in  authors in  purposed a bayesian
+learning based feature vector selection for anomalies classi
+ﬁcation in bgp port scan attacks prevention scheme using
+a bayesian learning approach is discussed in  inter
+net threat detection estimation system is presented in 
+a new approach towards outlier detection using bayesian
+belief networks is described in  application of bayesian
+networks in mimo systems has been explored in 
+location estimation using bayesian network in lan is dis
+cussed in  similarly bayes theory and pgm are both
+used in lowdensity parity check ldpc and turbo codes
+which are the fundamental components of information coding
+theory table  also provides a tabulated description of latent
+variable models applications in networking
+d dimensionality reduction
+representing data in fewer dimensions is another well
+established task of unsupervised learning real world data
+often have high dimensionsin many datasets these dimen
+sions can run into thousands even millions of potentially
+correlated dimensions  however it is observed that the
+intrinsic dimensionality governing parameters of the data is
+less than the total number of dimensions in order to ﬁnd the
+essential pattern of the underlying data by extracting intrinsic
+dimensions it is necessary that the real essence is not lost
+eg it may be the case that a phenomenon is observable
+only in higherdimensional data and is suppressed in lower
+dimensions these phenomena are said to suffer from the
+curse of dimensionality  while dimensionality reduc
+tion is sometimes used interchangeably with feature selection
+  a subtle difference exists between the two 
+feature selection is traditionally performed as a supervised
+task with a domain expert helping in handcrafting a set of
+critical features of the data such an approach generally
+can perform well but is not scalable and prone to judgment
+bias dimensionality reduction on the other hand is more
+generally an unsupervised task where instead of choosing
+a subset of features it creates new features dimensions as
+a function of all features said differently feature selection
+considers supervised data labels while dimensionality reduc
+tion focuses on the data points and their distributions in an
+ndimensional space
+there exist different techniques for reducing data dimen
+sions  including projection of higher dimensional points
+onto lower dimensions independent representation and
+sparse representation which should be capable of recon
+structing the approximate data dimensionality reduction is
+useful for data modeling compression and visualization
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  applications of latent variable models in networking applications
+by creating representative functional dimensions of the data
+and eliminating redundant ones it becomes easier to visualize
+and form a learning model independent representation tries
+to disconnect the source of variation underlying the data
+distribution such that the dimensions of the representation
+are statistically independent  sparse representation tech
+nique represents the data vectors in linear combinations of
+small basis vectors
+it is worth noting here that many of the latent variable mod
+els eg pca ica factor analysis also function as tech
+niques for dimensionality reduction in addition to techniques
+such as pca icawhich infer the latent inherent structure
+of the data through a linear projection of the dataa number
+of nonlinear dimensionality reduction techniques have also
+been developed and will be focused upon in this section to
+avoid repetition of linear dimensionality reduction techniques
+that have already been covered as part of the previous subsec
+tion linear dimensionality reduction techniques are useful in
+many settings but these methods may miss important nonlin
+ear structure in the data due to their subspace assumption
+which posits that the highdimensional data points lie on a
+linear subspace for example on a d or d plane such
+an assumption fails in high dimensions when data points are
+random but highly correlated with neighbors in such environ
+ments nonlinear dimensionality reductions through manifold
+learning techniqueswhich can be construed as an attempt
+to generalize linear frameworks like pca so that nonlinear
+structure in data can also be recognizedbecome desirable
+even though some supervised variants also exist manifold
+learning is mostly performed in an unsupervised fashion
+using the nonlinear manifold substructure learned from the
+highdimensional structure of the data from the data itself
+without the use of any predetermined classiﬁer or labeled
+data some nonlinear dimensionality reduction manifold
+learning techniques are described below
+ isomap
+isomap is a nonlinear dimensionality reduction technique that
+ﬁnds the underlying low dimensional geometric information
+about a dataset algorithmic features of pca and mds
+are combined to learn the low dimensional nonlinear man
+ifold structure in the data  isomap uses geodesic dis
+tance along the shortest path to calculate the low dimension
+representation shortest path which can be computed using
+dijkstras algorithm
+ generative topographic model
+generative topographic mapping gtm represents the
+nonlinear latent variable mapping from continuous low
+dimensional distributions embedded in high dimensional
+spaces  data space in gtm is represented as reference
+vectors and these vectors are a projection of latent points in
+data space it is a probabilistic variant of som and works
+by calculating the euclidean distance between data points
+gtm optimizes the loglikelihood function and the resulting
+probability deﬁnes the density in data space
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  applications of dimensionality reduction in networking applications
+ locally linear embedding
+locally linear embedding lle  is an unsupervised
+nonlinear dimensionality reduction algorithm lle repre
+sents data in lower dimensions yet preserving the higher
+dimensional embedding lle depicts data in a single global
+coordinate of lower dimensional mapping of input data lle
+is used to visualize multidimensional dimensional manifolds
+and feature extraction
+ principal curves
+the principal curve is a nonlinear dataset summarizing tech
+nique where nonparametric curves pass through the middle
+of multidimensional dataset providing the summary of the
+dataset  these smooth curves minimize the average
+squared orthogonal distance between data points this process
+also resembles the maximum likelihood for nonlinear regres
+sion in the presence of gaussian noise 
+ nonlinear multidimensional scaling
+nonlinear multidimensional scaling nmds  is a non
+linear latent variable representation scheme it works as an
+alternative scheme for factor analysis in factor analysis
+a multivariate normal distribution is assumed and similari
+ties between different objects are expressed as a correlation
+matrix whereas nmds does not impose such a condition
+and it is designed to reach the optimal low dimensional con
+ﬁguration where similarities and dissimilarities among matri
+ces can be observed nmds is also used in data visualization
+and mining tools for depicting the multidimensional data in 
+dimensions based on the similarities in the distance matrix
+ tdistributed stochastic neighbor embedding
+tdistributed stochastic neighbor embedding tsne is
+another nonlinear dimensionality reduction scheme it is used
+to represent high dimensional data in  or  dimensions
+tsne constructs a probability distribution in high dimen
+sional space and constructs a similar distribution in lower
+dimensions and minimizes the kullbackâăşleibler kl
+divergence between two distributions which is a useful
+way to measure the difference between two probability
+distributions 
+table  also provides a tabulated description of dimen
+sionality reduction applications in networking the applica
+tions of nonlinear dimensionality reduction methods are later
+described in detail in section iiid
+e outlier detection
+outlier detection is an important application of unsupervised
+learning a sample point that is distant from other samples is
+called an outlier an outlier may occur due to noise measure
+ment error heavy tail distributions and a mixture of two dis
+tributions there are two popular underlying techniques for
+unsupervised outlier detection upon which many algorithms
+are designed namely the nearest neighbor based technique
+and clustering based method
+ nearest neighbor based outlier detection
+the nearest neighbor method works on estimating the
+euclidean distances or average distance of every sample from
+all other samples in the dataset there are many algorithms
+based on nearest neighbor based techniques with the most
+famous extension of the nearest neighbor being a knearest
+neighbor technique in which only k nearest neighbors par
+ticipate in the outlier detection  local outlier factor is
+another outlier detection algorithm which works as an exten
+sion of the knearest neighbor algorithm connectivitybased
+outlier factors  inﬂuenced outlierness  and local
+outlier probability models  are few famous examples of
+the nearest neighbor based techniques
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+ cluster based outlier detection
+clustering based methods use the conventional kmeans
+clustering technique to ﬁnd dense locations in the data and
+then perform density estimation on those clusters after den
+sity estimation a heuristic is used to classify the formed clus
+ter according to the cluster size anomaly score is computed
+by calculating the distance between every point and its cluster
+head local density cluster based outlier factor  cluster
+ing based multivariate gaussian outlier score   and
+histogram based outlier score  are the famous cluster
+based outlier detection models in literature svm and pca
+are also suggested for outlier detection in literature
+ significant applications of outlier
+detection in networks
+outlier detection algorithms are used in many different appli
+cations such as intrusion detection fraud detection data leak
+age prevention surveillance energy consumption anomalies
+forensic analysis critical state detection in designs elec
+trocardiogram and computed tomography scan for tumor
+detection unsupervised anomaly detection is performed by
+estimating the distances and densities of the provided non
+annotated data  more applications of outlier detection
+schemes will be discussed in section iii
+f lessons learnt
+key lessons drawn from the review of unsupervised learning
+techniques are summarized below
+ hierarchical learning techniques are the most pop
+ular schemes in literature for feature detection and
+extraction
+ learning the joint distribution of a complex distribution
+over an expanded variable space is a difﬁcult task
+latent variable models have been the recommended
+and wellestablished schemes in literature for this prob
+lem these models are also used for dimensionality
+reduction and better representation of data
+ visualization of unlabeled multidimensional data is
+another unsupervised task in this research we have
+explored the dimensionality reduction as an underlying
+scheme for developing better multidimensional data
+visualization tools
+iii applications of unsupervised
+learning in networking
+in this section we will introduce some signiﬁcant appli
+cations of the unsupervised learning techniques that have
+been discussed in section ii in the context of computer net
+works we highlight the broad spectrum of applications in
+networking and emphasize the importance of mlbased tech
+niques rather than classical hardcoded statistical methods
+for achieving more efﬁciency adaptability and performance
+enhancement
+a internet traffic classification
+internet trafﬁc classiﬁcation is of prime importance in net
+working as it provides a way to understand develop and
+measure the internet internet trafﬁc classiﬁcation is an
+important component for service providers to understand
+the characteristics of the service such as quality of service
+quality of experience user behavior network security and
+many other key factors related to the overall structure of a
+network  in this subsection we will survey the unsuper
+vised learning applications in network trafﬁc classiﬁcation
+as networks evolve at a rapid pace malicious intruders are
+also evolving their strategies numerous novel hacking and
+intrusion techniques are being regularly introduced causing
+severe ﬁnancial jolts to companies and headaches to their
+administrators tackling these unknown intrusions through
+accurate trafﬁc classiﬁcation on the network edge therefore
+becomes a critical challenge and an important component of
+the network security domain initially when networks used
+to be small simple portbased classiﬁcation technique that
+tried to identify the associated application with the corre
+sponding packet based on its port number was used however
+this approach is now obsolete because recent malicious soft
+ware uses a dynamic portnegotiation mechanism to bypass
+ﬁrewalls and security applications a number of contrast
+ing internet trafﬁc classiﬁcation techniques have been pro
+posed since then and some important ones are discussed
+next
+most of the modern trafﬁc classiﬁcation methods use
+different ml and clustering techniques to produce accurate
+clusters of packets depending on their applications thus pro
+ducing efﬁcient packet classiﬁcation  the main purpose
+of classifying networks trafﬁc is to recognize the destination
+application of the corresponding packet and to control the
+ﬂow of the trafﬁc when needed such as prioritizing one ﬂow
+over others another important aspect of trafﬁc classiﬁcation
+is to detect intrusions and malicious attacks or screen out
+forbidden applications packets
+the ﬁrst step in classifying internet trafﬁc is selecting
+accurate features which is an extremely important yet com
+plex task accurate feature selection helps ml algorithms
+to avoid problems like class imbalance low efﬁciency and
+low classiﬁcation rate there are three major feature selec
+tion methods in internet trafﬁc for classiﬁcation the ﬁl
+ter method the wrapper based method and the embedded
+method these methods are based on different ml and
+genetic learning algorithms  two major concerns in
+feature selection for internet trafﬁc classiﬁcation are the
+large size of data and imbalanced trafﬁc classes to deal
+with these issues and to ensure accurate feature selection
+a minmax ensemble feature selection scheme is proposed
+in  a new informationtheoretic approach for feature
+selection for skewed datasets is described in  this
+algorithm has resolved the multiclass imbalance issue but
+it does not resolve the issues of feature selection in 
+an unsupervised autoencoder based scheme has outperformed
+previous feature learning schemes autoencoders were used
+as a generative model and were trained in a way that the
+bottleneck layer learned a latent representation of the feature
+set these features were then used for malware classiﬁcation
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+and anomaly detection to produce results that improved the
+state of the art in feature selection 
+much work has been done on classifying trafﬁc based on
+supervised ml techniques initially in  the concept of
+clustering bidirectional ﬂows of packets came out with the
+use of em probabilistic clustering algorithm which clusters
+the ﬂows depending on various attributes such as packet size
+statistics interarrival statistics byte counts and connection
+duration etc  furthermore clustering is combined with
+the above model  this strategy uses naïve bayes clus
+tering to classify trafﬁc in an automated fashion recently
+unsupervised ml techniques have also been introduced in
+the domain of network security for classifying trafﬁc major
+developments include a hybrid model to classify trafﬁc in
+more unsupervised manner  which uses both labeled
+and unlabeled data to train the classiﬁer making it more
+durable and efﬁcient however later on completely unsuper
+vised methods for trafﬁc classiﬁcation have been proposed
+and still much work is going on in this area initially a com
+pletely unsupervised approach for trafﬁc classiﬁcation was
+employed using the kmeans clustering algorithm combined
+with log transformation to classify data into corresponding
+clusters then  highlighted that using kmeans and this
+method for trafﬁc classiﬁcation can improve accuracy by
+ to achieve an overall  accuracy
+another improved and faster approach was proposed
+in   which examines the size of the ﬁrst ﬁve
+packets and determines the application correctly using unsu
+pervised learning techniques this approach has shown to
+produce better results than the stateoftheart trafﬁc classi
+ﬁer and also has removed its drawbacks such as dealing
+with outliers or unknown packets etc another similar auto
+mated trafﬁc classiﬁer and application identiﬁer can be seen
+in  and they use the autoclass unsupervised bayesian
+classiﬁer which automatically learns the inherent natural
+classes in a dataset
+in  another novel strategy for trafﬁc classiﬁcation
+known as network trafﬁc classiﬁcation using correlation was
+proposed  which uses nonparametric nn combined
+with statistical measurement of correlation within data to
+efﬁciently classify trafﬁc the presented approach addressed
+the three major drawbacks of supervised and unsupervised
+learning classiﬁcation models ﬁrstly they are inappropriate
+for sparse complex networks as labeling of training data takes
+too much computation and time secondly many supervised
+schemes such as svm are not robust to training data size and
+lastly and most importantly all supervised and unsupervised
+algorithms perform poorly if there are few training samples
+thus classifying the trafﬁc using correlations appears to
+be more efﬁcient and adapting  compared four ann
+approaches for computer network trafﬁc and modeled the
+internet trafﬁc like a time series and used mathematical
+methods to predict the time series a greedy layerwise train
+ing for unsupervised stacked autoencoder produced excellent
+classiﬁcation results but at the cost of signiﬁcant system
+complexity genetic algorithm combined with constraint
+clustering process is used for internet trafﬁc data characteri
+zation  in another work a twophased ml approach for
+internet trafﬁc classiﬁcation using kmeans and c deci
+sion tree is presented in  where the average accuracy of
+classiﬁcation was 
+a new approach for internet trafﬁc classiﬁcation has been
+introduced in  by  in which unidirectional and bidi
+rectional information is extracted from the collected trafﬁc
+and kmeans clustering is performed on the basis of statistical
+properties of the extracted ﬂows a supervised classiﬁer then
+classiﬁes these clusters another unsupervised learning based
+algorithm for internet trafﬁc detection is described in 
+where a restricted boltzmann machine based svm is pro
+posed for trafﬁc detection this paper model the detection as
+a classiﬁcation problem results were compared with ann
+and decision tree algorithms on the basis of precision and
+recall application of deep learning algorithms in internet
+trafﬁc classiﬁcation has been discussed in  with this work
+also outlining the open research challenges in applying deep
+learning for internet trafﬁc classiﬁcation these problems
+are related to training the models for big data since internet
+data for deep learning falls in big data regime optimiza
+tion issues of the designed models given the uncertainty in
+internet trafﬁc and scalability of deep learning architectures
+in internet trafﬁc classiﬁcation to cope with the challenges
+of developing a ﬂexible highperformance platform that can
+capture data from a highspeed network operating at more
+than  gbps  have introduced a platform for high
+speed packet to tuple sequence conversion which can sig
+niﬁcantly advance the state of the art in realtime network
+trafﬁc classiﬁcation in another work  used stacked
+autoencoders for internet trafﬁc classiﬁcation and produced
+more than  accurate results for the two classes in kdd
+ dataset
+deep belief network combined with gaussian model
+employed for internet trafﬁc prediction in wireless mesh
+backbone network has been shown to outperform the pre
+vious maximum likelihood estimation technique for trafﬁc
+prediction  given the uncertainty of wlan channel
+trafﬁc classiﬁcation is very tricky  proposed a new
+variant of gaussian mixture model by incorporating universal
+background model and used it for the ﬁrst time to classify
+the wlan trafﬁc a brief overview of the different internet
+trafﬁc classiﬁcation systems classiﬁed on the basis of unsu
+pervised technique and tasks discussed earlier is presented in
+the table 
+b anomalyintrusion detection
+the increasing use of networks in every domain has increased
+the risk of network intrusions which makes user privacy and
+the security of critical data vulnerable to attacks according
+to the annual computer crime and security survey  
+conducted by the combined teams of csi computer security
+institute and fbi federal bureau of investigation total
+ﬁnancial losses faced by companies due to the security attacks
+and network intrusions were estimated as us  million
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  internet traffic classification with respect to unsupervised learning techniques and tasks
+moreover according to the symantec internet security
+threat report  approximately  new vulnerabilities
+were identiﬁed in the year  in addition more than
+ million new variants of malware programs and  major
+breaches were detected exposing  million identities there
+fore insecurity in todays networking environment has given
+rise to the everevolving domain of network security and
+intrusionanomaly detection 
+in general intrusion detection systems ids recognize
+or identify any act of security breach within a computer or a
+network speciﬁcally all requests which could compromise
+the conﬁdentiality and availability of data or resources of a
+system or a particular network generally intrusion detection
+systems can be categorized into three types  signature
+based intrusion detection systems  anomaly detection
+systems and  compoundhybrid detection systems which
+include selective attributes of both preceding systems
+signature detection also known as misuse detection is a
+technique that was initially used for tracing and identify
+ing misuses of users important data computer resources
+and intrusions in the network based on the previously col
+lected or stored signatures of intrusion attempts the most
+important beneﬁt of a signaturebased system is that a com
+puter administrator can exactly identify the type of attack a
+computer is currently experiencing based on the sequence
+of the packets deﬁned by stored signatures however it is
+nearly impossible to maintain the signature database of all
+evolving possible attacks thus this pitfall of the signature
+based technique has given rise to anomaly detection systems
+anomaly detection system ads is a modern intrusion
+and anomaly detection system initially it creates a baseline
+image of a system proﬁle its network and user program
+activity then on the basis of this baseline image ads classi
+ﬁes any activity deviating from this behavior as an intrusion
+few beneﬁts of this technique are ﬁrstly they are capable
+of detecting insider attacks such as using system resources
+through another user proﬁle secondly each ads is based on
+a customized user proﬁle which makes it very difﬁcult for
+attackers to ascertain which types of attacks would not set an
+alarm and lastly it detects unknown behavior in a computer
+system rather than detecting intrusions thus it is capable of
+detecting any unknown sophisticated attack which is different
+from the users usual behavior however these beneﬁts come
+with a tradeoff in which the process of training a system on
+a users normal proﬁle and maintaining those proﬁles is a
+time consuming and challenging task if an inappropriate user
+proﬁle is created it can result in poor performance since
+ads detects any behavior that does not align with a users
+normal proﬁle its false alarm rate can be high lastly another
+pitfall of ads is that a malicious user can train ads gradually
+to accept inappropriate trafﬁc as normal
+as anomaly and intrusion detection have been a popular
+research area since the origin of networking and internet
+numerous supervised as well as unsupervised  learning
+techniques have been applied to efﬁciently detect intrusions
+and malicious activities however latest research focuses on
+the application of unsupervised learning techniques in this
+area due to the challenge and promise of using big data for
+optimizing networks
+initial work focuses on the application of basic unsu
+pervised clustering algorithms for detecting intrusions and
+anomalies in  an unsupervised approach was proposed
+based on density and gridbased clustering to accurately
+classify the highdimensional dataset in a set of clusters
+those points which do not fall in any cluster are marked
+as abnormal  this approach has produced good results
+but the false positive rate was very high in followup work
+another improved approach that used fuzzy rough cmeans
+clustering was introduced   kmeans clustering is
+also another famous approach used for detecting anomalies
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+which were later proposed in   which showed great
+accuracy and outperformed existing unsupervised methods
+however later in  an improved method which used
+kmeans clustering combined with the c decision tree
+algorithm was proposed  to produce more efﬁcient
+results than prior approaches  combines cluster centers
+and nearest neighbors for effective feature representation
+which ensures a better intrusion detection however a limi
+tation with this approach is that it is not able to detect user to
+resource and remote to local attacks another scheme using
+unsupervised learning approach for anomaly detection is pre
+sented in  the presented scheme combines subspace
+clustering and correlation analysis to detect anomalies and
+provide protection against unknown anomalies this exper
+iment used wide backbone networks data  spanning
+over six years and produced better results than previous
+kmeans based techniques work presented in  shows
+that for different intrusions schemes there are a small set
+of measurements required to differentiate between normal
+and anomalous trafﬁc the authors used two coclustering
+schemes to perform clustering and to determine which
+measurement subset contributed the most towards accurate
+detection
+another famous approach for increasing detection accu
+racy is ensemble learning work presented in  employed
+many hybrid incremental ml approaches with gradient
+boosting and ensemble learning to achieve better detection
+performance authors in  surveyed anomaly detection
+research from  to  and ﬁnd out the unique algo
+rithmic similarity for anomaly detection in internet traf
+ﬁc most of the algorithms studied have following sim
+ilarities  removal of redundant information in training
+phase to ensure better learning performance  feature selec
+tion usually performed using unsupervised techniques and
+increases the accuracy of detection  use ensembles clas
+siﬁers or hybrid classiﬁers rather than baseline algorithms
+to get better results authors in  have developed an
+artiﬁcial immune system based intrusion detection system
+they have used densitybased spatial clustering of applica
+tions with noise to develop an immune system against the
+network intrusion detection
+the application of unsupervised intrusion detection in
+cloud network is presented in  where authors have pro
+posed a fuzzy clustering ann to detect the less frequent
+attacks and improve the detection stability in cloud networks
+another application of unsupervised intrusion detection sys
+tem for clouds is surveyed in  where fuzzy logic based
+intrusion detection system using supervised and unsupervised
+ann is proposed for intrusion detection this approach is
+used for dos and ddos attacks where the scale of the attack
+is very large network intrusion anomaly detection system
+nids based on kmeans clustering are surveyed in 
+this survey is unique as it provides distance and similarity
+measure of the intrusion detection and this perspective has not
+been studied before  unsupervised learning based appli
+cations of anomaly detection schemes for wireless personal
+area networks wireless sensor networks cyberphysical sys
+tems and wlans are surveyed in 
+another paper  reviewing anomaly detection has pre
+sented the application of unsupervised svm and clustering
+based applications in network intrusion detection systems
+unsupervised discretization algorithm is used in bayesian
+network classiﬁer for intrusion detection which is based on
+bayesian model averaging  the authors show that the
+proposed algorithm performs better than the naïve bayes
+classiﬁer in terms of accuracy on the nslkdd intru
+sion detection dataset border gateway protocol bgp
+the core internet interautonomous systems interas rout
+ing protocolis also error prone to intrusions and anoma
+lies to detect these bgp anomalies many supervised and
+unsupervised ml solutions such as hidden markov models
+and principal component analysis have been proposed in
+literature  another problem for anomaly detection is
+low volume attacks which have become a big challenge for
+network trafﬁc anomaly detection while longrange depen
+dencies lrd are used to identify these low volume attacks
+lrd usually works on aggregated trafﬁc volume but since
+the volume of trafﬁc is low the attacks can pass undetected
+to accurately identify low volume abnormalities  pro
+posed the examination of lrd behavior of control plane and
+data plane separately to identify low volume attacks
+other than clustering another widely used unsupervised
+technique for detecting malicious and abnormal behavior in
+networks is soms the specialty of soms is that they can
+automatically organize a variety of inputs and deduce patterns
+among themselves and subsequently determine whether the
+new input ﬁts in the deduced pattern or not thus detecting
+abnormal inputs   soms have also been used
+in hostbased intrusion detection systems in which intruders
+and abusers are identiﬁed at a host system through incom
+ing data trafﬁc  later on a more robust and efﬁcient
+technique was proposed to analyze data patterns in tcp
+trafﬁc  furthermore complex nns have also been
+applied to solve the same problem and remarkable results
+have been produced a few examples include the application
+of art combined with som  the use of pca can also
+be seen in detecting intrusions  nmf has also been
+used for detecting intruders and abusers  and lastly
+dimensionality reduction techniques have also been applied
+to eradicate intrusions and anomalies in the system  for
+more applications refer to table  which classiﬁes different
+network anomaly and intrusion detection systems on the basis
+of unsupervised learning techniques discussed earlier
+c network operations optimizations
+and analytics
+network management comprises of all the operations
+included in initializing monitoring and managing of a com
+puter network based on its network functions which are the
+primary requirements of the network operations the general
+purpose of network management and monitoring systems
+is to ensure that basic network functions are fulﬁlled and
+volume  
+m usama et al unsupervised machine learning for networking techniques applications and research challenges
+table  anomaly  network intrusion detection systems anids with respect to unsupervised learning techniques
+if there is any malfunctioning in the network it should be
+reported and addressed accordingly following is a summary
+of different network optimization tasks achieved through
+unsupervised learning models
+ qosqoe optimization
+qos and qoe are measures of service performance and end
+user experience respectively qos mainly deals with the
+performance as seen by the user being measured quantita
+tively while qoe is a qualitative measure of subjective met
+rics experienced by the user qosqoe for internet services
+especially multimedia content delivery services is crucial in
+order to maximize the user experience with the dynamic and
+bursty nature of internet trafﬁc computer networks should
+be able to adapt to these changes without compromising
+enduser experiences as qoe is quite subjective it heavily
+relies on the underlying qos which is affected by different
+network parameters 

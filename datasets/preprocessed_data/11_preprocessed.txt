@@ -1,0 +1,269 @@
+selfdn  august   budapest hungary
+yaqoob et al
+on analyzing selfdriving networks
+a systems thinking approach
+touseef yaqoob
+information technology university lahore pakistan
+mseeituedupk
+muhammad usama
+information technology university lahore pakistan
+muhammadusamaituedupk
+junaid qadir
+information technology university lahore pakistan
+junaidqadirituedupk
+gareth tyson
+queen mary university of london united kingdom
+gtysonqmulacuk
+abstract
+along with recent networking advances such as softwaredefined
+networks network functions virtualization and programmable
+data planes the networking field in a bid to construct highly op
+timized selfdriving and selforganizing networks is increasingly
+embracing artificial intelligence and machine learning it is worth
+remembering that the modern internet that interconnects millions
+of networks is a complex adaptive social system in which interven
+tions not only cause effects but the effects have further knockon
+consequences not all of which are desirable or anticipated we be
+lieve that selfdriving networks will likely raise new unanticipated
+challenges particularly in the humanfacing domains of ethics
+privacy and security in this paper we propose the use of insights
+and tools from the field of systems thinkinga rich discipline
+developing for more than half a century which encompasses more
+realistic models of complex social systemsand highlight their rel
+evance for studying the longterm effects of network architectural
+interventions particularly for selfdriving networks we show that
+these tools complement existing simulation and modeling tools and
+provide new insights and capabilities to the best of our knowledge
+this is the first study that has considered the relevance of formal
+systems thinking tools for the analysis of selfdriving networks
+ccs concepts
+ networks network design principles network dynamics
+acm reference format
+touseef yaqoob muhammad usama junaid qadir and gareth tyson 
+on analyzing selfdriving networks a systems thinking approach in
+proceedings of acm sigcomm  afternoon workshop on selfdriving
+networks budapest hungary august   selfdn   pages
+httpsdoiorg
+introduction
+the exponential growth in the number of connected devices and
+users in networks is placing significant stress on current humanin
+theloop network management architectures there is now interest
+permission to make digital or hard copies of all or part of this work for personal or
+classroom use is granted without fee provided that copies are not made or distributed
+for profit or commercial advantage and that copies bear this notice and the full citation
+on the first page copyrights for components of this work owned by others than acm
+must be honored abstracting with credit is permitted to copy otherwise or republish
+to post on servers or to redistribute to lists requires prior specific permission andor a
+fee request permissions from permissionsacmorg
+selfdn  august   budapest hungary
+  association for computing machinery
+acm isbn 
+httpsdoiorg
+in equipping networks with autonomous runtime decisionmaking
+capability through the incorporation of artificial intelligence ai
+machine learning ml big data network analytics and network
+telemetry to allow networks to configure manage and heal them
+selves the idea that networks should learn to drive themselves is
+gaining traction and there is a lot of interest in the networking com
+munity to develop selfdriving networks  the idea itself is not
+entirely new and reflects a recurring motif seen in various guises
+such as cognitive networking  selforganized networks 
+knowledge defined networks  and most recently datadriven
+networking  and selfdriving networks  
+the vision of selfdriving networks is promising and finds much
+encouragement from recent advances in ml such as deep learning
+and networking such as softwaredefined networks programmable
+data planes and edge computing however there are many chal
+lenges that remain most notably modern networks and their in
+tegration into the global internet yields a complex adaptive social
+system that encompasses the interaction of a vast diversity of au
+tonomous devices human users applications and service providers
+complex adaptive systems are characterized by their dynamic com
+plexity and nonlinearity due to which the act of playing the game
+has a way of changing the rules  any selfdriving network
+must acknowledge and address this complexity hence the real
+concern is not to only see the potential benefits of the approach to
+the optimizing entity itself but to also critically understand poten
+tial downsides and unintended consequences on other subsystems
+in this work we seek to investigate the pros and cons of selfdriving
+networks using systems thinking techniques
+what is systems thinking
+although many different definitions of systems thinking have been
+proposed  all of them share an emphasis on interconnected
+ness and interdependency they focus on understanding how vari
+ous system entities influence each other and in turn themselves
+through feedback loops the goal is to facilitate users in seeing
+the proverbial forest for the trees  systems thinking is char
+acterized by three important features firstly the ability to think
+dynamically secondly to think causally through feedback loops
+thirdly to think more deeply about endogenous influences where
+the system itself is the cause of the observed problems  sys
+tems thinking is different from conventional thinking in many ways
+see table  but most prominently in modeling complex systems
+nonlinear closedlooped and multicausal with delayed feedback
+rather than linear openlooped causal with immediate feedback
+systems thinking has made a big impact in research on complex
+adaptive systems in such systems researchers have noted that
+on analyzing selfdriving networks
+a systems thinking approach
+selfdn  august   budapest hungary
+table  comparing conventional vs systems thinking details 
+conventional thinking
+systems thinking
+model of thinking
+linear causal openlooped immediate feedback
+nonlinear multicausal closedlooped with delayed feedback
+determining a problems cause
+obvious and easy to trace
+indirect and nonobvious
+cause of problems
+external to the system
+internal systemasacause thinking
+how to optimize
+by optimizing the parts
+by optimizing relationships among the parts
+where to intervene
+aggressive use of obvious solutions
+careful change applied at the leverage points
+how to resolve problems
+cure the symptoms
+fix the systemic causes
+hardly anything is influenced linearly in just one direction and the
+presence of multiple intertwined nonlinear feedback loops have
+made social systems notorious for being counterintuitive  in
+terms of selfdriving networks this implies that it is not sufficient
+to optimize only a protocol an architecture or a network without
+reasoning about how this will influence the other parts technical as
+well as sociocultural aspects of the larger internet system systems
+thinking the right tool for understanding complex adaptive social
+systems since it is considered axiom in systems thinking that every
+influence is both a cause and an effect   and that interactions
+between subsystems are modeled by circular loops rather than
+directed arrows
+we can define a system as an interconnected set of elements
+that is coherently organized in a way that achieves something  a
+definition given by donella meadows a highly influential system
+thinker and the lead author of the bestselling limits to growth
+ the something in the definition may however be quite dif
+ferent from what the designer intended if we find some stubborn
+problems with a system that refuse to go away despite efforts and
+best intentions some authors call these wicked problems  it is
+likely that these problems are systemic ie the problems follow
+from how the system is built and from its architectural choices
+goals and constraints systems thinking opens us up to the fact
+that wicked problems may not be resolvable through further in
+terventions and that using more advanced technology is not always
+good or neutral  thus systems thinking may be defined as
+the ability to understand the systemic interconnections in such a way
+as to achieve a desired purpose  for more information about
+systems thinking we refer to various primers  and books
+  on this topic
+contributions of this paper
+in this paper we aim to highlight that the internet and selfdriving
+networks should be envisioned as complex adaptive systems in
+which we should be wary of easy solutions and quick fixes as
+pointed out by h l mencken theres always an easy solution to
+every problem that is neat plausible but wrong in a similar vein
+systems thinking research informs us that most wellintentioned
+solutions fail to sustainably solve their addressed problems and
+may actually create more problems than they solve however not
+all solutions are doomed in this mannersome highleverage
+solutions exist that can provide sustainable longrun benefits with
+minimum effort and these can be uncovered by systems thinking
+we propose the use of tools and insights from systems thinking in
+selfdriving networks for managing the unintended consequences
+of policies and for devising highleverage effective solutions to
+the best of our knowledge this is the first proposal to use systems
+thinking insights and tools for the study of selfdriving networks
+and possibly also for the internet
+why use systems thinking for
+selfdriving networks
+leveraging a rich set of theory and tools
+systems thinking has been successfully used as a management tool
+to study policymaking in domains such as healthcare education
+management  and looks promising for selfdriving networks as
+well the field of systems science is a highlydeveloped discipline
+with many schools of thought including system dynamics com
+plexity theory general systems theory human system dynamics
+   we can leverage tools from a vast library of qualita
+tive as well as quantitative tools eg visualisations domain specific
+languages developed by the systems thinking community which
+has been active since its genesis at mit in the s  
+as an example of a qualitative system thinking tool consider
+causal loop diagram cld which is an aid to visualize and easily
+communicate how different system entities connect to each other
+and influence each other possibly with a delay through reinforcing
+positive or balancing negative feedback loops this could be
+used to capture various aspects of decision making within modern
+networks for instance content delivery networks cdns exert
+significant influence on the traffic generated within isps by dynam
+ically setting the destinations of a large fraction of flows this has
+longterm impacts on isp decision making as well as transient ef
+fects on relevant content producers transit providers and exchange
+points it has been hypothesized that integrating the control loops
+of these parties could have significant mutual benefits  self
+driving networks offers a means to attain this but a vital precursor
+would be formalizing the influences and dependencies between
+these stakeholders clds offer a perfect tool
+in contrast to clds the stock and flow diagram is a quantitative
+system thinking tool for understanding systemic structure stocks
+or accumulators are things that accumulate and can be measured
+eg population bits transferred energy spent while flows or
+rates represents things that change over time eg transmission
+rate unlike clds stock and flow diagrams can provide informa
+tion about rates of change due to the lack of space we limit our
+discussion to these two tools only but highlight that the field has a
+number of other tools details of which can be seen in  
+support for rigorous big picture thinking
+systems thinking also affords us the ability to see the big picture by
+expanding our time and thought horizons using system thinking
+tools we can take better policy decisions regarding selfdriving
+networks and avoid an exclusive reliance on implicit mental mod
+els which are illsuited for this task since they are simplistic since
+they inadvertently substitute a higherorder nonlinear system for a
+in this paper we consider systems thinking to be synonymous with system dynamics
+ and to encompass it  although not everyone agrees 
+selfdn  august   budapest hungary
+yaqoob et al
+linear causal one narrow ie not broad enough to see the big pic
+ture and myopic since they tend to discount the future and focus
+predominantly on the shortterm  systems thinking can also
+be used to better understand the connections between the various
+subsystems in particular it helps us identify nonobvious connec
+tions between effects and causes and also find missing connections
+which if they had existed would have improved the system perfor
+mance of our selfdriving networks
+finding highleverage interventions
+in systems thinking systems respond to interventions according to
+the principle of leverage  previous research in system dynam
+ics has shown that most intuitively obvious policy interventions
+in complex social systems are lowleverage ie they do not pro
+duce significant longrun change and will likely also create other
+problems and only a few policy interventions are highleverage
+ie capable of producing substantial longrun change system
+dynamics research has consistently highlighted the counterintu
+itive nature of complex social systems in that the highleverage
+points are not where most people expect and if even these points
+are identified they are prone to be altered in the wrong direction
+by people  in an influential essay on leverage  donella
+meadows stated that interventions that rely only on parameter
+optimization are typically low leverage and higher leverage can be
+attained through deeper interventions that for example optimize
+information flows eg by minimizing information sharing delays
+or change the system rules ie the incentives and the constraints
+the most powerful way to change a system meadows notes is to
+change the system goals and paradigm out of which its goals rules
+and culture emerge although these ideas are abstract we can use
+insights about leverage points to unearth the few sensitive influ
+ence points in selfdriving networks thereby avoiding some of the
+problems that have plagued traditional networks
+facilitating systemascause thinking
+in systems thinking it is considered an axiom that every influence
+is both a cause and an effectie it is possible that when a causes b
+b also causes a through a feedback loopin such doubly looped sys
+tem the systems are said to cause their own behavior endogenously
+we can use the systems thinking concept of systemasacause to
+explain how the perennial internet nuisances such as spam and
+lack of privacy security and qos are not isolated problems but
+as noted by keshav  follow endogenously as the byproducts of
+the internets design p

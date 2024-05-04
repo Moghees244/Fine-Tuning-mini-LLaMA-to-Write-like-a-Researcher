@@ -1,0 +1,353 @@
+loradrl deep reinforcement learning based
+adaptive phy layer transmission parameters
+selection for lorawan
+inaam ilahi muhammad usama muhammad omer farooq muhammad umar janjuaand junaid qadir
+information technology university lahore pakistan
+department of systems and computer engineering carleton university canada
+abstract the performance of denselydeployed lowpower
+widearea networks lpwans can signiﬁcantly deteriorate due
+to packets collisions and one of the main reasons for that is
+the rulebased phy layer transmission parameters assignment
+algorithms lorawan is a leading lpwan technology where
+lora serves as the physical layer here we propose and evaluate a
+deep reinforcement learning drlbased phy layer transmission
+parameter assignment algorithm for lorawan our algorithm
+ensures fewer collisions and better network performance com
+pared to the existing stateoftheart phy layer transmission
+parameter assignment algorithms for lorawan our algorithm
+outperforms the state of the art learningbased technique achieving
+up to  improvement of pdr in some cases
+i introduction
+over the next few years the internet of things iot networks
+are expected to grow exponentially most iot end devices
+eds are expected to be i lowcost ii longrange and
+iii ultralowpower these eds will provide vital information
+for intelligent decision making in many smart applications in
+diverse ﬁelds such as healthcare systems inventory manage
+ment and smart parking the large number of eds deployed in
+such networks poses signiﬁcant challenges such as low packet
+delivery ratio pdr and high overall power consumption due
+to these challenges there is a need for an effective commu
+nication technique that can enable simultaneous transmissions
+from several devices while i reducing packet collisions and
+ii keeping power consumption low
+longrange lora is a lowpower wideareanetwork lp
+wan protocol that enables multiple simultaneous transmis
+sions through customization of phy layer transmission param
+eters lorawan  is the open mac layer speciﬁcation for
+lora lorawan uses pure aloha as the mac protocol
+primarily because a simple protocol better suits lowpower eds
+as aloha does not sense a communication channel before
+transmission therefore with an increase in data trafﬁc load the
+network performance deteriorates in the light of the above dis
+cussion loras ability of phy layer parameter customization
+can become helpful as an intelligent phy layer transmission
+parameter assignment algorithm can not only make up for
+alohas performance issues it can also result in lower power
+consumption due to reduced number of collisions
+a decision of selecting an appropriate phy layer transmis
+sion parameter such as spreading factor channel frequency and
+power is impacted by a number of factors a couple of most
+important factors in this regard are i channel condition and
+ii distance of an ed from a gateway it is a wellknown fact
+that interference and data trafﬁc load is not constant hence the
+channel condition is variable with respect to time hence there
+is an absolute need for a proactive intelligent and adaptive
+phy layer transmission parameter adjustment algorithm for a
+lorawan network hence here we present a networkaware
+drl framework for eds phy layer parameters selection
+with the aim of maximizing pdr and lowering the power
+consumption
+the following are our major contributions
+ we have presented a drlbased adaptive phy layer
+transmission parameters selection algorithm for lora
+based eds
+ we perform performance evaluation of our algorithm
+under different environment settings and show that our
+proposed algorithm shows an improvement of more than
+ of pdr upon the learning based technique in some
+cases while being adaptive at the same time
+ii background
+a lora networks
+lora utilizes the chirp spread spectrum css technique for
+encoding signals into chirp pulses spread over a wide spectrum
+css enables longrange communication with robustness against
+interference and noise while keeping the datarate low lora
+allows the selection of different phy layer transmission param
+eters spreading factor coding rate bandwidth frequency and
+power for each device the values of these parameters affect
+communication range data rate resilience against interference
+and a receivers ability to decode the signal in lora a
+transceiver can select a bandwidth bw in the range 
+to  khz and mostly a lora transceiver operates at 
+khz  khz or  khz spreading factor sf deﬁnes
+the ratio between the symbol rate and the chirp rate lora
+provides seven sf rates to choose from sf to sf coding
+rate cr deﬁnes the level of protection against interference
+lora deﬁnes four coding rates 
+ 
+ 
+ 
+ a lora radio can
+transmit between  to  dbm in  db steps however due
+to hardware limitations the mentioned range is mostly limited
+between  to  dbm
+  ieee
+ ieee th conference on local computer networks lcn    ieee  doi lcn
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+table i general comparison of loradrl loramab and
+lorasim
+learning
+adaptive
+supports
+mobility
+average time
+to convergence
+lorasim
+rulebased
+loramab
+ khours
+with no mobility
+loradrl
+ khours
+b deep reinforcement learning
+reinforcement learning rl provides the ability to solve dy
+namic sequential decisionmaking problems the conventional
+rl solutions have suffered from computational complexities
+due to the curse of dimensionality problem qlearning  an
+rl algorithm which involves learning using delayed rewards
+suffers from the same problem as soon as the representation of
+the environment becomes complex mnih et al  introduced
+drl by proposing deep qnetworks dqn a combination
+of deep neural network dnn and qlearning as a solution
+to the stated problem in the case of dqns the policy is
+represented by the dnn van et al  pointed out that the
+dqns may overestimate the qvalues and propose a new
+method called double deep qlearning ddqn in ddqn the
+action selection is proposed by an online network but its value
+estimation for the update is done by using a target network this
+not only helps estimating better qvalues but also increases the
+stability of learning
+c related work
+bor et al  proposed lorasim simulator for experimenting
+with different lora settings this simulator provides an ability
+for dynamic phy layer parameters selection where ﬁxed sub
+sets of the phy layer parameter combinations are used to en
+sure collision avoidance the only problem with their technique
+is that it suffers from the problems associated with a rulebased
+mechanism ta et al  proposed the use of rl for dynamic
+phy layer transmission parameters selection for lorabased
+eds they pointed out multiple issues with lorasim for
+example using perfectly orthogonal spreading factors based
+on their identiﬁed weakness in lorasim they proposed another
+discrete event simulator named loramab we identify
+multiple issues with loramab i loramab in terms of its
+computational complexity is exponentially complex and hence
+not feasible for a large number of eds ii loramab does not
+account for the movement of eds which makes it inapplicable
+in a network consisting of mobile eds such as healthcare
+smart vehicles etc iii due to a missing specialized objective
+function eds have the option of choosing any of the available
+power levels without particularly focusing on saving power as
+a solution to the abovestated issues we propose an adaptive
+phy layer transmission parameters selection algorithm based
+on drl a comparison of our approach loradrl with prior
+work loramab and lorasim is presented in table i
+iii proposed phy layer transmission parameters
+selection algorithm
+to the best of the authors knowledge there is no drlbased
+solution available in the literature for phy layer transmission
+parameter adaption that assures minimalist collisions in a lora
+based network
+a problem formulation
+we model the lora network with a total k lora eds
+in a network and with all eds being within the range of
+a lorawan gateway the algorithm is centralized with a
+ddqn being run on the gateway the gateway is not limited
+in hardware and power resources hence is able to efﬁciently
+run a ddqn the whole operation is formulated as a markov
+decision process mdp where s denotes the state of the
+environment allocated actions distance from gateway a
+denotes the action the combination of sf and power proposed
+by the ddqn and r denotes the reward at a timestep the
+goal of the agent is to propose action in order to minimize the
+collisions while keeping power usage as low as possible
+b rewardcost function
+the proposed reward function takes into account the pdr
+packet airtime and power usage of an ed the rewardcost
+function is given in equation  in the equation pdrt and
+att represent pdr and airtime in seconds respectively at time
+instance t in the case of the availability of multiple power
+levels we change the reward function as given in equation 
+rt  a pdrt b att
+rt  a pdrt b att  c pwrt
+where
+pwr  powermax powerchosen
+powermax powermin
+where a b  c are the relative constants used to assign
+appropriate weights to pdr at and pwr we have tested
+the following combinations of the constants a   b  
+a   b   and a   b   c   these
+constants act as hyperparameters and can be chosen according
+to the requirements of the application hence in the reward
+function we have proposed to actively penalize the learning
+agent until it is able to achieve a good pdr while keeping the
+power consumption as low as possible
+c proposed algorithm
+algorithm  shows the workﬂow of the proposed algorithm
+major beneﬁts of our proposed algorithm are
+ adaptive behaviour the ability of ddqn to contin
+uously learn based on the current performance makes
+it adaptive to the changing environment hence always
+changing the policy in the favor of better available
+actions
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+algorithm  drl in lora networks  learning process
+input qnetwork structure
+output trained qnetwork
+ initialize both the target and online qnetworks
+ initialize the memory replay buffer
+ while ep  maxepisodes do
+while steps  maxedcount do
+initialize the lora network
+compute state of the network st
+feed the state to the dnn to get action at
+taken action at at state st
+simulate the environment
+compute reward rt and next state st
+collect m datapoints st at st rt using policy π
+and add it to the memory
+sample minibatch from memory
+compute the change in values using target qnetwork
+q
+φ yj  rj  γ maxa
+j qφs
+j a
+j
+update the online qnetwork φ
+φ α p
+j
+dqφsjaj
+dφ
+qφsj aj yj
+if steps  targetupdateinterval then
+update the target qnetwork φ
+end if
+end while
+ end while
+table ii speciﬁcations of the ddqn
+no of layers
+no of neurons
+ 
+activations
+relu relu linear
+learning rate
+memory capacity
+batch size
+gamma for qvalues
+initial epsilon
+final epsilon
+change in epsilon
+update frequency
+ mobility support the learning is being performed on
+the gateway and is independent of the individual eds and
+the model can handle mobile eds
+ computationally efﬁcient the algorithm uses a small
+dnn in ddqn hence requiring very few computational
+resources our algorithm runs on the gateway and does
+not put extra burden on the resource constrained eds
+hence adds to the applicability of our algorithm in real
+scenarios
+iv performance evaluation
+in our experiments we consider an environment of  lora
+eds spread in a radius of  meters with a single basestation
+at the center we use a data frame size of  bytes typical iot
+use cases generate small data packets hence byte frame size
+can represent a large number of iot use cases the data is being
+generated using a poison distribution with a mean rate λ of
+fig  pdr of loradrl and loramab in a lora network
+of  uniformly distributed mobile lora eds with both the
+capture effect and the intersf collisions enabled the mobility
+speed was set to  mh a sharp drop in the pdr of
+loramab can be seen which shows its inability to learn in
+an environment comprising of mobile lora eds
+ minutes the simulation time is set to  times of the mean
+rate the bandwidth is ﬁxed at  khz for all eds currently
+we have considered a single channel the speciﬁcations of the
+neural network are given in table ii
+a learning of the proposed algorithm
+the pdr of our algorithm while learning is shown in fig
+ the ﬁgure shows that our agent can converge its learning in
+ khours however loramab is not able to learn a better
+pdr in case of an environment consisting of mobile lora eds
+eds in the experimental setup are mobile and they follow the
+gaussmarkov mobility model an improvement of more than
+ can be seen in the pdr over loramab as the learning
+is independent of the eds so we propose the training of the
+model to be done in a simulation the trained model can then be
+ﬁnetuned in a real environment due to the adaptive behavior
+of drl compared to lorasim and loramab our model will
+be less susceptible to adversarial attacks which in the case of
+lora can be frequency jamming etc
+b experiment  performance evaluation using uniformly dis
+tributed eds
+fig a shows the performance of our algorithm in a ﬁeld
+consisting of lora eds distributed uniformly we have tested
+with the capture effect ce and intersf collisions the effect
+of these cannot be clearly seen in the provided graphs but
+will be noticeable in dense iot networks it can be seen that
+our model can achieve a pdr greater than  in a network
+containing  eds in a single channel environment fig a
+shows the average power usage per packet sent it shows that
+our agent can achieve an average power usage of  joule
+per packet with  eds in the network which is an optimal
+power choice the eds have only a single power level to choose
+from ie  db
+c experiment  performance evaluation based on varying
+percentages of intelligent eds
+we compare the effect on overall performance in a network
+containing different percentages of intelligent eds we consider
+an ed whose decision is made by the drl agent as an intelli
+gent ed we have tested with     and 
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+a experiment  uniformly distributed eds
+with a single available power level choice
+b experiment  performance of lora net
+work containing different percentages of intel
+ligent eds
+c experiment  uniformly distributed eds
+with multiple available power level choices
+fig  depiction of performance of our proposed loradrl it can be seen that our proposed algorithm has achieved an optimal
+pdr while ensuring low power usage in experiment  it is visible that the intelligent device percentage is directly proportional
+to the performance high pdr  low powerusage all results are reported with  conﬁdence interval
+intelligent eds the eds other than the intelligent ones choose
+a random parameter combination out of the available parameter
+combinations we dont limit the parameter combination of any
+ed all the available combinations are available to the ed to
+choose from eds have only a single power level to choose
+from ie  db it can be seen that the performance deteriorates
+in case of a reduction in the count of intelligent devices when
+eds choose a random parameter combination the packets either
+suffer collisions or they are lost on the other hand if an ed is
+intelligent the parameters are chosen by the gateway based on
+the environment hence fewer collisions the obtained results
+have been shown in fig b
+d experiment  performance evaluation using multiple avail
+able power levels
+in this experiment we add multiple power levels as a choice
+   dbs for a power level to be used in this case the
+reward function given in equation  is used the results are
+shown in fig c it can be seen that our agent can achieve
+an optimal per packet power usage of  joule which is much
+less than the average per packet power usage in the scenario of
+a single choice of power level ie  joule hence our agent
+can save power while ensuring the same pdr performance as
+in the case of one power level
+v conclusions
+we have provided and tested the ﬁrst deep reinforcement
+learning drlbased approach for adaptive phy layer pa
+rameters selection in dense lora networks that ensures fewer
+collisions and better performance than the existing stateofthe
+art phy layer parameter assignment algorithms we show that
+our algorithm is not only adaptive and computationally efﬁcient
+but is also able to support mobile end devices

@@ -1,0 +1,739 @@
+
+can large language models aid in annotating
+speech emotional data uncovering new frontiers
+siddique latif muhammad usama mohammad ibrahim malik and
+bj
+orn w schuller fellow ieee
+abstractdespite recent advancements in speech emotion
+recognition ser models stateoftheart deep learning dl
+approaches face the challenge of the limited availability of anno
+tated data large language models llms have revolutionised
+our understanding of natural language introducing emergent
+properties that broaden comprehension in language speech and
+vision this paper examines the potential of llms to annotate
+abundant speech data aiming to enhance the stateoftheart in
+ser we evaluate this capability across various settings using
+publicly available speech emotion classification datasets lever
+aging chatgpt we experimentally demonstrate the promising
+role of llms in speech emotion data annotation our evalua
+tion encompasses singleshot and fewshots scenarios revealing
+performance variability in ser notably we achieve improved
+results through data augmentation incorporating chatgpt
+annotated samples into existing datasets our work uncovers
+new frontiers in speech emotion classification highlighting the
+increasing significance of llms in this field moving forward
+index termsspeech emotion recognition data annotation
+data augmentation large language models
+i introduction
+the rapid growth in natural language processing nlp
+has led to the development of advanced conversational tools
+often called large language models llm  these tools
+are capable of assisting users with various languagerelated
+tasks such as question answering semantic parsing proverbs
+and grammar correction arithmetic code completion general
+knowledge reading comprehensions summarisation logical
+inferencing common sense reasoning pattern recognition
+translation dialogues joke explanation educational content
+and language understanding  llms are trained on an enor
+mous amount of generalpurpose data and humanfeedback
+enabled reinforcement learning a new field of study called
+foundational models has emerged from these llms high
+lighting the interest of the academic community and comput
+ing industry  the foundational models have demonstrated
+the ability to perform tasks for which they were not explic
+itly trained this ability known as emergence is considered
+an early spark of artificial general intelligence agi 
+the emergence properties of the foundational models have
+sparked a wide range of testing of these models for various
+tasks such as sentiment analysis critical thinking skills low
+resource language learning and translation sarcasm and joke
+understanding classification and other affective computing
+challenges
+corresponding email siddiquelatifquteduau
+speech emotion recognition ser is a fundamental prob
+lem in affective computing the need for ser has evolved
+rapidly with the rapid integration of modern technologies
+in every aspect of our lives ser systems are designed to
+understand the wide range of human emotions from the given
+input data audio video text or physiological signal using
+traditional and modern machine learning ml techniques 
+ however the availability of larger annotated data remains
+a challenging aspect for speech emotion recognition ser
+systems which prompts the need for further investigation and
+exploration of new methods
+the use of crowdsourced and expert intelligence for data
+annotation is a common practice the annotated data serves
+as the ground truth for ml models to learn and generate
+predictions this annotation policy is mostly opted in com
+putational social science sentiment analysis bot detection
+stance detection emotion classification etc human emotion
+understanding and image classification   however
+these strategies are prone to a variety of biases ranging from
+human biases to situational biases   these annotation
+techniques also necessitate a big pool of human annotators
+clear and straightforward annotator instructions and a veri
+fication rationale that is not always available or dependable
+ although there are a few unsupervised techniques for
+data annotations these techniques necessitate a high sample
+size of the data unfortunately the generated annotations do
+not embed the context 
+annotating speech emotion data is a doubly challenging
+process the annotators listen to a speech recording and assign
+an annotation to a data sample using the predefined criteria
+human emotions are highly contextdependent and annotating
+emotions based on a brief recording in a specific controlled
+situation might restrict the annotations accuracy though the
+stateoftheart on humanannotated emotion classification is
+strong the generalisability of the learning for unseen data
+with slightly different circumstances might stymie the ser
+systems effectiveness the recent availability of several llms
+chatgpt google bard etc has unearthed the possibility
+of replacing or assisting human annotators llms are trained
+on enormous text corpora allowing them to learn and grasp
+complicated language patterns their emergence property 
+makes them wellsuited for data annotations and various
+studies e g   explored llms for annotations of
+various natural language processing nlp tasks however
+none of the studies explores them to annotate speech emotion
+data based on the transcripts
+in this paper we present an evaluation of the effectiveness
+arxivv  cssd   jul 
+of large language models llms in annotating speech data
+for ser we performed a series of experiments to show
+the effectiveness of chatgpt for data annotation however
+we observed that annotations solely based on text lacked
+generalisation to speech emotion data due to the absence
+of audio context to address this limitation we propose a
+novel pipeline that incorporates audio features such as average
+energy pitch and gender information to provide essential
+audio context for accurate sample annotation furthermore
+we introduce a method for encoding speech into a fixed
+length discrete feature representation using a vector quantised
+variational autoencoder vqvae  which serves as the
+audio context in the annotation prompt to the best of our
+knowledge this is the first endeavour to leverage llms for
+annotating speech emotion data specifically for classification
+purposes and evaluating their performance we conduct a
+comparative analysis between llmbased data annotations
+and human data annotations using publicly available datasets
+including iemocap and mspimprov
+in the following section we provide a brief literature review
+on the use of llms for data annotation we highlight the
+gap between conventional annotations and annotations made
+with llms section iii covers the methodology used in this
+study section iv presents the initial results and compares
+the performance of various llms for speech emotion data
+annotation section v provides a detailed discussion of the
+results and limitations and section vi concludes the paper
+with the potential to extend this work
+ii related work
+this section provides an overview of the research on lever
+aging fundamental models such as llms for data annotation
+ data annotations are critical for developing ml models
+capable of uncovering complex patterns in large datasets and
+pushing the stateoftheart in a particular domain human ex
+pert annotators bulk annotations semisupervised annotations
+and crowdsourced annotations are all widely used approaches
+in practice  these strategies have their pros and cons
+human annotators for example can provide highquality data
+annotations but are susceptible to challenges such as fairness
+bias subjectivity high cost and time label drifting annotation
+fatigue and inconsistency dealing with data ambiguity and
+scalability bulk annotations are a faster and less expensive
+technique to create data annotations but they might result in
+lowerquality annotations semisupervised annotations com
+bine the benefits of humanexpert annotations with bulk anno
+tations for data annotation but they are complex to implement
+and have generalisability and robustness difficulties although
+crowdsourcing human intelligence to annotate large datasets
+is the quickest and most costeffective option it can create
+lowerquality annotations and is more challenging to manage
+the quality of the annotations
+recently a few studies have investigated the efficacy of
+llms i e chatgpt for data annotations the goal of these
+experiments was to explore the potential of chatgpt for data
+annotation and to find out whether chatgpt can achieve full
+emergence in downstream tasks such as classification zhu
+et al  tested the ability of chatgpt to reproduce the
+humangenerated annotations for five seminal computational
+social science datasets the datasets include stance detection
+two datasets hate speech detection sentiment analysis and
+bot detection their results indicate that chatgpt is capable
+of annotating the data but its performance varies depending
+on the nature of the tasks the version of chatgpt and the
+prompts the average reannotation performance is 
+across all five datasets for the sentiment analysis task the
+accuracy of chatgpt reannotating the tweets is reported at
+ and for the hate speech task the chatgpt performance
+has gone down to  the authors also provided a prompt
+template that was used for reannotating the data
+factchecking is a wellknown way to deal with the misin
+formation epidemic in computational social science hose et
+al  evaluated the ability of llms specifically chatgpt
+to assist factcheckers in expediting misinformation detection
+they used chatgpt as a zeroshot classifier to reannotate
+ humanannotated true claim false claim fact
+checked statements chatgpt was able to correctly reannotate
+ of the statements the study further suggests that chat
+gpt performs well on recent factchecked statements with
+true claim annotations despite the reasonable performance
+of chatgpt on factchecking it is hard to suggest that it will
+replace human factcheckers anytime soon yang et al 
+explored the rating of news outlet credibility by formulating
+the problem as a binary reannotation task for chatgpt chat
+gpt achieved a reasonable performance in reannotating 
+domains with a spearman correlation coefficient of ρ  
+tornberg  also used chatgpt as a zeroshot classifier
+for reannotating  political tweets he found that chatgpt
+ outperformed experts and crowd annotators in terms of
+accuracy reliability and bias gilardi et al  reported
+that chatgpt used as a zeroshot classifier outperformed the
+crowdworksbased text annotations for five textannotation
+tasks around content moderation we have also observed
+studies using llms chatgpt for annotatingreannotating
+data for various computational social science tasks such as
+election opinion mining tasks  intent classification 
+genre identification  stance detection  and sentiment
+analysis  several other prominent works that evaluate the
+application of llms in the annotation of computational social
+science datasets for various applications include 
+amin et al  evaluated the capabilities of chatgpt
+in three famous nlp classification tasks in affective com
+puting personality recognition suicide tendency prediction
+and sentiment analysis their results indicated that chatgpt
+shows far better performance in the presence of the noisy
+data than wordvec models  chatgpt further pro
+duces comparable performance with bagofwords bow and
+wordvec models without noisy data and was outperformed
+by a roberta model  trained for a specific affective
+computing task chatgpt scored an unweighted average recall
+of  on the sentiment analysis outperforming bow and
+wordvec models by nearly  roberta also scored
+an unweighted average recall of  on this task for the
+suicide tendency prediction task chatgpts performance was
+the same as wordvec and bow with all three models achiev
+ing an unweighted average recall of nearly  roberta
+outperformed chatgpt on this task achieving an unweighted
+average recall of  for the personality recognition task
+roberta performed best scoring an unweighted average
+recall of  chatgpt performed the worst on this task
+getting an unweighted average recall of  interestingly
+wordvec and bow models also performed marginally well
+when compared to chatgpt for this task
+wang et al  argued that gpt can be a lowcost
+solution for the data annotations for downstream natural
+language understanding and generation tasks this research
+evaluated the efficacy of augmenting humanannotated data
+with gpt annotated data for improving the performance
+language understanding and generation in a constrained an
+notation budget they tested their method on various language
+understanding and generation tasks ranging from sentiment
+analysis question answering summarisation text retrieval to
+textual entailment they found that gpt based annotations
+policy saved  to  cost in annotation tasks how
+ever they also noted that gpt is not yet as reliable as
+human annotators in annotating highstakes sensitive cases
+more details on the evaluation of the comparison of chatgpt
+with human experts on various nlp tasks are compared and
+evaluated in  huang et al  explored the ability of
+chatgpt to reproduce annotations and their corresponding
+natural language explanation their results indicate that lay
+people agreed with the results more when they were provided
+with the chatgptgenerated natural language explanation of
+the annotations than just the considered post itself along with
+the annotation chatgpt agreed with the humanannotated
+data points  of the time
+in contrast to the aforementioned studies our research ex
+plores the untapped potential of llms in annotating emotions
+in speech data we present a novel approach that incorporates
+audio context into llms to improve the precision of anno
+tations to our knowledge no prior research has investigated
+the utilisation of llms for annotating speech emotion data
+iii methodology
+in our exploration of emotional data annotation we conduct
+a series of experiments firstly we annotate samples using
+only text and then we incorporate audio features and gender
+information alongside textual data for improved annotation to
+incorporate audio context we utilise the average energy and
+pitch of each utterance and pass it to chatgpt additionally
+we propose the use of vqvae to generate a dimensional
+discrete representation of audio which is also provided to
+chatgpt as the audio context for speechemotion classifi
+cation we train a bidirectional longshort term memory
+blstmbased classifier the following section provides
+further details on our proposed method
+a vqvae for speech code generation
+we propose to use a vectorquantised variational autoen
+coder vqvae  to learn a discrete representation from
+the speech data unlike traditional vaes where the discrete
+space is continuous vqvaes express the latent space as a
+set of discrete latent codes and the prior is learnt rather than
+being fixed as illustrated in figure  the model is comprised
+of three main parts the encoder the vector quantiser and the
+decoder
+the encoder takes in the input in the form of mel
+spectrograms and passes it through a series of convolutional
+layers having a shape of n h w d where n is the batch size
+h is the height w is the width and d represents the total number
+of filters after convolutions let us denote the output from the
+encoder as ze the vector quantiser component contains an
+embedding space with k total vectors each with dimension
+d the main goal of this component is to output a series of
+embedding vectors that we call zq to accomplish this we
+first reshape ze in the form of n h w d and calculate
+the distance for each of these vectors with the vectors in the
+embedding dictionary for each of the n h w vectors we
+find the closest of the k vectors from the embedding space
+and index the closest vector from the embedding space for
+each n h w vector the discrete indices of each of the
+vectors in the embedding space are called codes and we get
+a unique series of codes for each input to the model the
+selected vectors are then reshaped back to match the shape of
+ze finally the reshaped vector embeddings are passed through
+a series of transpose convolutions to reconstruct the original
+input melspectrogram one problem with this approach is that
+the process of selecting vectors is not differentiable to tackle
+this problem the authors simply copy the gradients from zq
+to ze
+the total loss is composed of three loss elements the
+reconstruction loss the code book loss and the commitment
+loss the reconstruction loss is responsible for optimising the
+encoder and decoder and is represented by
+reconstruction loss  logpxzq
+we use a code book loss which forces the vector embeddings
+to move closer to the encoder output ze
+code book loss  sgzex e
+where sg is the stop gradient operator this essentially freezes
+all gradient flows e are the vector embeddings and x is the
+input to the encoder and finally for making sure that the
+encoder commits to an embedding we add a commitment loss
+commitment loss  βzex sge
+here β is a hyperparameter that controls the weight we want
+to assign to the commitment loss
+overall we train the vqvae model to represent the audio
+representation in the form of a discrete list of integers or
+codes these audio representations can be used in addition
+to the transcriptions and fed to chatgpt for annotation in
+the following section we will delve into the details of the
+annotation procedure
+b emotion label annotation using llms
+we evaluated the data annotation ability of chatgpt with
+different experiments we start our experiments by annotat
+ing the training data of iemocap by passing the textual
+fig  model diagram of the vqvae
+transcripts to chatgpt and annotating the data both in zero
+shot and fewshot settings for a few shots we randomly
+selected  samples from the training data and passed them
+to chatgpt as context we trained the classifier using the
+training samples annotated with chatgpt and unweighted
+average recall uar is computed we repeat this procedure
+of annotation by passing the audio features along with the
+textual information first of all we use average pitch and
+energy for a given utterance and reannotated the data both
+in a zeroshot and a fewshots setting and classification uar
+is measured using a blstm based classifier as the female
+voice usually has a high pitch and energy therefore we
+also annotated the data by providing the gender information
+finally we propose to use an audio representation by vq
+vae section iiia and pass it to chatgpt as audio context
+we then used the openai api with the chatgpt pro
+version to annotate the data in our approach we meticulously
+designed and curated multiple prompts for annotating the data
+leveraging chatgpt for the annotation process we trained the
+classifier on the annotated dataset and computed the uar
+considering it as a benchmark for evaluating the classification
+performance to improve upon this benchmark we conducted
+additional experiments exploring various prompts to enhance
+the classification results beyond the established performance
+level
+c speech emotion classifier
+in this work we implement convolutional neural network
+cnnblstmbased classifiers due to their popularity in
+ser research  it has been found that the performance of
+blstm can be improved by feeding it with a good emotional
+representation  therefore we use cnn as emotional fea
+ture extractor from the given input data  a cnn layer acts
+like datadriven filter banks and can model emotionally salient
+features we pass these emotional features to the blstm layer
+to learn contextual information emotions in speech are in
+the temporal dimension therefore the blstm layer helps
+model these temporal relationships  we pass the outputs
+of blstm to an attention layer to aggregate the emotional
+salient attributes distributed over the given utterance for a
+given output sequence hi utterance level salient attributes are
+aggregated as follows
+rattentive 
+x
+i
+αihi
+where αi represents the attention weights that can be computed
+as follows
+αi 
+expw t hi
+p
+j expw t hj
+where w is a trainable parameter the attentive representation
+rattentive computed by the attention layer is passed to the fully
+connected layer for emotion classification overall our classi
+fier is jointly empowered by the cnn layers to capture an ab
+stract representation the blstm layer for context capturing
+the attention layer for emotional salient attributes aggregation
+and the fully connected layer emotion classification
+iv experimental setup
+a datasets
+to evaluate the effectiveness of annotations by chatgpt
+we use three datasets iemocap mspimprov and meld
+which are commonly used for speech emotion classification
+research   both the iemocap and the msp
+improv datasets are collected by simulating naturalistic
+dyadic interactions among professional actors and have similar
+labelling schemes meld contains utterances from the friends
+tv series
+ iemocap the interactive emotional dyadic motion
+capture iemocap database is a multimodal database that
+contains  hours of recorded data  the recordings were
+captured during dyadic interactions between five male and five
+female speakers the dyadic interactions enabled the speakers
+to converse in unrehearsed emotions as opposed to reading
+from a text the interactions are almost five minutes long
+and are segregated into smaller utterances based on sentences
+where each utterance is then assigned a label according to the
+emotion overall the dataset contains nine different emotions
+to be consistent with previous studies we use four emotions
+including sad  happy  angry  and neutral
+ mspimprov this corpus is a multimodal emotional
+database recorded from  actors performing dyadic inter
+actions  similar to iemocap  the utterances in
+mspimprov are grouped into six sessions and each session
+has recordings of one male and one female actor the sce
+narios were carefully designed to promote naturalness while
+maintaining control over lexical and emotional contents the
+emotional labels were collected through perceptual evaluations
+using crowdsourcing  the utterances in this corpus are
+annotated in four categorical emotions angry happy neutral
+and sad to be consistent with previous studies   we
+use all utterances with four emotions anger  sad 
+neutral  and happy 
+ meld
+multimodal emotionlines dataset  or
+meld contains over  dialogues and  utterances
+and multiple speakers from the popular tv series friends
+the utterances have been labelled from a total of seven
+emotions anger disgust sadness joy neutral surprise and
+fear furthermore meld also contains sentiment annotations
+for each utterance to stay consistent with the other datasets
+we choose four emotions including sadness  samples
+neutral  samples joy and anger  samples with
+this configuration we get a total of  utterances from the
+dataset
+b speech features
+for utterances across all datasets we use a consistent
+sampling rate of  khz for extracting the audio features
+we then convert the audio into mel spectrograms the mel
+spectrograms are computed with a shorttime fourier trans
+form of size  a hop size of  and a window size
+of  we specify a total of  melbands for the output
+and cutoff frequency of  khz we set a cutoff length of 
+for each mel spectrogram to have a final shape of x
+where smaller samples are zeropadded finally the mel
+spectrograms are normalised in the range of  
+c hyperparameters
+the vqvae was trained using the following parameters
+we chose a batch size of  and trained for a total of 
+epochs with a learning rate of e the convolution layers
+each had a stride and kernel size of  and  respectively
+a total of  token embeddings were selected where each
+had a dimensionality of  with our particular configuration
+we got a total of  codes for each given utterance we pass
+these codes to chatgpt along with textual data for annotation
+based on these annotations we trained over the classifier
+our classifier consists of convolutional layers and a bidi
+rectional lstm blstmbased classification network to
+generate highlevel abstract feature representations we employ
+two cnn layers in line with previous studies   we
+utilise a larger kernel size for the first convolutional layer and
+a smaller kernel size for the second layer the cnn layers
+learn feature representations which are then passed to the
+blstm layer with  lstm units for contextual repre
+sentation learning following the blstm layer an attention
+layer is applied to aggregate the emotional content spread
+across different parts of the given utterance the resulting
+attentive features are then fed into a dense layer with 
+hidden units to extract emotionally discriminative features for
+a softmax layer the softmax layer employs the crossentropy
+loss function to calculate posterior class probabilities enabling
+the network to learn distinct features and perform accurate
+emotion classification
+in our experiments we utilise the adam optimiser with its
+default parameters the training of our models starts with a
+learning rate of  and at the end of each epoch we assess
+the validation accuracy if the validation accuracy fails to
+improve for five consecutive epochs we decrease the learning
+rate by half and revert the model to the bestperforming
+previous epoch this process continues until the learning rate
+drops below  as for the choice of nonlinear activation
+function we use the rectified linear unit relu due to its
+superior performance compared to leaky relu and hyperbolic
+tangent during the validation phase
+v experiments and results
+all experiments are conducted in a speakerindependent
+manner to ensure the generalisability of our findings specif
+ically we adopt an easily reproducible and widely used
+leaveonespeakerout crossvalidation scheme as commonly
+employed in related literature  for crosscorpus
+ser we follow   and use iemocap for training
+and mspimprov is used for validation and testing for
+the experiments we repeat each experiment ten times and
+calculate the mean and standard deviation of the results
+the performance is presented in terms of the unweighted
+average recall rate uar a widely accepted metric in the field
+that more accurately reflects the classification accuracy across
+multiple emotion categories when the data is in imbalance
+across these
+a within corpus experiments
+for the withincorpus experiments we select the iemo
+cap data and compare the results with the baseline uar
+achieved using actual true labels we trained the classifier
+for different settings  true label settings  zeroshot
+chatgpt labels and  fewshots chatgpt labels in the
+first experiment we trained the cnnbstmbased classifier
+on true labels using the wellknown above mentioned leave
+onespeakerout scheme   in the second and third
+experiments the classifier is trained in the same leaveone
+speakerout scheme however we annotated samples using
+chatgpt with our proposed approach we repeat the second
+and third experiments using text only and text plus audio
+context results are presented in figure  overall results
+on data annotated using few shots achieve improved results
+compared to the zeroshot scenario it is important to note
+fig  comparing the classification performance uar  using
+training data annotated by chatgpt and original iemocap labels
+that the emotion classification performance using training data
+annotated with only text is poor compared to the baseline
+here baseline results represent when the classifier is trained
+using the original annotations of iemocap this observation
+underscores the insufficiency of textual information alone
+to provide the necessary context for accurate annotation by
+chatgpt consequently additional context becomes essential
+to enable chatgpt in effectively annotating the data as previ
+ously found for example happy and angry voice samples often
+have high energy and pitch compared to a sad and neutral voice
+ building upon this insight we incorporated the average
+energy and pitch values of a given utterance as additional
+contextual information for chatgpt during the reannotation
+process both in zeroshot and fewshot settings however the
+performance improvement was not considerable primarily due
+to the confounding factor of gender as female voices typically
+exhibit higher pitch and energy compared to male voices 
+to address this limitation we extended the experiment by
+providing gender labels to chatgpt resulting in improved
+classification accuracy as illustrated in  in addition to average
+energy pitch and gender information we further proposed the
+utilisation of audio patterns to provide enhanced audio context
+for annotation to achieve this we employed a vqvae model
+to encode the given utterance into discrete representations
+these representations along with the textual and other feature
+inputs were employed in various experiments for annotation
+refer to figure  notably in the zeroshot scenario no
+substantial improvements were observed however significant
+advancements were achieved by incorporating the discrete
+codes generated by vqvae in conjunction with average
+energy pitch and gender information
+b crosscorpus evaluations
+in this experiment we perform a crosscorpus analysis
+to assess the generalisability of annotations performed using
+our proposed approach here we trained models on iemo
+cap and testing is performed on the mspimprov data
+iemocap is more blanched data therefore we select it
+for training by following previous studies
+  
+we randomly select   of the mspimprov data for
+parameter tuning and   of data as testing data we
+report results using the fewshots annotation by chatgpt as it
+consistently demonstrated superior performance compared to
+the zeroshot setting
+table i crosscorpus evaluation results for speech emotion recog
+nition
+model
+uar 
+attentive cnn 
+cnnblstmbaseline
+textenergyfgender
+textenergyfgendervqvae
+we compare our results with different studies in table i in
+ the authors use the cnnlstm model for crosscorpus
+evaluation they show that cnnlstm can learn emotional
+contexts and help achieve improved results for crosscorpus
+ser in  the authors utilise the representations learnt
+from unlabelled data and feed it to an attentionbased cnn
+classifier they show that the classifiers performance can
+be improved by augmenting the classifier with information
+from unlabelled data we compare our results using the cnn
+blstmbased classifier by using the iemocap annotated by
+the chatgpt model this experiment demonstrates the gen
+eralisability of annotations performed by chatgpt in cross
+corpus settings however it is worth noting that our results
+did not surpass those of previous studies in the subsequent
+experiment we aim to showcase the potential for enhancing
+the performance of ser using data annotations generated by
+chatgpt both withincorpus and crosscorpus settings
+c augmentating the training data
+in the previous two experiments we showed how we can
+annotate new speechemotional data using a large language
+model like chatgpt however the performance does not
+surpass the uar achieved using actual labels in this ex
+periment we aim to address this limitation by showcasing
+the potential of improving ser performance through data
+augmentation using our proposed approach for this we can
+utilise abundantly available audio data by annotating with our
+proposed approach for instance data from youtube can be
+annotated and used to augment the ser system to validate
+this concept we select the meld dataset which consists of
+dialogue samples from the friends tv series we employ
+the fewshot approach using samples from the iemocap
+dataset for fewshots and annotate the meld data with four
+emotions happy anger neutral and sad we used samples
+from iemocap data for the fewshots and annotated meld
+data in four emotions including happy anger neutral and
+sad results are presented in figure  where we compare
+the results with the cnnblstm classifier using the actual
+iecmoap labels and when data is augmented using the
+samples with chatgpt labels this analysis provides insights
+into the effectiveness of data augmentation for enhancing the
+performance of the ser system
+fig  comparing the classier performance uar  with data
+augmentation
+table ii comparison of results with previous studies
+model
+uar 
+within corpus
+dialoguernn  
+cnnattention  
+cnnblstm  augmentation  
+our work  augmentations 
+ 
+crosscorpus
+cyclegandnn   augmentations 
+cnnblstm  augmentations  
+  
+our work  augmentations 
+ 
+furthermore we provide a comprehensive comparison of
+our results with previous studies in both withincorpus and
+crosscorpus settings as presented in table ii in   the
+authors utilise dialoguernn for speech emotion recognition
+using iemocap data peng et al  use an attentionbased
+cnn network for emotion classification we achieve better
+results compared to these studies by augmenting the classifier
+with additional data annotated by chatgpt one possible
+reason can be that these studies did not train the models
+with augmentation however we also compared the results
+with  where the authors use different data augmentation
+techniques to augment the classifier and achieve improved
+results in contrast we use chatgpt to annotate the publicly
+available data and use it for augmentation of the training set
+we are achieving considerably improved results compared to
+ one possible reason is that we are adding new data in
+the classifiers training set however authors in  employed
+perturbed versions of the same data which can potentially lead
+to overfitting of the system similarly we achieve considerably
+improved results for crosscorpus settings compared to the
+precious studies   where the authors augmented their
+classification models with either synthetic data or perturbed
+samples using audiobased data augmentation techniques like
+speed perturbation specaugmet and mixup
+overall our results showcase the effectiveness of our ap
+proach in achieving superior performance compared to previ
+ous studies both in withincorpus and crosscorpus settings
+the utilisation of chatgpt for data annotation and augmen
+tation proves to be a promising strategy for enhancing ser
+systems
+d limitations
+in this section we highlight the potential limitations of our
+work and in general the limitations of llms for data an
+notation during our experiments we observed the following
+limitations
+ we obtained promising results by augmenting the training
+data with samples annotated using chatgpt however
+this approach proved ineffective when applied to corpora
+such as librispeech  where the recordings lack
+emotional variations although we attempted to utilise
+librispeech data results are not shown here the results
+were not as promising as those achieved with meld
+ chatgpt is known to be sensitive to prompt variability
+which can lead to ambiguous and erroneous results if
+even slight changes are made to the prompt content in
+order to address this issue we suggest conducting exper
+iments using different prompts to generate annotations
+as presented in section iiib the inclusion of more
+context in the prompts has been shown to improve the
+quality of results however for ser annotation prompts
+this can be particularly challenging due to the significant
+variability of human emotions within short time frames
+this limitation stems from llms reliance on training
+data
+ chatgpt has not been trained particularly to annotate
+speech emotion data while the emergent nature of chat
+gpt has aided with annotation relying exclusively on
+chatgpt annotation is insufficient through our research
+we have found that incorporating chatgptbased annota
+tions alongside the training data leads to enhanced classi
+fication performance notably when utilising multishot
+chatgpt annotations instead of zeroshot annotations we
+observe a substantial performance improvement
+ chatgpt offers a significant cost reduction in data an
+notation for instance in our experiments we were able
+to annotate iemocap data examples using chatgpt for
+approximately  usd which is significantly lower than
+human annotations cost however it is paramount to note
+that the accuracy of chatgptbased annotations is not
+as good as human annotations because chatgpt is not
+specifically trained for annotating speech emotion data
+as a result it is a tradeoff situation therefore it be
+comes a tradeoff between cost and accuracy striking the
+right balance is crucial when utilising chatgpt for data
+annotation to avoid potential inaccuracies in classification
+performance
+despite the mentioned limitations we have found chatgpt
+to be an invaluable tool for speechemotion data annotation
+we believe that its capabilities will continue to evolve cur
+rently generating annotations using chatgpt and incorporat
+ing them to augment humanannotated data has demonstrated
+improved performance in speech emotion classification this
+highlights the potential of chatgpt as a valuable asset in
+advancing research in this field
+vi conclusions and outlook
+in this paper we conducted a comprehensive evaluation of
+chatgpts effectiveness in annotating speech emotion data
+to the best of our knowledge this study is the first of its
+kind to explore the capabilities of chatgpt in the domain of
+speech emotion recognition the results of our investigation
+have been encouraging and we have discovered promising
+outcomes below are the key findings of our study
+ based on our findings we observed that textbased emo
+tional annotations do not generalise effectively to speech
+data to address this limitation we introduced a novel
+approach that harnesses the audio context in annotating
+speech data leveraging the capabilities of a large lan
+guage model by incorporating the audio context we
+successfully enhanced the performance of ser yielding
+improved results compared to the textbased approach
+ we observed that the quality of annotations by chatgpt
+considerably improved when using a fewshot approach
+compared to a zeroshot one by incorporating a small
+number of annotated samples we were able to achieve
+improved results in our evaluation
+ we introduced an effective technique to utilise large
+language models llms to augment the speech emotion
+recognition ser system with the annotated data by
+chatgpt the augmented system yielded improved re
+sults compared to the current stateoftheart ser systems
+that utilise conventional augmentation techniques
+in our future work we aim to expand our experimentation
+by applying our approach to new datasets and diverse contexts
+this will allow us to further validate the effectiveness and gen
+eralisability of our proposed technique additionally we plan
+to explore and compare the annotation abilities of different
+llms for speech emotion data enabling us to gain insights
+into their respective strengths and weaknesses we also intend
+to use llms in the training pipeline of the ser system

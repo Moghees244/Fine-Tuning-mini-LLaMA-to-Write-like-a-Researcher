@@ -1,0 +1,162 @@
+see discussions stats and author profiles for this publication at httpswwwresearchgatenetpublication
+design challenges in wireless  data networks security as case study course
+report
+technical report  april 
+citations
+reads
+ author
+muhammad usama
+ publications    citations   
+see profile
+all content following this page was uploaded by muhammad usama on  april 
+the user has requested enhancement of the downloaded file
+design challenges in wireless  data networks
+security as case study course report
+muhammad usama
+information technology university itupunjab lahore pakistan
+abstract
+this report covers the design evolution shortcomings and future design challenges in wireless and data networks
+security is considered as a use case to describe current architectural and design issues in wireless and data networks
+this report also covers the technical and socioeconomic tussles in the current design i have also purposed a new
+cognition cycle to improve the current state of the art in the wireless cognitive network which involves radio sensing
+state of the art machine learning knowledge base estimation and decision making this new cognition cycle will
+ensure systems thinking based security architecture by incorporating knowledge base
+i
+introduction
+an inexpensive instrument not bigger than a watch will enable its bearer to hear anywhere on sea
+or land music or song the speech of a political leader the address of an eminent man of science or the
+sermon of an eloquent clergyman delivered in some other place however distant in the same manner any
+picture character drawing or print can be transferred from one to another place  nicola tesla
+modern wireless and data communication systems are a combination of different distributed architectures
+which involves many underlying applications technologies and networking policies the ﬁfth generation
+of communication technology is expected by the year  with this new networking generation different
+allied networking and computational regimes such as the internet of things pervasive computing ubiquitous
+computing approximates computing and approximate networking is expected to contribute in building
+towards the network of everything cost of computing and networking hardware is expected to decay
+exponentially and with that networking cost also decays rapidly this massive transition and new networking
+regimes have got research community to think of new alternative networking designs for wireless and data
+communication in this section we will brieﬂy introduce and discuss the issues in previous and current
+networking architecture we will also provide a list of problems in current networking architecture this
+section will also include the social and economic challenges for next generation networking architecture
+a design evolution of wireless  data communication networks
+ legacy wireless communication network legacy networking architecture lacks the ability of cog
+nition they usually follow a strict rulebased policy in determining the allocation of spectrum resources
+identiﬁcation of transmission channel interference temperature and many other network related information
+these rulebased systems initially work ﬁne for a small set of users with limited quality of service qos
+requirements but as the wireless network grows in the number of users and their service requirements
+these strict rulebased systems with no cognition ability were not able to deliver the optimal performance
+the major reason for this failure lies in the ossiﬁcation of the network design which did not allow the
+transmitter and receiver to learn from the dynamic environment and results in bad network performance
+poor qos and wastage of network resources
+ crosslayer wireless networking communication systems were designed in a strict layered approach
+where each layer performed prespeciﬁed tasks and follows strict layering principals to perform these
+prespeciﬁed tasks the major shortcoming of this design was the lack of the operational information
+dissemination to other layers which is a major hindrance in fulﬁlling the necessary architectural design
+requirements of wireless communication system another reason for this failure was the timevarying nature
+of the wireless channel to overcome these issues a crosslayer designing approach for wireless network was
+used where joint optimization of networking protocols across different layers and improved coordination
+among different layers was introduced fundamentally crosslayer wireless network architectures are based
+on sharing the knowledge of physical and media access control mac layer of the wireless channel with the
+layers above them this information sharing solves the critical problem of resource allocation in wireless
+networking the major problem with this design approach is its lack of dynamic behavior adaption of
+the wireless network user diversity and different qos demands of users and this lack of adaption has a
+negative effect on the tradeoff between performance and interoperability
+ cognition based networking the rapid expansion of the wireless communication and the internet
+has resulted in a complex heterogeneous design which requires the network to be capable of dynamically
+adapting from the surroundings for intelligent resource allocation and interoperability the ossiﬁed legacy
+layered network design and the stringently bounded crosslayer architecture are not able to meet the diverse
+needs of the new era of wireless communication systems to meet these challenges the idea of cognition
+is taken from psychology and implemented in wireless communication network design this new paradigm
+was named as cognitive radios
+a spectrum access  utilization before moving ahead with cognitive radios we need to mention
+another major issue which causes the diversion from crosslayer design to a more intelligent cognition based
+design this issue is known as spectrum access and utilization the electromagnetic spectrum is a scarce
+natural resource regulated by governments the expected exponential growth in connected devices and
+proposed small densely connected topologies for upcoming communication systems will have a disruptive
+effect on spectrum allocation and utilization similarly rapid growth in the adaption of new communication
+technologies and reduced cost of access for personal and corporate use has raised serious questions about
+the availability and utilization of electromagnetic spectrum federal communications commission fcc
+published a report in  which is considered to be a very ﬁrst document reviewing the  years of
+spectrum allocation and usage this report characterized the potential issues in electromagnetic spectrum
+allocation and usage  utilization of electromagnetic spectrum is biased in terms of occupancy of
+frequency bands in the spectrum when we sweep the whole frequency spectrum few frequency bands
+are vacant most of the time few are partially loaded and rest of them are heavily loaded this uneven
+distribution of frequency bands usage causes underutilization of the electromagnetic spectrum
+according to the fcc report underutilization of the electromagnetic spectrum will be the most signiﬁcant
+problem in future communication systems underutilization of electromagnetic spectrum occurs due to two
+major causes namely traditional command and control procedures and ﬁxed spectrum assignment policy
+this underutilization leads to a phenomenon known as spectrum holes a spectrum hole is caused when
+the primary user a primary user is the one which buys the license form the regulatory body and regulatory
+body assigns a frequency spectrum for a geographical area for a mutually decided time to which a certain
+frequency band is assigned for a certain time does not utilize it completely
+in  mitola et al  proposed a solution to this ﬁxed spectrum assignment policy by utilizing the
+spectrum holes for secondary users users with no spectrum license opportunistically this policy is known as
+dynamic spectrum access dsa opportunistic behavior involves sensing the surrounding environment and
+adapting to the statistical variations to extract the best possible result this sensing reasoning and adapting
+behavior is known as cognitive behavior by incorporating cognitive behavior mitola et al  in the
+year  purposed a new paradigm of intelligent wireless communication systems called cognitive radios
+which has the ability of sensing the statistical changes in incoming radio frequency signals and making
+corresponding changes in certain network operating parameters this reasoning and adaptive behaviour
+has two primary objectives highly reliable communication whenever and whereever needed and efﬁcient
+utilization of frequency spectrum
+cognitive radios introduced a sensing and reconﬁguring approach in networking but this design approach
+has some serious issues like detection of weak signals from primary users before sharing the spectrum
+with the secondary user it required a tighter control over the secondary user to avoid interference and
+this control has killed the whole idea of opportunistic networking to solve this issue a new intelligent
+sensing algorithm along with customized transceiver was required another major challenge is to manage
+the tradeoff between the censored radius of the primary user and interference power to avoid the shadowing
+similarly dynamic nature of wireless channel and diverse qos demands needed a revised rate and capacity
+adaption algorithms for cognitive radios to work cognitive radios proved to be a much better design than
+previous crosslayer or legacy wireless designs but due to aforementioned ﬂaws in cognitive radios design
+it was not very successful but it paved a path towards intelligent wireless networking
+b design challenges for next generation of wireless  data communication networks
+now lets take a look on the issues in current wireless and data network designs heterogeneity com
+plexity and dynamic nature are the three fundamental properties of next communication generation the
+communication architecture and the internet were not designed to fulﬁll these properties with the emergence
+of new technologies such as the internet of things multicore architectures and exponential social adaption
+of these new technologies have rapidly increased the complexity of the wireless communication systems
+this has also increased the qos bar for the applications to meet the qoe of the users with all these new
+technologies wireless communication and the internet have become a bounded closed loop system with
+multiple tradeoffs and restriction to avoid multiple performance issues but now these strict policies have
+become a bottleneck in designing nextgeneration communication systems
+ network management as mentioned earlier there is an exponential increase in new innovative ap
+plications of the internet and wireless communication technologies but we are lagging behind in network
+management and this is very alarming given the expected number of connected devices and their diverse
+nature network management has lagged behind in innovation curve because of fundamental strict bounded
+internet and wireless communication system design to meet the challenges of nextgeneration communi
+cation systems and connectivity requirements we need to think a new selforganized network management
+systems
+ field of view of protocols wireless networks and the internet employs multiple protocols to make
+communication between transmitter and receiver possible these protocols are limited in their ﬁeld of view
+and information sharing abilities with the complete network whenever we need to integrate a new system
+we introduce a protocol in the software and then keep on updating the protocols to ﬁx the raised issues due
+to variable network conditions users qoe and security reasons although we employee all these ﬁxes still
+we are lagging behind in user qoe applications qos security etc this is because the problem does not
+lie in protocols it lies in the protocols limited ﬁeld of view and their inability to model holistic network
+systems due to shortcomings the operators are not able to have a complete picture of what is happening
+in the network this causes multiple technical issues at the operator which also reﬂects on consumers qoe
+although network function virtualization softwaredeﬁned networking and centralized control have offered
+a solution of the protocol problem but apple does not the apple doesnt fall far from the tree these schemes
+have their shortcomings and these shortcomings have their basis in rule based switching of sdn and closed
+form of networking so in order to design nextgeneration networks we need to increase the ﬁeld of view
+of a network protocol and rethink the restriction on the coordination among the networking protocols
+ measurement  quantiﬁcation measurement and quantiﬁcation process of the wireless communi
+cation systems and the internet is of critical importance it is used for network planning and resource
+allocation this process is usually decoupled from network control and performed ofﬂine and this is a
+major shortcoming in current network design since most of the next generation networks are considered
+to be selforganized they need measurement and quantiﬁcation process to be realtime and distributed to
+get a better view of network statistics to make an intelligent decision
+ knowledge base current wireless communication and data network architectures mostly use rule
+based or threshold based decisionmaking strategies for their operation automation recommendation and
+troubleshooting process very few applications such as sdn employees artiﬁcial intelligence ai for
+decision making when we consider designing a nextgeneration communication network this lack of
+adaption of intelligent machine learning techniques in current wireless and data communication networks
+is a very alarming problem the adaption of ai in networking along with centralized control and strong
+network analytics forms a knowledge base and provides the ability of realtime inference which is a
+fundamental property of selfdriven future networks
+ tussles current networking architecture has a distinctive perhop behavior for example routing
+there are many parties involved in how to perhop behavior should look like these parties have their own
+agenda or function that they need to fulﬁll these agenda can be aligned to the network overall function or
+these agenda have an adverse nature to optimize the network behavior to its own advantage without caring
+much about the overall system this property is termed as tussle  tussles have its basis in different
+social political conﬂicting interests biased users p

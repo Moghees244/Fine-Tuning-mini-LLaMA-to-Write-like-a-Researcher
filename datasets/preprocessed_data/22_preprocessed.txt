@@ -1,0 +1,1553 @@
+securing machine learning in the
+cloud a systematic review of cloud
+machine learning security
+adnan qayyum  aneeqa ijaz  muhammad usama  waleed iqbal  junaid qadir 
+yehia elkhatib  and ala alfuqaha 
+information technology university itu lahore pakistan ainetworks research center university of oklahoma norman
+ok united states social data science sds lab queen mary university of london london united kingdom school of
+computing and communications lancaster university lancaster united kingdom hamad bin khalifa university hbku
+doha qatar
+with the advances in machine learning ml and deep learning dl techniques and the
+potency of cloud computing in offering services efﬁciently and costeffectively machine
+learning as a service mlaas cloud platforms have become popular in addition there is
+increasing adoption of thirdparty cloud services for outsourcing training of dl models
+which requires substantial costly computational resources eg highperformance
+graphics processing units gpus such widespread usage of cloudhosted mldl
+services opens a wide range of attack surfaces for adversaries to exploit the mldl
+system to achieve malicious goals in this article we conduct a systematic evaluation of
+literature of cloudhosted mldl models along both the important dimensionsattacks
+and defensesrelated to their security our systematic review identiﬁed a total of 
+related articles out of which  focused on attack six focused on defense and six focused
+on both attack and defense our evaluation reveals that there is an increasing interest from
+the research community on the perspective of attacking and defending different attacks on
+machine learning as a service platforms in addition we identify the limitations and pitfalls
+of the analyzed articles and highlight open research issues that require further investigation
+keywords machine learning as a service cloudhosted machine learning models machine learning security cloud
+machine learning security systematic review attacks defenses
+ introduction
+in recent years machine learning ml techniques have been successfully applied to a wide range of
+applications signiﬁcantly outperforming previous stateoftheart methods in various domains for
+example image classiﬁcation face recognition and object detection these ml techniquesin
+particular deep learning dlbased ml techniquesare resource intensive and require a large
+amount of training data to accomplish a speciﬁc task with good performance training dl models on
+largescale datasets is usually performed using highperformance graphics processing units gpus
+and tensor processing units however keeping in mind the cost of gpustensor processing units
+and the fact that small businesses and individuals cannot afford such computational resources the
+training of deep models is typically outsourced to clouds which is referred to in the literature as
+machine learning as a service mlaas
+mlaas refers to different ml services that are offered as a component of a cloud computing
+services for example predictive analytics face recognition natural language services and data
+edited by
+bhavya kailkhura
+united states department of energy
+doe united states
+reviewed by
+giovanni apruzzese
+university of liechtenstein
+liechtenstein
+cheng chen
+the university of utah united states
+correspondence
+adnan qayyum
+adnanqayyumituedupk
+specialty section
+this article was submitted to machine
+learning and artiﬁcial intelligence
+a section of the journal
+frontiers in big data
+received  july 
+accepted  october 
+published  november 
+citation
+qayyum a ijaz a usama m iqbal w
+qadir j elkhatib y alfuqaha a 
+securing machine learning in the
+cloud a systematic review of cloud
+machine learning security
+front big data 
+doi fdata
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+systematic review
+published  november 
+doi fdata
+modeling apis mlaas allows users to upload their data and
+model for training at the cloud in addition to training cloud
+hosted ml services can also be used for inference purposes that
+is models can be deployed on the cloud environments the system
+architecture of a typical mlaas is shown in figure 
+mlaas can help reduce the entry barrier to the use of ml and
+dl through access to managed services of wide hardware
+heterogeneity
+and
+incredible
+horizontal
+scale
+mlaas
+is
+currently provided by several major organizations such as
+google microsoft and amazon for example google offers
+cloud ml engine that allows developers and data scientists
+to upload training data and model which is trained on the cloud
+in the tensorﬂow environment similarly microsoft offers
+azure batch aia cloudbased service for training dl
+models using different frameworks supported by both linux
+and windows operating systems and amazon offers a cloud
+service named deep learning ami dlami that provides
+several prebuilt dl frameworks eg mxnet caffe theano
+and tensorﬂow that are available in amazons ec cloud
+computing infrastructure such cloud services are popular
+among
+researchers
+as
+evidenced
+by
+the
+price
+lifting
+of
+amazons
+px
+large
+instance
+to
+the
+maximum
+possibletwo days before the deadline of neurips  the
+largest research venue on mlindicating that a large number of
+users request to reserve instances
+in addition to mlaas services that allow users to upload
+their model and data for training on the cloud transfer
+learning is another strategy to reduce computational cost in
+which a pretrained model is ﬁnetuned for a new task using a
+new dataset transfer learning is widely applied for image
+recognition tasks using a convolutional neural network
+cnn a cnn model learns and encodes features like
+edges
+and
+other
+patterns
+the
+learned
+weights
+and
+convolutional ﬁlters are useful for image recognition tasks
+in other domains and stateoftheart results can be obtained
+with a minimal amount of training even on a single gpu
+moreover various popular pretrained models such as alexnet
+krizhevsky et al  vgg simonyan and zisserman
+ and inception szegedy et al  are available for
+download and ﬁnetuning online both of the aforementioned
+outsourcing strategies come with new security concerns in
+addition the literature suggests that different types of attacks
+can
+be
+realized
+on
+different
+components
+of
+the
+communication network as well usama et al a for
+example intrusion detection han et al  usama et al
+b network trafﬁc classiﬁcation usama et al  and
+malware detection systems chen et al  moreover
+adversarial ml attacks have also been devised for client
+side ml classiﬁers that is googles phishing pages ﬁlter
+liang et al 
+contributions of the article in this article we analyze the
+security of mlaas and other cloudhosted mldl models and
+provide a systematic review of associated security challenges and
+solutions to the best of our knowledge this article is the ﬁrst
+effort on providing a systematic review of the security of cloud
+hosted ml models and services the following are the major
+contributions of this article
+ we conducted a systematic evaluation of  articles related to
+mlaas attacks and defenses
+ we investigated ﬁve themes of approaches aiming to attack
+mlaas and cloudhosted ml services
+ we examined ﬁve themes of defense methods for securing
+mlaas and cloudhosted ml services
+ we identiﬁed the pitfalls and limitations of the examined
+articles finally we have highlighted open research issues that
+require further investigation
+organization of the article the rest of the article is organized
+as follows the methodology adopted for the systematic
+review is presented in section  the results of the
+systematic review are presented in section  section 
+presents various security challenges associated with cloud
+hosted ml models and potential solutions for securing cloud
+hosted ml models are presented in section  the pitfalls and
+limitations of the reviewed approaches are discussed in
+section  we brieﬂy reﬂect on our methodology to
+identify any threats to the validity in section  and various
+open research issues that require further investigation are
+highlighted in section  finally we conclude the article in
+section 
+ review methodology
+in this section we present the research objectives and the adopted
+methodology for the systematic review the purpose of this article
+is to identify and systematically review the stateofthe art
+research related to the security of the cloudbased mldl
+techniques
+the
+methodology
+followed
+for
+this
+study
+is
+depicted in figure 
+ research objectives
+the following are the key objectives of this article
+o to build upon the existing work around the security of
+cloudbased mldl methods and present a broad overview of the
+existing stateoftheart literature related to mlaas and cloud
+hosted ml services
+o to identify and present a taxonomy of different attack and
+defense strategies for cloudhosted mldl models
+o to identify the pitfalls and limitations of the existing
+approaches in terms of research challenges and opportunities
+ research questions
+to achieve our objectives we consider answering two important
+questions that are described below and conducted a systematic
+analysis of  articles
+we use mlaas to cover both ml and dl as a service cloud provisions
+httpscloudgooglecommlengine
+a popular python library for dl
+httpsazuremicrosoftcomenusservicesmachinelearningservice
+httpsdocsawsamazoncomdlamilatestdevguideaml_html
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+q what are the wellknown attacks on cloudhostedthird
+party mldl models
+q what are the countermeasures and defenses against such
+attacks
+ review protocol
+we developed a review protocol to conduct the systematic review
+the details are described below
+ search strategy and searching phase
+to build a knowledge base and extract the relevant articles eight
+major publishers and online repositories were queried that
+include acm digital library ieee xplore sciencedirect
+international conference on machine learning international
+conference on learning representations journal of machine
+learning
+research
+neural
+information
+processing
+systems
+usenix and arxiv as we added nonpeerreviewed articles
+from electric preprint archive arxiv we aq and ai performed
+the critical appraisal using aacods checklist it is designed to
+enable evaluation and appraisal of gray literature tyndall 
+which is designed for the critical evaluation of gray literature
+in the initial phase we queried main libraries using a set of
+different search terms that evolved using an iterative process to
+maximize the number of relevant articles to achieve optimal
+sensitivity we used a combination of words attack poisoning
+trojan attack contamination model inversion evasion backdoor
+model stealing black box ml neural networks mlaas cloud
+computing outsource third party secure robust and defense the
+combinations of search keywords used are depicted in figure  we
+then created search strategies with controlled or index terms given
+in figure  please note that no lower limit for the publication date
+was applied the last search date was june  the researchers wi
+and ai searched additional articles through citations and by
+snowballing
+on
+google
+scholar
+any
+disagreement
+was
+adjudicated by the third reviewer aq finally articles focusing
+on the attackdefense for cloudbased ml models were retrieved
+ inclusion and exclusion criteria
+the inclusion and exclusion criteria followed for this systematic
+review are deﬁned below
+ inclusion criteria
+the following are the key points that we considered for screening
+retrieved articles as relevant for conducting a systematic review
+ we included all articles relevant to the research questions
+and published in the english language that discusses the
+attacks on cloudbased ml services for example offered by
+cloud computing service providers
+ we then assessed the eligibility of the relevant articles by
+identifying whether they discussed either attack or defense
+for cloudbased mldl models
+ comparative
+studies
+that
+compare
+the
+attacks
+and
+robustness against different wellknown attacks on cloud
+hosted ml services poisoning attacks black box attacks
+trojan attacks backdoor attacks contamination attacks
+inversion stealing and invasion attacks
+ finally we categorized the selected articles into three
+categories that is articles on attacks articles on defenses
+and articles on attacks and defenses
+ exclusion criteria
+the exclusion criteria are outlined below
+ articles that are written in a language other than english
+figure   taxonomy of different defenses proposed for defending attacks on the thirdparty cloudhosted machine learning ml or deep learning dl models
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+ articles not available in full text
+ secondary studies eg systematic literature reviews
+surveys editorials and abstracts or short papers are not
+included
+ articles that do not discuss attacks and defenses for cloud
+basedthirdparty ml services that is we only consider
+those articles which have proposed an attack or defense for a
+cloudhosted ml or mlaas service
+ screening phase
+for the screening of articles we employ two phases based on the
+content of the retrieved articles  title and abstract screening and
+ full text of the publication please note that to avoid bias and to
+ensure that the judgment about the relevancy of articles is entirely
+based on the content of the publications we intentionally do not
+consider authors publication type eg conference and journal
+and publisher eg ieee and acm titles and abstracts might
+not be true reﬂectors of the articles contents however we
+concluded that our review protocol is sufﬁcient to avoid
+provenancebased bias
+it is very common that the same work got published in
+multiple venues for example conference papers are usually
+extended to journals in such cases we only consider the
+original article in the screening phase every article was
+screened by at least two authors of this article that were
+tasked to annotate the articles as either relevant not relevant
+or need further investigation which was ﬁnalized by the
+discussion between the authors until any such article is either
+marked relevant or not relevant only original technical articles
+are selected while survey and review articles are ignored finally
+all selected publications were thoroughly read by the authors for
+categorization and thematic analysis
+ review results
+ overview of the search and selection
+process outcome
+the search using the aforementioned strategy identiﬁed a total of
+ articles after removing duplicate articles title and abstract
+screening the overall number of articles reduced to  a total
+of  articles did not meet the inclusion criteria and were
+therefore excluded from the remaining  articles 
+articles did not discuss attackdefense for thirdparty cloud
+hosted ml models and were excluded as well of the remaining
+articles a total of  articles are identiﬁed as relevant reasons
+for excluding articles were documented and reported in a
+prisma ﬂow diagram depicted in figure  these articles
+were categorized into three classes that is articles that are
+speciﬁcally focused on attacks articles that are speciﬁcally
+focused on defenses and articles that considered both
+attacks and defenses containing   and  articles each
+respectively
+ overview of the selected studies
+the systematic review eventually identiﬁed a set of  articles
+related to cloudbased mldl models and mlaas which we
+categorized into three classes as mentioned above and shown in
+figure  as shown in figure  a signiﬁcant portion of the
+selected articles were published in conferences 
+comparatively a very smaller proportion of these articles
+were published in journals or transactions  the
+percentage of gray literature ie nonpeerreviewed articles
+is  yet a very small proportion of publications are
+published in symposia  and this percentage is the
+same for workshop papers the distribution of selected
+figure   an illustration of a typical cloudbased ml or machine learning as a service mlaas architecture
+figure   the methodology for systematic review
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+publications by their types over the years is shown in figure 
+the ﬁgure depicts that the interest in the security of cloud
+hosted mldl models increased in the year  and was at a
+peak in the year  and was slightly lower in the year  as
+compared to  also the majority of the articles during these
+years were published in conferences the distribution of selected
+publications by their publishers over the years is depicted in
+figure  the ﬁgure shows that the majority of the publications
+have been published at ieee acm and arxiv there is a similar
+trend in the number of articles in the year   and 
+as discussed previously
+ some partially related nonselected
+studies a discussion
+we have described our inclusion and exclusion criteria that help
+us to identify relevant articles we note however that some
+seemingly relevant articles failed to meet the inclusion criteria
+here we brieﬂy describe few such articles for giving a rationale
+why they were not included
+ liang et al  investigated the security challenges for
+the clientside classiﬁers via a case study on the googles
+phishing pages ﬁlter a very widely used classiﬁer for
+automatically detecting unknown phishing pages they
+devised an attack that is not relevant to the cloudbased
+service
+ demetrio et al  presented wafamole a tool that
+models the presence of an adversary this tool leverages a set
+of mutation operators that alter the syntax of a payload
+without affecting the original semantics using the results
+the authors demonstrated that mlbased wafs are exposed
+to a concrete risk of being bypassed however this attack is
+not associated with any cloudbased services
+ authors in apruzzese et al  discussed adversarial
+attacks where the machine learning model is compromised
+to induce an output favorable to the attacker these attacks
+figure   distribution of selected publications according to their types
+figure   search queries used to identify publications to include in the
+systematic review
+figure   flowchart of systematic review and categorization
+figure   distribution of selected publications by types over years
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+are realized in a different setting as compared to the scope of
+this systematic review as we only included the articles which
+discuss the attack or defense when the cloud is outsourcing
+its services as mlaas
+ han et al  conducted the ﬁrst systematic study of the
+practical trafﬁc space evasion attack on learningbased
+network intrusion detection systems again it is out of the
+inclusion criteria of our work
+ chen et al  designed and evaluated three types of
+attackers targeting the training phases to poison our
+detection to address this threat the authors proposed
+the
+detection
+system
+kuafudet
+and
+showed
+it
+signiﬁcantly
+reduces
+false
+negatives
+and
+boosts
+the
+detection accuracy
+ song et al  presented a federated defense approach
+for mitigating the effect of adversarial perturbations in a
+federated
+learning
+environment
+this article
+can be
+potentially relevant for our study as they address the
+problem of defending cloudhosted ml models however
+instead of using a thirdparty service the authors conducted
+the experiments on a single computer system in a simulated
+environment therefore this study is not included in the
+analysis of this article
+ in a similar study zhang et al  presented a defense
+mechanism for defending adversarial attacks on cloudaided
+automatic speech recognition asr however it is not
+explicitly stated that the cloud is outsourcing ml services
+and also which mldl model or mlaas was used in
+experiments
+ attacks on cloudhosted machine
+learning models q
+in this section we present the ﬁndings from the systematically
+selected articles that aim at attacking cloudhostedthirdparty
+mldl models
+ attacks on cloudhosted machine
+learning models thematic analysis
+in ml practice it is very common to outsource the training of
+mldl models to thirdparty services that provide high
+computational resources on the cloud such services enable
+ml practitioners to upload their models along with training
+data which is then trained on the cloud although such
+services have clear beneﬁts for reducing the training and
+inference
+time
+however
+these
+services
+can
+easily
+be
+compromised and to this end different types of attacks against
+these services have been proposed in the literature in this section
+we present the thematic analysis of  articles that are focused on
+attacking cloudhosted mldl models these articles are
+classiﬁed into ﬁve major themes  attack type  threat
+model  attack method  target models and  dataset
+attack type a wide variety of attacks have been proposed in
+the literature these are listed below with their descriptions
+provided in the next section
+ adversarial attacks brendel et al 
+ backdoor attacks chen et al  gu et al 
+ cyber kill chainbased attack nguyen 
+ data manipulation attacks liao et al 
+ evasion attacks hitaj et al 
+ exploration attacks sethi and kantardzic 
+ model extraction attacks correiasilva et al 
+kesarwani et al  joshi and tammana  reith
+et al 
+ model inversion attacks yang et al 
+ modelreuse attacks ji et al 
+ trojan attacks liu et al 
+threat model cloud ml attacks are based on different threat
+models with the salient types with examples are listed below
+ black box attacks no knowledge brendel et al  chen
+et al  hosseini et al  correiasilva et al 
+sethi and kantardzic  hitaj et al 
+ white box attacks full knowledge liao et al  liu
+et al  gu et al  reith et al 
+ gray box attacks partial knowledge ji et al 
+kesarwani et al 
+attack method in each article a different type of method is
+proposed for attacking cloudhosted mldl models a brief
+description of these methods is presented in table  and is
+discussed in detail in the next section
+target models considered studies have used different
+mlaas services eg google cloud ml services hosseini
+et al  salem et al  sethi and kantardzic 
+ml models of bigml platform kesarwani et al  ibms
+visual recognition nguyen  and amazon prediction apis
+reith et al  yang et al 
+dataset these attacks have been realized using different
+datasets ranging from small size datasets eg mnist gu
+et al  and fashionmnist liu et al  to large
+size datasets eg youtube aligned face dataset chen et al
+ project wolf eye nguyen  and iris dataset joshi
+and tammana  other datasets include california
+housing boston house prices ujiindoorloc and ipin 
+tutorial reith et al  facescrub celeba and cifar
+yang et al  a summary of thematic analyses of these
+attacks is presented in table  and brieﬂy described in the next
+section
+ taxonomy of attacks on cloudhosted
+machine learning models
+in this section we present a taxonomy and description of
+different attacks described above in thematic analysis a
+taxonomy of attacks on cloudhosted mldl models is
+depicted in figure  and is described next
+backdoor attacks on cloudhosted models can be further categorized into three
+categories chen et al   complete modelbased attacks  partial
+modelbased attacks and  modelfree attacks
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+table   summary of the stateofthe art attack types for cloudbasedthirdparty mldl models
+authors
+attack type
+method
+target model
+s
+threat model
+data
+brendel et al 
+adversarial attack
+presented a decisionbased attack ie the
+boundary attack
+two ml classiﬁers from clarifaicom ie brand
+and celebrity recognition
+black box
+two datasets natural images and celebrities
+saadatpanah et al
+crafted adversarial examples for copyright
+detection system
+youtube content id and audiotag copyright
+white box and
+black box
+na
+hosseini et al 
+proposed two targeted attacks for video
+labeling and shot detection
+google cloud video intelligence api
+black box
+kesarwani et al 
+extraction attack
+used information gain to measure model
+learning rate
+decision tree deployed on bigml platform
+gray box
+four bigml datasets irs tax pattern gss
+survey email importance steak survey
+correiasilva et al
+knowledge extraction by querying the model
+with unlabeled data samples and then used
+responses to create fake dataset and model
+three local cnn models for visual recognition
+for facial expression object and crosswalk
+classiﬁcation and microsoft azure emotion api
+black box
+used three datasets for facial expression
+recognition object and satellite crosswalk
+classiﬁcation
+reith et al 
+performed model extraction attacks on the
+homomorphic encryptionbased protocol for
+preserving svrbased indoor localization
+support vector regressor svr and svm
+white box
+california housing boston house prices
+ujiindoorloc and ipin  tutorial
+joshi and tammana
+proposed a variant of gradient driven adaptive
+learning rate gdalr for stealing mlaas
+models
+used three different models
+black box
+iris liver disease and land satellite datasets
+sethi and kantardzic
+exploration attack
+presented a seedexploreexploit framework for
+generating adversarial samples
+google cloud prediction platform
+black box
+ realworld datasets
+gu et al 
+backdoor attack
+realized attack by poisoning training samples
+and labels
+mnist and a us street sign classiﬁer
+ie fasterrcnn with outsourced training and
+transfer learning
+white box
+mnist and us trafﬁc signs dataset
+chen et al 
+used poisoning strategies to realized a targeted
+attack and proposed two types of backdoor
+poisoning attacks
+two face recognition models ie deepid and
+vggface
+black box
+youtube aligned face dataset
+liu et al 
+trojan attack
+proposed stealth infection on neural network
+based trojan attack
+cloudbased intelligent supply chain
+ie mlaas
+white box
+fashionmnist
+gong et al 
+proposed realtime adversarial example crafting
+procedure
+voicespeech enabled devices and google
+speech
+gray box
+voicecommand dataset
+ji et al 
+model reuse attack
+presented empirical evaluation of modelreuse
+attacks on primitive models and realizing attack
+by generating semantically similar neighbors
+and identifying salient features
+pretrained primitive models for speech
+recognition autonomous steering face
+veriﬁcation and skin cancer screening
+gray box
+speech commands udacity selfdriving car
+challenge vgg face and international skin
+imaging collaboration isic datasets
+liao et al 
+data manipulation
+attack
+studied data manipulation attacks for stealthily
+manipulating ml and dl models using transfer
+learning and gradient descent
+cloudhosted ml and dl models
+white box
+enron spam and minist
+sehwag et al 
+crafted outofdistribution exploratory
+adversarial examples to compromise mldl
+models of clarifais content moderation system
+in the cloud
+cloudhosted ml and dl models
+white box and
+black box
+minist cifar and imagenet
+continued on following page
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+ adversarial attacks
+in recent years dl models have been found vulnerable to
+carefully
+crafted
+imperceptible
+adversarial
+examples
+goodfellow et al  for instance a decisionbased
+adversarial attack namely the boundary attack against two
+black box ml models trained for brand and celebrity
+recognition hosted at clarifaicom are proposed in brendel
+et al  the ﬁrst model identiﬁes brand names from natural
+images for  distinct brands and the second model recognizes
+over  celebrities to date a variety of adversarial examples
+generation methods have been proposed in the literature so far
+the interesting readers are referred to recent surveys articles for
+detailed taxonomy of different types of adversarial attacks
+ie akhtar and mian  yuan et al  qayyum
+et al b demetrio et al 
+ exploratory attacks
+these attacks are inference time attacks in which adversary
+attempts to evade the underlying mldl model for example
+by forcing the classiﬁer ie mldl model to misclassify a
+positive sample as a negative one exploratory attacks do not
+harm the training data and only affects the model at test time
+a
+datadriven
+exploratory
+attack
+using
+the
+seedexploreexploit strategy for evading googles cloud
+prediction api considering black box settings is presented
+in sethi and kantardzic  the performance evaluation
+of the proposed framework was performed using  real
+world datasets
+ model extraction attacks
+in model extraction attacks adversaries can query the deployed
+ml model and can use queryresponse pair for compromising
+future predictions and also they can potentially realize privacy
+breaches of the training data and can steal the model by learning
+extraction queries in kesarwani et al  the authors
+presented a novel method for quantifying the extraction
+status of models for users with an increasing number of
+queries which aims to measure model learning rate using
+information gain observed by query and response streams of
+users the key objective of the authors was to design a cloud
+based system for monitoring model extraction status and
+warnings
+the performance
+evaluation
+of
+the proposed
+method was performed using a decision tree model deployed
+on the bigml mlaas platform for different adversarial attack
+scenarios similarly a model extractionstealing strategy is
+presented by correiasilva et al  the authors queried
+the cloudhosted dl model with random unlabeled samples and
+used their predictions for creating a fake dataset then they used
+the fake dataset for building a fake model by training an oracle
+copycat model in an attempt to achieve similar performance as
+of the target model
+ backdooring attacks
+in backdooring attacks an adversary maliciously creates the
+trained model which performs as good as expected on the users
+training and validation data but it performs badly on attacker
+table   continued summary of the stateofthe art attack types for cloudbasedthirdparty mldl models
+authors
+attack type
+method
+target model
+s
+threat model
+data
+nguyen 
+cyber kill chain attack
+proposed a highlevel threat model for ml cyber
+kill chain and provided proof of concept
+ibm visual recognition mlaas ie cognitive
+classiﬁer for classiﬁcation cats and female lions
+na
+project wolf eye
+hilprecht et al 
+membership inference
+attack
+monte carlo based attack and membership
+inference attack on gan
+amazon web services p
+black box
+mnist fashionmnist and cifar
+hitaj et al 
+evasion attacks
+realized evasion attacks using two ensemble
+neural networks
+watermarking detection models
+black box
+mnist
+yang et al 
+iversion attacks
+constructed an auxiliary set for training the
+inversion model
+cnn
+graybox
+facescrub celeba and cifar
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+input samples the backdooring attacks on deep neural networks
+dnns are explored and evaluated in gu et al  the
+authors ﬁrst explored the properties of backdooring for a toy
+example and created a backdoor model for handwritten digit
+classiﬁer and then demonstrated that backdoors are powerful for
+dnn by creating a backdoor model for a united states street sign
+classiﬁer where two scenarios were considered that is
+outsourced training of the model and transfer learning where
+an attacker can acquire a backdoor pretrained model online in
+another similar study chen et al  a targeted backdoor
+attack for two stateofthe art face recognition models that is
+deepid sun et al  and vggface parkhi et al  is
+presented the authors proposed two categories of backdooring
+poisoning attacks that is inputinstancekey attacks and
+patternkey attacks using two different data poising strategies
+that is inputinstancekey strategies and patternkey strategies
+respectively
+ trojan attacks
+in trojan attacks the attacker inserts malicious content into the
+system that looks legitimate but can take over the control of the
+system however the purpose of trojan insertion can be varied
+for example stealing disruption misbehaving or getting
+intended behavior in liu et al  the authors proposed a
+stealth infection on neural networks namely sin to realize a
+practical supply chain triggered neural trojan attacks also they
+proposed a variety of trojan insertion strategies for agile and
+practical trojan attacks the proof of the concept is demonstrated
+by developing a prototype of the proposed neural trojan attack
+ie sin in linux sandbox and used torch collobert et al
+ mldl framework for building visual recognition models
+using the fashionmnist dataset
+ modelreuse attacks
+in modelreuse attacks an adversary creates a malicious model
+ie adversarial model that inﬂuences the host model to
+misbehave on targeted inputs ie triggers in extremely
+predictable fashion that is getting a sample classiﬁed into
+speciﬁc intended class for instance experimental evaluation
+of modelreuse attacks for four pretrained primitive dl models
+ie speech recognition autonomous steering face veriﬁcation
+and skin cancer screening is evaluated by ji et al 
+ data manipulation attacks
+those attacks in which training data are manipulated to get
+intended behavior by the mldl model are known as data
+manipulation attacks data manipulation attacks for stealthily
+manipulating traditional supervised ml techniques and logistic
+regression lr and cnn models are studied by liao et al 
+in the attack strategy the authors added a new constraint on fully
+connected layers of the models and used gradient descent for
+retraining them and other layers were frozen ie were made
+nontrainable
+ cyber kill chainbased attacks
+kill chain is a term used to deﬁne steps for attacking a target
+usually used in the military in cyber kill chainbased attacks the
+cloudhosted mldl models are attacked for example a high
+figure   distribution of selected publications by publishers over years
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+level threat model targeting ml cyber kill chain is presented by
+nguyen  also the authors provided proof of concept by
+providing a case study using ibm visual recognition mlaas
+ie cognitive classiﬁer for classiﬁcation cats and female lions
+and
+provided
+recommendations
+for
+ensuring
+secure
+and
+robust ml
+ membership inference attacks
+in a typical membership inference attack for given input data and
+black box access to the ml model an attacker attempts to ﬁgure
+out if the given input sample was the part of the training set or
+not to realize a membership inference attack against a target
+model a classiﬁcation model is trained for distinguishing between
+the predictions of the target model against the inputs on which it
+was trained and that those on which it was not trained shokri
+et al 
+ evasion attacks
+evasion attacks are inference time attacks in which an adversary
+attempts to modify the test data for getting the intended outcome
+from
+the
+mldl
+model
+two
+evasion
+attacks
+against
+watermarking techniques for dl models hosted as mlaas
+have been presented by hitaj et al  the authors used
+ﬁve publicly available models and trained them for distinguishing
+between watermarked and clean nonwatermarked images that
+is binary image classiﬁcation tasks
+ model inversion attacks
+in model inversion attacks an attacker tries to learn about
+training
+data
+using
+the
+models
+outcomes
+two
+model
+inversion techniques have been proposed by yang et al
+ that is training an inversion model using auxiliary set
+composed by utilizing adversarys background knowledge and
+truncationbased method for aligning the inversion model the
+authors evaluated their proposed methods on a commercial
+prediction mlaas named amazon rekognition
+ toward securing cloudhosted
+machine learning models q
+in this section we present the insights from the systematically
+selected articles that provide tailored defense against speciﬁc
+attacks and report the articles that along with creating attacks
+propose countermeasure for the attacks for cloudhostedthird
+party mldl models
+ defenses for attacks on cloudhosted
+machine learning models thematic
+analysis
+leveraging cloudbased ml services for computational ofﬂoading
+and minimizing the communication overhead is accepted as a
+promising trend while cloudbased prediction services have
+signiﬁcant beneﬁts however by sharing the model and the
+training data raises many privacy and security challenges
+several attacks that can compromise the model and data
+integrity as described in the previous section to avoid such
+issues users can download the model and make inferences locally
+however this approach has certain drawbacks including
+conﬁdentiality issues service providers cannot update the
+models adversaries can use the model to develop evading
+strategies and privacy of the user data is compromised to
+outline the countermeasures against these attacks we present
+the thematic analysis of six articles that are focused on defense
+against the tailored attacks for cloudhosted mldl models or
+data in addition we also provide the thematic analysis of those
+six articles that propose defense against speciﬁc attacks these
+articles are classiﬁed into ﬁve major themes  attack type 
+defense  target models  dataset and  measured outcomes
+the thematic analysis of these systematically reviewed articles
+that are focused on developing defense strategies against attacks is
+given below
+considered attacks for developing defenses the defenses
+proposed in the reviewed articles are developed against the
+following speciﬁc attacks
+ extraction attacks tramèr et al  liu et al 
+ inversion attacks liu et al  sharma and chen 
+ adversarial attacks hosseini et al  wang et al b
+rouhani et al 
+ evasion attacks lei et al 
+ gan attacks sharma and chen 
+ privacy threat attacks hesamifard et al 
+ ide channel and cachetiming attacks jiang et al 
+ membership inference attacks shokri et al  salem
+et al 
+most of the aforementioned attacks are elaborated in
+previous sections however in the selected articles that are
+identiﬁed as either defense or attack and defense articles some
+attacks are speciﬁcally created for instance gan attacks side
+channel cachetiming attack privacy threats etc therefore the
+attacks are worth mentioning in this section to explain the
+speciﬁc countermeasures proposed against them in the defense
+articles
+defenses against different attacks to provide resilience against
+these attacks the authors of selected articles proposed different
+defense algorithms which are listed below against each type of
+attack
+ extraction attacks minionn liu et al  rounding
+conﬁdence differential and ensemble methods tramèr
+et al 
+ adversarial attacks redcrypt rouhani et al  and
+arden wang et al b
+ inversion attacks minionn liu et al  and image
+disguising techniques sharma and chen 
+ privacy attacks encryptionbased defense hesamifard
+et al  jiang et al 
+ side channel and cachetiming attacks encryptionbased
+defense hesamifard et al  jiang et al 
+ membership inference attack dropout and model stacking
+salem et al 
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+table   summary of attack types and corresponding defenses for cloudbasedthirdparty mldl models
+author
+attack
+defense
+target model
+data
+measured outcomes
+liu et al 
+extraction attack and
+inversion attack
+minionn a defense against information
+leakage in dnn to transform into an
+oblivious nn
+cloudhosted dl models neural network
+for cloudbased prediction services
+mnist and cifar
+response latency and message sizes
+rouhani et al
+adversarial attacks
+redcrypt reconﬁgurable hardware
+accelerated framework for the privacy
+preserving
+cloudhosted dl models
+mnist and movielens
+throughput
+wang et al b
+arden to distribute dnn model
+computation among edge device and
+cloud data centers
+partial cloudhosted dnn models
+mnist svhn and cifar
+latency accuracy and privacy
+budget
+hosseini et al
+incorporating randomness to video
+analysis algorithms
+google cloud video intelligence api
+videos comprising of adversarial
+examples
+histogram peaks to detect shot
+change
+sharma and chen
+inversion attack and gan
+attack
+image disguising techniques to ensure the
+protection against modelbased
+adversarial attacks
+cloudhosted dl models
+mnist and cifar
+accuracy average visual privacy and
+fano factor
+hesamifard et al
+privacy threats due to raw
+cloud data
+homomorphic encryption to preserve the
+privacy and integrity of data in dnn
+cloudbased dnn
+crab dataset fertility dataset climate
+dataset
+accuracy and training time
+jiang et al 
+side channel and cache
+timing attack
+secure logistic encryption along with
+hardwarebased security enhancement
+by exploiting software guard extensions
+cloudhosted lr models
+edinburgh mi wibreast cancer and
+monks prob
+area under the curve complexity and
+model training time
+lei et al 
+evasion attack
+pelican similaritybased analysis of
+unknown website with the known
+phishing web site
+bitdefenders partical processing hosted
+on cloud
+phishtank phishnet
+similarity index
+tramèr et al 
+extraction attack
+rounding conﬁdences to some precision
+differential privacy to protect training data
+elements ensemble methods
+ml models hosted on bigml and amazon
+ categories ﬂower dataset face
+dataset iris dataset and trafﬁc signs
+dataset
+success rate given the perturbation
+budget
+shokri et al 
+membership inference
+attack
+top k class model predictions increase
+entropy regularization and reducing
+precision of prediction vector
+mlaas classiﬁcation models of google
+and amazon apis
+cifarpurchases locations texas
+hospital stays mnist uci adults
+accuracy and precision
+salem et al 
+dropout and model stacking to prevent
+overﬁtting
+google cloud prediction api
+used eight different datasets
+precision and recall
+wang et al a
+misclassiﬁcation attacks
+neuron distance model ensemble
+method dropout randomization
+google cloud ml microsoft cognitive
+toolkit cntk and the pytorch
+class vgg ﬂower face dataset iris
+dataset and trafﬁc signs dataset
+googles inceptionv
+accuracy and success rate
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+target models different cloudhosted mldl models have
+been used for the evaluation of the proposed defenses as shown in
+table 
+datasets used the robustness of these defenses have been
+evaluated using various datasets ranging from small size datasets
+eg mnist liu et al  wang et al b rouhani et al
+ sharma and chen  and cifar liu et al 
+wang et al b sharma and chen  to large size
+datasets eg iris dataset tramèr et al  fertility and
+climate dataset hesamifard et al  and breast cancer
+jiang et al  other datasets include crab dataset
+hesamifard et al  face dataset trafﬁc signs dataset
+trafﬁc signs dataset tramèr et al  svhn wang et al
+b edinburgh mi edinburgh mi wibreast cancerband
+monks prob jiang et al  crab dataset fertility dataset
+and climate dataset hesamifard et al  each of the defense
+techniques discussed above is mapped in table  to the speciﬁc
+attack for which it was developed
+measured outcomes the measured outcomes based on which
+the defenses are evaluated are response latency and message sizes
+liu et al  wang et al b throughput comparison
+rouhani et al  average on the cache miss rates per second
+sharma
+and
+chen
+auc
+space
+complexity
+to
+demonstrate approximated storage costs jiang et al 
+classiﬁcation accuracy of the model as well as running time
+hesamifard et al  sharma and chen  similarity
+index lei et al  and training time hesamifard et al 
+jiang et al 
+ taxonomy of defenses on cloudhosted
+machine learning model attacks
+in this section we present a taxonomy and summary of different
+defensive strategies against attacks on cloudhosted mldl
+models as described above in thematic analysis a taxonomy
+of these defenses strategies is presented in figure  and is
+described next
+ minionn
+dnns are vulnerable to model inversion and extraction attacks
+liu et al  proposed that without making any changes to the
+training phase of the model it is possible to change the model into
+an oblivious neural network they make the nonlinear function
+such as tanh and sigmoid function more ﬂexible and by training
+the models on several datasets the authors demonstrated
+signiﬁcant results with minimal loss in the accuracy in
+addition they also implemented the ofﬂine precomputation
+phase to perform encryption incremental operations along
+with the simd batch processing technique
+ redcrypt
+a reconﬁgurable hardwareaccelerated framework is proposed
+by rouhani et al  for protecting the privacy of deep
+neural models in cloud networks the authors perform an
+innovative
+and
+powerefﬁcient
+implementation
+of
+yaos
+garbled circuit gc protocol on fpgas for preserving
+privacy the proposed framework is evaluated for different
+figure   taxonomy of different attacks realized on the thirdparty cloudhosted machine learning ml or deep learning dl models
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+dl applications and it has achieved up to fold throughput
+gain per core
+ arden
+to ofﬂoad the large portion of dnns from the mobile devices to
+the clouds and to make the framework secure a privacy
+preserving mechanism arden is proposed by wang et al
+b
+while
+uploading
+the
+data
+to
+the
+mobilecloud
+perturbation noisy samples are included to make the data
+secure to verify the robustness the authors perform rigorous
+analysis based on three image datasets and demonstrated that this
+defense is capable to preserve the user privacy along with
+inference performance
+ image disguising techniques
+while leveraging services from the cloud gpu server the
+adversary can realize an attack by introducing malicious
+created training data perform model inversion and use the
+model for getting desirable incentives and outcomes to
+protect from such attacks and to preserve the data as well as
+the model sharma and chen  proposed an image
+disguising mechanism they developed a toolkit that can be
+leveraged to calibrate certain parameter settings they claim
+that the disguised images with blockwise permutation and
+transformations are resilient to ganbased attack and model
+inversion attacks
+ homomorphic encryption
+for making the cloud services of outsourced mlaas secure
+hesamifard
+et
+al
+proposed
+a
+privacypreserving
+framework using homomorphic encryption they trained the
+neural network using the encrypted data and then performed
+the encrypted predictions the authors demonstrated that by
+carefully choosing the polynomials of the activation functions to
+adopt neural networks it is possible to achieve the desired accuracy
+along with privacypreserving training and classiﬁcation
+in a similar study to preserve the privacy of outsourced
+biomedical data and computation on public cloud servers
+jiang et al  built a homomorphically encrypted model
+that reinforces the hardware security through software guard
+extensions they combined homomorphic encryption and
+software guard extensions to devise a hybrid model for the
+security of the most commonly used model for biomedical
+applications that is lr the robustness of the secure lr
+framework is evaluated on various datasets and the authors
+also compared its performance with stateoftheart secure lr
+solutions and demonstrated its superior efﬁciency
+ pelican
+lei et al  proposed three mutationbased evasion attacks
+and a samplebased collision attack in white gray and black
+box scenarios they evaluated the attacks and demonstrated a
+ success rate of attack on googles phishing page ﬁlter
+classiﬁer
+while
+a
+success
+rate
+of
+up
+to
+for
+the
+transferability on bitdefender trafﬁclight to deal with such
+attacks and to increase the robustness of classiﬁers they proposed
+a defense method known as pelican
+ rounding conﬁdences and differential privacy
+tramèr et al  presented the model extraction attacks
+against the online services of bigml and amazon ml the
+attacks are capable of model evasion monetization and can
+compromise the privacy of training data the authors also
+proposed and evaluated countermeasures such as rounding
+conﬁdences
+against
+equationsolving
+and
+decision
+tree
+pathﬁnding attacks however this defense has no impact on
+the regression tree model attack for the preservation of
+training data differential privacy is proposed this defense
+reduces the ability of an attacker to learn insights about the
+training dataset the impact of both defenses is evaluated on the
+attacks for different models while the authors also proposed
+ensemble models to mitigate the impact of attacks however their
+resilience is not evaluated
+ increasing entropy and reducing precision
+the training of attack using shadow training techniques against
+black box models in the cloudbased google prediction api and
+amazon ml models are studied by shokri et al  the attack
+does not require prior knowledge of training data distribution the
+authors emphasize that in order to protect the privacy of medical
+related datasets or other publicrelated data countermeasures
+should be designed for instance restriction of prediction vector
+to top k classes which will prevent the leakage of important
+information
+or
+rounding
+down
+or
+up
+the
+classiﬁcation
+probabilities in the prediction they show that regularization
+can be effective to cope with overﬁtting and increasing the
+randomness of the prediction vector
+ dropout and model stacking
+in the study by salem et al  the authors created three
+diverse attacks and tested the applicability of these attacks on
+eight datasets from which six are similar as used by shokri et al
+ whereas in this work news dataset and face dataset is
+included in the threat model the authors considered black box
+access to the target model which is a supervised ml classiﬁer with
+binary classes that was trained for binary classiﬁcation to
+mitigate the privacy threats the authors proposed a dropout
+based method which reduces the impact of an attack by randomly
+deleting a proportion of edges in each training iteration in a fully
+connected neural network the second defense strategy is model
+stacking which hierarchically organizes multiple ml models to
+avoid overﬁtting after extensive evaluation these defense
+techniques showed the potential to mitigate the performance
+of the membership inference attack
+ randomness to video analysis algorithms
+hosseini et al designed two attacks speciﬁcally to analyze the
+robustness of video classiﬁcation and shot detection hosseini
+et al  the attack can subtly manipulate the content of the
+video in such a way that it is undetected by humans while the
+output from the automatic video analysis method is altered
+depending on the fact that the video and shot labels are
+generated by api by processing only the ﬁrst video frame of
+every second the attack can successfully deceive api to deal
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+with the shot removal and generation attacks the authors
+proposed the inclusion of randomness for enhancing the
+robustness of algorithms however in this article the authors
+thoroughly evaluated the applicability of these attacks in different
+video setting but the purposed defense is not rigorously
+evaluated
+ neuron distance threshold and obfuscation
+transfer learning is an effective technique for quickly building
+dl student models in which knowledge from a teacher model
+is transferred to a student model however wang et al
+a discussed that due to the centralization of model
+training the vulnerability against misclassiﬁcation attacks
+for
+image
+recognition
+on
+black
+box
+student
+models
+increases the authors proposed several defenses to mitigate
+the impact of such an attack such as changing the internal
+representation of the student model from the teacher model
+other
+defense
+methods
+include
+increasing
+dropout
+randomization which alters the student model training
+process modiﬁcation in input data before classiﬁcation
+adding redundancy and using orthogonal model against
+transfer
+learning
+attack
+the
+authors
+analyzed
+the
+robustness of these attacks and demonstrated that the
+neuron
+distance
+threshold
+is
+the
+most
+effective
+in
+obfuscating the identity of the teacher model
+ pitfalls and limitations
+ lack of attack diversity
+the attacks presented in the selected articles have limited scope
+and lack diversity that is they are limited to a speciﬁc setting and
+the variability of attacks is limited as well however the diversity
+of attacks is an important consideration for developing robust
+attacks from the perspective of adversaries and it ensures the
+detection and prevention of the attacks to be difﬁcult the
+diversity of attacks ultimately helps in the development of
+robust defense strategies moreover the empirical evaluation
+of attack variabilities can identify the potential vulnerabilities
+of cybersecurity systems therefore to make a more robust
+defense solution it is important to test the model robustness
+under a diverse set of attacks
+ lack of consideration for adaptable
+adversaries
+most of the defenses in the systematically reviewed articles are
+proposed for a speciﬁc attack and did not consider the adaptable
+adversaries on the other hand in practice the adversarial attacks
+are an arms race between attackers and defenders that is the
+attackers continuously evolve and enhance their knowledge and
+attacking strategies to evade the underlying defensive system
+therefore the consideration of adaptable adversaries is crucial for
+developing a robust and longlasting defense mechanism if we do
+not consider this the adversary will adapt to our defensive system
+over time and will bypass it to get the intended behavior or
+outcomes
+ limited progress in developing
+defenses
+from the systematically selected articles that are collected from
+different databases only  articles have presented defense
+methods for the proposed attack as compared to the articles
+that are focused on attacks that is  in these  articles six have
+only discussedpresented a defense strategy and six have
+developed a defense against a particular attack this indicates
+that there is limited activity from the research community in
+developing defense strategies for already proposed attacks in the
+literature in addition the proposed defenses only mitigate or
+detect those attacks for which they have been developed and
+therefore they are not generalizable on the contrary the
+increasing interest in developing different attacks and the
+popularity
+of
+cloudhostedthirdparty
+services
+demand
+a
+proportionate
+amount
+of
+interest
+in
+developing
+defense
+systems as well
+ open research issues
+ adversarially robust machine learning
+models
+in recent years adversarial ml attacks have emerged as a major
+panacea for mldl models and the systematically selected articles
+have highlighted the threat of these attacks for cloudhosted mldl
+models as well moreover the diversity of these attacks is drastically
+increasing as compared with the defensive strategies that can pose
+serious challenges and consequences for the security of cloud
+hosted mldl models each defense method presented in the
+literature so far has been shown resilient to a particular attack
+which is realized in speciﬁc settings and it fails to withstand for yet
+stronger and unseen attacks therefore the development of
+adversarially robust mldl models remains an open research
+problem while the literature suggests that worstcase robustness
+analysis should be performed while considering adversarial ml
+settings qayyum et al a qayyum et al b ilahi et al
+ in addition it has been argued in the literature that most of
+ml developers and security incident responders are unequipped
+with the required tools for securing industrygrade ml systems
+against adversarial ml attacks kumar et al  this indicates
+the increasing need for the development of defense strategies for
+securing mldl models against adversarial ml attacks
+ privacypreserving machine learning
+models
+in
+cloudhosted
+ml
+services
+preserving
+user
+privacy
+is
+fundamentally important and is a matter of high concern
+also it is desirable that ml models built using users data
+should not learn information that can compromise the privacy
+of the individuals however the literature on developing privacy
+preserving mldl models or mlaas is limited on the other
+hand one of the privacypreserving techniques that have been
+used for privacy protection for building a defense system for
+cloudhosted
+mldl
+models
+that
+is
+the
+homomorphic
+encryptionbased protocol jiang et al  has been shown
+frontiers in big data  wwwfrontiersinorg
+november   volume   article 
+qayyum et al
+systematic review of cloud ml security
+vulnerable to model extraction attack reith et al 
+therefore the development of privacypreserving ml models
+for cloud computing platforms is another open research problem
+ proxy metrics for evaluating security
+and robustness
+from systematically reviewed literature on the security of cloud
+hosted mldl models we orchestrate that the interest from the
+research community in the development of novel securitycentric
+proxy metrics for the evaluation of security threats and model
+robustness of cloudhosted models is very limited however with
+the
+increasing
+proliferation
+of
+cloudhosted
+ml
+services
+ie mlaas and with the developmentadvancements of
+different
+attacks
+eg
+adversarial
+ml
+attacks
+the
+development of effective and scalable metrics for evaluating
+the robustness mldl models toward different attacks and
+defense strategies is required
+ threats to validity
+we now brieﬂy reﬂect on our methodology in order to identify
+any threats to the validity of our ﬁndings first internal validity is
+maintained as the research questions we pose in section 
+capture the objectives of the study construct validity relies on a
+sound understanding of the literature and how it represents the
+state of the ﬁeld a detailed study of the reviewed articles along
+with deep discussions between the members of the research team
+helped ensure the quality of this understanding note that the
+research team is of diverse skills and expertise in ml dl cloud
+computing mldl security and analytics also the inclusion
+and exclusion criteria section  help deﬁne the remit of our
+survey data extraction is prone to human error as is always the
+case this was mitigated by having different members of the
+research team review each reviewed article however we did not
+attempt to evaluate the quality of the reviewed studies or validate
+their content due to time constraints in order to minimize
+selection bias we cast a wide net in order to capture articles
+from different communities publishing in the area of mlaas via a
+comprehensive
+set
+of
+bibliographical
+databases
+without
+discriminating based on the venuesource
+ conclusion
+in this article we presented a systematic review of literature that is
+focused on the security of cloudhosted mldl models also
+named as mlaas the relevant articles were collected from eight
+major publishers that include acm digital library ieee xplore
+sciencedirect international conference on machine learning
+international conference on learning representations journal
+of machine learning research usenix neural information
+processing systems and arxiv for the selection of articles we
+developed a review protocol that includes inclusion and exclusion
+formulas and analyzed the selected articles that fulﬁll these
+criteria across two dimensions ie attacks and defenses on
+mlaas and provide a thematic analysis of these articles across ﬁve
+attack and ﬁve defense themes respectively we also identiﬁed
+the limitations and pitfalls from the reviewed literature and
+ﬁnally we have highlighted various open research issues that
+require further investigation
+data availability statement
+the original contributions presented in the study are included in
+the articlesupplementary material further inquiries can be
+directed to the corresponding authors
+author contributions
+aq led the work in writing the manuscript and performed the
+annotation of the data and analysis as well ai performed data
+acquisition annotation and analysis from four venues and
+contributed to the paper writeup mu contributed to writing a
+few sections did annotations of papers and helped in analysis wi
+performed data scrapping annotation and analysis from four venues
+and helped in developing graphics all the ﬁrst four authors validated
+the data analysis and contributed to the interpretation of the results
+aq and ai helped in developing and reﬁning the methodology for
+this systematic review jq conceived the idea and supervises the
+overall work jq yek and af provided critical feedback and helped
+shape the research analysis and manuscript all authors contributed
+to the ﬁnal version of the manuscript

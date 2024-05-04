@@ -1,0 +1,912 @@
+ieee network  januaryfebruary 
+   ieee
+abstract
+the holy grail of networking is to create cog
+nitive networks that organize manage and drive 
+themselves such a vision now seems attainable 
+thanks in large part to the progress in the field of 
+machine learning ml which has now already 
+disrupted a number of industries and revolu
+tionized practically all fields of research but are 
+the ml models foolproof and robust to security 
+attacks to be in charge of managing the network 
+unfortunately many modern ml models are eas
+ily misled by simple and easilycrafted adversarial 
+perturbations which does not bode well for the 
+future of mlbased cognitive networks unless ml 
+vulnerabilities for the cognitive networking envi
+ronment are identified addressed and fixed the 
+purpose of this article is to highlight the problem 
+of unsecure ml and to sensitize the readers to the 
+danger of adversarial ml by showing how an eas
+ily crafted adversarial ml example can compro
+mise the operations of the cognitive selfdriving 
+network in this article we demonstrate adversar
+ial attacks on two simple yet representative cog
+nitive networking applications namely intrusion 
+detection and network traffic classification we 
+also provide some guidelines to design secure ml 
+models for cognitive networks that are robust to 
+adversarial attacks on the ml pipeline of cognitive 
+networks
+introduction
+the cognitive networking idea  a recurring motif 
+in networking research that has been expressed 
+in various guises such as autonomic networking 
+selforganized networking knowledgebased net
+working and most recently as selfdriving network
+ing  now this idea appears to be within grasp 
+thanks to the tremendous strides made in the field 
+of machine learning ml that have transformed 
+the entire fields of vision language speech 
+and information processing many proponents 
+are optimistic that ml will play a central role in 
+enabling the future selfdriving cognitive networks 
+by comprehensively automating the cognitive net
+working tasks such as realtime telemetry network 
+automation network intent modeling and net
+work decision making 
+a broad illustration of the various tasks involved 
+in the operations of cognitive selfdriving networks 
+is provided in fig  many of these highlighted 
+tasks require a datadriven learning and inference 
+process hence they can benefit from using a ml 
+pipeline involving methods such as deep super
+vised ml and reinforcement learning
+however despite the great promise and suc
+cess of ml methods the recent discovery of the 
+susceptibility of ml models to security problems 
+has dampened the optimism around the use of 
+ml in cognitive networking the major reasons 
+for the security vulnerabilities of ml models are 
+the underlying implicit assumption that the train
+ing and test data are similar in distribution and 
+that the test examples are benign and not adver
+sarial 
+an adversarial example is defined as an 
+imperceptible minor perturbation of the input that 
+an adversary especially crafts to maximize the pre
+diction error of the ml model  deep neural 
+networks dnns in particular have been shown 
+to be very vulnerable to such adversarial examples 
+ it is worth noting that dnns are not the only 
+ml models vulnerable to adversarial examples 
+the problem is much broader and many other 
+ml systems including reinforcementlearning rl 
+and generative models  are also susceptible to 
+adversarial examples 
+adversarial ml is now a fastexpanding field 
+attracting significant attention from the industry 
+and academia  although ml vulnerabilities in 
+domains such as vision image and audio are now 
+well known relatively little attention has focused 
+on adversarial attacks on cognitive networking 
+ml models an illustration of the ml pipeline in 
+cognitive selfdriving networks along with poten
+tial security attacks that may be launched on its 
+components is depicted next in fig  
+due to the rising popularity of cognitive net
+working and selfdriving networks ml models 
+used in the context of cognitive networks have 
+become highprofile targets for malevolent adver
+saries who are interested in compromising the 
+integrity and availability of these ml models the 
+resulting threat becomes more serious when cog
+nitive networking breaks through into safetycrit
+ical networks such as selfdriving vehicles and 
+vehicular networks internet of things smart city 
+services and cyberphysical systems then it will 
+no longer be only computer systems and their 
+accessories that are at risk but the security of 
+everything and everyone will be threatened 
+the main contribution of this article is to high
+the adversarial machine learning conundrum can the insecurity of ml become the 
+achilles heel of cognitive networks
+muhammad usama junaid qadir ala alfuqaha and mounir hamdi
+accepted from open call
+digital object identifier
+mnet
+muhammad usama and junaid qadir are with the information technology university itupunjab  
+alaalfuqaha and mounir hamdi are with hamad bin khalifa university
+ieee network  januaryfebruary 
+light the vulnerability of mlbased functionality in 
+modern cognitive networks to adversarial attacks 
+and to review the state of the art in the applica
+tion of adversarial ml techniques in networking 
+we also provide recommendations for develop
+ing robust ml models for selfdriving cognitive 
+networks in this article we only consider the 
+adversarial ml attacks on the network telemetry 
+component of the cognitive selfdriving network 
+as other cognitive selfdriving networking com
+ponents rely on the data provided by this criti
+cal component any fault in the telemetry part 
+will result in less efficient selfdriving networks 
+since realtime telemetry uses supervised ml 
+schemes we have chosen anomalybased intru
+sion detection and network traffic classification 
+as case studies to highlight the adversarial ml 
+threat on cognitive selfdriving networks adver
+sarial ml attacks on other components of cogni
+tive selfdriving networks which are mostly based 
+on reinforcement learning are left as a future 
+direction we also propose a concrete novel net
+workspecifi
+ c adversarial ml attack on an anoma
+lybased intrusion detection system and network 
+traffic classification to highlight potential issues 
+that may arise when adversarial ml attacks are 
+launched on future mlbased cognitive selfdriv
+ing networks for cognitive networking to really 
+take off
+  it is extremely important that the under
+lying technology has to be robust to all kinds of 
+potential problems be they accidental intention
+al or adversarial 
+background 
+in this section we discuss the challenges posed 
+by adversarial ml attacks and then propose 
+a taxonomy of adversarial ml attacks we will 
+then survey the proposed adversarial attacks and 
+defenses after that we highlight the stateof
+theart in adversarial ml attacks on selfdriving 
+cognitive networks to emphasize that this area of 
+research needs special attention as networking 
+moves from traditional networking to selfdriving 
+cognitive networks
+challenges posed by adversarial ml attacks 
+ml adds substantially to the worries of securi
+ty practitioners by expanding an alreadybroad 
+attack surface comprising standard but still potent 
+attacks in addition the future denselyconnected 
+iotera cognitive networking will likely expose 
+new vulnerabilities and a wider attack surface 
+through its emphasis on massive connectivity pre
+vious research has shown that a motivated wellre
+sourced adversary can arbitrarily alter data and 
+labels to compromise ml models completely and 
+induce an error rate of up to  percent  
+another important reason for adversarial ml 
+attacks is the lack of a better understanding of 
+how modern ml frameworks such as dnns oper
+ate multiple explanations for the sensitivity of the 
+ml models to adversarial examples have been 
+provided in the literature  including the non
+linearity of the dnn models which can assign 
+random labels in areas that are underexplored 
+in the training set but such a hypothesis fails to 
+explain the transferability of adversarial examples 
+from one ml model to another in addition it is 
+not only the nonlinear dnn models that suffer 
+from these attacks but linear models have also 
+ 
+been shown to be vulnerable to adversarial exam
+ples  while the reasons for the capitulation of 
+the ml models to adversarial examples are still 
+not well known it is clear that these adversari
+al attacks pose a grave danger to the security of 
+future cognitive networks which requires immedi
+ate attention from the community 
+adversarial examples are especially challeng
+ing due to the asymmetric nature of adversarial 
+ml attacks the asymmetry implies that the job 
+of the defender is to secure the entire attack 
+surface all the time but the attacker only has to 
+fi
+ nd a single kink in the surface the attacker also 
+attacks surreptitiously much like in guerrilla war
+fare using previouslyunseen attacks at a time of 
+its own choosing the attacker constructs these 
+attacks creatively by adding adversarial noise to 
+incur the worstcase domain shifts in the input in 
+a bid to elicit incorrect results by the ml model 
+this stacks the odds in favor of the attacker and 
+the battle becomes a manifestly unfair one to 
+prove that the ml model is secure against attacks 
+the defender has to anticipate the threat models 
+and provide formal proof that demonstrates the 
+fortitude to withstand the assumed threats 
+with the well known attacks proposed in the 
+literature  the bar of eff
+ ort required for launch
+ing new attacks has lowered since the same 
+canned attacks can be used by others although 
+sommer and paxson  were probably right 
+in  to downplay the potential of security 
+attacks on ml saying exploiting the specifi
+ cs of a 
+machine learning implementation requires signif
+icant eff
+ ort time and expertise on the attackers 
+side the danger is real now when an attack can 
+be launched on mlbased implementations with 
+minimal eff
+ ort time and expertise
+taxonomy of security attacks on machine learning 
+in this section we aim to communicate the big 
+picture of adversarial ml security by referring to 
+the ml pipeline for cognitive networking fig  
+and a taxonomy of adversarial ml related issues 
+that we developed fig  
+based on the attacks location on the ml pipe
+line security attacks on ml models can be clas
+sifi
+ ed into two categories first in a poisoning or 
+training attack the attacker can access and adver
+sarially poison the training data in a bid to max
+imize the classification error attacks during the 
+training phase can also include theft of the intel
+lectual property ip if the training is outsourced 
+figure  the cognitive selfdriving networking components and their related 
+tasks are highlighted to provide the reader with a basic understanding of 
+how cognitive selfdriving networks can be realized supervised and rein
+forcement learning techniques are expected to play a vital role in achieving 
+most of the tasks 
+realtime 
+telemetry
+datadriven 
+analysis
+network 
+decision making
+operatoruser 
+intent
+actions
+traﬃc logs
+logs
+deployed network
+ the transferability of an 
+adversarial example refers to 
+the property that adversarial 
+examples produced to mis
+lead a particular ml model 
+can be used to mislead other 
+ml models as well even if 
+their architectures greatly 
+diff
+ er from each other
+ieee network  januaryfebruary 
+to some external provider second in an evasion
+or inference attack on the other hand the attacks 
+attempt to perturb the textinference input 
+through the creation of adversarial examples to 
+compromise the ml model the attacks can also 
+attempt to steal the ml model ip through a side 
+channel through successive polling other types 
+of attacks may involve obtaining physical access 
+and intrusion into the hardware 
+based on the adversarys knowledge adver
+sarial ml attacks can be categorized into two 
+types in a whitebox attack it is assumed that 
+the adversary has perfect knowledge of the ml 
+architecture trainingtesting data and the hyper
+parameters of the model in contrast in a black
+box attack it is considered that the adversary 
+has partial access or no access to the deployed 
+model based on the knowledgeaccess of the 
+adversary blackbox attacks are further divided 
+into two categories namely querybased attacks 
+and zeroquery attacks a blackbox attack where 
+an adversary can act as a standard user and 
+query the ml model for a response and later use 
+that queryresponse pair to generate an adver
+sarial example is known as a querybased attack 
+the zeroquery attack is defined as a blackbox 
+attack where the adversary has no access to the 
+deployed ml model but has only a few test sam
+ples available to craft adversarial examples against 
+a deployed ml model 
+based on the adversarial intent speciﬁ
+ city we 
+can further divide evasion attacks into two classes 
+in a targeted attack the attacker aims to fool the 
+ml classifi
+ er to classify all adversarial samples in 
+one class by maximizing the probability of the 
+targeted attack for example an adversary that 
+wants to disguise the intrusive traffic as normal 
+network traffi
+  c can create a perturbation that max
+imizes the classifi
+ cation probability of the normal 
+traffic class in a nontargeted attack the attack
+er aims to fool the ml classifier by assigning an 
+adversarial sample to any other class except the 
+original one these attacks are performed by min
+imizing the probability of the original class that 
+ensures that the adversarial sample will not get 
+classifi
+ ed in the original class 
+all classifi
+ cation schemes depicted in the tax
+onomy are directly related to the intentgoal of 
+the adversary most of the existing adversarial 
+ml attacks are whitebox attacks which are later 
+converted to blackbox attacks by exploiting the 
+transferability property of adversarial examples 
+ the transferability property of adversarial ml 
+means that adversarial perturbations generated 
+for one ml model will often mislead other unseen 
+ml models related research has been carried 
+out on adversarial pattern recognition for more 
+than a decade and even before that there was a 
+smattering of works focused on performing ml in 
+the presence of malicious errors 
+brief review of the adversarial ml literature
+adversarial ml attacks proposed in lit
+erature ml models especially those that are 
+dnnbased are very vulnerable to adversarial 
+perturbations an adversarial sample x is created 
+by adding a small carefully crafted perturbation d
+to the correctly classifi
+ ed sample x the perturba
+tion d is calculated by approximating the optimi
+zation problem given in equation  iteratively until 
+the crafted adversarial example gets classifi
+ ed by 
+ml classifi
+ er f in targeted class t 
+x  x  argmin
+δx
+δ  f x  δ  t
+ 
+ 
+in  szegedy et al  reported that the 
+dnn inputoutput mapping is fairly discontinuous 
+and dnns are not robust to small perturbations 
+in the input this triggered an extraordinary inter
+est in adversarial ml attacks in  goodfellow 
+et al  proposed a nontargeted elementwise 
+adversarial example generation method where 
+the adversarial perturbation is generated by per
+forming only a singlestep gradient update in the 
+direction of the gradient at each element of the 
+input example this method of generating adver
+sarial ml attacks is called the fast gradient sign 
+method fgsm kurakin et al  proposed 
+the basic iterative method bim attack which 
+improves the fgsm attack by introducing an 
+iterative small perturbation optimization meth
+od for generating adversarial examples paper
+figure  the ml pipeline in cognitive networking through which we learn insights from raw network 
+telemetry data by passing it through preprocessing and feature extraction stages and then construct a 
+ml model for some specifi
+ c task eg intrusion detection since our focus is on adversarial ml attacks 
+we also highlight which parts of the pipeline are vulnerable to poisoning and evasion attacks 
+cognitive
+network 
+test data 
+unseen 
+network data 
+network 
+telemetry 
+data 
+network data 
+analysis
+preprocessing
+feature 
+extraction
+ml model 
+construction
+oﬄine
+training and
+tuning 
+ml task
+eg trained 
+classiﬁer 
+inferences
+eg traﬃc
+classiﬁcation 
+y
+r
+a
+s
+r
+e
+v
+d
+a
+poisoning attack
+evasion attack
+adversary
+model theft
+ieee network  januaryfebruary 
+not et al  proposed a targeted saliency map 
+based attack where a saliency map is used in an 
+iterative manner to find the most significant fea
+tures of the input that when fractionally perturbed 
+cause dnns to misclassify this adversarial attack 
+is known as the jacobian saliency map based 
+attack jsma carlini et al  proposed three 
+targeted and iterative adversarial ml attacks by 
+exploiting the three different distance matrices 
+l l and l and highlighted that the defensive 
+distillation method  deployed to increase the 
+robustness of dnns is not enough for building 
+deterrence against adversarial ml attacks most of 
+the adversarial ml attacks are whitebox attacks 
+which are later converted to blackbox attacks 
+by exploiting the property of transferability of 
+adversarial examples more details on available 
+adversarial ml attacks and their applications are 
+reviewed in  
+adversarial ml defenses proposed in the lit
+erature in response to adversarial ml attacks 
+researchers have come up with some defenses 
+some of which focus on detection while others 
+focus on prevention generally defenses against 
+adversarial examples are divided into two broader 
+categories as shown in fig  these categories are 
+reactive defenses and proactive defenses reac
+tive defenses involve retraining or reconfiguring 
+the ml model after the adversarial ml attack or 
+timely detection of the adversarial attack in order 
+to save critical information proactive defenses 
+involve preemption of adversarial attacks and 
+preparing the ml model to defend against them 
+the three major techniques of proactive defens
+es are adversarial training feature squeezing and 
+defensive distillation 
+the technique of adversarial training proposed 
+by goodfellow et al  requires that classifiers 
+be preemptively trained on adversarial perturba
+tions this defense provides robustness against 
+adversarial examples the classifier is trained on 
+but any perturbation on which the classifier has 
+not been trained can still evade the classifier xu 
+et al  proposed feature squeezing as another 
+approach for hardening the ml schemes against 
+adversarial attacks feature squeezing is a pro
+cess of reducing the search space available to the 
+adversary by fusing samples that correspond to 
+different feature vectors in the original space into 
+a single sample another solution called network 
+distillation was proposed by papernot et al  
+as a defense against adversarial perturbations 
+which focused on hiding the gradients between 
+the presoftmax and the softmax output to pro
+vide robustness against gradientbased attacks 
+on dnns this defense however was breached 
+by carlini et al  who proposed adversarial 
+perturbation techniques that successfully evaded 
+defensive distillation based dnns
+even though the onerous job of thwarting 
+attacks currently appears to be a sisyphean task 
+with no end in sight  for example although one 
+can use adversarial training to train a dnn this is 
+a onestep solution since further adversarial exam
+ples can still be constructed for the new dnn 
+model starting a cat and mouse game  the reali
+zation of the cognitive networking vision requires 
+and should motivate the development of robust 
+ml solutions
+the adversarial ml challenge for cognitive networks 
+adversarial ml attacks have not yet been 
+explored thoroughly for cognitive networking 
+although a few works have highlighted the adver
+sarial ml threat for cognitive networks especially 
+the realtime network telemetry component of 
+selfdriving cognitive networks in this article we 
+focus on the challenge posed by adversarial ml 
+to the security of cognitive networking applica
+tions such as network traffic classification systems 
+and automatic intrusion detection 
+although numerous security attacks have been 
+demonstrated on intrusion detection systems 
+ids  little attention has focused on apply
+ing adversarial ml attacks on ids similarly there 
+does not exist much literature on adversarial ml 
+attacks on network traffic classification another 
+major component of realtime network teleme
+try ahmed et al  highlighted the problem of 
+adversarial ml attacks on network traffic classifi
+cation where they have launched an adversarial 
+ml attack on a support vector machine svm 
+based network traffic classifier and showed that a 
+smaller perturbation in the test example can suc
+cessfully evade the classifiers decision boundary 
+and compromises the integrity of the classifier 
+figure  a taxonomy of adversarial ml attacks is provided in which we subclassify adversarial attacks and adversarial defense strategies
+adversarial 
+attacks
+location speciﬁc 
+attacks
+knowledge
+speciﬁc attacks
+training attack 
+poisoning attack
+inference attack
+evasion attack
+whitebox attack
+blackbox attack
+intent speciﬁc 
+attack
+targeted attack
+nontargeted 
+attack
+adversarial 
+defenses
+reactive
+defenses
+proactive 
+defenses
+retraining 
+timely 
+detection
+defensive 
+distillation
+feature 
+squeezing
+adversarial 
+training 
+adversarial 
+ml
+ corona et al  provides 
+a detailed survey and cate
+gorizes the security attacks 
+on ids into six categories 
+evasion overstimulation 
+poisoning denial of service 
+response hijacking and 
+reverse engineering 
+ieee network  januaryfebruary 
+in our previous work  we performed fgsm 
+bim and jsma attacks on a malware classifier to 
+highlight that malware classification in cognitive 
+selforganizing networks is extremely vulnerable 
+to adversarial ml attacks it has been shown in 
+previous work that nominal feature perturbations 
+are sufficient to fool a dnn that was previously 
+classifying malware with  percent accuracy with 
+ probability  
+case studies adversarial ml attack on 
+intrusion detection and network traffic 
+classification systems 
+in this section we present a concrete adversarial 
+ml attack that is specific to networking applica
+tions instead of focusing broadly on the expansive 
+functional area of realtime telemetry of cognitive 
+selfdriving networking we limit our focus to using 
+ml for two surrogate realtime telemetry cognitive 
+networking problems anomalybased intrusion 
+detection and network traffic classification the 
+purpose of these case studies is to highlight the 
+ease with which an adversarial ml attack can be 
+launched and to show that many cognitive network
+ing based ml applications in their current form may 
+not provide any robustness against adversarial per
+turbations while our explicit focus is on ids and 
+network traffic classification applications our insights 
+apply more broadly to diverse supervised unsuper
+vised and reinforcement learning techniques 
+we formulated the network anomalybased 
+intrusion detection problem as a binary classifi
+cation problem where the classification is per
+formed between two classes namely normal 
+or dos denial of services svm and dnn are 
+employed for performing the classification task 
+the reason for selecting svm and dnn to per
+form classification is to highlight the fact that both 
+traditional and more recent ml techniques svm 
+and dnn respectively are highly susceptible to 
+small carefullycrafted adversarial examples 
+for the network traffic classification we for
+mulated it as a multiclass classification problem 
+where the classification is performed between 
+ten network traffic classes namely www mail 
+bulk serv db int pp attack mmedia and 
+games we employed svm and dnn for per
+forming the classification task 
+threat model 
+adversary knowledge for both case studies 
+we only consider evasion attacks on ml classifi
+ers with whitebox settings where by definition 
+the adversary has complete knowledge about the 
+classifiers architecture hyperparameters and test 
+data we trained an svm classifier with the radial 
+basis function rbf kernel and utilized stochastic 
+gradient descent for learning the parameters of 
+the dnn 
+adversary goal we assume that the adver
+sary wants to compromise the integrity and 
+availability of the deployed ml based intrusion 
+detection and traffic classification systems for 
+the ids case study the adversary perturbs the 
+anomalous traffic ie dos class while ensur
+ing the functional behavior in such a way that 
+the classifier mistakes it as a normal traffic class 
+for the traffic classification case study the goal 
+of the adversary is to perturb the mail traffic 
+in such a way that the classifier misclassifies it 
+in any other traffic class although we used the 
+mail class to perform the adversarial ml attack 
+the proposed attack works equally well for any 
+other target class in the dataset 
+adversarial sample crafting 
+for the ids case study we employed the con
+cept of mutual information ix y a measure 
+of the statistical dependence between two ran
+dom variables to find the most discriminant 
+features in both the normal and the dos class
+es once the most discriminant features are 
+identified we reduce the distance between 
+them by using constrained l norm minimiza
+tion on the discriminant feature set of the dos 
+traffic to form a perturbation d the calcu
+lated perturbation d is then added to a dos 
+test example x to create an adversarial dos 
+sample x when the adversarial sample x is 
+subjected to the trained classifier f which 
+was previously classifying correctly the clas
+sifier classifies the dos adversarial example 
+in the normal traffic class figure  illustrates 
+the steps of the proposed adversarial example 
+generation technique for the traffic classifi
+cation case study we followed a similar pro
+cedure as shown in fig  where we created 
+adversarial examples for mail class
+figure  performance of ids and network traffic classification before and after adversarial ml attacks
+test 
+data
+mutual 
+information
+  
+top most 
+discriminant 
+feature set m
+of dos traﬃc
+top most 
+discriminant 
+feature set n of 
+normal traﬃc 
+successful 
+adversarial 
+example
+failed adversarial example
+yes
+no
+ieee network  januaryfebruary 
+experimental performance evaluation 
+adversarial ml attack on ids to evaluate 
+the performance of the proposed adversarial ml 
+attack on the ids classifier we used the nslkdd 
+intrusion detection dataset httpwwwunbca
+cicdatasetsnslhtml we extracted only two class
+es normal and dos for performing this exper
+iment after the preprocessing  traffic features 
+were extracted in total to train the svm and the 
+dnn classifiers once the classifiers are trained 
+we launched an adversarial ml attack in which we 
+generated  adversarial examples  per
+cent of the complete test data for the dos class 
+by perturbing only  out of the  traffic features 
+the size of the perturbation was constrained to be 
+less than  to ensure the functional behavior 
+of the dos traffic samples figure a provides a 
+description of various performance measures such 
+as accuracy f score recall and precision of the 
+svm and the dnn classifiers before and after the 
+attack on the ids classifier 
+the proposed adversarial attack completely 
+fooled the svm classifier as its dos class classifi
+cation accuracy went below  percent the rest 
+of the adversarial samples were classified as false 
+positives in the normal traffic category in the 
+case of a dnnbased intrusion detection classifier 
+the proposed attack successfully evaded the dnn 
+classifier the dos class classification accuracy of 
+dnn faced a  percent drop in accuracy the 
+accuracy deterioration would have been more 
+devastating if the number of modified features 
+was increased this decay in performance of 
+dnn highlights that a very small carefully crafted 
+input can lead dnn to a very serious malfunc
+tion these huge drops in the performance of the 
+svm and dnn classifiers highlight the security 
+risk that adversarial ml poses to these mlbased 
+techniques in cognitive networking applications 
+adversarial ml attack on traffic classifica
+tion we also evaluated the performance of the 
+proposed adversarial ml attack on network traf
+fic classification we used the highly cited inter
+net traffic classification dataset by moore et al 
+ the dataset consists of  traffic flows 
+divided into  classes namely www mail 
+bulk serv db int pp attack mmedia and 
+games further details about the dataset are pro
+vided in  we deployed svm rbf kernel 
+and dnn for the classification task and achieved 
+ percent and  percent classification accura
+cy respectively we used  percent of the traffic 
+for training the classifiers and  percent of the 
+samples for testing the performance of the clas
+sifiers for dnn we used four dense layers with 
+ neurons per layer with relu as an activa
+tion function since we trained dnn for class 
+classification we used softmax as an activation 
+function in the last layer to obtain classification 
+figure  adversarial sample crafting technique where we assume whitebox settings and adversarial control over test data we employ 
+mutual information ix y for extracting discriminating features and minimize l norm between most discriminating features of nor
+mal and dos classes to create an adversarial perturbation for the dos traffic 
+ 
+ieee network  januaryfebruary 
+probabilities we used categorical crossentropy 
+as a loss function to train the dnn with stochastic 
+gradient descent sgd as an optimizer 
+adversarial examples are generated for the 
+mail class which is classified by the svm clas
+sifier with  percent accuracy and the dnn 
+classifier with  percent accuracy the total 
+number of mail traffic samples in the test 
+set is  and we produced  adversarial 
+examples by following the procedure provided 
+in fig  the adversarial samples successfully 
+evaded the svm and dnn based classifiers 
+where for svm the classification accuracy of 
+the mail class has fallen from  percent to 
+nearly  percent for dnn the classifica
+tion accuracy of the mail class has dropped 
+from  percent to  percent this drop in 
+performance clearly highlights that the real
+time telemetry component of the cognitive 
+selfdriving network is highly vulnerable to 
+adversarial ml attacks figure b depicts the 
+performance drop in the class classification 
+performance of svm and dnn 
+for both ids and network traffic classification 
+we reported results with a  percent confidence 
+interval the confidence interval measures the 
+uncertainty associated with the success of adver
+sarial ml attacks it is evident from fig  that after 
+the adversarial ml attack the uncertainty in ids 
+and network traffic classification has increased 
+which fulfills our goal of compromising the con
+fidence of ids and network traffic classification
+discussion
+developing robustbydesign ml for cognitive networks 
+it is important for ml algorithms used for mis
+sioncritical applications in cognitive networking 
+to be robust and resilient ml researchers in other 
+application domains have started to work on 
+robustbydesign models and algorithms and we 
+should have similar if not higher standards for 
+cognitive networking applications there does not 
+exist much work on guidelines for evaluating the 
+defenses against adversarial ml attacks particular
+ly against cognitive networks in the following we 
+provide some guidelines leveraging the insights 
+shared by carlini et al  on how to effectively 
+evaluate the robustness of ml schemes
+	 check the adversarial threat model used 
+in the defense under review for evaluating 
+what kind of knowledge the adversary has 
+about the targeted ml model
+	 does the defense under review consider the 
+presence of an adaptive adversary in the 
+selfdriving cognitive networking environ
+ment
+	 does the defense under review provide 
+robustness against gradientbased adversarial 
+attacks 
+	 evaluate the defense under consideration 
+using different threat model assumptions and 
+for different performance metrics
+	 evaluate the defense under consideration 
+against strong adversarial attacks ie optimi
+zationbased attacks and not against weak 
+attacks out of distribution adversarial exam
+ples transferable adversarial examples to 
+check whether the transferability property of 
+adversarial examples is blocked or not
+developing new metrics for ml in cognitive networks 
+traditionally the metric used to evaluate the per
+formance of an ml model nearly always has been 
+a variant of the metric of prediction accuracy that 
+is how often is the model correct in its prediction 
+or classification to be sure accuracy can be mea
+sured in various ways such as precision specifici
+ty sensitivity recall but using accuracy alone as a 
+metric can only inform us of the averagecase per
+formance this has the implicit assumption that the 
+distribution of the test data will be similar to the dis
+tribution of the training data this assumption obvi
+ously fails to hold when an adversary intentionally 
+changes the test data with the explicit goal of defeat
+ing the ml model there is therefore a need to also 
+focus on evaluating a systems worst case perfor
+mance and measure the adversarial resilience of the 
+ml model we should move away from only using 
+traditional ml metrics related to accuracy and preci
+sion toward a greater emphasis on robustness trans
+parency and resilience here we recommend some 
+new metrics for ensuring the appropriate applica
+tion and validation of ml schemes in selfdriving 
+cognitive networking there can be more metrics 
+depending on the design of the mlbased selfdriv
+ing cognitive networking application
+inference stability this is a measure that com
+pares the output of the victims model before and 
+after the adversarial attack inference stability is 
+calculated by measuring the distribution similar
+ity before and after the adversarial attack and 
+defense divergence to the average is a popular 
+way of computing the similarity between distri
+butions for selfdriving cognitive networks infer
+ence stability will provide information about the 
+attack and recovery of the system from the adver
+sarial ml attack
+classification confidence variance this is 
+a measure intended to demonstrate how the 
+model is impacted by the adversarial attack and 
+defensive technique more precisely classifica
+tion confidence variance provides the change in 
+the confidence of the classification of an example 
+after the adversarial attack and after the adversari
+al defense is applied
+misclassification ratio this is a measure 
+intended for quantifying the success of an adver
+sarial attack it gives a measure of how many 
+adversarial examples have successfully evaded 
+the classifier it is also an important measure from 
+the defenders perspective as the misclassification 
+ratio provides a quantitative measure for testing 
+the defense against adversarial attacks
+semantic insights 
+despite its success in other domains ml has 
+traditionally not been as successful in terms of 
+deployments in the real world for detecting anom
+alies one important reason behind this is that for 
+anomaly detection semantic knowledge under
+lying the prediction and not only the prediction 
+itself is important for operational networks as 
+there is a need to also focus on evaluating a systems worst case performance and measure the adver
+sarial resilience of the ml model we should move away from only using traditional ml metrics related 
+to accuracy and precision toward a greater emphasis on robustness transparency and resilience
+ieee network  januaryfebruary 
+highlighted by sommer and paxson in  who 
+emphasized the need of interpretability of ml in 
+the context of intrusion detection and anomaly 
+detection systems in general
+the broader challenge for  
+adversarial ml for cognitive networks 
+in this article we highlighted the threat of adversarial 
+examples on the mlbased realtime network telem
+etry component of selfdriving cognitive networks 
+realtime network telemetry consists of supervised 
+ml and feature engineering but there are more 
+complex tasks in selfdriving cognitive networks ie 
+datadriven analysis and decision making in order 
+to perform these tasks the network must have the 
+ability to interact and adapt according to network 
+conditions  deep reinforcement learning drl 
+provides the ability to interact learn and adapt 
+to the everchanging network conditions and it is 
+expected to be heavily utilized in future selfdriving 
+cognitive networks unfortunately drl also lacks 
+robustness against adversarial examples and it has 
+been recently shown  that adversarial examples 
+can affect the performance of drl the threat of 
+adversarial examples and brittleness of the known 
+defenses is one of the major hurdles in the progress 
+of cognitive selfdriving networks
+conclusions 
+in this article we introduced the problem of 
+adversarial machine learning ml attacks on 
+the ml models used in cognitive selfdriving net
+works after introducing adversarial ml attacks 
+we developed novel networkingspecific attacks 
+on two surrogate realtime telemetry problems of 
+selfdriving cognitive networks to highlight their 
+vulnerability to adversarial examples this vulner
+ability to adversarial ml attacks may turn out to 
+be the achilles heel of cognitive networks unless 
+the networking and ml communities get togeth
+er to inoculate future cognitive networking from 
+the malaise of adversarial ml attacks the devel
+opment of effective defenses against adversarial 
+ml attacks even though tough is not impossible 
+since attackers are often constrained in how effec
+tively they can attack a model and there has been 
+some positive progress on this front this gives us 
+guarded optimism that we may finally be able to 
+develop a future of robust resilient and depend
+able mlbased cognitive networking 

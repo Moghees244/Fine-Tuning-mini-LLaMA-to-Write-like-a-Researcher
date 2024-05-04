@@ -1,0 +1,480 @@
+vol
+ 
+social network analysis and mining   
+httpsdoiorgs
+original article
+a deep dive into covidrelated messages on whatsapp in pakistan
+r tallal javed    muhammad usama  waleed iqbal  junaid qadir  gareth tyson  ignacio castro  
+kiran garimella
+received  june   revised  october   accepted  october   published online  november  
+ the authors under exclusive licence to springerverlag gmbh austria part of springer nature 
+abstract
+the spread of covid and the lockdowns that followed led to an increase in activity on online social networks this has 
+resulted in users sharing unfiltered and unreliable information on social networks like whatsapp twitter facebook etc in 
+this work we give an extended overview of how pakistans population used public whatsapp groups for sharing informa
+tion related to the pandemic our work is based on a major effort to annotate thousands of text and imagebased messages 
+we explore how information propagates across whatsapp and the user behavior around it specifically we look at political 
+polarization and its impact on how users from different political parties shared covidrelated content we also try to 
+understand information dissemination across different social networkstwitter and whatsappin pakistan and find that 
+there is no significant bot involvement in spreading misinformation about the pandemic
+keywords  misinformation  infodemic  social computing
+  introduction
+applications like twitter facebook and whatsapp are ena
+bling millions of users to connect and interact this has led 
+to sharing ideas getting exposed to different ideologies and 
+absorbing information at an unprecedented pace out of all 
+these services and apps whatsapp is the most popular and 
+widely used medium of communication this has created a 
+closed social network of more than  billion users apart 
+from having a huge user base it also has the most active 
+users at a time out of all the social networks two billion 
+users 
+this makes whatsapp a very important medium for anal
+ysis as it is a major tool for opinion formation and social 
+exchange due to its endtoend encryption it is becoming a 
+medium of choice for antigovernment movements sharing 
+of radical ideas and gang operations uk says whatsapp 
+ similarly whatsapp is also used for the propagation 
+of antisocial behavior a study on brazils whatsapp users 
+resende et al a revealed how whatsapp can be an 
+effective tool for the spread of disinformation a study con
+ducted in india saha et al  revealed the spread of hate 
+speech and islamophobia on whatsapp these problems are 
+exacerbated by the fact that content moderation in what
+sapp is rather limited the content of a group is only mod
+erated by the groups administrators admins have very few 
+ 
+	 r tallal javed 
+	
+tallaljavedituedupk
+	
+muhammad usama 
+	
+muhammadusamalumsedupk
+	
+waleed iqbal 
+	
+wiqbalqmulacuk
+	
+junaid qadir 
+	
+jqadirquedupk
+	
+gareth tyson 
+	
+gtysonqmulacuk
+	
+ignacio castro 
+	
+icastroqmulacuk
+	
+kiran garimella 
+	
+garimellmitedu
+	
+information technology university of the punjab lahore 
+pakistan
+	
+qatar university doha qatar
+	
+lahore university of management sciences lahore 
+pakistan
+	
+queen merry university london uk
+	
+mit cambridge usa
+	
+social network analysis and mining  
+ 
+ 
+page  of 
+tools at hand either restrict who can post content or remove 
+certain users from the group group admins cannot even do 
+the simple moderation task of deleting a users post as a 
+result the moderation abilities on whatsapp are very scant
+this work is an extended version of our earlier prelimi
+nary analysis of covidrelated messages being dis
+seminated across public whatsapp groups by pakistani 
+users javed et al  in this extended version in addi
+tion to looking at the type of messages being disseminated 
+across covid in pakistani whatsapp groups we also 
+try to understand the impact that political affiliation has on 
+a groups overall sentiment related to covid and the 
+types of messages being propagated our main research 
+questions are 
+rq	
+what type of messages about covid are dis
+seminated in public whatsapp groups of pakistan
+rq	
+what is the general user behavior when sharing a 
+message specifically is there a connection between a 
+groups political affiliation and the content that is being 
+shared
+rq	
+is there reciprocation between information dis
+semination related to covid over whatsapp and 
+twitter
+rq	
+what type of sentiment is expressed by users when 
+sharing covid messages does this vary on the 
+basis of political affiliation
+to answer these research questions we have gathered the 
+data from  publicly accessible whatsapp groups during 
+january  april   this dataset is the first of 
+its kind giving us a unique opportunity to analyze covid
+related discussion from one of the largest countries in the 
+world involving a multimodal environmentimages and 
+textand multiple social networking platforms of commu
+nicationwhatsapp and twitter
+we start by analyzing the content disseminated in these 
+ public groups and extract the covidrelated 
+content out of them extracted content is separated into 
+image video text documents and links using our dataset 
+which we make publicly available we make the following 
+contributions
+	 we analyze the groups and messages therein with a focus 
+on political affiliations
+	 we give an overview of how users with different political 
+affinities spread covidrelated messages we also 
+show that on average  of the content shared is mis
+information
+	 we give an overview of the prevailing sentiment of 
+covid posts and find that the sentiment is mostly 
+negative
+  
+related work
+  
+misinformation on social media
+many studies have been conducted that gave a special focus 
+to rumors and misinformation prior to the events of the 
+ us presidential elections starbird et al  how
+ever the events of the us presidential election have since 
+triggered a flurry of work on this topic as a result there 
+have been many papers attempting to understand the impact 
+social media has the amount of misinformation present on 
+it and the amount of exposure users have to this informa
+tion david et al  iosifidis and nicoli  bovet 
+and makse  for example during the  elections 
+social media were used extensively to manipulate social 
+media users to sway their political inclinations grinberg 
+et al  analyzed twitter to understand the extent of 
+political manipulation present during this period similarly 
+badawy et al  used twitter to understand the effects 
+the russian internet research agency might have had on 
+american twitter users they characterize the interactions 
+of twitter republican and democratic users with the rus
+sian trolls
+there are various methods for detecting misinformation 
+they can be divided into two major approaches content
+based and propagationbased habib et al  performed 
+a systematic literature review to understand different meth
+odologies for detecting misinformation in online social net
+works chen et al  performed an analysis of twitter to 
+understand different types of misinformation their analysis 
+relied on a graph of users based on the content they share in 
+other similar works zollo and quattrociocchi  cinelli 
+et al  the authors provide analysis on social media 
+users and their interactions with controversial topics and 
+content a study on instagram was conducted by trevisan 
+et al  where they gave detailed insights on how users 
+interact with political content similarly many researchers 
+have conducted independent studies in line with those men
+tioned earlier zhang and ghorbani  shu et al  
+ sharma et al  zhou and zafarani  zarei 
+et al 
+  
+analyzing content on whatsapp
+the whatsapp messaging service is the most actively used 
+online social network in the world whatsapp is a closed 
+  in this study we only focus on text and images and leave the analy
+sis over video content for future work
+  https
+tinyu
+rl
+com
+snam
+pakis
+tan
+social network analysis and mining  	
+ 
+page  of  
+network without any official access for analyzing its con
+tent as a result not a lot of work has been done to analyze 
+its content and user interactions it is a documented fact that 
+whatsapp is being actively used for the dissemination of 
+misinformation boadle  perrigo  due to the 
+popularity of whatsapp in certain regions political par
+ties have been actively using whatsapp groups to reach 
+the masses goel  surveys performed in brazil and 
+india lokniti  newman et al  two of the largest 
+democracies show that one in six users are part of a political 
+group on whatsapp
+garimella and tyson  were the first to provide 
+tools for analyzing public whatsapp groups and collecting 
+data at scale these tools have enabled researchers to study 
+whatsapp at scale and created a window into the world 
+of whatsapp some of the recent studies can be found 
+at evangelista and bruno  resende et al b 
+yadav et al  garimella and eckles  where 
+researchers analyzed public whatsapp groups in various 
+contexts resende et al  gave a unique insight by ana
+lyzing doctored images used to fuel political smear cam
+paigns against opposing parties on public whatsapp groups 
+in brazil similarly garimella and eckles  analyze 
+the images in indian whatsapp groups during the  
+indian elections the study found that  of the images 
+contained misinformation using reverse image search on 
+google images in parallel melo et al  gather ana
+lyze and visualize public whatsapp groups and identify 
+the extent of misinformation found in india indonesia and 
+brazil apart from text messages and images whatsapp has 
+a large content of audio files maros et al  analyzed 
+ public whatsapp groups and proposed that audio mes
+sages containing misinformation spread much more farther 
+and wider
+  
+the covid infodemic
+our work revolves around understanding health informa
+tion being shared on whatsapp and how users interact 
+with it while considering the political inclination of users 
+the covid pandemic has also created an infodemic as 
+declared by the world health organization an infodemic 
+refers to the inflow of information that is so large that users 
+are unable to discriminate effectively between misinfor
+mation and correct information it is already documented 
+that whatsapp is a source of misinformation related to 
+health purnell  ranging from wrong symptoms to 
+ineffective treatments bhatnagar and choubey  javed 
+et al  this makes it critical to understand the health 
+content present in whatsapp groups
+apart from whatsapp researchers have provided a dash
+board to analyze health misinformation on twitter sharma 
+et al  they analyze  million tweets and also perform 
+a countrywide analysis of sentiment they also provide 
+an uptodate view of how people are reacting to covid
+related content on twitter similarly singh et al  
+look at twitter based misinformation about covid and 
+give insights about the propagation of misinformation on 
+online social networks is in line with the rise of cases in a 
+given demographic another study on twitter kouzy et al 
+ found that some tags have more misinformation than 
+others pointing toward potential safe tags on twitter cinelli 
+et al  analyze different social networks for covid
+related content they analyze twitter instagram reddit 
+gab and youtube giving a comprehensive picture of the 
+state of covid content on these websites they not only 
+do content analysis but also try to understand the propaga
+tion of misinformation on these social networks
+  
+our works novelty
+this work is an extension of our previous work javed et al 
+ in this study we analyze covidrelated discus
+sions on whatsapp and explore the political influence in 
+this context since whatsapp is a popular and frequently 
+used application it is critical to understand how the popu
+lace is utilizing the platform during the pandemic and how 
+the platform facilitates the spread of misinformation while 
+doing so we extract valuable insights from the dataset and 
+try to quantify how misinformation and politics can be 
+intertwined
+studies have been conducted to analyze whatsapp mes
+sages for political events in brazil and india on the con
+trary this study tries to understand the impact whatsapp is 
+having on the infodemic in pakistan while considering the 
+political nature of our groups since pakistan is a muslim 
+majority country religion is relevant in the daily life of the 
+pakistani citizens we offer a first insight into how religion 
+and politics together play a role in this infodemic
+  
+methodology
+we use a multitude of techniques for data collection annota
+tion and analysis of data we also create novel algorithms 
+to better understand the content being shared the details of 
+these methods are discussed below
+  
+dataset preparation
+whatsapp allows its user base to create either public or 
+private whatsapp groups a private group can only be 
+joined through an invite which is sent by the admin himself 
+  https
+en
+wikip
+edia
+org
+wiki
+impor
+tance_
+of_
+relig
+ion_
+by_
+count
+ry
+	
+social network analysis and mining  
+ 
+ 
+page  of 
+whereas for the public groups whatsapp allows users to 
+enable joining these groups by means of an invite url this 
+invite url can be shared by any number of users and the 
+users can join a group by clicking this url the invite url 
+has a specific structure of the form chat
+whats
+app
+com
+ 
+many groups eg for politics sports religion share these 
+invite urls on social networks for easy visibility hence 
+increasing their community size and reach
+group selection leveraging the unique structure of pub
+lic whatsapp groups we used facebook and google search 
+to find whatsapp invite urls to ensure we find groups 
+from pakistani political parties the url was often used in 
+conjunction with a political partys name or pakistan we 
+also used pakistani ip to ensure google and facebook give 
+results from pakistan as a priority we also used the keyword 
+whatsapp along with political parties names or slogans 
+all of these queries have been logged for the convenience 
+of new researchers in this domain and can be found online
+following these techniques we found in total  public 
+pakistani whatsapp groups a loose criterion was set to 
+make sure the groups joined are in line with our research 
+goals and will provide meaningful value to the overall data
+set we manually analyzed a groups bio name and profile 
+pic if any of these were not in line with our research goals 
+the group was removed from our dataset removed groups 
+mostly were sales purchase groups or groups made only 
+for sharing jokes furthermore we analyzed the remaining 
+groups for activity over a week in case a group did not have 
+any significant activity or the activity was not organic eg 
+a sales group they were removed from our dataset after 
+these pruning steps a total of  public groups were used 
+to provide the analysis that follows
+whatsapp data collection to join these groups we 
+relied extensively on the tools created and provided by gari
+mella and tyson  these tools use selenium enabling 
+automated joining of public whatsapp groups whatsapp 
+messages are stored on a users device in an encrypted form 
+and is further protected by being placed in the root folder 
+the root folder is a secure folder and users do not have 
+access to it a rooted android phone having an unlocked 
+bootloader and root folder was used to obtain the decrypted 
+database the database is located in the datadata folder of 
+the root drive the media contents images videos are 
+stored online on whatsapp servers and need to be accessed 
+using the urls provided in the database using these urls 
+we downloaded images locally and decrypted them using 
+a public tool this tool was not functional out of the box 
+hence it was modified for our convenience and ease dur
+ing our data collection it was observed that whatsapp 
+periodically deletes content from their servers as a result 
+if a media file was not downloaded in a respectable amount 
+of time the media content could not be retrieved hence 
+a pipeline was created to extract data on weekly basis an 
+overview of our dataset can be seen in table 
+  
+annotating covid text messages
+covid text messages were extracted using a keyword
+filtering approach rashed et al  provide a diction
+ary of keywords related to covid we used that and 
+translated these words into equivalent urdu terms we also 
+added small variations to these terms like spelling mis
+takes and multiple spellings to ensure that we capture a 
+large dataset some of the sample keywords are corona 
+covid covid covid and coronavirus it 
+should be noted that although this ensures that we get a 
+large chunk of covidrelated messages we still will 
+miss some this approach resulted in  text messages 
+table    stats of our whatsapp 
+dataset as collected from public 
+pakistani whatsapp groups
+a detailed breakdown is given 
+for 
+our 
+observed 
+window 
+between march  and april  
+data type
+dataset
+groups
+admins
+users
+all messages
+text messages
+ 
+images
+videos
+audio
+documents
+lockdown imposed 
+on provincial level
+fig    percentage of messages per day for both text and images a 
+spike in images related to covid was seeing from  onward 
+after lockdown was announced by punjab on provincial level
+  https
+cutt
+ly
+yxhx
+bd
+  https
+github
+com
+ddz
+whats
+app
+media
+decry
+pt
+social network analysis and mining  	
+ 
+page  of  
+related to covid between march  and april   
+the dates roughly correspond with the first wave of covid
+ in pakistan
+figure  gives a comparison of daily covidrelated 
+and noncovidrelated messages in our dataset one 
+can observe the irregularity in the percentage of images 
+related to covid compared to the stable flow of text 
+messages it was observed that rather than writing text mes
+sages users found it more convenient to share images like 
+news snippets and pictures from hospitals in fig  the 
+vertical dotted line represents lockdown being imposed 
+on the provincial level before the lockdown was officially 
+imposed two spikes in percentage of images can be seen 
+these spikes relate to people sharing news about a mass 
+spread event observed near the capital city after the lock
+down an awareness campaign was started by the govern
+ment in which images that contained helpful info related to 
+covid were shared users in our groups actively shared 
+these informative images another interesting debate that 
+occurred during this time was the rulings on offering prayers 
+in mosques since pakistan is a muslim majority country 
+many users shared sayings of scholars and news snippets 
+related to this event as images it is interesting to know that 
+wrt percentage  and in contrast to the trend seen for 
+text messages  users were more inclined to share covid
+related images than noncovid images see fig 
+  
+annotating covid images
+twentyfive percent of the messages in our whatsapp data
+set contained images we categorized images into covid
+ and noncovidrelated images using manual 
+annotators two annotators tagged a total of  images 
+between march  and april   this resulted in  
+noncovid images and  covid images the 
+two annotators had an interannotator agreement score of 
+ for the cases in which the annotators disagreed the 
+annotators were allowed to discuss the case and give a final 
+label unlike text annotation the annotators used a set of 
+rules to identify the difference between covid images 
+and noncovid images if any of the following rules 
+applied to an image it was labeled as covid 
+	 contained coronavirus covid or any other related 
+terminology in urdu or english
+	 contained information relating to a lockdown or any 
+restrictions being imposedrelaxed by the government 
+on business or publicprivate institutions
+	 contained any precautionary measures like prayers for 
+protection from disease herbal medications etc
+	 contained any 

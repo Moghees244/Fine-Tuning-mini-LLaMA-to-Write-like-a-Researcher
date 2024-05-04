@@ -1,0 +1,546 @@
+blackbox adversarial machine learning attack on
+network trafﬁc classiﬁcation
+muhammad usama adnan qayyum junaid qadir ala alfuqaha
+information technology university punjab pakistan
+hamad bin khalifa university doha qatar
+email muhammadusama adnanqayyum junaidqadirituedupk aalfuqahahbkueduqa
+abstractdeep machine learning techniques have shown
+promising results in network trafﬁc classiﬁcation however the
+robustness of these techniques under adversarial threats is still
+in question deep machine learning models are found vulnerable
+to small carefully crafted adversarial perturbations posing a
+major question on the performance of deep machine learning
+techniques in this paper we propose a blackbox adversarial
+attack on network trafﬁc classiﬁcation the proposed attack
+successfully evades deep machine learningbased classiﬁers which
+highlights the potential security threat of using deep machine
+learning techniques to realize autonomous networks
+index termsadversarial machine learning blackbox adver
+sarial attack network trafﬁc classiﬁcation
+i introduction
+network trafﬁc classiﬁcation is an important task in network
+engineering it provides a method for monitoring understand
+ing and quantifying network trafﬁc with the emergence of
+g internet of things iot and other related technologies
+network trafﬁc volume is expected to grow up to  zettabyte
+zb per year or  gigabyte gb per capita per month
+by   with this exponential growth in network trafﬁc
+volume and inception of many datahungry communication
+applications network trafﬁc classiﬁcation becomes a very
+challenging problem for users and service providers classical
+network trafﬁc classiﬁcation techniques are based on port and
+payload inspection but these schemes have their shortcomings
+in terms of dealing with a large amount of data and different
+types of network trafﬁc
+recent advances in machine learning ml such as deep
+learning dl techniques have produced exceptional results
+in many application domains including computer vision
+natural language processing speech recognition and system
+control dl is a branch of mltechniques where a hierarchical
+structure of neural network layers is used to autonomously
+learn the features and then those learned features are used
+for classiﬁcation or prediction the success of mldl in
+multiple application domains has motivated the networking
+community to explore the potential beneﬁts of these techniques
+for building an autonomous control for improving the per
+formance of networking applications such as network trafﬁc
+classiﬁcation anomaly and intrusion detection in the last few
+years many mldl based networking solutions have been
+proposed highlighting the applications and challenges of using
+ml techniques in the networking domain    
+recently mldl techniques were found to be vulnerable
+to carefully crafted perturbations in the test examples these
+examples are known as adversarial ml examples adversarial
+examples force the mldl algorithm to malfunction and
+produce incorrect results dl schemes especially deep neural
+networks dnn are function approximators that have an
+associated generalization error which makes them vulnerable
+to adversarial ml attacks adversarial ml attacks can be
+divided into two broader categories based on the adversarys
+knowledge namely whitebox adversarial attacks ie per
+fect knowledge and blackbox adversarial attacks ie real
+world settings
+in this paper we take network trafﬁc classiﬁcation as a
+functional proxy for mldl based autonomous networking
+applications and propose a blackbox adversarial ml attack on
+network trafﬁc classiﬁcation although the focus of our paper
+is on network trafﬁc classiﬁcation our ﬁndings are broadly
+applicable to similar settings that involve other applications of
+mldl to realize autonomous networks the purpose of our
+proposed attack is to compromise the integrity of network traf
+ﬁc classiﬁcation to shed light on the risks involved in utilizing
+mldl techniques in support of networking applications
+our results indicate that the current state of the art mldl
+based network trafﬁc classiﬁcation algorithms do not pro
+vide substantial deterrence against adversarial ml attacks
+our experiments utilize the highly cited tornontor dataset
+provided by habibi et al  to perform the proposed black
+box adversarial ml attack on tornontor trafﬁc classiﬁer to
+demonstrate that using current mldl techniques to realize
+autonomous networks can be a potential security risk
+contributions the contributions of this work are twofold
+ propose and validate a blackbox adversarial ml attack
+on network trafﬁc classiﬁcation tornontor classiﬁca
+tion
+ to the best of our knowledge this is the ﬁrst blackbox
+adversarial ml attack on network trafﬁc classiﬁcation to
+highlight that network trafﬁc classiﬁers utilizing mldl
+techniques are very vulnerable to adversarial ml attacks
+the rest of the paper is organized as follows in the next
+section we review related research that focuses on network
+trafﬁc classiﬁcation speciﬁcally tor nontor classiﬁcation
+and adversarial attacks on networking applications section
+iii describes our research methodology particularly with
+reference to the dataset the mldl model threat model as
+sumptions and blackbox attack procedure in section iv we
+present our performance evaluations and discuss the outcomes
+of out experiments finally section v concludes our study
+  ieee
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+and provides directions for future research extensions
+ii related work
+a tor trafﬁc classiﬁcation
+tor  is a low latency anonymity preserving system that is
+based on overlay network that anonymizes the trafﬁc of tcp
+based applications it is also known as onion routing tech
+nique for trafﬁc anonymization in tor messages are encrypted
+and transmitted through distributed onion routers where each
+router uses a symmetric key to decrypt the messages and learn
+the routing details ie next onion router the same process
+goes on in each router and this process obscures the actual
+transmitter from the users perspective tor provides security
+and privacy whereas from service providers perspective
+detection and classiﬁcation of the tor trafﬁc becomes a very
+difﬁcult challenge 
+tor trafﬁc classiﬁcation is a key component of networking
+architecture it is expected and experimentally validated that
+deep ml techniques outperform classical tor trafﬁc classi
+ﬁcation algorithms alsabah et al  used a decision tree
+bayesian networks and naive bayes techniques for classifying
+tor network trafﬁc into two classes namely interactive trafﬁc
+eg browsing and bulk trafﬁc eg torrent downloading
+the purpose of their classiﬁcation was to improve the quality
+of service qos of the tor network in their twoway classi
+ﬁcation experiments they managed to achieve  accuracy
+and  improvement in tor responsiveness ling et al
+ proposed torward a malware detection and classiﬁcation
+technique for tor trafﬁc which improves the tor performance
+he et al  described a hidden markov model based on tor
+trafﬁc classiﬁcation schemes their presented model classiﬁes
+the tor trafﬁc into four categories namely pp ftp im and
+web with  accuracy
+unsupervised ml learning schemes such as gravitational
+clustering have been used for tor trafﬁc classiﬁcation and
+the results were compared with classic clustering schemes in
+ hodo et al  used artiﬁcial neural networks anns
+and support vector machines svms for binary classiﬁcation
+of the tornontor dataset and demonstrated  accuracy
+habibi et al  used decision trees knn and random forest
+techniques to perform binary classiﬁcation on the tornontor
+dataset pescape et al  proposed a trafﬁc classiﬁcation
+technique using multinomial naive bayes and random forest
+techniques
+b adversarial ml attacks
+since adversarial ml attacks have not yet been thoroughly
+explored in the networking domain we ﬁrst review their
+applications and effects in other domains deep ml tech
+niques especially dnns were demonstrated to produce the
+best classiﬁcation results in many application domains but
+they also learn counterintuitive and uninterpretable properties
+due to discontinuity in the learning process and generalization
+error  these counterintuitive properties can be exploited
+to form adversarial attacks that deteriorate the performance of
+dnn based classiﬁers
+goodfellow et al  proposed an adversarial perturbation
+generation method to fool dnn based classiﬁers called fast
+gradient sign method fgsm in fgsm an adversarial
+perturbation is calculated by computing the gradient of the cost
+function with respect to the input itself an extension of fgsm
+is proposed in  where fgsm was iteratively applied with a
+smaller step size to fool the dnn this method is known as the
+basic iterative method papernot et al  proposed a forward
+derivative based approach for crafting adversarial perturbations
+known as jacobian saliency map based attack jsma carlini
+et al  proposed three adversarial perturbation crafting
+methods for evading robust ml classiﬁers by exploiting three
+different distance matrices l l and l moosavi et
+al  proposed deepfool to evade ml classiﬁers where
+adversarial perturbations were generated through the iterative
+linearization of the classiﬁer transferability of adversarial
+ml examples such as logistic regression and svm has been
+studied in  where it is highlighted that svm is less
+prone to adversarial perturbation due to its training speciﬁcity
+and decision boundary learning process more details about
+adversarial ml attacks are described in   
+adversarial attacks on network trafﬁc classiﬁcation have not
+yet been covered duly in literature we will cover some general
+networking applications where basic adversarial ml research
+has been conducted in our previous work we have used
+fgsm bim and jsma based attacks to highlight the vulnera
+bility of using ml in cognitive selforganizing networks under
+whitebox settings ie the adversary knows details about
+training data training process and model architecture 
+corona et al  highlighted challenges an research opportu
+nities of adversarial attacks for network intrusion detection
+grosse et al  used the jsma attack to evade malware
+classiﬁcation generative adversarial networks ganbased
+blackbox adversarial ml attacks on malware classiﬁcation
+are presented in  where the condition of preserving the
+functional behavior was not ensured in this paper we propose
+an adversarial ml attack on network trafﬁc classiﬁcation
+considering blackbox settings ie the adversary does not
+have any knowledge about dnn training or architecture the
+adversary can only query the deployed model for labels in
+the next section we will provide the details of adversarial ml
+attack on tor trafﬁc classiﬁcation
+table i
+notation used
+symbol
+meaning
+f
+function learned by dnn
+x
+input trafﬁc sample
+y
+input trafﬁc sample label
+s
+substitute dnn model architecture
+sapprox
+trained substitute dnn model
+q
+synthetic trafﬁc samples
+y
+synthetic trafﬁc labels
+d
+synthetic dataset dictionary
+mi
+mutual information
+iii methodology
+in this section we describe the approach that we followed
+to design a blackbox adversarial ml attack on deep ml
+based tor trafﬁc classiﬁcation which is used as a proxy
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+to represent other network functional areas to the best of
+our knowledge no standardized deep mlbased tor trafﬁc
+classiﬁcation method has been proposed yet although as
+mentioned in section ii neural networks have outperformed
+other mldl techniques for tor trafﬁc classiﬁcation we
+utilize both dnns and svm for tortrafﬁc classiﬁcation we
+utilize the mutual information mi for crafting adversarial
+perturbations and substitute model training to perform the
+blackbox adversarial attack before discussing the design of
+the deep ml classiﬁer and the adversarial attack we describe
+the threat model and related assumptions
+a threat model
+in this subsection we delineate the threat model assump
+tions table i provides a summary of the notation used in our
+blackbox attack procedure
+ adversary knowledge the proposed attack in this paper
+only considers blackbox adversarial ml attack model where
+the adversary has no knowledge of training data number of
+layers in the model training hyperparameters type of layers
+and training data the adversary can only access the output
+of the deep ml model ie dnn in this case in a query
+response manner the adversary can send an input to the model
+and collect the label as a response these queryresponse pairs
+are later used for crafting an adversarial attack we assume that
+the adversary can only perform an adversarial attack during
+the test time other attacks such as poisoning attacks are not
+within the scope of this study
+ adversarial goals the goal of the adversary is to
+compromise the integrity and availability of the tor trafﬁc
+classiﬁer by minimally altering the test examples in adver
+sarial attacks on computer vision and natural language pro
+cessing applications the fundamental restriction on adversarial
+examples is to preserve the visual representation or semantic
+meaning of the image or text respectively this restriction is
+replaced with a more difﬁcult one in the context of networking
+where the adversary has to ensure that the applied adversarial
+perturbation does not affect the functional behavior of the
+network trafﬁc
+b tor classiﬁcation model
+in this work we use dnn and svm for tor trafﬁc
+classiﬁcation svm is a well known ml technique used for
+classiﬁcation and regression whereas dnns are wellknown
+for being capable of solving complex classiﬁcation tasks by
+extracting hierarchical representation from their input dnn
+consists of multiple layers of neurons smallest computational
+unit each layers output is the input of the next layer the
+nonlinear activation function is used to ensure that each
+neuron also learns nonlinear information the output layer of
+the dnn uses softmax as activation function to produce the
+classiﬁcation probability vector
+we use the dnn and svm classiﬁers for binary and multi
+class classiﬁcation where binary classiﬁcation is performed
+between tor and nontor trafﬁc and multiclass classiﬁcation
+is performed between different tor trafﬁc classes we used
+stochastic gradient descent with a batch size of  for
+training the classiﬁer we used a  ratio of the data
+figure  steps for designing a blackbox adversarial attack on network trafﬁc
+classiﬁcation processes through synthetic data generation substitute model
+generation and adversarial sample crafting
+for training and validation purposes we achieved  and
+ accuracy for binary class classiﬁcation using dnn and
+svm respectively for multiclass classiﬁcation we achieved
+ and  accuracy using dnn and svm respec
+tively classiﬁcation accuracy of both models can be improved
+by carefully choosing hyperparameters for dnn training
+c blackbox attack procedure
+in this subsection we delineate the procedure used to per
+form the blackbox adversarial ml attack on tor trafﬁc classi
+ﬁcation models the proposed adversarial attack is performed
+in two steps namely substitute model training and adversarial
+sample crafting figure  provides a detailed description of the
+process used to perform a blackbox adversarial attack on tor
+trafﬁc classiﬁcation
+ substitute model training according to the assump
+tions provided in iiia the adversary can only query the
+deployed mldl model f with synthetic input data q to
+get a label as a response y  these queryresponse pairs are
+then used for training a substitute model architecture s the
+goal in training s is to mimic the decision boundary of
+the deployed classiﬁer f this process is divided into two
+components namely substitute model architecture design 
+synthetic dataset collection and substitute dnn training on
+synthetic dataset
+substitute model architecture design and synthetic dataset
+collection are very challenging tasks since the adversary has
+no information about fs architecture and training process
+selection of appropriate architecture for s and training pro
+cedures are performed heuristically in our experiments we
+selected dnn as our substitute architecture the adversarial
+attack proposed in this paper is also applicable to other mldl
+architectures with some modiﬁcations to the training process
+the adversary can also train multiple mldl models to ﬁnd
+the besttrained substitute model sapprox substitute model s is
+trained using synthetic data samples q prepared by querying
+f for labels y  we used a moderate number of queries to
+develop synthetic data for training s initially the adversary
+sends queries to f from a set q of synthetic trafﬁc samples
+obtained by using tor and a regular browser to get labels y 
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+each query along with its response label is stored as a synthetic
+data pair in synthetic dataset dictionary d
+once we obtain a moderate amount of synthetic datain
+our case  queryresponse pairsthe substitute dnn is
+trained on this synthetic dataset binary cross entropy and
+categorical cross entropy loss functions are used in binary and
+multiclass classiﬁcation we utilized the stochastic gradient
+descent algorithm for training the substitute model s the
+complete training process is described in algorithm 
+algorithm  substitute dnn training
+input f s and q
+output sapprox and d
+initialize y  
+for all x q do
+y fx
+y y
+end for
+d  q y 
+sapprox  min
+s
+ld s
+return sapprox d
+d adversarial sample crafting
+once the substitute classiﬁer s is trained it is used to
+generate the adversarial attack since the adversary knows
+every detail about the trained substitute model sapprox it is
+very easy to generate an adversarial perturbation for sapprox
+to perturb sapprox an adversary needs to ﬁnd the most dis
+criminant feature and to slightly perturb it formally speaking
+an adversarial perturbation for network trafﬁc is an input that
+when added to the actual input does not lose its functional
+behavior but gets classiﬁed in a different class in our binary
+class classiﬁcation case a small perturbation in the tor sample
+will force the classiﬁer to classify tor sample in the nontor
+category
+we use mi mathematical notation ix y  for most
+discriminative feature detection for adversarial sample craft
+ing the mi ix y  is deﬁned as the measure of statistical
+dependence between two random variables the mi between
+two random variables x and y is given as
+ix y  
+x
+xy
+px ylogpx ypxpy
+to select the most discriminative feature from synthetic data
+d we calculate mi between each feature and label pair the
+top n n can vary between  to any moderate number of
+features while maintaining the functional behavior features
+having the highest values of mi are selected as the most
+discriminant features mi value of any feature also depicts
+its inﬂuence on the classiﬁcation procedure once the most
+discriminative features are selected they are perturbed sparsely
+using l norm minimization the perturbation is always kept
+less than  the adversarial sample crafting algorithm is
+provided in algorithm 
+once the adversarial examples crafted using the algorithm
+ have successfully evaded sapprox according to the adversarial
+ml transferability property  the adversarial examples
+evading the integrity of sapprox are highly likely to compromise
+the integrity of f in our experiments we evaluated the
+adversarial examples on f and the corresponding results are
+provided in section iv where for both binary and multiclass
+classiﬁcation the crafted blackbox adversarial examples have
+successfully evaded the deployed mlbased network tor
+trafﬁc classiﬁcation system
+for an adversarial attack to be practical in cognitive net
+working it is important that the original packets functionality
+is preserved even though the attacker is perturbing the packet
+with the intention of tricking the classiﬁer we assume that the
+perturbations can be reversed through a middlebox employed
+by the adversary or that the adversary uses the portions of
+packets for the perturbation that are otherwise unrelated to
+the packets functionality eg through extra padding or using
+unused control ﬁelds
+algorithm  adversarial sample crafting algorithm
+input sapprox dq y 
+output x
+initialize x  p   q   i  
+while arg maxsx  y st y y x q do
+mi compute ixi yi
+a p select topn mi values of target class
+b q select topn mi values of other class
+p compute arg min
+p p q
+δ  
+p 
+p
+for l   l do
+xal  xal  δl
+end for
+xx
+end while
+iv performance evaluation
+we conducted systematic experiments to evaluate the tor
+trafﬁc classiﬁer against proposed our proposed blackbox
+adversarial attack through our experiments we want to afﬁrm
+the hypothesis that the blackbox adversarial example crafting
+algorithm proposed in this paper allows us to successfully
+fool the mlbased tor trafﬁc classiﬁcation model in our
+experiments we consider dnn and svm based binary class
+and multiclass tor trafﬁc classiﬁers drop in accuracy is
+considered as a measure of success for the proposed black
+box adversarial sample crafting algorithm before discussing
+our experimental results we provide a brief description of the
+dataset used in our experiments
+a dataset
+we use the unbcic tor network trafﬁc dataset  to
+validate the proposed blackbox adversarial ml attack the
+dataset consists of two classiﬁcation categories namely a
+binary tornontor classiﬁcation and multiclass tor trafﬁc
+classiﬁcation for the binary tornontor classiﬁcation tor
+and nontor trafﬁc data samples are provided while for the
+multiclass classiﬁcation tor trafﬁc of  different applications
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+a dnnbased binary classiﬁer performance before and after
+attack
+b svmbased binary classiﬁer performance before and after
+attack
+c dnnbased multiclass classiﬁer performance before and
+after attack
+d svmbased multiclass classiﬁer performance before and
+after attack
+figure  performance of dnn and svm based binary and multiclass tor trafﬁc classiﬁers clearly highlighting the drop in the classifers accuracy due to
+the proposed blackbox attack
+namely
+browsing chat audio streaming videostreaming
+mail ﬁle transfer voip and pp is provided the trafﬁc
+samples were curated using wireshark and tcpdump all
+necessary information from the trafﬁc data has been extracted
+using iscxflowmeter  more details about the dataset
+used in this study can be found in 
+b results
+we conducted systematic experiments to evaluate the per
+formance of our adversarial attack on network trafﬁc clas
+siﬁcation using tor trafﬁc classiﬁcation as a proxy in our
+experiments we considered binary tornontor and multi
+class  different tor applications classes for the network
+trafﬁc only the top two most discriminant features were
+perturbed using l norm minimization and the perturbation
+was limited to being less than 
+in the binary classiﬁcation case tor vs nontor we
+achieved  and  classiﬁcation accuracy on the legit
+imate samples using dnn and svm classiﬁers respectively
+when the proposed blackbox adversarial attack was applied
+we observed a signiﬁcant drop in classiﬁcation performance
+we created  adversarial samples of tor trafﬁc when these
+adversarial samples were subjected to the binary classiﬁers
+we observed that the classiﬁcation accuracy of the dnn
+based classiﬁer has dropped from  to  and the
+svmbased classiﬁers accuracy has dropped from to
+ table ii presents the performance of the proposed
+blackbox adversarial sample crafting algorithm in the binary
+class classiﬁcation task highlighting the number of successful
+tor class adversarial samples figures a and b also
+depict the fscore recall and precision performance of the
+binary classiﬁers before and after the adversarial attack
+in the multiclass classiﬁcation case we employed the
+proposed blackbox attack to target the integrity of a single
+class ie chat for adversarial sample crafting algorithm
+we have considered chat vs nonchat classiﬁcation once
+the adversarial sample is crafted for chat class it is sub
+jected to a dnn and svm based multiclass classiﬁer this
+process also proves the transferability of adversarial examples
+in networking domain this experiment was performed to
+highlight that the proposed blackbox attack can also perform
+targeted attacks legitimate chat samples were classiﬁed
+with  and  accuracy by dnn and svm based
+classiﬁers respectively after the adversarial attack the clas
+siﬁcation accuracy of the same class has suffered a signiﬁcant
+drop for the dnnbased multiclass classiﬁer the accuracy
+dropped from  to  which is a drop of nearly 
+in performance conﬁrming our hypothesis that dnnbased
+network trafﬁc classiﬁers are very vulnerable to adversarial
+perturbations for the svmbased multiclass classiﬁer we
+observed a performance drop from  to  which
+is nearly a  drop in accuracy by only perturbing 
+trafﬁc features table iii provides the performance of proposed
+blackbox adversarial sample crafting algorithm in multiclass
+classiﬁcation highlighting the number of successful chat
+class adversarial samples figures c and d also depict
+the fscore recall and precision performance of the multi
+class classiﬁers before and after the adversarial attack
+our results highlight that the use of ml to realize net
+work functions comes with potential adversarial attack threats
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+table ii
+performance of proposed blackbox adversarial sample
+crafting algorithm in binary class tor traffic classification
+ml techniques
+number of adversarial
+samples crafted
+successfully misclassiﬁed
+adversarial samples
+dnn
+svm
+table iii
+performance of proposed blackbox adversarial sample
+crafting algorithm in multiclass classification chat class
+adversarial samples
+ml techniques
+number of adversarial
+samples crafted
+successfully misclassiﬁed
+adversarial samples
+dnn
+svm
+these adversarial attacks can cause serious damage to the
+performance of networked applications the design of more
+sophisticated blackbox adversarial attacks on network trafﬁc
+classiﬁcation using advanced statistical schemes is left for
+future work similarly the design of defense mechanisms
+against adversarial ml attacks to ensure robust mlbased
+network trafﬁc classiﬁcation is also left for future work
+v conclusions
+in this paper we proposed a method for performing a black
+box adversarial ml attack on network trafﬁc classiﬁcation we
+take the tor trafﬁc classiﬁcation as a proxy for network trafﬁc
+classiﬁcation and demonstrated that deep neural network based
+network trafﬁc classiﬁcation schemes are very vulnerable to
+small carefully crafted perturbations in the test inputs our
+results also indicate that deep machine learning techniques
+especially deep neural networks do not provide any deterrence
+against adversarial perturbations and utilizing such techniques
+in networked applications can introduce new security risks to
+networking applications and infrastructure

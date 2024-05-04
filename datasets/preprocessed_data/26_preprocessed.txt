@@ -1,0 +1,855 @@
+jade datadriven automated jammer detection
+framework for operational mobile networks
+caner kilinc mahesh k marina muhammad usama salih ergut jon crowcroft tugrul gundogdu
+ilhan akinci
+the university of edinburgh the alan turing institute turkcelluniversity of cambridgeoredata
+abstractwireless
+jammer
+activity
+from
+malicious
+or
+malfunctioning devices cause significant disruption to mobile
+network services and user qoe degradation in practice detection
+of such activity is manually intensive and costly taking days and
+weeks after the jammer activation to detect it we present a
+novel datadriven jammer detection framework termed jade
+that leverages continually collected operatorside celllevel kpis to
+automate this process as part of this framework we develop two
+deep learning based semisupervised anomaly detection methods
+tailored for the jammer detection use case jade features further
+innovations including an adaptive thresholding mechanism and
+transfer learning based training to efficiently scale jade for
+operation in realworld mobile networks using a realworld g
+ran dataset from a multinational mobile network operator we
+demonstrate the efficacy of proposed jammer detection methods
+relative to commonly used anomaly detection methods we also
+demonstrate the robustness of our proposed methods in accurately
+detecting jammer activity across multiple frequency bands and
+diverse types of jammers we present realworld validation
+results from applying our methods in the operators network
+for online jammer detection we also present promising results
+on pinpointing jammer locations when our methods spot jammer
+activity in the network along with cell site location data
+i introduction
+jamming is the intentional interference aimed at disrupting
+wireless communications services and as such can be seen as
+a denial of service dos attack   the use and sale
+of jamming devices commonly referred to as jammers is
+therefore illegal in many countries eg   and any
+violations may result in imprisonment or fines eg  
+nevertheless jammers targeting all wireless communications
+technologies continue to be widely available and in fact
+quite affordable see  for example the threat posed
+by jammers to robust wireless communications including
+on mobile networks is expected to become worse in the
+future with lowcost and opensource softwaredefined radio
+sdr platforms becoming easily available to arm malicious
+actors 
+in this paper we consider jamming in operational mobile
+networks and in particular focus on the problem of detecting
+jammer activity in this context the activation of jammers can
+severely deteriorate the service quality in a mobile network
+fig  shows the impact on selected celllevel key performance
+indicators kpis due to the presence of a jammer using
+data from an operational g network we observe that the
+jammer activation effectively shuts down the network for users
+forcing uplink ul and downlink dl traffic volumes and
+throughputs down to nearzero the levels of received signal
+strength indicator rssi can also be elevated by over db
+x increase with a jammer these results highlight the
+potential risk posed by jammers to the robustness of mobile
+networks this applies not just to currently deployed g and
+g networks that the society heavily relies on for personal
+mobile communications emergency response systems and
+public safety networks but also for future g networks that
+aspire to support diverse use cases including ultrareliable and
+lowlatency communications services eg connected vehicles
+remote surgery
+the jammer detection in current practice however is
+a highly manual process that is costly and slow resulting
+in degradation in user quality of experience qoe while
+the jammer induced interference is detected and resolved
+when significant service quality deterioration or network
+outage is noticed which may be prompted by user reporting
+radio network engineers manually examine large volumes
+of multidimensional network kpi data to diagnose the
+problem which may also require field testing moreover
+when jammer activity is intermittent it can be perceived as
+a radio network problem and result in misguided network
+reconfigurationsoptimizations thus in current operational
+mobile networks according to the operators themselves it
+may take days or weeks after the jammer activation for it to
+be detected this suggests that jammer detection is a perfect
+use case for automation in mobile networks that can not only
+lead to savings in operating expenditure opex costs for
+operators but also enhance user qoe jammer detection is
+also the first step that can enable further troubleshooting to
+identify and pinpoint the interference source
+in view of the above we aim at automated jammer detection
+for operational mobile networks that can automatically and
+quickly detect jammer deactivations then trigger alarms to
+kickstart downstream resolution processes while this clearly
+involves reliable detection of all kinds of malicious jammers
+we also aim to detect the operation of other unintentional
+interference sources eg malfunctioning devices dect
+phones that can cause jammerlike impact on the network
+achieving this goal however is hard as it requires addressing
+the following challenges
+ any available groundtruth label information on jammer
+activations to build an automated detection system may
+be limited to small parts of the network andor short
+periods of time due to the scale of the task and manual
+nature of the process so practical jammer detection
+  ieee
+ieee infocom   ieee conference on computer communications    ieee  doi infocom
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  impact of jammer presence on three celllevel kpis
+a uldl traffic volumes b uldl throughputs and c
+uplink rssi
+methods need to generalize well to be applied to bulk
+of the data that is unlabeled
+ jammers can have very diverse behaviors some jammers
+once activated may stay continuously active while others
+exhibit complex discontinuous activation patterns they
+also differ from each other in their type eg military
+drone specific jammer dect phone the networks
+eg g g and frequency bands they target in our
+realworld dataset we have encountered jammers that
+can affect as many as ten different frequency bands
+moreover newer types of jammers with a priori unknown
+characteristics can emerge over time
+ jammer related activity needs to be disambiguated
+from network kpi dynamics induced from normal and
+expected behavior eg due to user mobility network
+overload but this can be challenging for example with
+active but distant jammers
+to this end we present jade which to the best of our
+knowledge is the first automated jammer detection framework
+for operational mobile networks by treating jammer activity
+as abnormal or anomalous from the mobile radio access
+network ran infrastructure side jade approaches jammer
+detection as an anomaly detection problem  jade is
+envisioned for operator side deployment and considers cells at
+each tower site as measurement vantage points it continually
+monitors the time series of various kpis at each of these cells
+to detect anomalous behavior over time
+at the core of jade are two deep learning based time
+series anomaly detection methods that we developed they work
+with multivariate kpi data at each cell in the first method a
+multivariate long short term memory lstm neural network
+model tracks the variation of uplink rssi observed at each
+cell to predict its future value and detects an anomaly jammer
+activation when the difference between the predicted and
+the actual value is more than a threshold the second method
+models multivariate kpi time series using a lstm autoencoder
+model and the associated reconstruction error over time is
+compared against a threshold to detect jammer activation
+to address the several challenges outlined above ie limited
+labeled data ability to detect new and a priori unknown
+jammer activity discrimination of jammer activity from normal
+kpi dynamics jade operates in a semisupervised anomaly
+detection mode  in that it relies only on normal data
+for training the above outlined models this jammer agnostic
+nature of jade also makes it robust for detecting jammers
+that may exhibit adversarial behaviors jade also embeds a
+mechanism to adaptively set thresholds to detect anomalies
+thereby adjust the boundary between normal and abnormal
+events to efficiently support the detection of jammers at
+scale in realworld mobile networks across multiple cells and
+operating frequency bands we employ transfer learning 
+to develop one frequency and cell agnostic model instead of a
+different model for each cell and frequency band
+in summary we make the following key contributions
+ we propose jade a novel datadriven jammer activity
+detection framework for operational mobile networks
+iii which addresses this problem for the first time
+it incorporates two alternative customtailored semi
+supervised deep learning based anomaly detection
+methods for the jammer detection task along with an
+adaptive thresholding mechanism jade also leverages
+transfer learning towards efficient modeling and ease of
+deployability
+ we extensively evaluate the jade framework using a g
+radio access network ran dataset from a multinational
+mobile network operator iv
+ our results show that the anomaly detection methods
+developed for jade outperform a wide range of
+commonly used anomaly detection methods when
+applied to the jammer detection task and also confirm
+the effectiveness of jades adaptive thresholding
+mechanism
+ we
+demonstrate
+the
+robustness
+of
+the
+jade
+framework powered by transfer learning in accurately
+detecting jammer activity across multiple frequency
+bands and diverse types of jammers
+ we also present realworld validation results by
+applying our methods in the operators network for
+online jammer detection
+ as a downstream use case of jade we consider
+jammer localization specifically we demonstrate the
+potential for pinpointing jammer locations based on
+jammer activity detections in the mobile network
+using jade and combining them with cell site
+location data
+next section describes our datasets and evaluation metrics
+ii preliminaries
+a datasets
+a unique and noteworthy aspect of our work is the use of
+real g ran datasets from a multinational mobile network
+operator for our evaluations overall these datasets outlined
+below consist of about a million samples of radio network kpis
+measured at an hourly time resolution over several months
+training dataset this dataset contains normal data
+collected during periods with no jammer activation which
+is verified manually by the radio engineers from the operators
+network it is used for training the two semisupervised anomaly
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+detection methods we developed as part of the proposed
+jade framework this dataset consists of around 
+measurement samples in total that were collected over a period
+of three months from  different cell tower sites hosting 
+distinct cells operating over five lte uplink frequency bands
+ mhz  mhz  mhz 
+mhz and  mhz each sample is a timestamped
+at hourly granularity tuple of  different radio network kpis
+measured at a cell uplink and downlink traffic volumes
+mb average uplink and downlink user throughputs at
+pdcp layer mbps average uplink rssi dbm eutran
+radio access bearer erab setup success  evolved
+radio access bearer erab drop  lte random access
+channel rach success  and voice over lte volte
+drop 
+testing dataset in contrast to the training dataset this
+dataset corresponds to periods with jammer activation events
+specifically it is made up of three subdatasets each
+corresponding to a different jammers activity over a  week
+period these three jammers are arbitrarily named by the
+operator as j j and j among these j affects three
+frequency bands  mhz  mhz 
+ mhz and has a discontinuous onoff activation pattern
+on the other hand j and j have continuous activation
+patterns which means once activated they stay active until
+they are switched off j and j operate on  mhz
+and  mhz bands respectively all these three sub
+datasets are manually labeled by radio network engineers from
+the operator with groundtruth on jammer activeabsent for each
+sample these groundtruth labels are key to our study in that
+they enable evaluation of different jammer detection methods
+considered in this paper overall the testing dataset consists of
+ samples with groundtruth annotated kpi data kpis
+captured in each sample are same as in the training dataset
+each of the three subdatasets contain data for at least  cells
+for the above datasets we have conducted preprocessing
+steps to impute missing values with the average of neighboring
+values
+and
+normalized
+each
+kpi
+value
+via
+minmax
+normalization we did further feature extraction based on
+the timeseries of the above listed kpis following a similar
+methodology to the one in  which led to  features in
+all besides the datasets described above the proposed jade
+framework and constituent jammer detection methods are
+validated through trials on the operator side in ivc we
+present results for two additional different jammers labeled
+j and j encountered during the field trial period in the
+case study on jammer localization based on jammer detection
+events ivd we also use the groundtruth location data
+for j j and j jammers along with the location data
+of surrounding cell tower sites from the operator to assess
+jammer localization accuracy
+b evaluation metrics
+here we describe our metrics to evaluate the various jammer
+detection methods developedconsidered in this paper these
+fig  relative importance of different features kpis for the
+random forests based classifier
+metrics are defined in terms of four possible outcomes that can
+result from applying a jammer detection method which are
+ truepositive tp jammer activity detected when such
+activity is actually present as per the groundtruth
+ falsepositive fp jammer activity detected when in fact
+there is no jammer activity
+ truenegative tn jammer activity not detected when
+jammer activity is absent as per the groundtruth
+ falsenegative fn jammer activity not detected even
+though jammer is actually active
+an effective jammer detection method minimizes both fps
+and fns two commonly used measures to assess the extent
+to which a given method achieves these goals are precision
+and recall as defined below
+precision 
+tp
+tp  fp
+recall 
+tp
+tp  fn
+higher values for both these metrics are desired a lower
+value of precision equivalently a higher number of fps leads
+to an increase in opex to diagnose confirm and localize
+jammer activity eg by field visits and testing when in
+reality there is none on the other hand a lower value of recall
+equivalently a high number of fns shows that the method
+in question fails to detect all jammer activation events and
+thus risks prolonged degradation of user qoe until the jammer
+activity is eventually detected and stopped given the above
+having high precision and high recall are equally important
+as such we consider a composite metric called fscore that
+weighs precision and recall equally by taking a harmonic mean
+of the two as defined below
+fscore 
+p recision 
+recall
+iii the jade framework
+in this section we describe our proposed jade framework
+for datadriven automated jammer detection in operational
+mobile networks in detail by way of motivation we start by
+examining the limitations of commonly used jammer detection
+approach based on supervised classification thereby highlight
+recall is sometimes also referred to as sensitivity or true positive rate
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+a challenge that an effective jammer detection method design
+needs to address
+a limitations of supervised binary classification approach
+a straightforward approach to jammer detection is to treat
+it as a supervised binary classification problem in fact most
+recent works on jammer detection  though aimed at
+ networks take this approach and show random forests
+rf  to be the most effective classifier here we assess
+the effectiveness of supervised binary classification approach
+towards jammer detection in operational mobile networks
+considering rf as the classifier
+since we need a labeled dataset for training and testing
+with supervised classification we use one of our testing sub
+datasets for the j jammer outlined in section iia for this
+study each sample in this dataset is a tuple kpi data labeled
+as jammer activeabsent the dataset overall spans over 
+cells across three different frequency bands  cells in 
+mhz  cells in mhz and  cells in 
+mhz it is a fairly balanced dataset with  
+jammer active inactive samples we do a  split of this
+dataset to create training and test data for the rf based binary
+classifier which leads to a test set with  cells in 
+mhz  in mhz  in mhz
+we first use the rf feature importance  test to examine
+the relative importance of the different features from the
+classifiers perspective with the results shown in fig  we
+find that the average uplink rssi is the most important
+feature followed by uldl traffic volumes and throughputs
+interestingly the percentage of volte drops has the least
+predictive effect on the classifier perhaps because call drops
+could happen due to a myriad of factors beyond the jammer
+presence eg due to network overload or coverage issues
+fig  shows the box plot results for precision recall and f
+score metrics separately for each frequency band where the j
+jammer operates with each box plot capturing the distribution
+for the metric across different cells we observe that precision
+and recall values are less than ideal and range between 
+ and  respectively the relatively lower recall
+results indicate that this supervised classifier method errs more
+towards missing some jammer activation events than causing
+false alarms the combined effect measured by fscore is
+worse with a median value between  and 
+crucially this poor classification performance is noticed for
+cases with fewer cells and less data in the training dataset
+this highlights a key issue with supervised classification based
+approach to jammer detection  more and diverse labeled
+data is needed compared to getting normal class data it is
+difficult and very costly to produce a large and diverse labeled
+dataset with jammer activation events more data can be
+available for normal periods as reflected by our datasets
+where  samples or at least  of the total data is for
+the normal category but supervised classifiers fail to take
+advantage of such data
+fig  precision recall and fscore performance of random
+forests based supervised binary classifier
+b jade overview
+the foregoing discussion not only highlights limitations
+with the supervised classification based approach but a key
+challenge to be addressed in jammer detection method design
+ie limited or no data labeled with jammer effect another
+challenge is that there exist numerous types of jammers and
+each has its own different characteristics and impact on mobile
+network performance eg due to affecting different sets of
+frequency bands gathering training data that represents all
+jammer types is simply impractical moreover identifying the
+decision boundary between normal network behavior and that
+affected by jammer activity through the radio network kpis is
+challenging due to the inherent kpi dynamics
+our proposed jade framework illustrated in fig 
+addresses the above challenges jade is envisioned for operator
+side deployment and considers cells at each tower site as
+measurement vantage points to aid in online jammer detection
+it relies on continual monitoring of time series of various kpis
+at each of these cells and collecting this data at the operator
+ran data lake facility this data is then preprocessed to address
+issues such as missing values by imputing with neighboring
+ones before putting it through the jammer detection pipeline
+in jade
+jade approaches jammer detection in an operational mobile
+network as a timeseries anomaly detection problem 
+by considering that jammer activity manifests as abnormal
+or anomalous in the time series of radio network kpis
+to address the aforementioned challenges jade adopts the
+semisupervised form of anomaly detection  by solely
+relying on and leveraging potentially abundant normal data
+for model training this also makes jade independent of
+the type and behavior of a jammer thereby enabling robust
+detection across diverse types of jammers at the core of jade
+are two alternative deep learning based anomaly detection
+models besides jade incorporates an adaptive mechanism
+for these models to set thresholds that represent the boundary
+between normal and anomalous samples also rather than
+have a separate anomaly jammer detection model per cell or
+frequency band jade employs transfer learning  towards
+one cell and frequency band agnostic model we elaborate on
+the above components of jade in the following subsections
+c deep learning models for celllevel anomaly detection
+here we describe the two anomaly detection based models
+we develop as part of jade for jammer activity detection
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  illustration of the jade framework
+ autoencoder ae  based model  rssi prediction
+based model both these models operate at the cell level and
+take multivariate time series data for radio network kpis as
+input but aim to detect anomalous samples in the time series
+through different approaches as elaborated below since we
+are dealing with timeseries data we use lstm  cells in
+the architecture of both models
+ autoencoder ae based anomaly detection model
+fig a illustrates the proposed lstm autoencoder based
+model that takes multivariate time series as input the core
+idea is to encode each input sample using an lstm network
+and decode it using another lstm network anomaly detection
+relies on the inability to faithfully decode the input sample
+with a sufficient amount of training data ie normal samples
+the ae model learns to reconstruct the normal samples the
+reconstruction error for normal samples will therefore be lower
+compared to the reconstruction error of samples in the presence
+of a jammer
+as mentioned above the ae model has two components an
+encoder and a decoder the encoder represents the input sample
+in the latent space whereas the decoder aims to reconstructs
+the latent domain back to the input sample the encoder in
+our model consists of four layers the number of lstm cells
+in the first layer is equal to the number of features in the input
+sample while the following three layers have   and 
+lstm cells respectively then the decoder reconstructs the
+input sample from the dimensional latent space the decoder
+also consists of four layers where the number of lstm cells
+in its first three layers are   and  respectively the
+number of lstm cells in the last layer of the decoder equals
+the input sample size in terms of features to the ae model
+we use mean squared error mse as a loss function and
+trained the model for  epochs for every cell in the training
+dataset we empirically optimize the hyperparameters with
+grid search
+ we use rmsprop as an optimizer and
+relu as an activation function with a batch size of  since
+the network kpis have inherent noise and variations we did
+not introduce any additional noise in the input of the ae
+towards better generalization
+ rssi prediction based anomaly detection model we
+now present an alternative anomaly detection model for jammer
+activity detection that focuses on predicting the uplink rssi
+over time considering that this kpi is seen to be the most
+fig  a autoencoder based anomaly detection model b
+rssi prediction based anomaly detection model
+important feature in our earlier study on supervised binary
+classification based jammer detection fig  the essential
+idea here is to train a timeseries prediction model that takes
+as input multivariate time series of kpis and predicts the rssi
+for each following time step the prediction error is expected
+to be low for normal samples as the model is trained with
+data consisting of such samples but the presence of jammer
+activity can yield higher prediction errors which can then be
+identified as anomalies jammer activation events
+fig b illustrates our rssi prediction based anomaly
+detection model which leverages the stateoftheart lstm
+based time series prediction model architecture our model
+consists of four lstm layers the input layer three hidden
+lstm layers and one fully connected output layer the lstm
+cells in the input layer are equal to the number of features in
+each input sample the following three hidden layers have 
+ and  lstm cells respectively the output layer is a fully
+connected dense layer with a single neuron that outputs rssi
+predictions specifically our model predicts the rssi for the
+following  time steps based on multivariate kpi time series
+for the past  time steps along a moving window like in the
+ae model the hyperparameters are experimentally optimized
+with grid search relu is used as an activation function and
+the batch size is 
+ single and multikpi models we consider two variants
+of the above described models
+ single kpi model that considers only one kpi specifically
+rssi in essence ae and rssi prediction versions of this
+model deal with rssi kpi time series note that each sample
+in the input time series to these models is multivariate with
+ different features due to feature extraction during data
+preprocessing
+ multikpi model that considers all  kpis in our dataset
+including other kpis like uplinkdownlink throughput and
+rach success rate this is naturally a multivariate time series
+with  features in each sample of the input time series again
+due to the feature extraction step
+these single and multikpi models allow us to understand
+the added benefit of considering the various different kpis
+beyond just the uplink rssi
+d adaptive thresholding
+the two anomaly detection models described in the previous
+subsection produce a reconstructionprediction error for each
+new sample in a cell kpi time series but to detect whether
+that sample is an anomaly due to jammer activity or other such
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  representative result showing the performance gain
+with our grubbs test based adaptive thresholding approach
+compared to the stateoftheart nσ approach
+interference we need a threshold error level representing the
+boundary between normal and anomalous samples correctly
+setting this threshold is equally key to effective jammer
+detection it can be seen as deciding the tradeoff between
+fp and fn probabilities
+different approaches are taken for this thresholding in the
+literature some works do this manually relying on human
+expert feedback to setadapt thresholds eg  but
+this is unviable in our setting feng et al  simply use the
+median reconstruction error as the threshold which is again not
+robust most recent wireless anomaly detection works however
+approach this thresholding by assuming that errors are generated
+from a gaussian distribution some of these works 
+set the threshold based on a desired fp probability which is
+not appropriate in our setting as we also would like to have
+equally good precision and recall performance
+other works  adopt a nσ thresholding approach
+for some small value of n where σ is the standard deviation
+of the error distribution this essentially means that a sample
+is considered an anomaly if its error reconstructionprediction
+error in our case is more than nσ away from the mean of
+the error distribution obtained using normal training data
+while the reconstructionprediction errors across all samples
+in the training data also follow a gaussian distribution in
+our case results not shown due to space limit we find the
+nσ thresholding approach is not robust in our setting as we
+show shortly we observe that this is because of the diversity
+among cells and so the impact of a jammer on those cells is
+also different there also exist other works eg  that
+empirically obtain a fixed threshold
+we instead take a tailored adaptive thresholding approach
+on a per cell basis by examining the time series of
+reconstructionprediction errors in each cell to detect
+anomalies our proposed approach to this issue can be seen as
+an adaptation of grubbs test  for single outlier detection
+in univariate data note that the data for thresholding purposes
+refers to either reconstruction or prediction errors depending on
+the anomaly detection model used and it is therefore univariate
+in the following we describe our proposed thresholding
+method
+we start by defining two hypotheses h there are no
+outliers in the data and h there is exactly one outlier in
+the data we also define grubbs test statistic to be calculated
+fig  average rssi distribution across cells using different
+uplink frequency bands
+for each new data error sample yi
+g_calc  maxyi y 
+s
+where y and s respectively represent the mean and standard
+deviation of the error data samples considered for outlier
+detection based on the above we detect an outlier yi or
+equivalently reject the null hypothesis h hypothesis of no
+outliers if the calculated test statistic is greater than a critical
+value as defined on the right hand side of the equation below
+g_calc  n 
+n
+s
+tαnn
+n   tαnn
+where n is the number of training error samples considered
+initially t refers to the tdistribution and α is the significance
+level related to the desired confidence interval if on the
+other hand g_calc is less than or equal to the critical value
+then we conclude there is no outlier in the set of n samples
+we bootstrap the above statistic calculation with a series
+of n error samples ϵ from the training data and view it as
+a window then when we apply an anomaly detection model
+one of the two from the previous subsection to each new
+sample in the radio network kpi time series for a cell we
+slide the window and include the new error sample ϵnew to
+recalculate the statistic if it is greater than the critical value
+the new error sample corresponds to an outlier anomaly and
+so we undo the window sliding to ignore ϵnew otherwise
+ϵnew is now part of the set of error samples considered for
+outlier detection in this work we set α to  equivalent to
+ confidence interval and empirically set n to 
+fig  demonstrates the effectiveness of our above described
+grubbs test based thresholding approach with the nσ
+approach for different typical values of n   and  for
+the j ul  mhz test dataset and using the
+multikpi rssi prediction based anomaly detection model
+box plots reflect the distribution of each metric across all cells
+in this dataset these results clearly any single static threshold
+is not effective generally while our adaptive approach always
+yields the best performance we have observed similar
+performance improvement with our approach with the other
+test datasets omitted due to space limitations
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  relative performance of ad models in jade on the
+j ul  mhz test dataset
+e transfer learning
+our proposed solution for detecting jammer activity via
+anomaly detection model with adaptive thresholding approach
+thus far implicitly considered a single cell scenario in
+practice however each cell tower site hosts multiple cells
+possibly configured on different frequency bands moreover
+an operators network deployment may have thousands of such
+cell sites but training and maintaining a per cell or even per
+frequency band anomaly detection models is not scalable from
+a deployment perspective
+we therefore aim at a single cell and frequency agnostic
+anomaly detection model one per each alternative discussed
+in iiic we cannot however base such a model by training
+it on single cell or even single frequency band as different
+cells and frequency bands have diverse behavior in terms of
+radio network kpis and jammer effect for example the rssi
+distributions across cells on different uplink frequency bands
+shown in fig  clearly highlight such diversity so we train
+our target cell and frequency agnostic model using normal
+data from different cells and frequency bands to make this
+training efficient we leverage transfer learning tl 
+specifically we train the cell and frequency agnostic model
+as follows we start with a frequency band and a cell within
+that band once the model is trained with data for that cell we
+treat that as the start point for training on a different cell from
+the same frequency band reusing the already trained models
+weights as opposed to starting from scratch once the model
+is trained across all cells of a frequency band then it is used
+as the base model for training on cells for another frequency
+band we repeat this process until we cover all frequency bands
+and cells in the training data which ultimately results in the
+frequency and cell agnostic model
+iv evaluation
+in this section we evaluate the performance of the proposed
+jade framework using the operator provided g ran datasets
+described in iia in terms of the precision recall and fscore
+metrics defined in iib
+a comparative evaluation of anomaly detection methods
+in the previous section we have already presented evaluation
+results that show the effectiveness of the adaptive thresholding
+mechanism in jade here we evaluate the different anomaly
+fig  performance of baseline ad methods on the j ul
+  mhz test dataset
+detection ad model alternatives in jade relative to
+commonly used ad methods  
+recall from iiic that the jade framework offers four
+different ad models ae and rssi prediction based models
+each with single and multikpi versions we train these models
+using the training dataset iia we evaluate using the j
+ul  mhz part of the testing dataset for
+comparison we consider five diverse and commonly used
+ad methods zscore local outlier factor oneclass svm
+robust covariance and isolation forest to make these baseline
+methods work with our multidimensional kpi data we use
+principal component analysis pca  based dimensionality
+reduction to represent the dataset in twodimensional space
+fig  shows the performance comparison between the four
+jade ad models we observe that the multikpi version of ae
+based ad model performs worse than the other three models
+especially in terms of recall however the single kpi version
+specifically rssi of the ae model relatively performs much
+better we attribute this to the characteristics of kpis other
+than rssi that allow reconstruction even in jammer presence
+resulting in some jammer activations going undetected rssi
+prediction based ad models both perform well with higher
+than  values in all three metrics the multikpi version
+of rssi prediction based model offers the best performance
+overall which suggests that considering all kpis is beneficial
+although marginally relatively the baseline methods perform
+quite poorly with values for all metrics less than  which is
+no better than the random guess based on the known probability
+of jammer activation events in the test dataset as prior fig 
+these results provide a convincing justification for developing
+tailored ad methods for kpi based jammer detection as we
+do in jade
+b robustness across diverse frequencies  jammer types
+so far we have considered the jade performance on one
+uplink frequency band j ul and with jammer type
+j here we evaluate across different frequency bands
+and jammer types to assess its robustness for this study
+we consider the best performing model from the previous
+experiment as the jade ad model  the multikpi version
+of rssi prediction based ad model
+we first compare the jammer detection performance between
+frequencyspecific and frequencyagnostic versions of the
+chosen jade ad model on different frequencies that j
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  the performance of multikpi version of rssi
+prediction based ad model in jade on different j frequency
+bands comparing tl based frequencyagnostic model with
+frequencyspecific models
+fig  training time gain from using tl to train the frequency
+agnostic multikpi rssi prediction based ad model
+jammer operates on the frequencyagnostic version is obtained
+with tl based training as described in iiie results shown
+in fig  indicate that the frequencyagnostic model though
+marginally worse than its frequencyspecific counterparts yields
+greater than  value for all metrics in more than  of the
+cells the training time from using tl relative to not using it
+is shown in fig  which clearly demonstrates the training
+efficiency gain that tl provides
+to study robustness of jade jammer detection performance
+we apply the tl based frequencyagnostic model as in the
+previous experiment on j and j parts of the testing dataset
+results shown in fig  clearly confirm the effectiveness
+of jade for these other jammer types the root of the
+robustness property of jade lies in its design choice to rely
+on semisupervised form of anomaly detection training only
+on normal data
+c field validation
+so far our evaluation of jade performance was based on
+operator provided data labeled with groundtruth on jammer
+activity ie the testing dataset in iia we now present
+results validating jade performance in the field at the operator
+side for this purpose we provided the radio network engineers
+at the operator with the implementation of jades tl based
+frequencyagnostic ad model as in the last experiment it was
+used to reliably detect a different type of jammer j with
+discontinuous activation pattern as shown in fig 
+jade was also used at the operator side to detect a military
+grade jammer j targeting different uplink frequencies due
+to the complex nature of this jammer activity it was not
+practical like with j to manually label the groundtruth
+by the operators radio engineers nevertheless we visually
+demonstrate in fig  how jade is able to detect jammer
+activity on a sample cell affected by this jammer during the
+fig  the performance of tl based frequencyagnostic
+jade ad model on j and j part of the testing dataset
+fig  operatorside field validation with j jammer
+field trial period jade was also used to detect jammerlike
+activity that was eventually diagnosed to be due to a hardware
+related problem see fig  which shows the versatility of
+our jade approach to detect both intentional and unintentional
+interference behavior affecting mobile network operations
+d jammer localization case study
+here we briefly discuss a case study for jade on jammer
+localization the idea is to use the jammer detection results with
+jade in conjunction with cell site location data to estimate a
+jammers location jammer localization is a kind of transmitter
+localization problem as cell sites surrounding a jammer detect
+its activity with jade as receivers and it can be localized
+based on sensed signals at those sites
+as our purpose here is not on jammer localization algorithm
+design per se but rather on showing the usefulness of jade for
+such downstream task we consider three most commonly used
+transmitter localization algorithms  max rssi centroid and
+weighted centroid with max rssi the location of the cell site
+where jammer is detected with max rssi is taken as jammers
+location estimate with weighted centroid rssi weighted
+geometric center of cell site locations that detect the jammer
+is estimated as the jammer location we use the groundtruth
+jammer locations provided by the operator to calculate location
+estimation errors as euclidean distance between groundtruth
+and estimated locations
+fig a shows the obtained results for j j and j
+jammers in our testing dataset while fig b zooms in on
+the results for j case even with these commonly used
+localization algorithms we find that jammers can be localized
+within a few hundred meters of the groundtruth which is
+sufficient in practice for radio engineers to pinpoint the source
+of jamming activity between the three jammers considered
+j is located in the country side with sparser mobile network
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+fig  detection of j military jammer activity on a sample
+cell with jade
+fig  detection of hardware induced interference with jade
+during the field trial period
+infrastructure explaining the relatively higher localization
+errors
+v related work
+in
+the
+last
+decade
+wireless
+jamming
+has
+received
+considerable attention in the research literature the earlier
+work surveyed in   mainly focused on jamming in
+the context of ad hoc and sensor networks and  based
+wireless lans and multihop networks a significant early
+work  considers jamming in sensor networks considering
+ networks  examines local and collaborative
+detection methods while  focus on distinguishing different
+types of jamming attacks more recent works in this
+line of research focus on machine learningbased jammer
+detection    with most of them taking a
+supervised classification approach and concluding that the
+random forest method performs the best
+closer to our target setting jamming in mobile networks
+specifically glte is considered in    in
+contrast to our focus on jammer detection in operational
+mobile networks these works concentrate on highlighting
+vulnerabilities of the lte system to jamming attacks and
+proposing mitigation methods  also presents a threat
+assessment of the lte system that identifies the weakest
+points in its physical phy layer while   observe
+that jamming the uplink is more effective for an attacker than
+the downlink due to the relatively lower transmission power
+limit for lte ues in the former
+we are unaware of any previous work that leverages
+kpi data to detect jammers in mobile networks by treating
+them as anomalies or otherwise but there exist works in
+mobile networks and beyond that use kpi data for anomaly
+detection    while   are focused on
+mobile networks augmented with selforganising network
+son features opprentice  targets anomaly detection
+in the context of internetbased service delivery  
+advocate the use of supervised classification for anomaly
+detection based on ensemble methods specifically random
+forest in opprentice  and manual labeling to address
+the groundtruth issue on the other hand  uses a simple
+zscore  like statistical method to detect anomalies at the
+fig  a jammer localization errors with different algorithms
+b location estimates for j jammer
+kpi level and then uses correlation among kpi anomalies
+to determine celllevel anomalies absence  is another
+broadly related work that detects service disruptions in mobile
+networks using anonymized call detail record cdr data the
+essential idea here is to monitor spatiotemporal customer usage
+based on anonymized cdrs and identifying deviations from
+historical usage as anomalies
+also broadly related is the recent work on deep learning
+based rfspectrum anomaly detection from the spectrum
+monitoring perspective   to detect unauthorized
+transmissions misconfigured transmitters etc in contrast to
+these works the anomaly detection methods we develop rely
+on celllevel kpi data and are tailored for automated and
+scalable jammer detection in operational mobile networks our
+work is also unique due to the use of an operator provided
+g network dataset for evaluations and realworld validations
+vi conclusions
+we have presented jade an online framework for jammer
+activity detection in operational mobile networks at its core
+the jade framework consists of deep learning based semi
+supervised anomaly detection models that solely rely on
+normal training data also jade incorporates an adaptive
+mechanism for addressing the thresholding issue for celllevel
+anomaly detection moreover the jade framework utilizes
+transfer learning to enable itself to scalably work across
+many cells and multiple frequency bands we have evaluated
+the jade framework on a g ran dataset provided by a
+multinational mobile network operator with jammer activation
+events labeled for different types of jammers field validation
+is also conducted and it shows the effectiveness of the jade
+framework in the wild lastly we also provide promising results
+on the use of jammer detections from jade for localization
+of jammers along with cell site location data

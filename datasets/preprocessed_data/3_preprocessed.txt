@@ -1,0 +1,176 @@
+blackbox adversarial ml attack on modulation classification
+muhammad usama
+muhammadusamaituedupk
+information technology university
+punjab pakistan
+junaid qadir
+junaidqadirituedupk
+information technology university
+punjab pakistan
+ala alfuqaha
+aalfuqahahbkueduqa
+hamad bin khalifa university qatar
+abstract
+recently many deep neural network dnn based modulation clas
+sification schemes have been proposed in the literature we have
+evaluated the robustness of two famous such modulation classifiers
+based on the techniques of convolutional neural networks and long
+short term memory against adversarial machine learning attacks
+in blackbox settings we have used carlini  wagner cw attack
+for performing the adversarial attack to the best of our knowledge
+the robustness of these modulation classifiers have not been evalu
+ated through cw attack before our results clearly indicate that
+stateofart deep machine learning based modulation classifiers are
+not robust against adversarial attacks
+keywords
+adversarial ml modulation classification deep learning
+acm reference format
+muhammad usama junaid qadir and ala alfuqaha  blackbox
+adversarial ml attack on modulation classification in proceedings of
+acm conference conference acm new york ny usa  pages https
+doiorgnnnnnnnnnnnnnn
+introduction
+machine learning ml especially deep ml schemes have beaten
+humanlevel performance in many computer vision language and
+speech processing tasks which were considered impossible a decade
+ago this success of ml schemes has inspired the ideas of self
+driving networks  and knowledge defined networking  where
+ml schemes are profoundly utilized to ensure automation and
+control of networking tasks such as dynamic resource allocation
+modulation classification network traffic classification etc
+despite the success of ml in different modern communication
+and data networking applications there are some pitfalls in the
+fundamental assumptions of ml schemes which can be exploited
+by the adversaries to craft adversarial examples in order to com
+promise the mlbased system an adversarial example is defined
+as an input to the ml model specially crafted by an adversary by
+adding a small imperceptible perturbation to the input sample to
+compromise the performance of the ml model mathematically
+an adversarial example xcan be formed by adding a typically
+imperceptible perturbation δ to the legitimate test example x of
+permission to make digital or hard copies of all or part of this work for personal or
+classroom use is granted without fee provided that copies are not made or distributed
+for profit or commercial advantage and that copies bear this notice and the full citation
+on the first page copyrights for components of this work owned by others than acm
+must be honored abstracting with credit is permitted to copy otherwise or republish
+to post on servers or to redistribute to lists requires prior specific permission andor a
+fee request permissions from permissionsacmorg
+conference july  washington dc usa
+  association for computing machinery
+acm isbn xxxxxxxxxxyymm
+httpsdoiorgnnnnnnnnnnnnnn
+the deployed trained classifier f  the perturbation δ is computed
+by approximating the following nonlinear optimization problem
+provided in equation  where t is the targeted class in case of a
+targeted attack or any other wrong class is the case of untargeted
+attack
+x x  arg min
+ηx η f x  η  t
+adversarial examples are possible because of two major faulty
+assumptions in ml schemes firstly the underlying data distribu
+tion experienced during the training phase of the ml model will
+also be encountered in the testing phase this data stationarity is
+not valid for most of the real world cases and the void created by
+following this assumption is exploited by the adversary for craft
+ing the adversarial examples secondly most of the ml schemes
+are based on the empirical risk minimization erm which is an
+approximation of the actual unknown probability distribution the
+erm has an associated error with it which can be exploited by the
+adversary to make an adversarial example
+adversarial attacks can be classified broadly into whitebox and
+blackbox attacks based on the knowledge of the adversary about
+the deployed ml model in a whitebox attack it is assumed that
+adversary has complete knowledge hyperparameters test data
+etc of the deployed model whereas in a blackbox attack no such
+knowledge is assumed and it is assumed that the adversary can
+only act as a standard user and query the system for a response
+in this paper we have taken modulation classification which
+is an important component of modern communication and data
+networks as a proxy of functional areas of cognitive selfdriving
+networks we have performed a blackbox adversarial attack on
+dnnbased modulation classification to highlight the brittleness of
+ml schemes utilized in cognitive selfdriving networks
+related work
+there does not exist much literature on adversarial attacks on
+modulation classification recently sadeghi et al  used a variant
+of fast gradient sign method fgsm attack  on modulation
+classification on cnnbased modulation classification to highlight
+the threat of the adversarial examples fgsm is an adversarial
+sample crafting algorithm where the adversarial perturbation is
+calculated by taking a gradient step in the direction of the sign
+of the gradient of test example kokalj et al  also crafted the
+adversarial examples for modulation classification by using the
+fgsm perturbation generation algorithm most of the available
+results on the application of the adversarial attacks are reported by
+using the fgsm attack
+a shortcoming with the fgsm attack is its lack of optimality
+in adversarial perturbation generation as fgsm was designed to
+quickly craft adversarial examples irrespective of the optimality
+arxivv  csni   aug 
+conference july  washington dc usa
+muhammad usama junaid qadir and ala alfuqaha
+and the size of the perturbation in the test example to overcome
+the lack of optimality and to highlight that optimal adversarial
+example for modulation classification can be crafted we have used
+carlini  wagner cw attack  where the adversarial examples
+are crafted using the following optimization process provided in
+equation 
+minimize
+η
+ηp  cдx
+such that
+x n
+figure  the step by step procedure followed for crafting
+blackbox adversarial attack against dlbased modulation
+classification is depicted in the figure
+blackbox adversarial attack
+procedure
+in this section we will provide our blackbox adversarial attack
+procedure illustrated in figure  the steps followed are  the
+adversary queries the deployed modulation classifier with test ex
+amples  the deployed modulation classifier provides a labeled
+response to the adversary considering the adversary as a normal
+user  the adversary stores the queryresponse pair in a database
+which is later used as a substitute dataset for training a surrogate
+dnn  once sufficient data is collected in the adversarial database
+the adversary constructs a fully connected dnn model and trains it
+for suitable classification performance  once the surrogate dnn
+is trained the adversary launches a cw attack on the surrogate
+dnn for crafting adversarial examples that compromises the per
+formance of the surrogate dnn model  adversarial examples that
+compromises the performance of surrogate dnnmodel are then
+transferred to blackbox dlbased modulation classifier which ac
+cording to the transferability property of adversarial examples will
+compromise the performance of dlbased modulation classifier
+since we are performing this experiment in lab settings we have
+opted for training two modulation classifiers based on cnn and
+lstm and then considered them as blackbox models we have
+used highlycited gnu radio ml rmla dataset  which
+provides  digital and analog modulation schemes on the snr
+ranging from  db to db we have used only  of the test
+examples to construct the surrogate classifier and then performed
+cw attack the performance of the surrogate dnn model before
+and after the attack is provided in figure  once the adversarial
+attack on surrogate dnn is completed we have transferred the
+adversarial examples that evaded the surrogate dnn to blackbox
+modulation classifier by leveraging the transferability property of
+adversarial ml the performance impact of the adversarial attack
+is provided in figures  and  a clear drop in the accuracy of the
+modulation classifier after the adversarial attack highlights that our
+method of performing blackbox adversarial attack has successfully
+compromised the performance crafted adversarial examples
+figure  performance of blackbox adversarial attack on
+cnnbased modulation classification
+figure  performance of blackbox adversarial attack on
+lstmbased modulation classification
+conclusions
+in this paper we have highlighted the lack of robustness in deep
+learning based modulation classification by performing a blackbox
+adversarial attack on cnn and lstm based modulation classifiers
+we have used a surrogate deep neural network for crafting adver
+sarial examples and then showed that adversarial examples crafted
+for modulation classification are transferable to other deep learning
+based models we have achieved a  performance drop in both
+cnn and lstm based modulation classification
+blackbox adversarial ml attack on modulation classification
+conference july  washington dc usa

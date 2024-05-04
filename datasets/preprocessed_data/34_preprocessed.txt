@@ -1,0 +1,996 @@
+
+ieee reviews in biomedical engineering vol  
+speech technology for healthcare
+opportunities challenges and state of the art
+siddique latif
+ junaid qadir
+ adnan qayyum
+ muhammad usama
+ and shahzad younis
+methodological review
+abstractspeech
+technology
+is
+not
+appropriately
+explored
+even
+though
+modern
+advances
+in
+speech
+technologyespecially those driven by deep learning
+dl technologyoffer unprecedented opportunities for
+transforming the healthcare industry in this paper we have
+focused on the enormous potential of speech technology
+for revolutionising the healthcare domain more speciﬁ
+cally we review the stateoftheart approaches in auto
+matic speech recognition asr speech synthesis or text
+to speech tts and health detection and monitoring using
+speech signals we also present a comprehensive overview
+of various challenges hindering the growth of speech
+based services in healthcare to make speechbased
+healthcare solutions more prevalent we discuss open is
+sues and suggest some possible research directions aimed
+at fully leveraging the advantages of other technologies for
+making speechbased healthcare solutions more effective
+index termsdeep learning automatic speech recogni
+tion asr speech synthesis healthcare speech biomark
+ers remote monitoring
+i introduction
+t
+he current healthcare system is unable to provide uni
+versal access to all patients and facing several problems
+these problems include  the increasing portion of ageing
+population which is expected that the number of people aged
+ or older will rise from  million in  to  billion in
+   the increasing burden of chronic diseases which
+is expected to globally grow from  to  by  
+ the lack of human resources ie doctors and nurses and
+healthcare facilities especially in developing nations  the
+expensive provision of highquality care  and  the absence
+manuscript received february   revised may   ac
+cepted june   date of publication july   date of current
+version january   corresponding author siddique latif
+siddique latif is with the university of southern queensland usq
+springﬁeld qld  australia and also with the distributed sens
+ing systems group data csiro pullenvale qld  australia
+email siddiquelatifusqeduau
+junaid qadir adnan qayyum and muhammad usama are with infor
+mation technology university lahore  pakistan email junaid
+qadirituedupk adnanqayyumituedupk muhammadusamaitu
+edupk
+shahzad younis is with the national university of sciences  tech
+nology islamabad  pakistan email muhammadshahzad
+seecsedupk
+digital object identiﬁer rbme
+it is anticipated that the world will have a shortage of  million healthcare
+workers by  
+of datadriven patientcentred clinical methods due to which
+people are being assessed on population averages  to address
+these challenges technologybased health can be utilised to
+provide support to the healthcare system especially speech
+processing has great potential to provide innovative solutions
+in healthcare to facilitate both patients and doctors
+broadly speaking human speech is the most natural mode of
+human communication it provides information about linguis
+tic content and paralinguistic states and traits the linguistic
+content represents the intended message that the speaker wishes
+to convey or communicate paralinguistics content of speech
+provides a much rich array of information related to speakers
+identity gender and age research efforts are exploring the
+intelligent modelling of speech signals for various important
+applications speech processing research is currently gaining
+interest to utilise computational paralinguistic analysis for the
+assessment of different health conditions the prime reason
+to use speech for healthcare is that it can be easily available
+collected transmitted and stored  most importantly various
+physical and mental diseases cause changes in human speech
+which are measurable with the help of speech technology
+speech technology involving the processing and analysis
+of human speech is a major area of research these days
+it encompasses various areas of research such as automatic
+speech recognition asr speaker recognitionveriﬁcation text
+to speech tts conversion and identiﬁcation of language age
+and gender using speech research on speech technology has
+endeavoured to empower machines to involve in verbal human
+machine interactions hci these days speech technology
+based interfaces have become widely adopted worldwide in
+various routinelyused devices and applications with services
+such as apples siri and google voice search used by millions
+of users  researchers are now aiming to transform the
+current verbal hci interfaces into the next generation medical
+companions that react with humans more naturally and monitor
+users mental and physical health at their home work hospital
+or anywhere in all these areas deep learning dl is emerging
+as an essential component of stateoftheart approaches
+recent progress in speech processing along with other ad
+vanced technologies including the internet of things iot
+and communications systems can ﬁx the current dysfunctional
+healthcare system in particular recent breakthroughs in dl the
+advent of iot and the advancement in communication systems
+have opened up various promising opportunities for healthcare
+   ieee personal use is permitted but republicationredistribution requires ieee permission
+see httpswwwieeeorgpublicationsrightsindexhtml for more information
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+latif et al speech technology for healthcare opportunities challenges and state of the art
+fig 
+organisation of paper
+systems it will create huge opportunities for speech technology
+to be utilised for remote diagnostics and monitoring chronic
+disease management and independent care for the elderly and
+much more this paper aims to cover the stateoftheart speech
+technology and its applications in the ﬁeld of healthcare
+the main contribution of this paper is to highlight the
+substantial potential of speech technology for improving the
+stateoftheart in healthcare to the best of our knowledge this
+is the ﬁrst comprehensive paper that reviews the stateofthe
+art research from the different speechrelated ﬁeldsincluding
+automatic speech recognition asr speech synthesis or text
+to speech tts and speech biomarkersto show their po
+tential for healthcare this work builds upon previous papers
+with a limited focus that aimed to demonstrate the potential of
+speech recognition for healthcare  or discuss the use
+of dl for healthrelated subchallenges on publicly available
+datasets  we feel that this paper is especially timely due to
+the recent advancements in speech technology and dl along
+with problems faced by an increasingly burdened healthcare
+system that is crying out for technological augmentation
+the organisation of the paper see fig  is described next
+in section ii a brief premier on speech technology is presented
+followed by a discussion of the potential opportunities of speech
+technology in healthcare in section iii next we cover the
+stateoftheart works on speech technology for healthcare and
+some of its prominent healthcare solutions which is followed by
+challenges that are causing hurdles for speech technology to be
+utilised in healthcare in section v before concluding the paper
+we discuss important open issues and future direction that can
+help researchers to make the use of speech technology more
+effective in section vi
+ii primer on speech technology
+speech technology aims to enable machines to recognise
+analyse and understand human speech the area has been
+developing for decades as a subﬁeld of signal processing and
+has seen much progress in the last decade or so due to the huge
+progress made under deep learning paradigms typically speech
+technology systems include three major components as shown
+fig 
+major components of speech technology based systems
+in fig  that include preprocessing feature extraction and
+ml algorithms development
+a preprocessing
+preprocessing of speech signals is considered as an important
+step in designing robust and efﬁcient systems for various appli
+cations it usually involves noise suppression silence removal
+and channel equalisation etc the performance of speechbased
+systems can be improved with the use of these preprocessing
+techniques   it has been also validated that removing
+silence pauses and noise even helps mldl models in achieving
+better performance  in the case of speech synthesis text
+processing is even more complex it involves text normalisa
+tion tokenisation sentence segmentation etc  it is equally
+important in speech synthesis to improve system performance
+b feature extraction
+the representation of speech signals into meaningful in
+formative and a reasonably limited number of features is a
+crucial component for developing any system for speechbased
+applications despite the fact that there is no unique taxonomy of
+speech features it is common to divide features into two types
+ie linguistic and acoustic features the extraction procedures
+for these two types of features are signiﬁcantly different and
+their performance greatly depends upon the type of problem at
+hand
+linguistic features represent information in spoken words
+this usually includes speciﬁc words their grammatical alter
+ations or higher semantic and pragmatic markers  a variety
+of techniques exists for the analysis of speech using linguistic
+features for example keyword spotting aims at the reliable
+detection of a particular word in a given speech   these
+words are chosen from daily life and considered sufﬁcient to
+represent the speakers states and related events
+acoustic features are very popular and widely being used
+these features are primarily extracted using the models of the
+human auditory system human hearingrelated properties such
+as lower sensitivity at lower frequencies spectral amplitude
+compression nonlinear frequency scale and large spectral inte
+gration are also considered in acoustic features 
+ongoing research on speech analysis has categorised the
+acoustic features into three categories prosodic spectral and
+temporal and features related to the voice quality  
+prosody refers to melody and rhythm of speech and prosodic
+features include the feature related to the length tone accent
+stress intonation and few others   these features can
+be used to detect the irregularities in the rhythm and timing
+of speech for instance nonverbal speech cues such as inter
+ruptions natural turns counting the number of interjections
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee reviews in biomedical engineering vol  
+table i
+summary of some popular dl models
+and response times can help to identify irregular speech pat
+terns  in contrast to temporal features spectral features are
+computed by converting the speech signal into the frequency
+domain most popular temporal and spectral features include
+energy  entropy  zerocrossing rate zcr  spec
+tral centroid spectral rolloff and spectral ﬂux  similarly
+voice qualityrelated features include jitter shimmer unvoiced
+rate and harmonictonoise ratio hnr etc
+recently the speech community also started using raw speech
+instead of handengineered features for these features they
+use dl models to extract datadriven features related to the
+task at hand such features have shown promising results for
+different speechrelated tasks including asr  emotion de
+tection  and speaker identiﬁcation  however the per
+formance of such methods needs to be explored and compared
+with various handengineered features for healthrelated tasks
+c deep learning
+in speech technology the hidden markov model hmm and
+gaussian mixture model gmm based models gmmhmm
+have ruled for decades a disruptive breakthrough happened in
+speech technology in the last decade due to dl and now dl
+models have become an essential component of asr tts and
+other speech processing and analysis tasks this section is aimed
+to present an introductory and higherlevel overview of dl for
+an indepth description the interested readers are referred to
+classical resources  however we presented the summary
+of different dl architecture in table i dl is distinguished from
+legacy artiﬁcial neural networks anns in terms of having
+two or more layers between input and output layers the basic
+component of a deep neural network dnn is the neuron unit
+the neurons in each layer are fully connected with the neurons
+of the adjacent layers to create a network the input signal is
+passed through the network with intermediate computation and
+approximate function y  fx θ by learning the best value
+of the parameters θ a multilayer network or dnn creates a
+pipeline of nonlinear transformations with the ability to learn
+intermediate representations suitable for a given task at hand
+in  an idea of the learning hierarchy of feature rep
+resentations in different layers of the deep learning models
+was initiated by hinton  and models like deep belief net
+works dbn  and stacked autoencoders sae  were
+proposed these deep typologies take the advantages of un
+supervised layerbylayer pretraining which is followed by
+ﬁnetuning of the entire network using backpropagation these
+models were widely utilised in speech technology and still being
+considered for speech modelling  more recently research
+in speech technology has been focused on endtoend learning
+paradigms from raw speech using convolutional neural networks
+cnns they can learn ﬁlterbank from raw speech and able to
+capture more generalised discriminative and contextual repre
+sentation from raw waveform 
+convolutional neural networks cnns were originated
+from image processing for processing data in gridlike topology
+they are also extended for natural language processing nlp
+and speech processing the building block of cnns is a con
+volutional layer that consists of multiple ﬁlters and it computes
+local feature maps from the input the convolutional operation
+in cnns can be deﬁned as
+hkij  wk q  bk
+where hkij is the i jth element for the kth output feature
+map q represents the input feature maps and wk and bk denote
+the kth ﬁlter and bias respectively the symbol represents
+the d convolution operation the second component of cnns
+is the pooling layer to facilitates nonlinear subsampling oper
+ations is to reduce the dimension of each feature maps while
+retaining the most important features finally fully connected
+layers are used to achieve the required prediction for regression
+or classiﬁcation tasks in speech processing it is very common to
+use cnn in conjunction with recurrent neural networks rnns
+recurrent neural networks rnns deﬁne a special dl
+architecture that uses recurrent connections within layers with
+the capability of processing previously processed inputs in con
+trast to hidden markov models hmms rnns have stronger
+representational memory  and are better suited for mod
+elling sequences structures like speech for an input sequence
+xt  x    xt  at time step t rnns calculate the hidden
+state ht by using the previous hidden state ht and produce a
+output vector sequence yt  y    yt  the equations for
+standard rnns are given below
+ht  hwxhxt  whhht  bh
+yt  wxhxt  by
+where w terms denote the weight matrices b represents bias
+vector and h deﬁnes the hidden layer function simple rnns
+face vanishing gradient problem and fail to model the longterm
+temporal contingencies to deal with this problem multiple
+specialised rnn architectures were proposed these include
+long shortterm memory lstm  and gated recurrent units
+grus  with gating mechanism to add and forget the mem
+ory selectively bidirectional rnns  were also proposed
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+latif et al speech technology for healthcare opportunities challenges and state of the art
+fig 
+graphical illustration of different machine learning mldeep learning dl models
+by passing the input sequence through two different recurrent
+hidden layers to enable both past and future modelling these
+gated rnns solved the issue of the vanishing or exploding gradi
+ent problems and can learn longterm contextual dependencies
+from the input sequence  and are widely used in speech
+technology  
+generative models
+including
+variational autoencoders
+vaes   generative adversarial networks gans
+and autoregressive generative models   are being used
+in speech technology gans are becoming very popular in
+speech technology due to their ability to learn and generate data
+distributions they include two neural networksa generator
+g and a discriminator d both these networks play a minmax
+adversarial game deﬁned by the following optimisation
+min
+g max
+d
+exlogdx  eylog dgy
+for speech synthesis autoregressive generative models like
+wavenet  provide stateoftheart results and are becoming
+increasingly popular they are directed probabilistic models and
+can model joint distribution using the following chainrule
+px 
+t
+t
+pxtx      xt θ
+where xt is the tth variable of a waveform x  x  xt 
+and θ are the parameters of the autoregressive model some
+otherpopularautoregressivemodelsincludepixelrnnand
+pixelcnn  a graphical depiction of various mldl models
+can be seen in fig 
+iii speech for healthcare opportunities and
+applications
+the current healthcare system is struggling to provide quality
+health services at an affordable price the effectiveness of health
+services can be signiﬁcantly enhanced by using the opportunities
+offered by speech technology  such opportunities are high
+lighted in fig  and this section provide a detailed discussion
+on these opportunities
+a fixing speech and hearing impairments
+humans express their feelings thoughts and ideas by speak
+ing speech is produced by the action of coordinated muscles
+in the head neck chest and abdomen the development of
+speech is a gradual process that involves years of practice
+during this process a human child learns how to regulate these
+muscles to produce understandable speech individuals that are
+unable to properly regulate these muscles face speech disorders
+disorders related to voice and language also affect human com
+munication  hearing problems are also a cause of imperfect
+communications among humans individuals who do not hear
+someone with normal hearing thresholds of  db or better in
+both ears face hearing impairments according to the world
+health organisation who over  of the worlds population
+ million people has hearing loss and it is expected that this
+number will increase up to  million people by  
+speech technology can be utilised to assist individuals with
+a hearing problem or a voice speech or language disorder to
+communicate effectively  asr plays an important role in
+the applications of speech therapy which require to decode the
+user utterances  similarly speech synthesis provides can
+teach users how a word or sentence should be pronounced which
+reinforcing the correct pronunciation in the speech therapy ac
+tivities in this way systems based on speech synthesis and asr
+can be used to augment the quality of human communication in
+healthcare   such assisting systems aim at improving
+the intelligibility of pathologic speech by producing speech
+similar to the voice of the speaker  speech technology
+can also be used for design interfaces for childrens speech
+therapy  dysarthria one of the major speech disorders that
+arise as a secondary condition among individuals with cerebral
+palsy amyotrophic lateral sclerosis als stroke survivors
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee reviews in biomedical engineering vol  
+fig 
+prominent opportunities of speech processing in healthcare
+multiplesclerosisalzheimersparkinsonsandtraumaticbrain
+injury it produces weakness or difﬁculty controlling the muscles
+involved in speech production studies demonstrate that speech
+technologybased systems can also help people with such disor
+ders 
+b speech interfaces for doctors and patients
+speech interface describes an automated software that uses
+either simulated human speech or human speech to interact
+with humans they provide services in handsfree eyesfree
+and keyboardfree situations with  of a healthcare profes
+sionals time is spent on clinical documentation overwhelmed
+clinicians often spend more time on clinical documentation
+comparedtodirectpatientcareafactthatcandrainandde
+motivate clinicians speech interfaces can provide a convenient
+integration in healthcare to reduce the burden of medical doctors
+the implementation of such interfaces can bring a lot of beneﬁts
+to the healthcare industry from timesaving to costreducing
+first of all practitioners and nurses will be able to become
+more efﬁcient in the process of transcripts  secondly it will
+increase productivity in healthcare systems  another beneﬁt
+is that it will also reduce the amount of time by a doctor to see
+the patients by using readily available information similarly
+speech technology is a major mean of reducing the cost of
+traditional medical transcription in healthcare systems more
+than  of institutions were able to save more than  million
+over the period of two or more years  voicebased assistants
+can maintain patients electronic medical records emr and
+provide relevant information when needed in a recent con
+trolled observational study  participants found that speech
+recognition in clinical documentation can saves time increases
+efﬁciency and allows to make more detailed notes with relevant
+details speech technologybased interfaces can help the patients
+during their hospital stay and after discharge in particular
+speech interfaces can facilitate patients recovering at home
+especially when they have restricted mobility through support
+for environment control such as adjusting a rooms temperature
+controlling audio levels requesting nursing assistance and in
+decision support  
+c speech processing for psychological disorders
+the term psychological disorder which refers to psychiatric
+disorders or mental disorders are behavioural or psychological
+symptoms or patterns which impact multiple areas of life
+humans feel a vast range of comfortable and uncomfortable
+emotions  and it has been argued that emotional discomfort
+is a universal human experience  emotions are transient and
+continually ﬂuctuating which may cause both positive and neg
+ative effects on human life  on the other end psychological
+disorders like stress depression anxiety suicidal behaviour and
+distress which can lead to disabling conditions and impairment
+in people distress is major emotional suffering and highly
+prevalent in patients with a chronic disease like cancer 
+despite the fact that psychological disorders can cause serious
+consequences routine screening has not been widely adopted in
+healthcare due to heavy cost and time requirements 
+recent studies have shown the promise of using speech as an
+effective biomarker for the diagnosis of psychological disorders
+spoken speech can provide a wide range of acoustic features that
+canbeeffectivelyutilisedforhumanemotiondetection
+and diagnosis and monitoring of depression anxiety stress dis
+tress and suicidal behaviour  stateoftheart deep learning
+models have improved the performance of emotion recognition
+depression anxiety stress distress and suicidal behaviour de
+tection using speech   particularly the combination of
+cnns and lstm has shown great performance in modelling
+affective behaviours and related disorders from speech 
+ here cnn is mainly used to extract temporal features
+and contextual modelling is performed using lstm cnns are
+also being employed in an endtoend fashion to extract features
+from raw speech related to the problem at hand eg depression
+detection  convolutional layer in cnns acts a datadriven
+ﬁlterbank that can produce more generalised features compared
+to the standard artiﬁcial neural networks anns and other
+featurebased approaches  in this way deep learning models
+are playing an important role in modelling as well as diagnosis
+of different psychological disorder using speech signal this
+demonstrates that the speech technology has great potentials to
+automate the screening and monitoring of mental illnesses and
+related disorders hence alleviating many healthcare challenges
+d home and elder care
+life expectancy is greatly increasing worldwide which is
+causing a higher number of older people in our society 
+the increased share of the elderly population is shifting the
+cause of death from parasitic and infectious diseases to chronic
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+latif et al speech technology for healthcare opportunities challenges and state of the art
+table ii
+comparison of recent studies on asr
+illnesses   ageing also causes physical limitations that
+need to be compensated by the assistance of someone or with the
+services of aged care centres elderly people feel isolation fear
+and a sense of helplessness both inhome and at oldage care
+centres which cause severe consequences on both physical and
+mental health speechbased assistants are a valuable tool for
+seniors staying at home or age care centres especially for those
+who are not able to use other technologybased services that may
+require the dexterity of the hands mobility andor good vision
+such systems can also provide them with independence and a
+better quality of life with physical or cognitive disease 
+e access to healthcare services particularly in
+developing countries
+millions of people in developing countries unnecessarily suf
+fer and eventually die from such illnesses that have effective cure
+and prevention  generally people in developing countries
+havepoorliteracyskillsiereadingwritingithasbeenshown
+that people with low health literacy have a oneinthree chance
+of misunderstanding the prescribed medication  there is
+a direct correlation between mortality rates and poor health
+literacy approximately  to  increased mortality risk for
+individuals with poor health literacy  language diversity
+is another challenge in developing countries that reduces the
+potential beneﬁts of healthcare services such as text messaging
+and ehealth portals  such healthcare services are also not
+much useful for lowliterates the blind the visually impaired
+and those that are not computer literate speech is a plausi
+ble interaction modality for illiterate users and speechbased
+healthcare services can be ideal for inhabitants of the developing
+countries
+iv speech for healthcare stateoftheart
+a automatic speechrecognition asr
+automatic speech recognition asr is the analogue of
+machine ear which enables a computer to recognise uttered
+speech and transform it into the corresponding sequence of
+words or subwords asr has witnessed a steady improvement
+in performance due to the development of cuttingedge ml
+algorithms traditionally hmm and gmm based models were
+the main stock of research for asr dnnbased asr systems
+have become the stateoftheart by showing huge improvements
+compared to previous conventional system  developing and
+training asr systems however is complicated and requires
+a lot of preprocessing various attempts have been made to
+reduce the complexity of asr paving the way for endtoend
+speech recognition  nowadays endtoend asr systems
+are extensively used and studied for asr in different languages
+such as english mandarin japanese or french  similarly
+sequencetosequence models are also gaining popularity in
+the automatic speech recognition asr community  vari
+ous sequencetosequence models including recurrent neural
+network transducer rnnt  neural transducer 
+listen attend and spell las  recurrent neural aligner
+rnaandmonotonicalignmentshavebeenexplored
+in the literature in addition transformers  based models are
+also gaining success in asr ﬁeld due to their better perfor
+mance we presented the performance comparison of different
+stateoftheart models in terms of worderrorrate wer in
+table ii these systems demonstrate promising results on dif
+ferent datasets which shows the feasibility of their integration
+into healthcare applications
+a major application of asr in healthcare is to facilitate
+the generation of clinical documentations  the medical
+errors caused by bad handwriting can be avoided using speech
+recognition for medical documentations  such selftyping
+systems are also believed to enhance documentation quality and
+efﬁciency as well as improve the satisfaction level of health
+professionals in clinics or hospitals 
+different research studies explored the feasibility of asr sys
+tems for clinical documentation for instance in  authors
+evaluated a webbased asr system in a university hospital for
+clinical documentation in the german language they found that
+medical documentation with asr increases in documentation
+speed and amount and it also has a positive impact on participant
+mood in contrast to selftyping hodgson et al  explored
+the use of asr for medical transcription of the doctorpatient
+conversation they used   hours of speech and demon
+strated that the proposed models achieved promising results
+on important medical utterances and therefore can be used
+practically in a clinical setting for transcribing medical conversa
+tions in  authors performed a case study in a specialised
+outpatient department and found that asr software supports
+medical doctors by quickly producing patient discharge letters
+without impairing user satisfaction
+the efﬁciency of speech recognition is evaluated by hoyt
+et al  for documenting outpatient encounters in the ehr
+system at a military hospital and its  outlying clinics seventy
+ﬁve clinicians participated to evaluate speech recognition for
+clinical documentation among these participants  of the
+clinicians continued to use speech recognition in their rou
+tine practices and reported that speech recognition for clinical
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee reviews in biomedical engineering vol  
+documentation is more convenient accurate and expeditious
+for instance speech recognition helped in improving note qual
+ity and allowed for closing a patient encounter on the same
+day similarly authors in  showed that medical speech
+recognition can perform on a par with humans authors in 
+developed a webbased prototype to generate medical reports in
+the brazilian portuguese language using google web speech
+api and microsoft bing speech api they found that a system
+based on google api achieved an error rate of  which
+wassigniﬁcantlybetterthanthoseachievedbythemicrosoftapi
+ few other studies  also highlighted the potential
+of using asr for clinical documentation
+all of these studies highlight several beneﬁts of using asr
+for clinical documentation however most of these studies are
+pilot projects although the use of asr can drive interactive
+clinical documentation however careful evaluation is required
+for ehr  there is still a need to improve the efﬁciency
+of asr for medical documentation to avoid errors that have the
+potential to cause clinical harms furthermore improved system
+interoperability and workﬂow are needed for their successful
+integration in the clinical setting 
+b speech biomarkers
+human voice incorporates features that can plausibly be
+used to discriminate on the basis of gender age intelligence
+socioeconomic status regionalethnic origin education and
+occupation  most importantly for health outcomes it
+provides information about various voice disorders which can
+be diagnosed by detecting anomalous voice quality pitch and
+loudness that is inappropriate for an individuals age gender
+cultural background or geographic location  other speech
+related disorders include cognitivecommunication disorders
+communication disorders swallowing disorders and an autism
+spectrum disorder speech technologybased solutions have
+been playing an important role in the diagnostic and monitoring
+of these disorders nowadays dl models have become the
+stateoftheart technique in this domain
+automatic detection of vocal fold pathologies is of great
+interest to the voice community as well as the medical commu
+nity due to its low cost and noninvasive nature these systems
+can be used by clinicians to detect the existence of any voice
+pathologies even in the early stages fang et al  retrospec
+tively collected normal pathological voice samples of  common
+clinical voice disorders and evaluated both ml models and
+dnns they found that dnns outperformed other ml models
+including svm and gmms authors in  used convolutional
+dbn for voice pathology and showed that cnn can effec
+tively extract features from spectrograms of voice recordings
+suitable for diagnosing of voice disorders harar et al 
+conducted a preliminary study on voice pathology using dnns
+and showed that the use of combined cnnlstm provides
+promising results in  the authors investigated a voice
+pathology detection system using dl on a mobile multimedia
+healthcare system and voices samples captured using mobile
+devices more speciﬁcally the authors used a cnn architecture
+and reported signiﬁcantly improved results in other work some
+researchers   designed voice pathology detection
+systems for smart cities but their work used classical ml models
+in their architectures
+acoustic analysis of speech is also used for the diagnosis
+of alzheimers disease which is cognitive impairment and the
+most common cause of dementia it has a high prevalence that
+is increasing rapidly towards an epidemic level the research
+community is trying to utilise speech technology to solve this
+issue in  lopezdeipina et al proposed a nonlinear
+multitask approach using a multilayer perceptron mlp and
+cnns for alzheimers detection the authors evaluated the
+proposed models using different speech features and reported
+promising results in  fraser et al explored the use of
+linguistic features for the identiﬁcation of alzheimers they
+achieved stateoftheart results and found that linguistic analy
+sis using modern ml is increasingly useful in assessment and
+clustering of alzheimers
+speech analysis is also being utilised for parkinsons disease
+pd detection for instance authors in  designed to diag
+nosis pd using speech signal they used dbns for classiﬁcation
+and achieved signiﬁcantly improved results attesting the power
+of dbn for speech analysis frid et al  used raw speech
+for pd detection using cnns they found that relatively small
+ ms of raw speech contains much information regarding the
+pd that can be used for classiﬁcation speech technology is
+also being used for the diagnosis of autism spectrum disorder
+asd in children different studies used dl and speech signals
+for asd detection   also to assist children with
+asd 
+human speech provides a wide range of prosodic and spectral
+features that can be effectively utilised for emotion recognition
+depression distress anxiety and stress detection acoustic fea
+tures including spectral prosodic cepstral glottal and teager
+energy operators teo were evaluated in for clinical depres
+sion detection in adolescents  authors found that teo
+based features produced more promising results compared to
+all other features in  the authors showed that the prosody
+and voice qualityrelated speech features can be used for the
+identiﬁcation of suicidal and nonsuicidal adolescents in 
+behaviour prediction of cancerafﬂicted patients is performed
+using different speech features they showed that speech can
+effectively be utilised for behavioural prediction in cancer pa
+tients various other studies  utilised speech feature
+for identiﬁcation stress anxiety and depression in english and
+also in other languages
+most of the abovementioned studies have used publicly
+available datasets and showed that speech technology can be
+effectively utilised as biomarkers for the detection of various
+diseases however these systems have not been evaluated in
+reallife settings it is important for researchers to focus on the
+design of systems that can be utilised in clinics and medical
+hospitals and on reporting reallife performance evaluations
+c remote monitoring
+the rising burden on the global healthcare system along
+with the limited availability of trained healthcare profession
+als is increasing the demand for infrastructure and technology
+that can facilitate the remote monitoring of patients speech
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+latif et al speech technology for healthcare opportunities challenges and state of the art
+technologybased remote monitoring services have been ex
+plored in this regard by the research community in 
+hossain used speech along with and facial expressions which
+are captured in a multisensory environment the author tested
+the proposed framework on  people and was able to detect
+the patients state with an average recognition of  in
+another work vatanparvar et al  designed a speech privacy
+preservation method for speechbased remote health monitoring
+using gan and reported promising results a remote system for
+monitoring of speechlanguage intervention is proposed in 
+for the parents of children with asd for remote monitoring and
+assessment of cognitive function in senior people a system was
+proposed by rapcan et al in  the authors used telephone
+speech recordings and showed that the system can achieve
+similar results compared to speech recorded in a controlled
+environment the sweethome project was proposed in 
+which used noiserobust multisource asr to detect distressed
+sentences in a realistic environment of a smart home to monitor
+distress situations
+various studies also have proposed speech remote monitoring
+systems by exploiting the advanced communication technolo
+gies a g enabled emotionaware healthcare framework was
+proposed in  the authors evaluated the proposed health
+care framework on  universitylevel students who were asked
+to express the emotion of pain they used both speech and video
+as the input of the system and achieved  of accuracy
+a privacyenhanced emotion recognition system for remote
+advisory is presented in  the authors showed that the pro
+posed system can solve privacy issues while achieving promis
+ing results similarly an edgecloud based privacypreserving
+automatic emotion recognition system is proposed which use
+both speech and visual features  they used cnns for
+emotion classiﬁcation and achieved improved results compared
+to the stateoftheart systems some other studies 
+have also used speech signal for remote patients monitoring
+however most of these studies evaluated the proposed models
+in a controlled setup therefore to ensure a safe and robust
+operation it is very important to evaluate these systems in
+reallife settings
+d speech synthesis
+speech synthesis also known as texttospeech tts is an
+important technology that aims to convert text into speech
+most of the tts systems use acoustic or linguistic features
+as an intermediate representation to generate the waveform
+traditionally the speech waveform was vocoded from these in
+termediate representation using heuristic methods  or using
+handcrafted vocoders   recently tacotron  
+used wavenet  as a vocoder to generate waveform from
+melspectrograms wavenet is an autoregressive generative
+model that can generate relatively realistic humanlike speech
+by using linguistic features it has the downside of a long infer
+ence time due to its autoregressive architecture to address this
+issue various models such as fftnet  wavernn 
+and waveglow  have been proposed nowadays these
+neural vocoders have replaced the use of traditional heuristic
+methods and can dramatically enhance the quality of generated
+table iii
+mean opinion score mos evaluations comparison for
+various systems
+speech researchers are also focusing on synthesising more
+natural speech by transferring prosody  style  and
+expressions  all these studies have highlighted the great
+progress made by tts systems that shows their suitability in
+healthcare we also compared the performance in terms of mean
+opinion score mos of different stateoftheart tts systems
+in table iii which depicts that these systems are achieving mos
+almost similar to the ground truth speech
+texttospeech tts solutions can assist healthcares mis
+sion of bettering patient care through the use of assistive and
+digital tools it can further enhance digital health technology by
+speechbasedhealthappswebsitesandemergencycallsystems
+etc patients can be verbally reminded about important alerts
+using tts which increases the usability and accessibility of
+portable health trackers  different studies evaluated the
+feasibility of tts assistive healthcare system for instance
+liu et al  designed a smartphonebased system to help
+visually impaired people while using android phones in 
+the authors presented a design of a ttsbased interactive med
+ication reminder and tracking system for wrist devices they
+evaluated the system for both native and nonnative english
+speakers in controlled experiments and achieved very promising
+results a voice interactive assistant was designed in  to
+improve adherence to medical treatments the authors designed
+this system for stroke patients and tested among several healthy
+subjects for an initial assessment however the ﬁnal product
+was reported to be still under development
+tts health assistive tools can dramatically improve people
+health and required costs for example a ttsbased system can
+facilitate patients by offering them an audio version of digital
+text   this is especially helpful for illiterate individ
+uals language learners and the elderly population and people
+with learning disabilities or reduced vision such systems can
+alsohelppeoplebyprovidinganaudioversionofimportantmed
+ical information such as descriptions of diseases prescriptions
+and drug information leaﬂets this avoids drug misuse while
+making patients cautious about their health  ttsbased
+systems also allow patients to accurately communicate their
+needs which helps to establish a cognitive connection among
+doctors and patients 
+e some healthcare solution using speech technology
+as outlined above speech technology ﬁnds its market in
+healthcare particularly due to potential and impactful use cases
+various voiceenabled healthcare solutions are developed that
+can help improve the lives of thousands of individuals we
+presented the details of some prominent solutions in table iv
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee reviews in biomedical engineering vol  
+table iv
+some prominent speech technology based healthcare solutions
+fig 
+challenges of deep learning dl empowered speech processing in healthcare
+these solutions are being used by both doctors and patients to
+change the traditional setting of health provision the devel
+opment of speechbased solutions is continuously growing that
+will signiﬁcantly impact the current healthcare system in the
+next several years
+v speech for healthcare challenges
+despite the promising potentials of speech technology in the
+health domain there are various hurdles in largescale deploy
+ment of speechenabled solutions in this section we discuss
+these challenges that need to be addressed to make the rapid
+adoption of speech technology in healthcare a taxonomy is
+depicted in fig 
+a speech based adversarial attacks
+even though modern dlbased speech solutions offer great
+beneﬁts to the current healthcare system there are still questions
+about the security of the underlying dl algorithms as recent
+works have shown that dl models are prone to adversarial
+attacks adversarial attacks are launched by creating adversar
+ial examples in which nonrandom imperceptible perturbations
+are added to input samples through optimization algorithms that
+aim to fool the classiﬁer and inﬂuence it to make incorrect
+decisions these attacks are powerful enough to signiﬁcantly
+bring down the performance of the stateoftheart dnn based
+systems  a popular method for generating such adversarial
+attacks is to generate the perturbation by utilizing gradient
+based methodsmany popular attacks such as fast gradient
+sign method fgsm  jacobianbased saliency map at
+tack jsma  deepfool  and carlini and wagner
+attacks  follow this method many more sophisticated
+attacks also exist including those that rely on nongradient based
+methods 
+researchers have also proposed various adversarial attacks
+against speechbased systems for example carlini and wag
+ner  evaluated an iterative optimisationbased adversarial
+attack against deepspeech  a stateoftheart asr model
+with  success rate some other popular adversarial attacks
+against speechbased systems include  the success
+of these adversarial attacks highlights the vulnerability of speech
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+latif et al speech technology for healthcare opportunities challenges and state of the art
+technology to for healthcare therefore it is necessary to design
+such systems that preserve patients privacy in the healthcare
+settings
+b scarcity of speech data
+to achieve generalisation in dl models a large amount of
+data is essential in the case of speech processing and analysis
+the available datasets are typically very limited  even for
+a very developed ﬁeld of asr we have transcribed datasets
+for very few languages compared to the number of spoken lan
+guages worldwide there are more than   spoken languages
+globally however only  languages are spoken by  of
+the worlds population in speech processing we do not even
+have speech datasets for  languages   therefore
+research in language and speech analysis research is facing
+the problem of data scarcity  this imbalance variation
+diversity and dynamics in speech and languages cause hurdles
+in designing speechbased healthcare systems for example the
+performance of asr systems degrades when they are evaluated
+across different languages  therefore we need to design
+more adaptive healthcare solutions using asr trained on multi
+ple languages data the datasets related to speech disorders are
+also very few and have very small sizes   to solve this
+issue techniques such as transfer learning selftaught learning
+etc can be utilised to improve the generalisability of the models
+c interoperability challenges
+in current healthcare systems the data generated from differ
+ent medical devices clinical reports medical correspondence
+electronic health records ehrs these medical data are typ
+ically fragmented or isolated within hospitals and laborato
+ries the interoperability of these medical records is prohibited
+among different health services providers  on the contrary
+different ehrs medical devices and other it systems are also
+not interoperable if data sharing is allowed among different hos
+pitals  for the effective utilisation of speech in healthcare
+we need to enable interoperability in current healthcare sys
+tems this would boost the speed of diagnostic procedures and
+provide a complete history of patients to medical practitioners
+therefore the attention of researchers and other stakeholders
+working in the healthcare sector is required to ﬁnd solutions for
+interoperability challenges
+d cultural and language barriers
+cultural and language diversity reduces the potential use of
+speech technology in digital healthcare digital health is not only
+a technological but cultural transformation cultural barrier is a
+major challenge for digital transformation which becomes more
+prevalent in rural and developing areas the transformation of
+people from the classical method to digital health is slowed down
+by ignoring the importance of cultural changes and the human
+factors  therefore it is important to consider cultural
+barriers while designing healthcare solutions in addition to
+cultural barriers language diversity problem is another major
+online available httpswwwethnologuecomstatistics
+problemitisfoundthatthelinguisticdifferencesamongpatients
+and medical doctors can cause patients to misinterpret med
+ications and suffer unnecessary complications  therefore
+healthcare solutions based speech technology must be trained on
+multiple languages to work effectively in such situations how
+ever the development of speech technologybased healthcare
+systems becomes more challenging for rarely spoken languages
+therefore it is very important to consider language diversity
+while designing speechbased healthcare solutions
+vi open issues and future directions
+speech technology is expected to drive the change in the
+healthcare system by changing the conventional ways of medical
+treatments however there are some open issues that require
+serious attention and consideration of the researchers there
+fore in this section we highlighted such open issues and with
+important pointers and future research directions for the research
+community
+a privacy and ethical concerns
+when people use speechbased services such as speech recog
+nition or voice authentication they provide complete possession
+to their voice recordings to the respective device or software in
+these services speech can be used by an adversary or attacker
+to extract users information such as speakers identity gender
+ethnicity information and emotional state the adversary can
+use this information for undesired purposes such as to fool
+voiceauthentication systems similarly users speech can also
+be edited or used to create a fake speech that the person never
+spoke several other privacyrelated concerns arise while using
+speech technologybased services  in healthcare systems
+information is more personal and very sensitive and people
+are more vulnerable to the misuse of their data therefore
+it is important to utilise speech processing in healthcare by
+considering both privacy and ethical concerns in this regard
+privacypreserving dl algorithms can be utilised to protect
+speaker identity   gender identity  similarly
+federated learning  is another alternative solution to pre
+serve users privacy in federated learning training data remains
+decentralised using multiple participating devices
+b adoptability and affordability issues
+speechbased digital healthcare solutions are intended to be
+used by all types of users including people with no literacy or
+education about smart devices usability of healthcare solutions
+effects adoption of various innovative digital healthcare products
+orservicesthereforeitiscrucialfordeveloperstoconsider
+these issues while designing hci interface for speech based
+healthcare solutions it is also important to provide speech
+technologybased services at an affordable cost as it directly
+impacts on the adaptability of these solutions 
+c iot based solutions
+the paradigm of internet of things iot offers unprece
+dented opportunities for digital healthcare solutions by provid
+ing an abstraction of inﬁnite physical smart and virtual objects
+authorized licensed use limited to national university fast downloaded on april  at  utc from ieee xplore  restrictions apply 
+ieee reviews in biomedical engineering vol  
+these objects can capture store and securely transmit health
+related information to a public or private cloud and facilitate
+a new level of automation for the convenience of users most
+importantly iotbased solutions are very effective in terms
+of energy consumption cpu and memory usage  it is
+anticipated that iot will disrupt the current healthcare systems
+by providing various cuttingedge and highly individualised
+digital healthcare solutions  these solutions can be utilised
+for remote monitoring and diagnostics chronic diseases man
+agement elderly care and much more therefore it is very
+important to utilise the opportunities offered by iot to enhance
+the effectiveness of speechbased healthcare services
+d potentials with g
+healthcare expenditure takes a big portion of the national
+budgets of various countries for instance roughly  of
+north americas and  of the global economys gross do
+mestic product gdp account for healthcare spending 
+technologyenabled healthcare solutions can provide health
+services outside the hospital setting at remote locations which
+can promote adherence to medications and reduce cost and
+readmission rates  telehealth services by utilising g lte
+have shown sound economic beneﬁts  which will be
+further fuelled by the increasing amount of smartphones and
+expeditiously improving connectivity with g network it is
+anticipated that g will provide a consistent user experience not
+only in dense areas but also in remote locations this will pave
+the path for telehealth services available everywhere therefore
+it is important for researchers working on speech processing for
+health to consider the opportunities offered by communication
+technologies while designing healthcare solutions
+e sustainability issues
+speech technologybased healthcare solutions have great po
+tentials in healthcare and they are getting great interest and
+attention among industries and healthcare service providers
+however it is important to understand how any particular speech
+technologybased healthcare solution can attain a certain level
+of adoption to achieve scale the sustainability of any new
+digital health solutions is always considered uncertain as they
+involve different various public and private stakeholders 
+the sustainability of such projects and products become more
+uncertain in developing countries where people avoid to use
+digital technology therefore a proper collaboration is always
+needed among stakeholders to support the project to make a
+transitionfrompilotstagetoaselfsustainablelongtermproject
+vii conclusion
+speech technology has unprecedented opportunities for the
+health domain and these potential opportunities can be reaped
+to ﬁx the current healthcare system that is continuously facing an
+increasing burden of the ageing population and chronic diseases
+in this paper we highlighted the potentials of speech technology
+for healthcare and presented a stateoftheart work on health
+care from different speechrelated including automatic speech
+recognition asr speech synthesis and speech processing
+for different speechrelated disorders the reviewed literature
+showed that the research on speech processing for healthcare is
+rapidly evolving with very promising results however these
+results are mainly from some pilot projects or using some
+publicly available datasets and the available healthcare solutions
+based on speech technology are being used on a very small
+scale there are various factors hindering the growth of speech
+technology in healthcare that we discussed in detail in this paper
+most importantly we presented open issues and based on that
+we outlined future strategies for making speech technologies
+even more effective in healthcare which include the utilisation
+of other emerging technologies like internet of things iot and
+communication technologies like g

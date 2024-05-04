@@ -1,0 +1,1479 @@
+spectragan spectrum based generation of city scale
+spatiotemporal mobile network traffic data
+kai xu rajkarn singh marco fiore mahesh k marina hakan bilen muhammad usama
+howard benn cezary ziemlicki
+the university of edinburgh imdea networks institute samsung orange
+abstract
+cityscale spatiotemporal mobile network traffic data can support
+numerous applications in and beyond networking however op
+erators are very reluctant to share their data which is curbing
+innovation and research reproducibility to remedy this status quo
+we propose spectragan a novel deep generative model that upon
+training with realworld network traffic measurements can produce
+highfidelity synthetic mobile traffic data for new arbitrary sized
+geographical regions over long periods to this end the model only
+requires publicly available context information about the target
+region such as population census data spectragan is an original
+conditional gan design with the defining feature of generating
+spectra of mobile traffic at all locations of the target region based on
+their contextual features evaluations with mobile traffic measure
+ment datasets collected by different operators in  cities across two
+european countries demonstrate that spectragan can synthesize
+more dependable traffic than a range of representative baselines
+from the literature we also show that synthetic data generated
+with spectragan yield similar results to that with real data when
+used in applications like radio access network infrastructure power
+savings and resource allocation or dynamic population mapping
+ccs concepts
+ networks mobile networks  computing methodologies
+neural networks
+keywords
+mobile network traffic data synthetic data generation deep
+generative modeling conditional gans
+acm reference format
+kai xu rajkarn singh marco fiore mahesh k marina hakan bilen
+muhammad usama howard benn cezary ziemlicki  spectra
+gan spectrum based generation of city scale spatiotemporal mobile
+network traffic data in the th international conference on emerging
+networking experiments and technologies conext  december 
+ virtual event germany acm new york ny usa  pages https
+doiorg
+permission to make digital or hard copies of all or part of this work for personal or
+classroom use is granted without fee provided that copies are not made or distributed
+for profit or commercial advantage and that copies bear this notice and the full citation
+on the first page copyrights for components of this work owned by others than acm
+must be honored abstracting with credit is permitted to copy otherwise or republish
+to post on servers or to redistribute to lists requires prior specific permission andor a
+fee request permissions from permissionsacmorg
+conext  december   virtual event germany
+  association for computing machinery
+acm isbn 
+httpsdoiorg
+introduction
+datadriven analysis and optimization enable rich insights to design
+efficient automated systems and to create new valueadded services
+and the availability of large datasets is a key contributor to these
+developments   in the networking context spatiotemporal
+mobile traffic is arguably a highly valuable form of data it consists
+of information about the timevarying traffic load observed at all
+locations in a target geographical region a data sample is illustrated
+in figure  plot a shows the time averaged spatial distribution
+of mobile traffic across a city whereas plot c portrays the space
+averaged temporal fluctuations of the same traffic over one week
+additional time series in plot c highlight the diversity of traffic
+volumes and patterns at different locations
+information on cityscale mobile traffic has numerous appli
+cations within and beyond networking prominent examples of
+network problems that benefit from mobile traffic data include
+resource management      mobile network infrastruc
+ture planning  network energy efficiency optimization  
+or network monitoring  beyond networking usages for spa
+tiotemporal mobile traffic emerge eg in urban sensing and com
+puting    inference of commuting patterns and segrega
+tion     monitoring of demographic patterns  
+   detection of land use and its dynamics  transporta
+tion engineering and urban planning  or road traffic surveil
+lance  
+limited access to mobile traffic data all aforementioned ap
+plications are enabled by mobile traffic data that is inherently de
+personalized as shown in figure  the data is aggregated over space
+eg across all users associated to a same base station or within
+a same spatial area and time eg during intervals of minutes to
+hours although its nature poses reduced privacy risks eg as
+corroborated by the european unions general data protection
+regulation spatiotemporal mobile traffic data is deemed sensitive
+by network operators in terms of industrial and commercial se
+crecy hence access to this data is not uniform and generally scant
+in the research community and often occurs behind restrictive non
+disclosure agreements ndas the result is that 𝑖 the potential
+of mobile traffic data to feed innovation is curbed and 𝑖𝑖 current
+research based on mobile traffic is not reproducible or verifiable
+synthesis as a solution to data access motivated by the above
+and to overcome the mobile traffic data access barrier we aim at
+generating dependable synthetic cityscale spatiotemporal mobile
+traffic data our goal is to design a model trained on a limited
+amount of realworld measurement data which can then be used
+to generate large amounts of highfidelity synthetic traffic from
+publicly available data about arbitrary geographical regions
+such a model primarily benefits researchers but also data holders
+such as network operators by using the trained model researchers
+conext  december   virtual event germany
+kai xu et al
+would be finally able to independently generate dependable mobile
+traffic data to support their studies ideally this could lead to the
+adoption of a reference ensemble of synthetic datasets of spatiotem
+poral mobile traffic by the community ensuring the comparability
+of results across works based on such type of data in addition data
+holders can leverage the model to synthesize and share realistic mo
+bile traffic data from their measurements with third parties without
+concerns on leakage of commercially sensitive information
+challenges of mobile traffic generation however meeting
+the goal above entails a number of significant and unique challenges
+firstly generation requires synthesizing spatiotemporal data like
+that in figure  without prior knowledge of the historical traffic
+in the target area it is thus a different and more complex problem
+than eg mobile traffic prediction secondly ours is a controllable
+generation problem the model is required to capture nontrivial
+correlations between the urban context and the corresponding mo
+bile traffic so as to generate traffic for a previously unseen urban
+region solely based on its local contextual conditions thirdly as
+cities have diverse geographical span the model should be capable
+of generating traffic over arbitrary spatial dimensions fourthly
+mobile traffic information must cover long time periods to be useful
+in many applications therefore the model should allow generating
+traffic time series of any specified and potentially long duration
+without compromising dependability meeting these last two re
+quirements entails capturing complex spatiotemporal dynamics
+seen in realworld mobile traffic    so as to preserve eg
+traffic peaks and flows across space and time that are rooted in
+mobile user movements and digital usages
+our contributions to attain the goal outlined above and ad
+dress the associated challenges we propose spectragan a novel
+generative model based on a tailored deep neural network architec
+ture in essence spectragan is a conditional neural sampler with
+two main components an encoder and a generator the role of the
+encoder is to transform contextual information that is readily avail
+able via public repositories broadly falling into three categories
+ie census land use and points of interest pois so that it can be
+used to control of the generation process an example of context
+used by our approach is the inhabitant density from population
+census portrayed in figure b for the same city of figure a
+the generator receives the hidden representation of the context
+produced by the encoder and outputs spatiotemporal synthetic traf
+fic to this end it leverages the insight that mobile traffic at any
+given location exhibits repeating variations over time as observed
+in the literature    and in figure c this manifests in the
+form of small number of dominant components when traffic is
+viewed in the frequency domain as illustrated in figure d our
+generator directly generates the significant frequency components
+based on the input context then turns them into a time series via an
+inverse fourier transform as shown in figure e this already well
+approximates the actual traffic variations finally the generator
+adds a separately produced contextdriven residual temporal signal
+to model smaller fluctuations in traffic as in figure f the pro
+cess above is run concurrently and independently on small spatial
+patches which are then sewed together to obtain traffic data over
+the whole target region spectragan is adversarially trained à la
+gan the key contributions of our work are as follows
+a averaged traffic map
+b census context
+c weekly traffic averaged over space grey and at two loca
+tions with maximum blue and median red loads whose po
+sition is annotated in figure a and figure b
+d frequency domain representation of the mobile traffic in all
+cities in our study orange spectra refer to single locations and
+gray spectra to their average per city significant frequencies
+are labelled along the xaxis
+e
+data
+and
+reconstruction
+lines are almost overlaid
+f residual signal data minus
+reconstruction
+figure  data for city a see  for details
+ we introduce spectragan a novel conditional gan model that
+leverages a frequency representation of localized traffic to gener
+ate mobile traffic for any desired region and temporal duration
+given the relevant contextual data  this is the first solution to
+the important and hard problem of synthesizing spatiotemporal
+mobile traffic from only publicly available information 
+ we evaluate spectragan with multicity mobile traffic mea
+surement datasets collected in two european countries  our
+results not only justify the design choices for the different com
+ponents of spectragan but also show its superior ability in
+generating highfidelity longterm traffic for previously unseen
+cities relative to representative baseline approaches 
+ we further evaluate spectragan with practical use cases in
+networking and beyond and show that using synthetic traffic
+data generated with our model yields results comparable to those
+obtained with real traffic data 
+upon publication of this work we will make a synthetic spatiotem
+poral mobile traffic dataset generated using spectragan available
+spectragan
+conext  december   virtual event germany
+to the research community specifically this dataset will consist of
+traffic data for five diverse sized cities in germany obtained with
+context data for those cities retrieved from public sources as input
+to a pretrained spectragan model
+spectragan
+we first formalize the problem of synthesizing cityscale spatiotem
+poral mobile traffic data then outline our spectragan approach
+before presenting the detailed design of its generative model
+overview
+we start by elaborating on the requirements and challenges that
+the target model needs to meet and address
+requirements and challenges
+generation versus prediction note that traffic generation
+task is different from traffic prediction the latter is an active re
+search direction in the context of mobile traffic on its own see
+eg    given a sequence of citylevel traffic data snap
+shots x     x𝑇over 𝑇timesteps and the corresponding context
+information c eg population pois as input training data the
+goal of generation is to model the joint conditional probability
+𝑝x     x𝑇 c whereas the goal of prediction is to model the con
+ditional probability 𝑝x𝑡 x𝑡 c while seemingly similar the
+former is relatively a much harder task as the distribution is more
+complex as apparent when factorizing the joint distribution as
+𝑝x     x𝑇 c  𝑝x  c𝑝x  x c    𝑝x𝑇 x     x𝑇 c
+compared to 𝑝x𝑡 x𝑡 c the joint modeling requires to estimate
+multiple such conditional probabilities and an extra term 𝑝x  c
+which is complex as it is in other words while the prediction in
+volves only estimating the local changes from 𝑡 to 𝑡 generation
+demands synthesizing the first point x for a given context c and
+also estimating multiple consecutive changes towards x𝑇
+controllability an ideal generation method should let users
+modify the output synthetic data by specifying certain properties
+of the target urban region as context input such as cartography
+of urbanization levels and layout of the different city infrastruc
+tures such a controllable generation calls for conditional generative
+models rather than just the more common freeform generation
+approaches such as those based on vanilla generative adversarial
+networks gans
+modeling arbitrary spatial sizes in order to work with dif
+ferent cities the model should be able to condition generation on
+context with arbitrary spatial size this is a known nontrivial task
+in machine learning as popular multilayer perceptron mlp or
+convolutional neural network cnn architectures only operate on
+input with fixed dimensions recent works try to tackle the problem
+in a principled way   yet no ultimate solution is available
+modeling temporal correlations mobile network traffic ex
+hibits a consistent longterm behavior that the generated data should
+faithfully reproduce learning longterm correlations is challeng
+ing for recurrent neural networks rnns where gradients tend
+to either vanish or explode in the long term during training 
+although we mention a onestep prediction with a firstorder markov property here
+the argument can be generalized to any horizon and order
+figure  traffic flow illustrated the peak traffic area shown
+in the red circle shifts from one region to a neighboring re
+gion over a hour period
+while long shortterm memory lstm  can alleviate this is
+sue solving it fully via a pure recurrent model requires additional
+constraints on the model resulting in a higher complexity  
+modeling spatiotemporal correlations mobile network traf
+fic correlations are not only spatial and temporal but also spa
+tiotemporal specifically mobile network traffic features significant
+activity peaks that occur at different times in different locations
+these traffic flows are due to the mobility and activity of users and
+are illustrated in figure  where the traffic peak shifts from one
+location to another nearby within a twohour period therefore the
+spatial and temporal dimensions of the generation problem cannot
+be addressed in isolation but complex spatiotemporal correlations
+must be fully captured
+problem statement the task of conditional spatiotemporal
+mobile network traffic generation is to synthesize traffic data x con
+ditioned on context c formally let us consider a city 𝑚whose geo
+graphical surface is tessellated according to a regular spatial grid
+we term each grid element a pixel and assume that 𝑚is covered by
+𝐻𝑚𝑊𝑚pixels the cityscale traffic over 𝑇timesteps denoted
+as x𝑚
+𝑇 x𝑚
+      x𝑚
+𝑇 is a dimensional tensor in r𝑇𝐻𝑚𝑊𝑚
+the generation of x𝑚
+𝑇is conditioned on ie controlled by the
+context for that city denoted as c𝑚r𝐶𝐻𝑚𝑊𝑚 where 𝐶is the
+number of different types of contextual attributes note that c𝑚is a
+pure spatial context the conditional generation task is to draw
+samples 
+x𝑚
+𝑇 for a given length of time 𝑇 from the conditional
+distribution 𝑝x     x𝑇  c𝑚
+although the true conditional distribution for city 𝑚is not
+accessible we can leverage available data from other urban ar
+eas accordingly we take a datadriven approach and design a
+parametric probabilistic model with parameters 𝜃 representing
+𝑝𝜃x     x𝑇
+ c and fit the model on training data in par
+ticular given groundtruth traffic and context data for 𝑁cities
+d  x
+𝑇 c     x𝑁
+𝑇 c𝑁 we fit 𝜃on d by finding 𝜃that
+minimizes the divergence d between data distribution 𝑝d and
+model 𝑝𝜃 ie 𝜃 arg min𝜃d𝑝d 𝑝𝜃 depending on the specific
+training methods different divergence criteria d can be consid
+ered once trained the model can draw samples based on city 𝑚
+context c𝑚to synthesize 
+x𝑚
+𝑇
+implicit to this formulation is the assumption that the conditional
+distribution 𝑝x     x𝑇 c relating spatiotemporal traffic pat
+terns with context information holds across the 𝑁cities employed
+the contextual attributes we consider ie census land use pois vary over timescales
+of months or years which are much longer than those of traffic variations in the
+order of minutes in that sense the contextual attributes in our problem setting can be
+viewed as static in time
+conext  december   virtual event germany
+kai xu et al
+for training and the target city 𝑚for which mobile traffic needs to
+be generated this assumption is key to the ability of the model
+to generalize to unseen cities and is common to most conditional
+generation tasks eg   we verify that the assumption holds
+in our mobile traffic datasets through evaluations in  also note
+that the above problem and our proposed model outlined below
+are general enough that they can support arbitrary units and types
+of mobile network traffic these are determined by the nature of
+the training data which the synthetic data inherently mimics
+outline of proposed solution at a high level our proposed
+solution is to represent 𝑝𝜃as a conditional neural sampler ie model
+𝑝𝜃as a deep neural network specifically our conditional neural
+sampler consists of two major components an encoder eg
+𝜃that
+processes c into a hidden representation and a generator g𝜃that
+takes the output of the encoder along with a noise vector z to
+output samples 
+x𝑇 we follow the common approach to train
+such generative models in an adversarial manner following the
+framework of generative adversarial networks gans  gans
+essentially provide a practical way to match the data and model
+distribution as per the jensenshannon divergence  and have
+been found to be empirically successful for this purpose
+our proposed design of 𝑝𝜃is guided by the specific requirements
+of spatiotemporal mobile traffic data generation as set out in 
+specifically the neural network model we devise named spectra
+gan takes the spatial context for a target city and noise as inputs
+and directly outputs the frequency components of the signal rep
+resenting traffic across the target city over time along with the
+residual timeseries signal the rationale for this approach is best
+explained by means of an example illustrated in figure  which
+refers to the mobile traffic observed over one week in a represen
+tative city from our dataset the temporal patterns in the mobile
+network traffic in figure c stand out because of the regularity
+in the underlying network usage reflecting weekdayweekend di
+chotomies circadian rhythms and routines at work commuting or
+other daily activities
+such periodicities make a frequencydomain representation via
+fourier transformation a compact yet effective way to capture
+the usagedependent temporal dynamics indeed figure d which
+shows the traffic timeseries data from each pixel in all cities of
+our dataset in the frequency domain highlights how only a few
+frequency components appear to be significant across the whole
+dataset consistent with observations in prior work eg   
+the effectiveness of a spectrum based design is further proven by
+figure e which portrays the mean traffic reconstructed from the
+ significant frequency components the overlap with the original
+traffic confirms that the time variation in traffic can be well ap
+proximated by considering the significant frequency components
+the residual traffic in figure f shows the small part of difference
+between original and generated traffic which is separately modeled
+in spectragan in the time domain
+in the light of these considerations a neural sampler that outputs
+frequency components can be expected to be especially effective at
+modeling mobile traffic dynamics moreover there are two impor
+tant additional advantages with a spectrum based generation first
+the approach lends itself to learning relation between context and
+traffic data on a perpixel basis this allows capturing the differences
+in significance of various frequency components at the pixel level
+shown in orange in figure d second decomposing traffic into
+periodic and nonperiodic parts and modeling the former in the
+frequency domain and the latter in the temporal domain allows
+overcoming the limitations of rnns mentioned earlier in 
+indeed a spectrum representation naturally adds patterns with
+identical periodicity in the same bin and enables a more effective
+learning of traffic time series over long time periods the follow
+ing subsection details the spectragan architecture while also
+explaining how it addresses the other challenges from  such
+as handling arbitrary spatial sizes
+detailed design
+input specification as directly working on data for arbi
+trary city sizes poses challenges to neural network design instead
+of modeling the entire city traffic map and its dynamics as a whole
+our model operates on smaller sized fixed dimensional subregions
+of the map which we call traffic patches for every time step specif
+ically each traffic patch x has the spatial dimensions of 𝐻𝑡 𝑊𝑡
+and each context patch c has the spatial dimensions of 𝐻𝑐𝑊𝑐 we
+specifically choose 𝐻𝑐 𝐻𝑡and 𝑊𝑐 𝑊𝑡 as we experimentally
+found that not only the context within the target patch but also that
+surrounding the patch correlates with hence allows conditioning
+its mobile traffic dynamics
+generator as illustrated in figure a our conditional neu
+ral sampler 𝑝𝜃has three components an encoder eg
+𝜃 a spectrum
+generator g𝑠
+𝜃and a timeseries generator g𝑡
+𝜃 all of which operate
+at the patch level
+ eg
+𝜃 r𝐶𝐻𝑐𝑊𝑐r𝐶ℎ𝐻ℎ𝑊ℎis a cnn that takes the context
+conditions c as input and and outputs a hidden representation
+of the context h where 𝐶ℎis the number of channels and 𝐻ℎ𝑊ℎ
+are height and width of each channel
+ g𝑠
+𝜃 r𝐶ℎ𝐻ℎ𝑊ℎ r𝑍𝐻ℎ𝑊ℎr𝐹𝐻𝑡𝑊𝑡is also a cnn that
+takes h and noise z as inputs and outputs the traffic in the fre
+quency domain denoted as 
+y𝑠 here 𝑍is the dimension of the
+noise vector z and 𝐹is the dimension of frequency components
+here 
+y𝑠is further passed to an inverse fourier transformation
+to convert it to the time domain 
+x𝑠 specifically the inverse fast
+fourier transformation ifft note that ifft is differentiable
+so is the overall generator making gradientbased optimization
+possible
+ g𝑡
+𝜃 r𝐶ℎ𝐻ℎ𝑊ℎ r𝑍𝐻ℎ𝑊ℎr𝑇𝐻𝑡𝑊𝑡is a batched lstm
+it takes h and z as inputs and outputs the residual traffic in the
+time domain 
+x𝑡
+finally the outputs of two generators are summed to obtain the
+generated traffic patch ie 
+x  
+x𝑠 
+x𝑡
+training following standard gan formulations  we
+train the model by minimizing the jensenshannon divergence ie
+𝜃 arg min𝜃js 𝑝d 𝑝𝜃 and with the aid of discriminators as in
+the gan framework we denote such discriminators as r due to
+their role as density ratio estimators  specifically the corre
+sponding adversarial loss between the data 𝑝d x  c distribution
+and the model 𝑝𝜃x  c distribution is defined as
+lr
+js𝑝d 𝑝𝜃  e𝑝d log rx c  e𝑝𝜃log r 
+x c
+spectragan
+conext  december   virtual event germany
+c
+eg
+𝜃
+g𝑠
+𝜃
+z
+hg
+g𝑡
+𝜃
+y
+x𝑡
+x𝑠
+x
+a the conditional neural sampler 𝑝𝜃
+c
+er
+𝜃
+r𝑠
+𝜃
+hr
+x
+y
+r𝑡
+𝜃
+y
+x
+b discriminators for adversarial training
+figure  schematic of spectragan model architecture
+where variables in are shared nodes between two figures
+note that we use separate encoders in top and bottom
+in our case as illustrated in figure b the adversarial training
+contains one encoder er
+𝜃and two discriminators r𝑠
+𝜃acting on the
+intermediate spectrum output 
+y𝑠and r𝑡
+𝜃acting on the final time
+series output 
+x the discriminator r𝑠
+𝜃for the spectrum patch is a
+mlp the discriminator r𝑡
+𝜃for the time domain is a batched lstm
+besides we found the addition of extra explicit loss helpful in
+particular 𝐿 loss as in  we thus add a 𝐿 loss to 
+y𝑠and 
+x the
+target of 
+x is the real traffic x whereas the target of 
+y𝑠is the real
+masked fourier transformed traffic y𝑞 defined as
+y𝑞 m𝑞y  m fftx
+m  i fftx  𝑦𝑞 
+where i is the elementwise indicator function is the element
+wise multiplication and𝑦𝑞is the 𝑞percent quantile of fftx such
+masking operation m on the target encourages the spectrum gen
+erator to only attain significant components as motivated in 
+denoting the data distribution in the frequency domain as 𝑝
+d and
+the distribution by the spectrum generator as 𝑝
+𝜃 the 𝐿 loss is
+l𝑞
+ 𝑝d 𝑝𝜃 𝑝
+d 𝑝
+𝜃  ec
+n
+ex𝑝d x e
+x𝑝𝜃
+x
+o
+ ec
+n
+ey𝑝
+d m𝑞y e
+y𝑠𝑝
+𝜃 
+y𝑠
+o
+jointly with gan components the overall loss to fit 𝜃is
+l  l
+r𝑡
+𝜃
+js 𝑝d 𝑝𝜃  l
+r𝑠
+𝜃
+js 𝑝
+d 𝑝
+𝜃  𝜆l𝑞
+ 𝑝d 𝑝𝜃 𝑝
+d 𝑝
+𝜃
+where 𝜆is a tuning parameter to balance the contribution of the
+explicit loss and 𝑞controls the extent to which g𝑠
+𝜃has direct su
+pervision of significant frequencies we use 𝜆 𝑞  by
+default the final loss l is then used to update the discriminator
+and the generator in turn
+spatiotemporal mobile traffic data generation our goal is
+to generate citylevel mobile traffic data of arbitrary length 𝑇 for
+a target city given its context we now fill the gap between the
+patched fixedlength training and this goal
+traffic maps of variable spatial sizes at each timestep we out
+put a set of patches that cover the whole city map and sew them
+into a complete map generating a nonoverlapping set of patches
+note that we omit the time index in the notation throughout this paragraph as the
+discussion refers to the procedure for a single timestep
+f
+f
+𝑓
+𝑓
+𝑓
+𝑓
+𝑓
+𝑓
+𝑓
+𝑓
+𝑓
+𝑓
+figure  example of multiple approximation
+to make up the city map has the downside of leaving undesirable
+artifacts at the edge of each patch so we instead take a sliding win
+dow approach over space to generate partially overlapping patches
+for each timestep as such each pixel in the target city map for a
+timestep is generated multiple times as part of different patches
+the final value of a pixel is taken as the average over all values
+generated for it more formally for the pixel 
+x𝑖 𝑗 at location 𝑖 𝑗
+that appears in a set of patches p  
+x𝑝𝑃
+𝑝 with 𝑃patches the
+selected traffic value is
+x𝑖 𝑗  
+𝑃
+õ
+x𝑝p 
+x𝑝𝑖
+𝑝 𝑗
+𝑝
+where 𝑖
+𝑝 𝑗
+𝑝 is the corresponding local index of the pixel in each
+patch investigation of more sophisticated methods for aggregating
+different estimates for each pixel beyond the average is left for
+future work note that the above averaging step in spectragan
+is very different from that in kriging  the core task in kriging
+is spatial interpolation ie estimating the value of a pixel from its
+neighbors for which there are measurement observations in con
+trast we have multiple values generated for each pixel in different
+patches where it is part of
+in addition it is worth emphasizing that the randomness should
+be shared across spatial dimension when generating patches oth
+erwise the randomness together with the averaging operation in
+equation  essentially outputs the expected traffic per pixel lead
+ing to oversmoothed traffic maps so we use same noise vector
+which models stochasticity and also represents unobserved context
+attributes across all patches for the target city
+traffic patch timeseries beyond the training length we can easily
+generate arbitrary length signal using g𝑡
+𝜃by recurrently running a
+rnn for the desired number of timesteps within each patch do
+ing the same is not as straightforward for g𝑠
+𝜃 which outputs fixed
+length frequency components these components are essentially a
+discretization of the underlying continuous frequency distribution
+the latter is needed to generate time series of any given length we
+therefore perform an approximation in the frequency domain in
+order to generate longer time series more concretely since the
+duration of the time signal obtained via ifft is linearly propor
+tional to the number of frequency components 𝐹 we can act on the
+latter to obtain a time series with target duration 𝑇 specifically
+for a frequency vector f of length 𝐹 we first expand f to a desired
+length 𝐹  𝑇   if 𝐹 is a 𝑘multiple of 𝐹 our approximation
+initializes the newly expanded vector f with zeroes and then fills
+every 𝑘𝑡ℎlocation in this vector using values from the old one f
+scaled by 𝑘so that the total energy is 𝑘times see figure  for
+an example with 𝑘  this procedure gives f with the desired
+length 𝐹 and ensures the total energy is also correctly multiplied
+we omit the spatial index in this paragraph as it refers to a single patch
+conext  december   virtual event germany
+kai xu et al
+this produces an approximation of the signal in the time domain
+as ifftf ifftf where fis the ground truth discretized
+frequency domain representation of the targeted length see ap
+pendix c for a justification such a procedure can be more involved
+if 𝐹 is not a multiple of 𝐹as it would require careful smoothing
+to avoid potential aliasing with total energy preservation we do
+not explore a general approximation in this paper as we are mainly
+interested in outputting traffic for multiple weeks
+evaluation methodology
+we evaluate spectragan in  using a wide range of fidelity met
+rics in comparison with multiple alternative baseline approaches
+that reflect the state of the art in  we also evaluate the effec
+tiveness of synthetic traffic data generated with spectragan to
+support diverse application use cases in the rest of this section we
+elaborate on the reference datasets metrics and baselines
+reference datasets
+in order to assess the performance of spectragan and baselines
+we employ realworld mobile traffic data measured in the networks
+of operators in two european countries we also gather a variety
+of contextual data for the same regions from public sources
+mobile traffic data as our interest is with the generation of
+synthetic traffic at urban scale we focus on  major cities and
+refer to them as city acity i  cities and city city  
+cities in the two countries respectively the data was collected
+by the operators using passive measurement probes deployed in
+their infrastructure under the control of the local data protection
+officers dpos and in compliance with applicable regulations the
+data was aggregated in secure servers at the operators premises
+and we only had access to the depersonalized aggregates
+the aggregates report the total mobile data traffic generated
+by the whole subscriber base of the operators in the target cities
+which accounts for around  of the mobile user population in
+both countries the data have a homogeneous format across all
+cities as the traffic load is represented over a regular grid tessella
+tion of space with each grid element ie pixel covering   
+m in all cities the data covers a continuous period of  weeks with
+a temporal granularity of  minutes these settings are aligned
+with those of the most popular mobile traffic dataset that is cur
+rently publicly available  clearly as the target cities have a
+dissimilar geographical extent the size of their grids is uneven and
+spans from    to    pixels traffic volumes in each city
+are expressed in bits per pixel and refers to the total uplink plus
+downlink demand they are anonymized via normalization by the
+pixellevel peak traffic observed in that city details on character
+istics of mobile traffic datasets are presented in appendix a
+context data our conditional generation model takes advantage
+of contextual attributes to produce credible synthetic traffic we
+gather a wide range of context data from easily accessible open
+sources so that the method is applicable as widely as possible all
+attributes are mapped via spatial interpolation or counting to the
+regular grid tessellation employed by the mobile traffic data
+census the number of inhabitants residing in each grid ele
+ment as reported in the relevant national census
+cont urban
+high dense
+industrial
+traffic signals
+primary roads
+figure  sample
+context data
+table  context attributes and the
+mean and standard deviation std of
+their pccs with traffic across all cities
+contextual attribute
+mean
+std
+census
+continuous urban
+high dense urban
+medium dense urban
+low dense urban
+verylow dense urban
+isolated structures
+green urban
+industrialcommercial
+airsea ports
+leisure facilities
+barren lands
+sea
+tourism
+cafe
+parking
+restaurant
+postpolice
+traffic signals
+office
+public transport
+shop
+secondary roads
+primary roads
+motorways
+railway stations
+tram stops
+land use the different utilization of the territory in each grid
+element obtained from the copernicus urban atlas repository 
+we only retain land uses that yield nonnearzero pearsons correla
+tion coefficient pcc with respect to the mobile traffic ultimately
+ land use attributes are considered as listed in table 
+points of interest pois the number of landmarks of a spe
+cific class within each grid element extracted from the open
+streetmap osm repository  we filter out a large fraction of
+insignificant poi categories using a correlation analysis with traffic
+and retain  poi categories in table 
+in summary we use  different context conditions a subset of
+which are exemplified in figure  for one of the cities in our dataset
+it is worth noting that no single attribute is strongly correlated
+with the mobile traffic as shown in table  this suggests that a
+naive univariate statistical model based on any attribute would not
+be effective and motivates considering them together as we do in
+spectragan as a final consideration we stress that additional
+relevant context such as base station locations or radiofrequency
+signal propagation maps is not considered since it is typically not
+publicly available and difficult to access  which would impair our
+intended design of relying solely on easily retrieved context
+metrics
+we use a combination of qualitative and quantitative metrics to
+assess fidelity of spectragan relative to the baselines qualita
+tive metrics allow visual inspection of the generated data to check
+its unacceptability hence complementing quantitative metrics
+specifically we consider three forms of qualitative assessments 𝑖
+spectragan
+conext  december   virtual event germany
+timeaveraged city traffic maps 𝑖𝑖 timeseries of average citywide
+traffic and 𝑖𝑖𝑖 traffic videos showing spatiotemporal variations
+we also consider five different quantitative metrics outlined
+below that cover a wide range of aspects of interest
+marginal by total variation mtv this metric quantifies
+how well the traffic distribution of generated data matches that of
+the real data to compute it we first obtain the empirical marginal
+distributions of traffic volume across all locations pixels and time
+steps for both real and synthetic data then the metric is calculated
+as the total variation tv distance  between the two marginal
+distributions  lower the value of this metric better is the match
+between real and synthetic data
+ssim on average traffic ssim ssim  is a standard image
+fidelity metric which compares two images as a function of their
+respective mean and variance across pixels as well as covariance
+between the images ssim lies between  and  closer to the latter
+is desirable we use this metric to quantify the spatial fidelity of the
+generated data by a model and compute it using the timeaveraged
+traffic maps for real and synthetic data
+autocorrelation by 𝐿 ac𝐿 this metric also considered
+in previous work  is aimed at quantifying the temporal fidelity
+of the synthetic data with respect to the real data we compute it
+by taking the 𝐿 norm between the corresponding points of the
+autocorrelations of real and synthetic timeseries data at the pixel
+level lower values imply better performance as per this metric
+trainsynthetictestreal tstr this metric aims to capture
+the quality of generated data through the lens of a generic down
+stream use case as done in previous works  we use synthesized
+citywide traffic timeseries to train a linear regression model to
+predict city traffic snapshot for a future timestep the performance
+of the trained model is then evaluated on real data in terms of 𝑅
+fréchet video distance fvd  this metric originally de
+signed for video data aims at evaluating the quality of spatiotempo
+ral data generation by treating cityscale mobile traffic over time
+as video data we obtain embeddings of real and synthetic videos
+and then compute the fréchet distance between these embeddings
+ lower this distance better the quality in the video generation set
+ting the embeddings are obtained via a pretrained neural network
+however using a neural network in our case entails a risk to intro
+duce a bias that may artificially favor our model instead we devise
+a strategy tailored to our spatiotemporal mobile traffic generation
+setting specifically we first spatially flatten the spatiotemporal
+traffic data into a multivariate timeseries we then use a signature
+transformation   to convert the multivariate timeseries into
+a vector which we use as the embedding and employ vectors of
+the real and synthetic traffic data to compute fvd
+baselines
+to evaluate spectragan we consider the following baselines that
+represent the stateoftheart on mobile traffic generation as well
+as generic spatial temporal and spatiotemporal data generation
+fit distribution and sample fdas as later discussed in 
+the current stateoftheart on mobile traffic generation essentially
+involve fitting an empirical distribution to model the traffic data
+using maximum likelihood estimation of parameters and then sam
+ple it afterwards to generate synthetic data while previous works
+focus on just the peak hour  or peak and offpeak hours 
+a weekly traffic generated with fdas for city a averaged
+across the city grey and at two locations with maximum
+blue and median red traffic volume as per figure c
+b city c
+c city d
+d city h
+figure  qualitative results for fdas synthetic data
+we fit a separate distribution to the fit the pixellevel traffic for
+every hour of the day and sample from those different distributions
+to generate citywide spatiotemporal mobile traffic data like in
+ we find lognormal distribution best fits the data but with
+different parameters across distributions as expected
+pixpix from a spatial data generation perspective the pixpix
+model  from the computer vision domain is a representative
+prior work it uses a unet  based conditional gan architecture
+for imagetoimage translation we adapt pixpix to mobile traffic
+generation by conditioning it on spatial context attributes as in
+spectragan note that pixpix does not have a notion of time
+doppelganger  this is a stateoftheart work on con
+ditional timeseries data generation and is based on an rnnbased
+conditional gan architecture as doppelganger itself does not
+have a spatial dimension we use an independent instance of dop
+pelganger for each pixel conditioning it on the context attributes
+corresponding to that pixel
+convdlstm as a representative of the start of the art on
+spatiotemporal data generation we use a conditional gan model
+combining d convolution convd with convolutional lstm
+convlstm  this combination is seen to be an effective choice
+for spatiotemporal data generation in the literature   for tasks
+like road traffic flows with convd capturing local spatial dynamics
+and convlstm for longterm correlations to realize this model
+for our mobile traffic generation task we use the same encoder as
+in spectragan to transform the context data to an intermediate
+representation that is then fed to the generator
+in addition to the above baselines we also consider an ideal case
+for reference which we refer to as data metrics for this case are
+computed by comparing two distinct week periods of real data
+against each other and as such is an approximation of the best
+achievable values for the different quantitative metrics
+evaluation results
+in this section we first evaluate the fidelity and generalizability of
+citywide spatiotemporal traffic data generated with spectragan
+relative to baselines  then we examine the effect of design
+choices underlying our approach through an ablation study
+conext  december   virtual event germany
+kai xu et al
+overall generation quality
+we first present the results considering country  dataset and
+then for country  dataset note that the two datasets used are not
+mixed in our evaluations rather they are explored in isolation since
+they are collected by different operators in different countries
+as we are concerned with cityscale spatiotemporal mobile traffic
+data generation we adopt a leaveonecityout evaluation approach
+essentially we choose one city as a test city each time and train
+each model spectragan and baselines with traffic and associ
+ated context data for the remaining cities and repeat this process
+with a different test city for all cities we conduct this evaluation
+separately for country  dataset with  cities and country 
+dataset with  cities this not only allows us to study the relative
+fidelity of different models with respect to the metrics described
+in  but also lets us assess the generalization ability of different
+models to synthesizing mobile traffic for unseen cities this testing
+approach is also well aligned with the intended use of spectragan
+to generate traffic data for new regions solely from publicly avail
+able context for those regions finally it is worth recalling that the
+considered cities have various sizes ranging from    to   
+pixels therefore the leaveonecityout strategy allows assessing
+the capability of the model to generate traffic for arbitrarily sized
+areas since the dimension of the training cities and test city may
+not be the same
+unless otherwise specified in the following the traffic data is
+generated at an hourly granularity to be consistent across all the
+methods compared but we remark that spectragan is by de
+sign potentially capable of generating more granular traffic data if
+equivalently accurate data is available for training as we show later
+in appendix b concerning the temporal duration of the synthetic
+data all models are trained on week long data and then made
+to generate data for weeks different from that in training data
+this lets us evaluate the capability of different models to generate
+data for a long period
+country  we start with discussing the fidelity perfor
+mance of fdas baseline recall that the fdas method relies on
+sampling empirically fitted traffic data distributions at every time
+step figure a shows citywide average temporal traffic pattern
+generated by fdas for city a as test city data generated for two
+representative pixels reflecting the maximum and median traffic
+pixels in the ground truth are also shown the corresponding real
+timeseries traffic pattern is shown in figure c the fdas gen
+erated data fails to preserve the diurnal pattern seen in the real
+data it is also unable to capture the absolute differences in traffic
+volumes across different locations
+we can make the same observation about spatial traffic patterns
+with fdas the timeaveraged traffic maps for city c city d
+and city h generated with fdas are respectively shown in fig
+ures b c d which are in stark contrast to the corresponding
+real traffic maps shown in figure  in the row labeled data the
+seemingly random traffic timeseries and maps generated by fdas
+can be attributed to the inherent limitation with this approach to
+treat spatial locations and time steps independently thus unable
+to capture strong correlations that exist across these dimensions
+while we find that fdas can capture the overall citywide traffic
+data distributions well as reflected by its mtv results not shown
+table  average testing performance in country 
+method
+mtv 
+ssim 
+ac𝐿 
+tstr 
+fvd 
+spectragan
+pixpix
+doppelganger
+convdlstm
+data
+and expected given its nature the spatiotemporal data generated
+is clearly unacceptable from its qualitative results so we do not
+consider this method further in our evaluations the above results
+with fdas also support mobile traffic data generation via machine
+learning models generally and deep generative models in particular
+as we do with spectragan
+we now consider the quality of generated data with the rest of
+the methods including spectragan starting with a visual inspec
+tion of the timeaveraged traffic map results in figure  for the
+same subset of cities highlighted above we observe that spectra
+gan shows a good match with real data in capturing the spatial
+traffic patterns pixpix captures traffic hotspot areas well but also
+shows a strong blur effect highlighting that the image generation
+approach is not readily applicable for the mobile traffic generation
+case calling for a tailored approach for the latter setting doppel
+ganger shows clear artifacts due to independently generating
+traffic timeseries per pixel without regard to correlations among
+nearby pixels convdlstm tends to also generate traffic where
+there should be none leading to unsatisfactory spatial quality
+we now switch our attention to examine the temporal aspect
+of generated data with the different methods here we only high
+light the generated citywide traffic timeseries results for one city
+city b in figure  for a week long period spectragan yields
+temporal traffic pattern that is in close alignment with the real
+data for the whole period figure a while pixpix as expected
+completely fails to model any temporal aspects figure b the
+traffic timeseries generated with both doppelganger figure c
+and convdlstm figure d exhibit deviations from real data
+to different degrees we discuss the potential root causes below
+table  summarizes the fidelity performance of different methods
+in terms of quantitative metrics when considering each city in
+country  as a test city and averaging the resulting metric values
+across all test cities here we mark the best worst performing
+methods for each metric with green red colors we make the
+following observations spectragan yields the best performance
+in almost all metrics even for tstr it is almost similar to the best
+performing method convdlstm and best possible data
+case these results also demonstrate the generalization ability of
+spectragan to new unseen cities pixpix performs the worst
+among metrics involving temporal aspects hence also in the traffic
+data distribution quantified by mtv but it does well on the
+spatial fidelity metric ssim which is expected
+both doppelganger and convdlstm yield intermedi
+ate results with doppelganger performing particularly worse in
+terms of spatial fidelity ssim metric the independent pixellevel
+timeseries generation approach of doppelganger also limits its
+we make the full set of results including the traffic videos generated with different
+methods accessible via an anonymous repository at httpsbitlyptenk
+spectragan
+conext  december   virtual event germany
+data
+spectragan
+pixpix
+doppelganger
+convdlstm
+a city c
+b city d
+c city h
+figure  timeaveraged traffic maps all models
+model
+data
+a spectragan
+model
+data
+b pixpix
+model
+data
+c doppelganger
+model
+data
+d convdlstm
+figure  mean citywide traffic timeseries for city b
+ability to accurately capture traffic peak behaviors or flow phenom
+ena a key spatiotemporal mobile traffic aspect this is highlighted
+in figure a for city b where distribution of the hour of day when
+the traffic peak occurs in the generated data with doppelganger
+deviates markedly from the real data the distribution with spec
+tragan on the other hand matches better the real data figure b
+note the difference in yaxis scale between the two subfigures
+relatively convdlstm exhibits slightly better spatial qual
+ity ssim but with suboptimal temporal patterns ac𝐿 and also
+poorly captures spatiotemporal correlations eg the flow phenom
+ena clearer in the videos this ultimately results in its overall inter
+mediate performance all of these can be attributed to its blackbox
+architecture in which all computation is correlated agnostic to
+the data characteristics spectragan overcomes the issues with
+convdlstm through its traffic generation via spectratime
+decomposition while accounting for spatiotemporal correlations
+model
+data
+a doppelganger
+model
+data
+b spectragan
+figure  peak distributions with doppelganger fig
+ure a and spectragan figure b for city b
+table  average testing performance in country 
+method
+mtv 
+ssim 
+ac𝐿 
+tstr 
+spectragan
+pixpix
+doppelganger
+convdlstm
+data
+table  importance of wider spatial contexts spectragan
+is a variant that only uses pixellevel contexts
+method
+mtv 
+ssim 
+ac𝐿 
+tstr 
+fvd 
+spectragan
+spectragan
+country  as a datadriven approach spectragan is ag
+nostic to the target country or mobile operator to demonstrate
+such a wide applicability we conduct similar leaveonecityout
+evaluation experiments as above on country  table  summa
+rizes the testing performance of different methods in terms of the
+quantitative metrics averaged over the  cities in country  note
+that we omit fvd in the table due to relatively less amount of
+data in country  dataset to get a reliable embedding we also
+do not include qualitative results for country  due to space con
+straints the relative performance among the methods is broadly
+consistent with what is observed with country  dataset spec
+tragan still emerges as the most reliable model while pixpix is
+the least performing one the performance of doppelganger and
+convdlstm is in between as before
+ablation study
+here we perform ablation study on some key components of spec
+tragan to justify their choice
+importance of rich contexts we study the importance of using
+a wider context scope to generate each traffic pixel via comparing
+spectragan to a variant with only pixellevel context as is the
+case naturally for doppelganger when applied to spatiotemporal
+data generation table  shows the average performance in terms
+of quantitative metrics for country  dataset results show that
+not conditioning on a wide context worsens performance on several
+of the metrics with the effect more pronounced for spatial fidelity
+ssim metric overall these results confirm our choice to use a
+wider context to condition spatiotemporal traffic generation
+importance of spectrum generator we study the relevance of spec
+trum generation by comparing three spectragan variants
+ speconly without residual timeseries generator
+ timeonly without spectrum generator
+conext  december   virtual event germany
+kai xu et al
+table  importance of spectrum generator
+method
+mtv 
+ssim 
+ac𝐿 
+tstr 
+fvd 
+spectragan
+speconly
+timeonly
+timeonly
+ timeonly timeonly with an extra minmax generator
+table  shows quantitative metrics for these alternatives results
+show that spectragan needs both the spectrum generator and
+the residual timeseries generator in order to perform well across
+all metrics especially reflected by the degraded fvd for all variants
+the noticeably degraded performance of timeonly which is
+essentially doppelganger with a wider context and explicit loss
+in time domain in  of the  metrics highlights the benefit of our
+hybrid spectratimeseries traffic generation
+application use cases
+to complement the previous evaluation we assess the utility of
+spectragan through multiple downstream application use cases
+for spatiotemporal mobile traffic specifically we employ synthetic
+data generated by spectragan to feed models for 𝑖 energy
+efficient micro base station bs sleeping  and 𝑖𝑖 resource
+allocation in virtualized rans vrans  we also demonstrate
+the benefits of spectragan beyond mobile networking via 𝑖𝑖𝑖
+trafficdriven dynamic urban population tracking 
+it is worth noting that problems 𝑖 𝑖𝑖 and 𝑖𝑖𝑖 above can all
+be solved effectively only using spatiotemporal mobile traffic data
+as shown by recent methods proposed in the literature  
+ they are thus clear examples of situations where researchers
+could benefit from the spectragangenerated data to evaluate
+models and algorithms that build on such typically hardtoaccess
+data while these three use cases cannot cover the full spectrum of
+possible problems where mobile traffic data may support a technical
+solution they offer a reasonable set of cases that span different
+research domains and aspects of mobile network operation
+datadriven micro bs sleeping
+the substantial operating expense opex due to energy consump
+tion at bss has led to the proposal of a number of solutions for saving
+power in the ran we consider a recent approach for trafficaware
+bs onoffswitching  and examine how it performs when in
+formed with synthetic data generated by spectragan as opposed
+to real data we assume a heterogeneous ran deployment where
+each pixel of our spatial tessellation is served by a separate micro
+bs whereas macro bss provide umbrella coverage to a larger area
+of  grid cells micro bs provide localized high capacity at added
+energy cost and are dynamically switched on and off according to
+traffic fluctuations in their associated grid cell
+the power needed for the operation of a bs at time 𝑡is 
+𝑃𝑡  𝑁trx
+𝑃  δ𝑝𝑃max𝜌𝑡 
+ 𝜌𝑡 
+where 𝑁trx is the number of radio transceivers 𝑃 is the static
+power consumption at zero traffic load δ𝑝is the scaling of power
+consumption per traffic unit 𝜌𝑡 is the relative traffic load at the
+considered time 𝑡 and 𝑃max is the power consumed at the maximum
+traffic load the parameter values for micro and macro bss are those
+table  settings of the bs power consumption model
+bs type
+𝑁trx
+𝑃max
+𝑃
+δ𝑝
+macro
+bs type
+𝑁trx
+𝑃max
+𝑃
+δ𝑝
+micro
+figure  average power consumption per unit area in cities
+of country  when micro bss are always active and when
+a cell sleeping strategy is used based on realworld traffic or
+synthetic traffic generated by spectragan
+provided in the original study in table  then if 𝜌𝑡 𝜌min the
+micro bs offloads its local traffic to the macro bs and goes into sleep
+mode where it consumes negligible power we set 𝜌min to  as
+recommended by previous works  figure  shows that a micro
+bs sleeping strategy based on spectragangenerated traffic yields
+equivalent energy savings as a model fed with realworld traffic
+in both cases power consumption reductions due to sleeping are
+in the  range with similar variations across the test cities
+resource allocation in vrans
+emerging vran paradigms foster the creation of edge datacenters
+where central units cus execute software part of the function
+alities traditionally performed by bss which are then replaced
+by simpler radio units rus the rutocu association can be
+adapted to the fluctuations of the traffic load at rus so as to best
+use cu resources we investigate the effectiveness of the synthetic
+data produced by spectragan in driving a rutocu association
+model that ensures load balancing across a given set of cus 
+we assume that each grid cell pixel is covered by one ru and
+that all rus in a city are served by a single edge datacenter hosting
+a set of cus 𝑐c the model employs a graph representation
+r e of the radio network deployment where each node 𝑟r
+maps to one ru and each edge 𝑒𝑟𝑟 e only exists if rus 𝑟and 𝑟
+serve spatially adjacent pixels it then formulates the timevarying
+rutocu deployment as the following optimization problem
+min
+õ
+𝑒𝑟𝑟 e𝑥𝑒𝑟𝑟𝑡
+subject to
+ 𝜖
+õ
+𝑟r
+𝑦𝑟𝑐𝑡ℓ𝑟𝑡
+ õ
+𝑟r
+ℓ𝑟𝑡
+c
+  𝜖 𝑐c
+õ
+𝑐c𝑦𝑟𝑐𝑡   𝑟r
+𝑥𝑒𝑟𝑟𝑡 𝑦𝑟𝑐𝑡 𝑦𝑟𝑐𝑡 𝑒𝑟𝑟 e 𝑐c
+𝑥𝑒𝑟𝑟𝑡 𝑦𝑟𝑐𝑡 𝑦𝑟𝑐𝑡 𝑒𝑟𝑟 e 𝑐c
+the solution of the problem in  yields a partitioning of the
+graph at time 𝑡into c subsets of rus each associated to one cu
+as the sum of the ru traffic loads ℓ𝑟𝑡 within a same partition is
+equivalent by a tolerance margin 𝜖 the rutocu association is
+load balanced in addition it exhibits desirable features in terms of
+spatial adjacency and comparable latency across all rus served by
+the same cu  formally𝑦𝑟𝑐𝑡 are decision variables that take
+a value one if ru 𝑟is associated with cu 𝑐at time 𝑡 and zero oth
+erwise they constrain in  and  the variables 𝑥𝑒𝑟𝑟𝑡 which
+indicate whether an edge 𝑒𝑟𝑟 is cut by the partitioning and ensure
+that each ru is associated to a single cu in  the expressions in
+ enforce the load balancing policy
+we solve the above problem via an efficient heuristic  using
+synthetic or realworld traffic for a day we then assess the quality of
+spectragan
+conext  december   virtual event germany
+table  performance of load balancing in rutocu associations informed by synthetic data generated by spectragan com
+pared against realworld data mean and standard deviation of jains fairness index on cu loads over time
+cus
+method
+city a
+city b
+city c
+city d
+city e
+city f
+city g
+city h
+city i
+spectragan
+  
+  
+  
+  
+  
+  
+  
+  
+  
+real data
+  
+  
+  
+  
+  
+  
+  
+  
+  
+spectragan
+  
+  
+  
+  
+  
+  
+  
+  
+  
+real data
+  
+  
+  
+  
+  
+  
+  
+  
+  
+spectragan
+  
+  
+  
+  
+  
+  
+  
+  
+  
+real data
+  
+  
+  
+  
+  
+  
+  
+  
+  
+associations by computing jains fairness index on the timevarying
+load experienced by cus during a different day table  reports
+the mean and standard deviation of the index at different times
+for each city in country  and a different number of cus the
+spectragangenerated traffic allows for comparable performance
+relative to real data with average difference in fairness of 
+dynamic urban population tracking
+the tracking of population density in realtime is a key functional
+ity to support adaptive urban and transport planning and mobile
+networks are an effective data source for that purpose we stress
+that such tracking is completely different from surveying dwelling
+units as done in the population census tracking aims at follow
+ing orderofminute population density variations whereas census
+data only captures home locations therefore there is no direct
+link between the static population data we use as a condition for
+generation and the dynamic density we aim at estimating here
+we consider a recent multivariate regression model for the track
+ing of population presence 𝑝𝑖𝑡 at grid cell 𝑖and time 𝑡from the
+mobile network traffic 𝑥𝑖𝑡 measured at 𝑖in 𝑡 formally
+𝑝𝑖𝑡  e𝑘𝜆𝑖𝑡𝑘𝑥𝑖𝑡𝑘𝜆𝑖𝑡𝑘
+where 𝜆𝑖𝑡 is an activity level computed as the mean number of
+network events eg established data sessions per subscriber while
+𝑘 𝑘 𝑘 and 𝑘 are constant model parameters we set the time
+varying 𝜆𝑖𝑡 according to the empirical values in figure  of the
+original paper and parametrize the constants as per table  in
+that same study we generate hourly cartographies of the people
+presence in all cities of country  by separately applying  to
+𝑖 the synthetic traffic generated by spectragan on previously
+unseen cities and 𝑖𝑖 the actual traffic recorded by the operator
+in these cities we then compare the resulting dynamic population
+tracking maps in terms of peak signaltonoise ratio psnr 
+which is a standard metric for image fidelity table  summarizes
+the results which highlight the dependability of the synthetic data
+for the task at hand across all cities indeed values of psnr above
+ are considered acceptable for quality loss 
+figure  shows the dynamic people presence estimated at five
+different times of the day by using spectragan output and orig
+inal traffic a visual inspection of the plots reveals the closeness of
+the population dynamics in the two cases
+summary
+minimum discrepancy is observed between models informed with
+realworld or spectragangenerated traffic in all three use cases
+above in other words evaluations of the methods based on spectra
+gangenerated data are as dependable as similar assessments with
+synthetic
+real
+a 
+b 
+c 
+d 
+e 
+figure  dynamic people presence estimated at five differ
+ent times of the day for a sample city city h
+actual measurement data this proves our point that researchers
+could use synthetic data generated by our model to demonstrate
+the performance of the solutions considered in sections  in
+a way that is both credible due to the similar performance just
+mentioned and reproducible as synthetic data can be more easily
+shared than realworld data these results pave the way for fur
+ther studies considering additional application use cases towards a
+complete assessment of the suitability of spectragan as a tool for
+the creation of dependable reference spatiotemporal mobile traffic
+datasets for the research community
+discussion
+as the first model of its kind spectragan has limitations that
+we deem important to discuss so as to also foster further studies
+towards open data synthesis for networking research
+first there is no universal spatiotemporal granularity of the
+mobile traffic data that is relevant and appropriate for all down
+stream applications some studies have indicated that analyses
+of several digital human activities are adequately supported by
+data with a spatiotemporal resolution of  km  and  min
+utes  which is largely satisfied in our case also many previous
+works eg     have designed and evaluated solutions
+based on mobile network traffic using datasets with resolutions of
+   square meters in space and  minutes in time which
+are comparable to granularity of real and synthetic data in our
+work examples such as those above or in section  show that
+spectragandata can support studies on such concrete use cases
+however the suitability of spectragan data for additional applica
+tions needs to be assessed case by case and remains a shortcoming
+of our study and in the literature in general
+a setting where the synthetic data currently generated by spec
+tragan would clearly be illsuited is for studies requiring a higher
+spatial or temporal resolution than that considered in this paper
+this may be the case of eg network resource management tasks
+that operate at fast timescales in the order of seconds in theory
+conext  december   virtual event germany
+kai xu et al
+table  fidelity of estimated hourly population tracking maps using a model informed by synthetic data generated by spec
+tragan relative to realworld data mean and standard deviation of psnr over time
+method
+city a
+city b
+city c
+city d
+city e
+city f
+city g
+city h
+city i
+spectragan
+  
+  
+  
+  
+  
+  
+  
+  
+  
+spectragan could also generate synthetic data at higher spatial
+and temporal resolutions which may meet more stringent require
+ments such as those above however we do not presently have
+groundtruth data that can be used to verify this hypothesis
+as another limitation we would like to clarify that it is not the
+purpose of spectragan to model the deeper causes that under
+pin the spatiotemporal fluctuations of mobile network traffic such
+as the activity or mobility of the users while these phenomena
+obviously play a big role in determining the spatial and temporal
+dynamics of mobile traffic in the network explicitly including them
+in the generative process is not needed to attain our data synthesis
+objective indeed the spectragan deep neural network architec
+ture learns a complex function that translates static context into
+realistic spatiotemporal traffic by abstracting various causal pro
+cesses in a nonobservable way therefore if the explicit generation
+of the underlying user activity or mobility is required our model
+is not an appropriate tool
+related work
+network traffic modeling has received substantial attention in the
+literature but largely focused on packet level traffic generation via
+packet sizes interpacket arrival times number of traffic gener
+ation tools exist for this purpose eg iperf  ditg  os
+tinato  and such traffic generation capability is embedded in
+network simulators like ns  and omnet  some of these
+tools merely focus on the capability to generate arbitrary packet
+level workloads with no constraint on realism eg iperf  while
+others such as ditg include statistical models for packetbased
+traffic generation with empirically derived parameters this ap
+proach has also been applied to flowlevel traffic generation for
+network intrusion detection type applications see  for a good
+survey and for social network traffic generation based on session
+durations intersession times etc 
+our focus is on spatiotemporal mobile network traffic generation
+which is an entirely different problem from the ones above closest
+works from the literature to ours by domain are di francesco et al
+ oliveira et al  which consider the synthesis of mobile
+network traffic at macroscopic ie urban scales the approach in
+di francesco et al  requires information on bs locations and
+on the distribution of traffic on a peruser basis which are typically
+very difficult to obtain and the latter also poses privacy concerns
+even so the essence of synthetic mobile traffic generation in di
+francesco et al  and also that in oliveira et al  can be
+described as fitting the traffic statistics to an empirical probability
+distribution and then sampling from it broadly similar to that from
+earlier works in the general networking context eg vishwanath
+and vahdat  we consider this approach in our evaluations
+and show that it fails to capture traffic correlations in space and
+time as also acknowledged in di francesco et al  unlike these
+prior works our spectragan is a conditional deep generative
+model that is designed to account for these correlations only needs
+publicly available contextual data to generate traffic in previously
+unseen urban regions and is validated extensively with realworld
+mobile traffic measurement datasets
+more recently lin et al  with a similar overall motivation to
+ours have proposed doppelganger a conditional deep generative
+model aimed at network timeseries data which relies on batched
+rnn for capturing longterm temporal correlations in data as
+doppelganger does not have a spatial dimension applying it our
+cityscale spatiotemporal mobile network traffic data generation
+leads to treating each spatial location independently as a result
+doppelganger is unable to capture spatial and spatiotemporal
+correlations well as we demonstrate in our evaluations
+beyond the networking domain neural networks have been
+extensively used for modeling spatiotemporal data existing archi
+tectures focus on next frame prediction in videos by condition
+ing them on an image or text sample  videotovideo synthe
+sis   and texttovideo generation  inflow and outflow
+crowd forecasting    or learning spatiotemporal feature
+representations for prediction problems  while these meth
+ods share a similar highlevel goal we target they are not well
+suited for mobile network traffic generation reasons include that
+such previous approaches are limited to the estimation of a few
+future frames  are conditioned on previous frames  cap
+ture only shortterm temporal correlations    and can
+be only conditioned on nonspatial contexts such as weather or
+weekdaysweekends    in contrast spectragan is de
+signed to model spatiotemporal relations over long periods of time
+and to condition the generated data on spatial contexts we also
+show through our evaluations that a representative model from
+this body of literature is not effective for our traffic generation
+task highlighting the need for domain appropriate data generation
+methods like spectragan
+conclusions
+we have presented spectragan a new conditional gan model
+spectragan is the first synthetic generation method for cityscale
+spatiotemporal mobile network traffic data it embeds a number of
+innovative aspects including the defining approach to generate the
+significant frequency components of the traffic spectrum for each
+spatial location based on local contextual attributes importantly
+the spectragan generation process is conditioned on context data
+that is typically publicly available for a city of interest so as to fos
+ter its usability we evaluate spectragan using multicity mobile
+traffic datasets for two european countries augmented with con
+textual data for each city our results show that spectragan not
+only significantly outperforms existing approaches that could be
+used for spatiotemporal data generation but is also able to generate
+highfidelity longterm mobile traffic data for completely unseen
+cities solely based on contextual input we also demonstrate the
+efficacy of spectragan through multiple application use cases in
+mobile networking and beyond
+spectragan
+conext  december   virtual event germany
+acknowledgments
+we thank the anonymous shepherd and reviewers for their helpful
+comments

@@ -20,9 +20,8 @@ def setup_model():
 def process_file(model, input_file, output_folder):
     print(f"Processing '{input_file}'")
 
-    instructions = """Given a research paper's text data, your task is to preprocess the content by removing extraneous details
-      such as email addresses, references, trademarks, researcher names, mathematical equations,and any other non-technical content.
-        The resulting response should contain only the text of research paper. The Content of research paper is given below:\n"""
+    instructions = """Given a research paper's text data, your task is to preprocess the content and generate Q/A 
+    pairs to fine tune an LLM. Output must be in json format and it must follow the template of PHI model. The Content of research paper is given below:\n"""
 
     # Read content from input file
     with open(input_file, 'r') as f:
